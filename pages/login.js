@@ -37,6 +37,10 @@ export default function login() {
   const signInGoogle = async () => {
     await auth
       .signInWithPopup(provider)
+      .then(()=> {
+        alert("Googleで続行しました");
+        Router.push("/mypage");
+      })
       .catch(() => alert("Googleで続行できませんでした"));
   };
 
@@ -53,6 +57,19 @@ export default function login() {
   const signUp = async () => {
     try {
       await auth.createUserWithEmailAndPassword(email, password);
+
+      // const user = firebase.auth().currentUser;
+      // user
+      //   .updateProfile({
+      //     displayName: userName,
+      //   })
+      //   .then(() => {
+      //     console.log("OK");
+      //   })
+      //   .catch((error) => {
+      //     console.log("error");
+      //   });
+
       alert("アカウントを作成できました");
       Router.push("/mypage");
     } catch (error) {
@@ -65,7 +82,7 @@ export default function login() {
   };
 
   const switchSignUp = () => {
-    setIsLogin(false); 
+    setIsLogin(false);
   };
 
   return (
@@ -92,15 +109,21 @@ export default function login() {
           <div className="border my-7 ml-20 shadow-lg">
             <div className="grid grid-cols-2">
               <div>
-                <button onClick={switchSignIn} className="font-bold my-5 hover:text-gray-500">
-                  <p className={isLogin && "border-b-4 border-blue-400"}>
+                <button
+                  onClick={switchSignIn}
+                  className="font-bold my-5 hover:text-gray-500"
+                >
+                  <p className={isLogin ? "border-b-4 border-blue-400":''}>
                     ログイン
                   </p>
                 </button>
               </div>
               <div>
-                <button onClick={switchSignUp} className="font-bold my-5 hover:text-gray-500">
-                  <p className={!isLogin && "border-b-4 border-blue-400"}>
+                <button
+                  onClick={switchSignUp}
+                  className="font-bold my-5 hover:text-gray-500"
+                >
+                  <p className={isLogin ? '': "border-b-4 border-blue-400"}>
                     新規登録
                   </p>
                 </button>
@@ -160,7 +183,7 @@ export default function login() {
               <div>
                 <button
                   className="text-white bg-blue-400 hover:bg-blue-300 disabled:bg-blue-200 py-2 w-1/2 rounded-full shadow-lg font-bold"
-                  disabled={!isLogin && userName.trim() === '' ? true :false}
+                  disabled={!isLogin && userName.trim() === "" ? true : false}
                   onClick={
                     isLogin
                       ? () => {
@@ -184,17 +207,26 @@ export default function login() {
                     パスワードをお忘れの方
                   </span>
                   {openReset && (
-                    <div className='mt-2'>
-                        <input
-                          className="bg-blue-100 placeholder-blue-300 text-center rounded-l w-3/5 py-1 outline-none"
-                          name="email"
-                          type="email"
-                          placeholder="email@example.com"
-                          value={resetEmail}
-                          onChange={(e) => setResetEmail(e.target.value)}
-                        />
-                      <button onClick={sendResetEmail} className="text-white bg-blue-400 hover:bg-blue-300 py-1 px-2  rounded-r font-bold">送信</button>
-                      <p className='text-xs text-blue-400 mt-1'>新しいパスワードを登録するページのURLを、<br/>ご登録メールアドレス宛に送付致します</p>
+                    <div className="mt-2">
+                      <input
+                        className="bg-blue-100 placeholder-blue-300 text-center rounded-l w-3/5 py-1 outline-none"
+                        name="email"
+                        type="email"
+                        placeholder="email@example.com"
+                        value={resetEmail}
+                        onChange={(e) => setResetEmail(e.target.value)}
+                      />
+                      <button
+                        onClick={sendResetEmail}
+                        className="text-white bg-blue-400 hover:bg-blue-300 py-1 px-2  rounded-r font-bold"
+                      >
+                        送信
+                      </button>
+                      <p className="text-xs text-blue-400 mt-1">
+                        新しいパスワードを登録するページのURLを、
+                        <br />
+                        ご登録メールアドレス宛に送付致します
+                      </p>
                     </div>
                   )}
                 </div>
