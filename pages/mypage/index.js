@@ -2,39 +2,14 @@ import React, { useContext, useEffect, useState } from "react";
 import Layout from "../../components/layout/Layout";
 import { auth } from "../../firebase";
 import { UserContext } from "../../UserContext";
-
+import Router from "next/router";
 
 export default function mypage() {
-  const { userName } = useContext(UserContext);
-  let email = "";
-  let photoURL = "";
-  let emailVerified = "";
-  const [uid,setUid] = useState('');
-  const [mail,setMail] = useState('');
-  const [displayName,setDisplayName] = useState('');
-
-
-  //   auth.onAuthStateChanged((user1) => {
-  //   if (user1) {
-  //     const user = firebase.auth().currentUser;
-     
-  //       displayName = user.displayName;
-  //       email = user.email;
-  //       photoURL = user.photoURL;
-  //       emailVerified = user.emailVerified;
-  //       uid = user.uid;
-      
-  //   } else {
-  //     console.log("user none");
-  //   }
-  // });
+  const { userId,userName,userEmail } = useContext(UserContext);
 
   useEffect(() => {
     const unSub = auth.onAuthStateChanged((user) => {
-    console.log(user.uid);
-     setMail(user.email)
-     setUid(user.uid)
-     setDisplayName(user.displayName)
+      !user && Router.push("/login");
     });
     return () => unSub();
   }, []);
@@ -42,12 +17,9 @@ export default function mypage() {
   return (
     <>
       <Layout>
-        mypage
-        {/* {userName} */}
-        {/* {photoURL} */}
-        {displayName}
-        {mail}
-        {uid}
+        {userId}
+        {userName}
+        {userEmail}
       </Layout>
     </>
   );

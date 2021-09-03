@@ -31,7 +31,7 @@ export default function Lp() {
           
             <Image
             src="/lp_img.jpeg"
-            alt="Picture of the author"
+            alt="lp_img"
             width={380}
             height={380}
             />

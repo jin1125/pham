@@ -1,35 +1,31 @@
 import Head from "next/head";
 import Image from "next/image";
+import Link from "next/link";
 import Router from "next/router";
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
+import { useAlert } from "react-alert";
 import { auth, provider } from "../firebase";
-import { UserContext } from "../UserContext";
 
 export default function login() {
-  const { userName, setUserName } = useContext(UserContext);
+  const [userName, setUserName] = useState("");
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [resetEmail, setResetEmail] = useState("");
   const [openReset, setOpenReset] = useState(false);
 
-  // useEffect(() => {
-  //   const unSub = auth.onAuthStateChanged((user) => {
-  //     user && Router.push("/mypage");
-  //   });
-  //   return () => unSub();
-  // }, []);
+  const alert = useAlert();
 
   const sendResetEmail = async (e) => {
     await auth
       .sendPasswordResetEmail(resetEmail)
       .then(() => {
         setOpenReset(false);
-        alert("メールを送信しました");
+        alert.success("メールを送信しました");
         setResetEmail("");
       })
       .catch((err) => {
-        alert("[エラー] 正しい内容を入力してください");
+        alert.error("正しい内容を入力してください");
         setResetEmail("");
       });
   };
@@ -37,43 +33,38 @@ export default function login() {
   const signInGoogle = async () => {
     await auth
       .signInWithPopup(provider)
-      .then(()=> {
-        alert("Googleで続行しました");
+      .then(() => {
+        alert.success("Googleで続行しました");
         Router.push("/mypage");
       })
-      .catch(() => alert("Googleで続行できませんでした"));
+      .catch(() => alert.error("Googleで続行できませんでした"));
   };
 
   const signIn = async () => {
     try {
       await auth.signInWithEmailAndPassword(email, password);
-      alert("ログインしました");
+      alert.success("ログインしました");
       Router.push("/mypage");
     } catch (error) {
-      alert("アカウントが見つかりませんでした");
+      alert.error("ログインできませんでした");
     }
   };
 
   const signUp = async () => {
     try {
-      await auth.createUserWithEmailAndPassword(email, password);
+      const authUser = await auth.createUserWithEmailAndPassword(
+        email,
+        password
+      );
 
-      // const user = firebase.auth().currentUser;
-      // user
-      //   .updateProfile({
-      //     displayName: userName,
-      //   })
-      //   .then(() => {
-      //     console.log("OK");
-      //   })
-      //   .catch((error) => {
-      //     console.log("error");
-      //   });
+      await authUser.user?.updateProfile({
+        displayName: userName,
+      });
 
-      alert("アカウントを作成できました");
+      alert.success("アカウントを作成できました");
       Router.push("/mypage");
     } catch (error) {
-      alert("[エラー] 正しい内容を入力してください");
+      alert.error("アカウントを作成できませんでした");
     }
   };
 
@@ -94,7 +85,11 @@ export default function login() {
 
       <header>
         <div className="m-5">
-          <h2 className="text-2xl text-blue-400 font-bold">Pham</h2>
+          <Link href="/">
+            <button>
+              <h2 className="text-2xl text-blue-400 font-bold">Pham</h2>
+            </button>
+          </Link>
         </div>
       </header>
 
@@ -113,7 +108,7 @@ export default function login() {
                   onClick={switchSignIn}
                   className="font-bold my-5 hover:text-gray-500"
                 >
-                  <p className={isLogin ? "border-b-4 border-blue-400":''}>
+                  <p className={isLogin ? "border-b-4 border-blue-400" : ""}>
                     ログイン
                   </p>
                 </button>
@@ -123,7 +118,7 @@ export default function login() {
                   onClick={switchSignUp}
                   className="font-bold my-5 hover:text-gray-500"
                 >
-                  <p className={isLogin ? '': "border-b-4 border-blue-400"}>
+                  <p className={isLogin ? "" : "border-b-4 border-blue-400"}>
                     新規登録
                   </p>
                 </button>
@@ -137,8 +132,9 @@ export default function login() {
                     <p>お名前</p>
                     <input
                       className="bg-blue-100 placeholder-blue-300 text-center rounded-full w-3/4 py-1 outline-none"
-                      placeholder="姓  名"
+                      placeholder="姓 名"
                       name="name"
+                      autoComplete="name"
                       type="text"
                       value={userName}
                       onChange={(e) => setUserName(e.target.value)}
@@ -158,6 +154,7 @@ export default function login() {
                   className="bg-blue-100 placeholder-blue-300 text-center rounded-full w-3/4 py-1 outline-none"
                   placeholder="email@example.com"
                   name="email"
+                  autoComplete="email"
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -173,7 +170,7 @@ export default function login() {
                   name="password"
                   type="password"
                   value={password}
-                  placeholder="6文字以上"
+                  placeholder="半角英数字 6文字以上"
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </label>
@@ -183,7 +180,14 @@ export default function login() {
               <div>
                 <button
                   className="text-white bg-blue-400 hover:bg-blue-300 disabled:bg-blue-200 py-2 w-1/2 rounded-full shadow-lg font-bold"
-                  disabled={!isLogin && userName.trim() === "" ? true : false}
+                  // disabled={!isLogin && userName.trim() === "" ? true : false}
+                  disabled={
+                    isLogin
+                      ? email.trim() === "" || password.trim().length+1 <= 6
+                      : userName.trim() === "" ||
+                        email.trim() === "" ||
+                        password.trim().length+1 <= 6
+                  }
                   onClick={
                     isLogin
                       ? () => {
@@ -251,7 +255,7 @@ export default function login() {
         <div className="text-center">
           <Image
             src="/login_img.jpeg"
-            alt="Picture of the author"
+            alt="login_img"
             width={400}
             height={300}
           />
