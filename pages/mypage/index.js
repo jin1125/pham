@@ -3,9 +3,10 @@ import React, { useContext, useEffect } from "react";
 import Layout from "../../components/layout/Layout";
 import { auth } from "../../firebase";
 import { UserContext } from "../../UserContext";
+import Image from 'next/image'
 
 export default function mypage() {
-  const { userId, userName, userEmail, profileImageSrc } =
+  const { userId, userName, profileImageSrc, demoImg } =
     useContext(UserContext);
 
   useEffect(() => {
@@ -15,18 +16,33 @@ export default function mypage() {
     return () => unSub();
   }, []);
 
+
   return (
     <Layout>
-      {profileImageSrc && (
-        <img
-          className="inline object-cover w-16 h-16 mr-2 rounded-full"
-          src={profileImageSrc}
-          alt="Profile image"
-        />
-      )}
+      <div className="grid grid-cols-6">
+        <div className="col-span-1">
+          {profileImageSrc ? (
+            <img
+              className="inline object-cover w-16 h-16 mr-2 rounded-full"
+              src={profileImageSrc}
+              alt="Profile image"
+            />
+          ) : (
+            demoImg && (
+              <Image
+                className="inline object-cover mr-2 rounded-full"
+                width={300} height={300}
+                src={demoImg}
+                alt="Profile image"
+              />
+            )
+          )}
+        </div>
+
+        <div className="col-span-5">{userName}</div>
+      </div>
+
       {userId}
-      {userName}
-      {userEmail}
     </Layout>
   );
 }

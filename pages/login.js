@@ -2,9 +2,10 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import Router from "next/router";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useAlert } from "react-alert";
 import { auth, provider } from "../firebase";
+import { UserContext } from "../UserContext";
 
 export default function login() {
   const [userName, setUserName] = useState("");
@@ -13,6 +14,7 @@ export default function login() {
   const [password, setPassword] = useState("");
   const [resetEmail, setResetEmail] = useState("");
   const [openReset, setOpenReset] = useState(false);
+  const { setNameTrigger } = useContext(UserContext);
 
   const alert = useAlert();
 
@@ -57,10 +59,11 @@ export default function login() {
         password
       );
 
-      await authUser.user?.updateProfile({
+      await authUser.user.updateProfile({
         displayName: userName,
       });
 
+      setNameTrigger(userName)
       alert.success("アカウントを作成できました");
       Router.push("/mypage");
     } catch (error) {
@@ -136,6 +139,7 @@ export default function login() {
                       name="name"
                       autoComplete="name"
                       type="text"
+                      maxLength="20"
                       value={userName}
                       onChange={(e) => setUserName(e.target.value)}
                     />
@@ -156,6 +160,7 @@ export default function login() {
                   name="email"
                   autoComplete="email"
                   type="email"
+                  maxLength="256"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
@@ -169,6 +174,7 @@ export default function login() {
                   className="bg-blue-100 placeholder-blue-300 text-center rounded-full w-3/4 py-1 outline-none"
                   name="password"
                   type="password"
+                  maxLength="20"
                   value={password}
                   placeholder="半角英数字 6文字以上"
                   onChange={(e) => setPassword(e.target.value)}

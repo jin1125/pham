@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { positions, Provider as AlertProvider } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
 import "tailwindcss/tailwind.css";
-import { auth, db } from "../firebase";
+import { auth, db, storage } from "../firebase";
 import "../styles/global.css";
 import { UserContext } from "../UserContext";
 
@@ -11,15 +11,22 @@ function MyApp({ Component, pageProps }) {
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [profileImageSrc, setProfileImageSrc] = useState("");
+  const [demoImg,setDemoImg] = useState('')
+  const [nameTrigger, setNameTrigger] = useState("");
 
   useEffect(() => {
     const unSub = auth.onAuthStateChanged((user) => {
-      setUserId(user.uid);
-      setUserName(user.displayName);
-      setUserEmail(user.email);
+      if(user){
+        console.log(user.uid);
+        console.log(user.displayName);
+        console.log(user.email);
+        setUserId(user.uid);
+        setUserName(user.displayName);
+        setUserEmail(user.email);
+      }
     });
     return () => unSub();
-  }, []);
+  }, [nameTrigger]);
 
   useEffect(() => {
     if (userId) {
@@ -38,6 +45,17 @@ function MyApp({ Component, pageProps }) {
     }
   }, [userId]);
 
+  useEffect(() => {
+    storage
+    .ref()
+    .child('demo_img.jpeg')
+    .getDownloadURL()
+    .then(function(url) {
+      setDemoImg(url)
+    })
+   },[]);
+
+
   const options = {
     timeout: 2000,
     position: positions.TOP_CENTER,
@@ -45,7 +63,7 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <UserContext.Provider
-      value={{ userId, userName, userEmail, profileImageSrc }}
+      value={{ userId, userName, userEmail, profileImageSrc ,demoImg,setNameTrigger}}
     >
       <AlertProvider template={AlertTemplate} {...options}>
         <Component {...pageProps} />

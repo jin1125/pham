@@ -102,6 +102,7 @@ export default function recruit() {
                     autoComplete="organization"
                     autoFocus
                     required
+                    maxLength="30"
                     pattern=".*\S+.*"
                     value={companyName}
                     onChange={(e) => setCompanyName(e.target.value)}
@@ -120,6 +121,7 @@ export default function recruit() {
                     required
                     pattern=".*\S+.*"
                     placeholder="姓 名"
+                    maxLength="20"
                     value={clientName}
                     onChange={(e) => setClientName(e.target.value)}
                   />
@@ -137,6 +139,7 @@ export default function recruit() {
                     autoComplete="email"
                     value={email}
                     required
+                    maxLength="256"
                     pattern=".*\S+.*"
                     onChange={(e) => setEmail(e.target.value)}
                   />
@@ -154,6 +157,7 @@ export default function recruit() {
                     autoComplete="tel"
                     value={tel}
                     required
+                    maxLength="20"
                     pattern=".*\S+.*"
                     onChange={(e) => setTel(e.target.value)}
                   />
