@@ -12,7 +12,6 @@ export default function edit() {
   const uploadImage = (e) => {
     if (e.target.files[0]) {
       setProfileImage(e.target.files[0]);
-      console.log(e.target.files[0]);
       e.target.value = "";
     }
   };

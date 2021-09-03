@@ -17,9 +17,9 @@ function MyApp({ Component, pageProps }) {
   useEffect(() => {
     const unSub = auth.onAuthStateChanged((user) => {
       if(user){
-        console.log(user.uid);
-        console.log(user.displayName);
-        console.log(user.email);
+        // console.log(user.uid);
+        // console.log(user.displayName);
+        // console.log(user.email);
         setUserId(user.uid);
         setUserName(user.displayName);
         setUserEmail(user.email);
