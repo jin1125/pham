@@ -28,6 +28,8 @@ function MyApp({ Component, pageProps }) {
   const [certification, setCertification] = useState("");
   const [strongArea, setStrongArea] = useState("");
   const [subjectArea, setSubjectArea] = useState("");
+  const [connection, setConnection] = useState("");
+  const [jobOffer, setJobOffer] = useState("");
 
   const [yearsOfExperience, setYearsOfExperience] = useState([]);
   const [resume, setResume] = useState([]);
@@ -89,6 +91,8 @@ function MyApp({ Component, pageProps }) {
           setCertification(doc.data().certification);
           setStrongArea(doc.data().strongArea);
           setSubjectArea(doc.data().subjectArea);
+          setConnection(doc.data().connection);
+          setJobOffer(doc.data().jobOffer);
         });
 
       db.collection("userProfiles")
@@ -114,6 +118,7 @@ function MyApp({ Component, pageProps }) {
           if (snapshot.docs === []) {
             return;
           }
+  
           setResume(
             snapshot.docs.map((doc) => ({
               id: doc.id,
@@ -128,6 +133,7 @@ function MyApp({ Component, pageProps }) {
         });
     }
   }, [userId]);
+
 
   useEffect(() => {
     storage
@@ -170,6 +176,8 @@ function MyApp({ Component, pageProps }) {
         subjectArea,
         yearsOfExperience,
         resume,
+        connection,
+        jobOffer
       }}
     >
       <AlertProvider template={AlertTemplate} {...options}>

@@ -5,7 +5,7 @@ import React from "react";
 export default function Header() {
   return (
     <header>
-      <div className="grid grid-cols-6 gap-3 bg-blue-300 py-4 justify-items-center items-center">
+      <div className="grid grid-cols-6 gap-3 bg-blue-300 py-4 justify-items-center items-center leading-none">
         <Link href="/mypage">
           <button>
             <h2 className="text-2xl text-white font-bold">Pham</h2>
