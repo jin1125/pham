@@ -6,7 +6,7 @@ export default function Lp() {
   return (
     <div className="min-h-screen">
       <Head>
-        <title>Pham</title>
+        <title>Pham トップページ</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 

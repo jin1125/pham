@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import Head from "next/head";
 import { useAlert } from "react-alert";
 import Layout from "../../components/layout/Layout";
 import { db, storage } from "../../firebase";
@@ -42,6 +43,12 @@ export default function edit() {
   };
 
   return (
+    <div className="min-h-screen">
+      <Head>
+        <title>Pham プロフィール変更</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      
     <Layout>
       <label>
         <input type="file" onChange={uploadImage} />
@@ -58,5 +65,6 @@ export default function edit() {
         </div>
       </div>
     </Layout>
+    </div>
   );
 }
