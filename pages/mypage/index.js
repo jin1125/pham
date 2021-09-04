@@ -22,11 +22,12 @@ export default function mypage() {
       <div className="grid grid-cols-6">
         <div className="col-span-1">
           {profileImageSrc ? (
-            <img
-              className="inline object-cover w-16 h-16 mr-2 rounded-full"
-              src={profileImageSrc}
-              alt="Profile image"
-            />
+            <Image
+            className="inline object-cover mr-2 rounded-full"
+            width={300} height={300}
+            src={profileImageSrc}
+            alt="Profile image"
+          />
           ) : (
             demoImg && (
               <Image

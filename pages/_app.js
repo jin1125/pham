@@ -37,7 +37,7 @@ function MyApp({ Component, pageProps }) {
           if (doc.data() === undefined) {
             return;
           }
-          setProfileImageSrc(doc.data().url);
+          setProfileImageSrc(doc.data().profileImageUrl);
         });
       return () => {
         unSub();

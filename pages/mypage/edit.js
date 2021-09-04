@@ -26,7 +26,7 @@ export default function edit() {
     }
 
     const ProfileInformation = {
-      url: url,
+      profileImageUrl: url,
     };
 
     await db
