@@ -29,7 +29,7 @@ function MyApp({ Component, pageProps }) {
   const [strongArea, setStrongArea] = useState("");
   const [subjectArea, setSubjectArea] = useState("");
   const [connection, setConnection] = useState("");
-  const [jobOffer, setJobOffer] = useState("");
+  const [scout, setScout] = useState("");
 
   const [yearsOfExperience, setYearsOfExperience] = useState([]);
   const [resume, setResume] = useState([]);
@@ -92,7 +92,7 @@ function MyApp({ Component, pageProps }) {
           setStrongArea(doc.data().strongArea);
           setSubjectArea(doc.data().subjectArea);
           setConnection(doc.data().connection);
-          setJobOffer(doc.data().jobOffer);
+          setScout(doc.data().scout);
         });
 
       db.collection("userProfiles")
@@ -146,7 +146,7 @@ function MyApp({ Component, pageProps }) {
   }, []);
 
   const options = {
-    timeout: 2000,
+    timeout: 1000,
     position: positions.TOP_CENTER,
   };
 
@@ -177,7 +177,7 @@ function MyApp({ Component, pageProps }) {
         yearsOfExperience,
         resume,
         connection,
-        jobOffer
+        scout
       }}
     >
       <AlertProvider template={AlertTemplate} {...options}>

@@ -30,7 +30,7 @@ export default function mypage() {
     yearsOfExperience,
     resume,
     connection,
-    jobOffer,
+    scout,
   } = useContext(UserContext);
 
   useEffect(() => {
@@ -88,20 +88,29 @@ export default function mypage() {
                 />
               )
             )}
-        
 
             {connection || connection === 0 ? (
               <div className="flex flex-row flex-wrap my-5 justify-center gap-1 items-center">
-              <Emoji emoji="handshake" size={20} />
-              <p className="text-base">{`${connection}人`}</p>
-            </div>
+                <Emoji emoji="handshake" size={20} />
+                <p className="text-base">{`${connection}人`}</p>
+              </div>
             ) : (
-              demoImg && (
-                <div className="flex flex-row flex-wrap gap-1 items-center">
-              <Emoji emoji="handshake" size={20} />
-              <p className="text-base"> -- 人</p>
-            </div>
-              )
+              <div className="flex flex-row flex-wrap justify-center gap-1 items-center">
+                <Emoji emoji="handshake" size={20} />
+                <p className="text-base"> --- 人</p>
+              </div>
+            )}
+
+            {scout ? (
+              <div className="flex flex-row flex-wrap my-5 justify-center gap-1 items-center">
+                <Emoji emoji="female-detective" size={20} />
+                <p className="text-base">{scout}</p>
+              </div>
+            ) : (
+              <div className="flex flex-row flex-wrap justify-center gap-1 items-center">
+                <Emoji emoji="female-detective" size={20} />
+                <p className="text-base"> ----- </p>
+              </div>
             )}
           </div>
 
@@ -209,10 +218,60 @@ export default function mypage() {
             {subjectArea && (
               <div className="my-10">
                 <div className="flex flex-row flex-wrap gap-1 items-center">
-                  <Emoji emoji="hourglass_flowing_sand" size={20} />
+                  <Emoji emoji="pill" size={20} />
                   <p className="text-base font-bold">経験科目</p>
                 </div>
                 <p className="text-base">{subjectArea}</p>
+              </div>
+            )}
+
+            {yearsOfExperience[0] === undefined || (
+              <div className="my-10">
+                <div className="flex flex-row flex-wrap gap-1 items-center">
+                  <Emoji emoji="hourglass_flowing_sand" size={20} />
+                  <p className="text-base font-bold">経験年数</p>
+                </div>
+                {yearsOfExperience.map((ex) => (
+                  <div key={ex.id} className="grid grid-cols-2">
+                    <div>
+                      <p className="text-base">{`${ex.experience}経験`}</p>
+                    </div>
+                    <div>
+                      <p className="text-base">{`${ex.years}年程度`}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {resume[0] === undefined || (
+              <div className="my-10">
+                <div className="flex flex-row flex-wrap gap-1 items-center">
+                  <Emoji emoji="hourglass_flowing_sand" size={20} />
+                  <p className="text-base font-bold">経歴詳細</p>
+                </div>
+                {resume.map((re) => (
+                  <div key={re.id} className="grid grid-cols-3">
+                    <div>
+                      <p className="text-base">{re.companyName}</p>
+                    </div>
+                    <div>
+                      <p className="text-base">{re.employmentStatus}</p>
+                    </div>
+                    <div>
+                    {re.ewYY === '現在' ?(
+                      <p className="text-base">
+                      {`${re.swYY}/${re.swMM} ~ 現在`}
+                     </p>
+                    ):(
+                      <p className="text-base">
+                      {`${re.swYY}/${re.swMM} ~ ${re.ewYY}/${re.ewMM}`}
+                     </p>
+                    )}
+                    
+                    </div>
+                  </div>
+                ))}
               </div>
             )}
           </div>
