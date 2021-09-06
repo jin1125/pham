@@ -59,6 +59,7 @@ export default function mypage() {
   // console.log(yearsOfExperience);
   // console.log(resume);
 
+
   return (
     <div className="min-h-screen">
       <Head>
@@ -72,8 +73,8 @@ export default function mypage() {
             {profileImageSrc ? (
               <Image
                 className="inline object-cover mr-2 rounded-full"
-                width={300}
-                height={300}
+                width={200}
+                height={200}
                 src={profileImageSrc}
                 alt="Profile image"
               />
@@ -81,37 +82,25 @@ export default function mypage() {
               demoImg && (
                 <Image
                   className="inline object-cover mr-2 rounded-full"
-                  width={300}
-                  height={300}
+                  width={200}
+                  height={200}
                   src={demoImg}
                   alt="Profile image"
                 />
               )
             )}
 
-            {connection || connection === 0 ? (
+
               <div className="flex flex-row flex-wrap my-5 justify-center gap-1 items-center">
                 <Emoji emoji="handshake" size={20} />
                 <p className="text-base">{`${connection}人`}</p>
               </div>
-            ) : (
-              <div className="flex flex-row flex-wrap justify-center gap-1 items-center">
-                <Emoji emoji="handshake" size={20} />
-                <p className="text-base"> --- 人</p>
-              </div>
-            )}
 
-            {scout ? (
               <div className="flex flex-row flex-wrap my-5 justify-center gap-1 items-center">
                 <Emoji emoji="female-detective" size={20} />
                 <p className="text-base">{scout}</p>
               </div>
-            ) : (
-              <div className="flex flex-row flex-wrap justify-center gap-1 items-center">
-                <Emoji emoji="female-detective" size={20} />
-                <p className="text-base"> ----- </p>
-              </div>
-            )}
+
           </div>
 
           <div className="col-span-9">
@@ -133,10 +122,15 @@ export default function mypage() {
             </div>
 
             <div className="flex flex-row flex-wrap my-5 gap-6 leading-none">
-              {homeAddress && (
+              {homeAddress ? (
                 <div className="flex flex-row flex-wrap gap-1 items-center">
                   <Emoji emoji="round_pushpin" size={20} />
                   <p className="text-base">{homeAddress}</p>
+                </div>
+              ):(
+                <div className="flex flex-row flex-wrap gap-1 items-center">
+                  <p className="text-2xl font-bold text-blue-400">まずは、画面上部の <Emoji emoji="gear" size={30} /> からプロフィール情報を入力<Emoji emoji="male_mage" size={50} /></p>
+                  
                 </div>
               )}
 
@@ -150,14 +144,14 @@ export default function mypage() {
               {school && (
                 <div className="flex flex-row flex-wrap gap-1 items-center">
                   <Emoji emoji="school" size={20} />
-                  <p className="text-base">{school}</p>
+                  <p className="text-base">{`${school} 卒業`}</p>
                 </div>
               )}
 
               {birthPlace && (
                 <div className="flex flex-row flex-wrap gap-1 items-center">
                   <Emoji emoji="baby" size={20} />
-                  <p className="text-base">{birthPlace}</p>
+                  <p className="text-base">{`${birthPlace} 出身`}</p>
                 </div>
               )}
 
@@ -170,7 +164,7 @@ export default function mypage() {
             </div>
 
             {comments && (
-              <div className="flex flex-row flex-wrap my-12 items-center whitespace-pre-wrap">
+              <div className="my-12 whitespace-pre-wrap">
                 <p className="text-base">{comments}</p>
               </div>
             )}
@@ -225,7 +219,7 @@ export default function mypage() {
               </div>
             )}
 
-            {yearsOfExperience[0] === undefined || (
+            {yearsOfExperience[0] && yearsOfExperience[0].experience && (
               <div className="my-10">
                 <div className="flex flex-row flex-wrap gap-1 items-center">
                   <Emoji emoji="hourglass_flowing_sand" size={20} />
@@ -244,10 +238,10 @@ export default function mypage() {
               </div>
             )}
 
-            {resume[0] === undefined || (
+            {resume[0] && resume[0].companyName && (
               <div className="my-10">
                 <div className="flex flex-row flex-wrap gap-1 items-center">
-                  <Emoji emoji="hourglass_flowing_sand" size={20} />
+                  <Emoji emoji="page_facing_up" size={20} />
                   <p className="text-base font-bold">経歴詳細</p>
                 </div>
                 {resume.map((re) => (
@@ -259,16 +253,9 @@ export default function mypage() {
                       <p className="text-base">{re.employmentStatus}</p>
                     </div>
                     <div>
-                    {re.ewYY === '現在' ?(
                       <p className="text-base">
-                      {`${re.swYY}/${re.swMM} ~ 現在`}
+                      {`${re.workStart} ~ ${re.workEnd}`}
                      </p>
-                    ):(
-                      <p className="text-base">
-                      {`${re.swYY}/${re.swMM} ~ ${re.ewYY}/${re.ewMM}`}
-                     </p>
-                    )}
-                    
                     </div>
                   </div>
                 ))}

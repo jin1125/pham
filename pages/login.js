@@ -145,7 +145,7 @@ export default function login() {
                     />
                   </label>
                   <small className="text-gray-400">
-                    <p>※あとで変更できません</p>
+                    {/* <p>※あとで変更できません</p> */}
                   </small>
                 </div>
               </>

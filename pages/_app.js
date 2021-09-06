@@ -52,13 +52,9 @@ function MyApp({ Component, pageProps }) {
   // console.log(yearsOfExperience);
   // console.log(resume);
 
-
   useEffect(() => {
     const unSub = auth.onAuthStateChanged((user) => {
       if (user) {
-        // console.log(user.uid);
-        // console.log(user.displayName);
-        // console.log(user.email);
         setUserId(user.uid);
         setUserName(user.displayName);
         setUserEmail(user.email);
@@ -73,35 +69,114 @@ function MyApp({ Component, pageProps }) {
         .doc(userId)
         .onSnapshot((doc) => {
           if (doc.data() === undefined) {
-            return;
+            const profileInformation = {
+              profileImageUrl: "",
+              jobTitle: "",
+              homeAddress: "",
+              dobYY: "",
+              dobMM: "",
+              dobDD: "",
+              school: "",
+              birthPlace: "",
+              language: "",
+              comments: "",
+              hobby: "",
+              dream: "",
+              certification: "",
+              strongArea: "",
+              subjectArea: "",
+              connection: 0,
+              scout: "スカウトを受け取る",
+            };
+
+            const experienceInformation = {
+              id:'0',
+              experience: "",
+              years: "",
+            };
+
+            const resumeInformation = {
+              companyName: "",
+              employmentStatus: "",
+              workStart: "",
+              workEnd: "",
+            };
+
+            db.collection("userProfiles")
+              .doc(userId)
+              .set(profileInformation)
+              .then((docRef) => {
+                console.log("profileInformation");
+              })
+              .catch((error) => {
+                console.log("error");
+              });
+
+            db.collection("userProfiles")
+              .doc(userId)
+              .collection("yearsOfExperience")
+              .doc('0')
+              .set(experienceInformation)
+              .then((docRef) => {
+                console.log("experienceInformation");
+              })
+              .catch((error) => {
+                console.log("error");
+              });
+
+            db.collection("userProfiles")
+              .doc(userId)
+              .collection("resume")
+              .add(resumeInformation)
+              .then((docRef) => {
+                console.log("resumeInformation");
+              })
+              .catch((error) => {
+                console.log("error");
+              });
           }
-          setProfileId(doc.id);
-          setProfileImageSrc(doc.data().profileImageUrl);
-          setJobTitle(doc.data().jobTitle);
-          setHomeAddress(doc.data().homeAddress);
-          setDobYY(doc.data().dobYY);
-          setDobMM(doc.data().dobMM);
-          setDobDD(doc.data().dobDD);
-          setSchool(doc.data().school);
-          setBirthPlace(doc.data().birthPlace);
-          setLanguage(doc.data().language);
-          setComments(doc.data().comments);
-          setHobby(doc.data().hobby);
-          setDream(doc.data().dream);
-          setCertification(doc.data().certification);
-          setStrongArea(doc.data().strongArea);
-          setSubjectArea(doc.data().subjectArea);
-          setConnection(doc.data().connection);
-          setScout(doc.data().scout);
+        });
+    }
+  }, [userId]);
+
+
+  useEffect(() => {
+    if (userId) {
+      db.collection("userProfiles")
+        .doc(userId)
+        .onSnapshot((doc) => {
+          // console.log(doc.data());
+          if (doc.data()) {
+            setProfileId(doc.id);
+            setProfileImageSrc(doc.data().profileImageUrl);
+            setJobTitle(doc.data().jobTitle);
+            setHomeAddress(doc.data().homeAddress);
+            setDobYY(doc.data().dobYY);
+            setDobMM(doc.data().dobMM);
+            setDobDD(doc.data().dobDD);
+            setSchool(doc.data().school);
+            setBirthPlace(doc.data().birthPlace);
+            setLanguage(doc.data().language);
+            setComments(doc.data().comments);
+            setHobby(doc.data().hobby);
+            setDream(doc.data().dream);
+            setCertification(doc.data().certification);
+            setStrongArea(doc.data().strongArea);
+            setSubjectArea(doc.data().subjectArea);
+            setConnection(doc.data().connection);
+            setScout(doc.data().scout);
+          }
         });
 
       db.collection("userProfiles")
         .doc(userId)
         .collection("yearsOfExperience")
         .onSnapshot((snapshot) => {
+          // console.log(snapshot.docs);
           if (snapshot.docs === []) {
             return;
           }
+
           setYearsOfExperience(
             snapshot.docs.map((doc) => ({
               id: doc.id,
@@ -115,25 +190,23 @@ function MyApp({ Component, pageProps }) {
         .doc(userId)
         .collection("resume")
         .onSnapshot((snapshot) => {
+          // console.log(snapshot.docs);
           if (snapshot.docs === []) {
             return;
           }
-  
+
           setResume(
             snapshot.docs.map((doc) => ({
               id: doc.id,
               companyName: doc.data().companyName,
               employmentStatus: doc.data().employmentStatus,
-              ewMM: doc.data().ewMM,
-              ewYY: doc.data().ewYY,
-              swMM: doc.data().swMM,
-              swYY: doc.data().swYY,
+              workStart: doc.data().workStart,
+              workEnd: doc.data().workEnd,
             }))
           );
         });
     }
   }, [userId]);
-
 
   useEffect(() => {
     storage
@@ -154,30 +227,55 @@ function MyApp({ Component, pageProps }) {
     <UserContext.Provider
       value={{
         userId,
+        setUserId,
         userName,
+        setUserName,
         userEmail,
-        profileImageSrc,
+        setUserEmail,
         demoImg,
+        setDemoImg,
+        nameTrigger,
         setNameTrigger,
         profileId,
+        setProfileId,
+        profileImageSrc,
+        setProfileImageSrc,
         jobTitle,
+        setJobTitle,
         homeAddress,
+        setHomeAddress,
         dobYY,
+        setDobYY,
         dobMM,
+        setDobMM,
         dobDD,
+        setDobDD,
         school,
+        setSchool,
         birthPlace,
+        setBirthPlace,
         language,
+        setLanguage,
         comments,
+        setComments,
         hobby,
+        setHobby,
         dream,
+        setDream,
         certification,
+        setCertification,
         strongArea,
+        setStrongArea,
         subjectArea,
-        yearsOfExperience,
-        resume,
+        setSubjectArea,
         connection,
-        scout
+        setConnection,
+        scout,
+        setScout,
+        yearsOfExperience,
+        setYearsOfExperience,
+        resume,
+        setResume,
       }}
     >
       <AlertProvider template={AlertTemplate} {...options}>

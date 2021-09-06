@@ -3,6 +3,7 @@ import Link from "next/link";
 import React from "react";
 
 export default function Header() {
+ 
   return (
     <header>
       <div className="grid grid-cols-6 gap-3 bg-blue-300 py-4 justify-items-center items-center leading-none">
