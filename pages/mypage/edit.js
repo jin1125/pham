@@ -730,7 +730,7 @@ export default function edit() {
               className="text-white bg-blue-400 hover:bg-blue-300 py-2 w-1/2 rounded-full shadow-lg font-bold"
               onClick={editHandler}
             >
-              変更を保存する
+              変更を保存
             </button>
           </div>
         </div>
