@@ -4,7 +4,7 @@ import Image from "next/image";
 import React, { useContext, useState } from "react";
 import { useAlert } from "react-alert";
 import Layout from "../../components/layout/Layout";
-import { db, storage } from "../../firebase";
+import { auth, db, storage } from "../../firebase";
 import { UserContext } from "../../UserContext";
 
 export default function edit() {
@@ -106,29 +106,30 @@ export default function edit() {
       subjectArea: subjectArea,
     };
 
+    const user = auth.currentUser;
+    user.updateProfile({
+      displayName: userName,
+    });
+
     const experienceInformation = () => {
       const list = [...yearsOfExperience];
-       list.map((ex) => (
-
+      list.map((ex) =>
         // console.log(ex.id)
 
-        db.collection("userProfiles")
-        .doc(userId)
-        .collection("yearsOfExperience")
-        .doc(ex.id)
-        .set(ex)
-        .then((docRef) => {
-          console.log("yearsOfExperience");
-        })
-        .catch((error) => {
-          console.log("y");
-        })
-      
-      ));
-
-    
+        db
+          .collection("userProfiles")
+          .doc(userId)
+          .collection("yearsOfExperience")
+          .doc(ex.id)
+          .set(ex)
+          .then((docRef) => {
+            console.log("yearsOfExperience");
+          })
+          .catch((error) => {
+            console.log("y");
+          })
+      );
     };
-
 
     // const resumeInformation = {
     //   resume: resume,
@@ -147,7 +148,7 @@ export default function edit() {
         console.log("P");
       });
 
-    await experienceInformation()
+    await experienceInformation();
 
     // await db
     //   .collection("userProfiles")
@@ -178,7 +179,7 @@ export default function edit() {
   const changeExperience = (e, index) => {
     const list = [...yearsOfExperience];
     list[index] = {
-      id:String(index), 
+      id: String(index),
       experience: e.target.value,
       years: list[index].years,
     };
@@ -188,7 +189,7 @@ export default function edit() {
   const changeYears = (e, index) => {
     const list = [...yearsOfExperience];
     list[index] = {
-      id:String(index),
+      id: String(index),
       experience: list[index].experience,
       years: e.target.value,
     };
@@ -344,6 +345,7 @@ export default function edit() {
                 onChange={(e) => setUserName(e.target.value.trim())}
                 placeholder="姓 名"
                 name="name"
+                maxLength="15"
                 className="text-4xl font-bold bg-blue-100 placeholder-blue-300 text-center rounded-full py-1 outline-none"
               />
 
@@ -353,6 +355,7 @@ export default function edit() {
                 onChange={(e) => setJobTitle(e.target.value.trim())}
                 placeholder="役職"
                 name="jobTitle"
+                maxLength="15"
                 className="text-xl font-bold text-blue-400 bg-blue-100 placeholder-blue-300 text-center rounded-full py-1 outline-none"
               />
             </div>
@@ -371,6 +374,7 @@ export default function edit() {
                   onChange={(e) => setHomeAddress(e.target.value.trim())}
                   placeholder="住所(市区まで)"
                   name="homeAddress"
+                  maxLength="10"
                   className="text-base bg-blue-100 placeholder-blue-300 text-center rounded-full py-1 outline-none"
                 />
               </div>
@@ -506,6 +510,7 @@ export default function edit() {
                   onChange={(e) => setSchool(e.target.value.trim())}
                   placeholder="出身校"
                   name="school"
+                  maxLength="10"
                   className="text-base bg-blue-100 placeholder-blue-300 text-center rounded-full py-1 outline-none"
                 />
                 <p className="text-base">卒業</p>
@@ -519,6 +524,7 @@ export default function edit() {
                   onChange={(e) => setBirthPlace(e.target.value.trim())}
                   placeholder="出身地"
                   name="birthPlace"
+                  maxLength="10"
                   className="text-base bg-blue-100 placeholder-blue-300 text-center rounded-full py-1 outline-none"
                 />
                 <p className="text-base">出身</p>
@@ -532,6 +538,7 @@ export default function edit() {
                   onChange={(e) => setLanguage(e.target.value.trim())}
                   placeholder="話せる言語"
                   name="language"
+                  maxLength="15"
                   className="text-base bg-blue-100 placeholder-blue-300 text-center rounded-full py-1 outline-none"
                 />
               </div>
@@ -543,6 +550,7 @@ export default function edit() {
                 value={comments}
                 onChange={(e) => setComments(e.target.value)}
                 placeholder="自己紹介"
+                maxLength="200"
                 className="bg-blue-100 rounded-lg p-5 w-full outline-none"
               />
             </div>
@@ -558,6 +566,7 @@ export default function edit() {
                 value={hobby}
                 name="hobby"
                 onChange={(e) => setHobby(e.target.value.trim())}
+                maxLength="30"
                 className="text-base bg-blue-100 placeholder-blue-300 text-left rounded-full py-1 pl-5 outline-none w-full"
               />
             </div>
@@ -572,6 +581,7 @@ export default function edit() {
                 type="text"
                 value={dream}
                 name="dream"
+                maxLength="30"
                 onChange={(e) => setDream(e.target.value.trim())}
                 className="text-base bg-blue-100 placeholder-blue-300 text-left rounded-full py-1 pl-5 outline-none w-full"
               />
@@ -586,6 +596,7 @@ export default function edit() {
                 type="text"
                 value={certification}
                 name="certification"
+                maxLength="30"
                 onChange={(e) => setCertification(e.target.value.trim())}
                 className="text-base bg-blue-100 placeholder-blue-300 text-left rounded-full py-1 pl-5 outline-none w-full"
               />
@@ -600,6 +611,7 @@ export default function edit() {
                 type="text"
                 value={strongArea}
                 name="strongArea"
+                maxLength="30"
                 onChange={(e) => setStrongArea(e.target.value.trim())}
                 className="text-base bg-blue-100 placeholder-blue-300 text-left rounded-full py-1 pl-5 outline-none w-full"
               />
@@ -614,6 +626,7 @@ export default function edit() {
                 type="text"
                 value={subjectArea}
                 name="subjectArea"
+                maxLength="30"
                 onChange={(e) => subjectArea(e.target.value.trim())}
                 className="text-base bg-blue-100 placeholder-blue-300 text-left rounded-full py-1 pl-5 outline-none w-full"
               />
@@ -631,12 +644,13 @@ export default function edit() {
                 </button>
               </div>
               {yearsOfExperience.map((ex, index) => (
-                <div key={index} className="grid grid-cols-12 gap-2">
+                <div key={index} className="grid grid-cols-12 gap-2 items-center">
                   <div className="grid grid-cols-12 my-1 col-span-7 gap-1 items-center">
                     <input
                       type="text"
                       value={ex.experience}
                       name="experience"
+                      maxLength="15"
                       onChange={(e) => changeExperience(e, index)}
                       className="text-base bg-blue-100 placeholder-blue-300 text-left rounded-full py-1 pl-5 outline-none w-full col-span-10"
                     />
@@ -647,6 +661,7 @@ export default function edit() {
                       type="text"
                       value={ex.years}
                       name="years"
+                      maxLength="15"
                       onChange={(e) => changeYears(e, index)}
                       className="text-base bg-blue-100 placeholder-blue-300 text-left rounded-full py-1 pl-5 outline-none"
                     />
@@ -676,11 +691,13 @@ export default function edit() {
                 </button>
               </div>
               {resume.map((re, index) => (
-                <div key={index} className="grid grid-cols-12 gap-2">
+                <div key={index} className="grid grid-cols-12 gap-2 items-center">
                   <input
                     type="text"
                     value={re.companyName}
                     name="companyName"
+                    maxLength="15"
+                    placeholder="企業名"
                     onChange={(e) => changeCompanyName(e, index)}
                     className="text-base bg-blue-100 placeholder-blue-300 text-left rounded-full py-1 pl-5 outline-none w-full col-span-4 my-1"
                   />
@@ -689,6 +706,8 @@ export default function edit() {
                     type="text"
                     value={re.employmentStatus}
                     name="employmentStatus"
+                    maxLength="10"
+                    placeholder="雇用形態"
                     onChange={(e) => changeEmploymentStatus(e, index)}
                     className="text-base bg-blue-100 placeholder-blue-300 text-left rounded-full py-1 pl-5 outline-none w-full col-span-2 my-1"
                   />
@@ -697,6 +716,8 @@ export default function edit() {
                     type="text"
                     value={re.workStart}
                     name="workStart"
+                    maxLength="10"
+                    placeholder="いつから"
                     onChange={(e) => changeWorkStart(e, index)}
                     className="text-base bg-blue-100 placeholder-blue-300 text-left rounded-full py-1 pl-5 outline-none w-full col-span-2 my-1"
                   />
@@ -705,6 +726,8 @@ export default function edit() {
                     type="text"
                     value={re.workEnd}
                     name="workEnd"
+                    maxLength="10"
+                    placeholder="いつまで"
                     onChange={(e) => changeWorkEnd(e, index)}
                     className="text-base bg-blue-100 placeholder-blue-300 text-left rounded-full py-1 pl-5 outline-none w-full col-span-2 my-1"
                   />
