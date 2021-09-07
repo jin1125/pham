@@ -6,7 +6,7 @@ export default function Lp() {
   
   ////////////////////////// JSXエリア //////////////////////////
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen ">
       <Head>
         <title>Pham トップページ</title>
         <link rel="icon" href="/favicon.ico" />
@@ -32,7 +32,7 @@ export default function Lp() {
           </div>
           
             <Image
-            src="/lp_img.jpeg"
+            src="/lp_img.png"
             alt="lp_img"
             width={380}
             height={380}

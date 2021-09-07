@@ -125,7 +125,7 @@ function MyApp({ Component, pageProps }) {
   useEffect(() => {
     storage
       .ref()
-      .child("demo_img.jpeg")
+      .child("demo_img.png")
       .getDownloadURL()
       .then(function (url) {
         setDemoImg(url);

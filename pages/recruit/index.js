@@ -183,14 +183,14 @@ export default function recruit() {
         <div className="text-center">
           {isContactUs ? (
             <Image
-              src="/contactus_img.jpeg"
+              src="/contactus_img.png"
               alt="contactus_img"
               width={350}
               height={350}
             />
           ) : (
             <Image
-              src="/recruit_img.jpeg"
+              src="/recruit_img.png"
               alt="recruit_img"
               width={420}
               height={280}
