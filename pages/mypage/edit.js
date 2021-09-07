@@ -79,7 +79,7 @@ export default function edit() {
     }
   };
 
-  /// プロフィール変更ボタン処理 ///
+  /// 変更を保存ボタン処理 ///
   const editHandler = async () => {
     let url = "";
     if (profileImage) {
@@ -339,6 +339,11 @@ export default function edit() {
       });
   };
 
+
+  /// disabled判定処理 ///
+  const check1 = !userName || !homeAddress || !dobYY || !dobMM || !dobDD || !profileImage ;
+
+
   ////////////////// JSXエリア //////////////////
   return (
     <div className="min-h-screen">
@@ -378,6 +383,7 @@ export default function edit() {
                   />
                 )
               )}
+              <span className="text-red-500 align-top">*</span>
 
               <input
                 className="hidden"
@@ -838,11 +844,15 @@ export default function edit() {
         <div>
           <div className="mt-5 mb-10 text-center">
             <button
-              className="text-white bg-blue-400 hover:bg-blue-300 py-2 w-1/2 rounded-full shadow-lg font-bold"
+              className="text-white bg-blue-400 hover:bg-blue-300 disabled:bg-blue-200 py-2 w-1/2 rounded-full shadow-lg font-bold"
               onClick={editHandler}
+              disabled={check1}
             >
               変更を保存
             </button>
+            {check1 &&
+            <p className="text-red-500 text-xs mt-2">*画像アップロードと必須項目を入力しましょう</p>
+            }
           </div>
         </div>
         <hr />

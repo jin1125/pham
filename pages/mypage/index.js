@@ -201,7 +201,6 @@ export default function mypage() {
               </div>
             )}
 
-
             {experiences[0] && experiences[0].experience && (
               <div className="my-10">
                 <div className="flex flex-row flex-wrap gap-1 items-center">
@@ -227,7 +226,7 @@ export default function mypage() {
                   <Emoji emoji="page_facing_up" size={20} />
                   <p className="text-base font-bold">経歴詳細</p>
                 </div>
-                {resumes.map((re,index) => (
+                {resumes.map((re, index) => (
                   <div key={index} className="grid grid-cols-3">
                     <div>
                       <p className="text-base">{re.companyName}</p>
@@ -235,17 +234,17 @@ export default function mypage() {
                     <div>
                       <p className="text-base">{re.employmentStatus}</p>
                     </div>
-                    <div>
-                      <p className="text-base">
-                        {`${re.workStart} ~ ${re.workEnd}`}
-                      </p>
-                    </div>
+                    {re.workStart && re.workEnd && (
+                      <div>
+                        <p className="text-base">
+                          {`${re.workStart} ~ ${re.workEnd}`}
+                        </p>
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>
             )}
-
-
           </div>
         </div>
       </Layout>
