@@ -41,6 +41,7 @@ export default function recruit() {
     setTel("");
   };
 
+  ////////////////////////// JSXエリア //////////////////////////
   return (
     <div className="min-h-screen">
       <Head>

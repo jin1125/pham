@@ -18,7 +18,7 @@ export default function login() {
 
   const alert = useAlert();
 
-  const sendResetEmail = async (e) => {
+  const sendResetEmail = async () => {
     await auth
       .sendPasswordResetEmail(resetEmail)
       .then(() => {
@@ -26,7 +26,7 @@ export default function login() {
         alert.success("メールを送信しました");
         setResetEmail("");
       })
-      .catch((err) => {
+      .catch(() => {
         alert.error("正しい内容を入力してください");
         setResetEmail("");
       });
@@ -79,6 +79,7 @@ export default function login() {
     setIsLogin(false);
   };
 
+  ////////////////////////// JSXエリア //////////////////////////
   return (
     <div className="min-h-screen">
       <Head>

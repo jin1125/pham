@@ -60,6 +60,7 @@ export default function mypage() {
   // console.log(resume);
 
 
+  ////////////////////////// JSXエリア //////////////////////////
   return (
     <div className="min-h-screen">
       <Head>

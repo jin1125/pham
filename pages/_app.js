@@ -219,10 +219,11 @@ function MyApp({ Component, pageProps }) {
   }, []);
 
   const options = {
-    timeout: 1000,
+    timeout: 2000,
     position: positions.TOP_CENTER,
   };
 
+  ////////////////////////// JSXエリア //////////////////////////
   return (
     <UserContext.Provider
       value={{

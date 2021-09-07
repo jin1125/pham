@@ -3,6 +3,8 @@ import Link from "next/link";
 import Image from 'next/image'
 
 export default function Lp() {
+  
+  ////////////////////////// JSXエリア //////////////////////////
   return (
     <div className="min-h-screen">
       <Head>
