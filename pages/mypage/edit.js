@@ -1,12 +1,12 @@
 import { Emoji } from "emoji-mart";
 import Head from "next/head";
 import Image from "next/image";
+import Router from "next/router";
 import React, { useContext, useState } from "react";
 import { useAlert } from "react-alert";
 import Layout from "../../components/layout/Layout";
 import { auth, db, storage } from "../../firebase";
 import { UserContext } from "../../UserContext";
-import Router from "next/router";
 
 export default function edit() {
   ////////////////// ステートエリア //////////////////
@@ -338,7 +338,8 @@ export default function edit() {
 
   // reauthenticateWithCredential();
 
-  /// パスワード変更 ///
+
+  /// パスワード変更処理 ///
   const sendResetEmail = async () => {
     await auth
       .sendPasswordResetEmail(userEmail)
@@ -347,6 +348,35 @@ export default function edit() {
       })
       .catch(() => {
         alert.error("正しい内容を入力してください");
+      });
+  };
+
+  /// ログアウト処理 ///
+  const signOutUser = async () => {
+    const result = confirm("ログアウトしますか？");
+    if (result) {
+      try {
+        await auth.signOut();
+        alert.success("ログアウトしました");
+        Router.push("/login");
+      } catch (error) {
+        alert.error("ログアウトできませんでした");
+      }
+    }
+  };
+
+  /// 退会処理 ///
+  const deleteUser = () => {
+    const user = firebase.auth().currentUser;
+
+    user
+      .delete()
+      .then(() => {
+        // User deleted.
+      })
+      .catch((error) => {
+        // An error ocurred
+        // ...
       });
   };
 
@@ -904,24 +934,13 @@ export default function edit() {
         <div className="flex flex-row flex-wrap justify-center gap-10 my-10">
           <button
             className="text-white bg-gray-400 hover:bg-gray-300 py-1 px-5 rounded-full shadow-lg text-sm"
-            onClick={async () => {
-              const result = confirm("ログアウトしますか？");
-              if (result) {
-                try {
-                  await auth.signOut();
-                  alert.success("ログアウトしました");
-                } catch (error) {
-                  Router.push("/login");
-                  alert.error("ログアウトできませんでした");
-                }
-              }
-            }}
+            onClick={signOutUser}
           >
             ログアウト
           </button>
           <button
             className="text-gray-400 border-2 border-gray-400 hover:bg-gray-200 py-1 px-5 rounded-full shadow-lg text-sm"
-            onClick={sendResetEmail}
+            onClick={deleteUser}
           >
             退会
           </button>
