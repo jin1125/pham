@@ -27,10 +27,10 @@ export default function mypage() {
     certification,
     strongArea,
     subjectArea,
-    yearsOfExperience,
-    resume,
     connection,
     scout,
+    experiences,
+    resumes,
   } = useContext(UserContext);
 
   useEffect(() => {
@@ -39,26 +39,6 @@ export default function mypage() {
     });
     return () => unSub();
   }, []);
-
-  // console.log(jobTitle);
-  // console.log(homeAddress);
-  // console.log(dobYY);
-  // console.log(dobMM);
-  // console.log(dobDD);
-  // console.log(school);
-  // console.log(birthPlace);
-  // console.log(language);
-  // console.log(comments);
-  // console.log(hobby);
-  // console.log(dream);
-  // console.log(certification);
-  // console.log(strongArea);
-  // console.log(subjectArea);
-  // console.log(connection,jobOffer);
-
-  // console.log(yearsOfExperience);
-  // console.log(resume);
-
 
   ////////////////////////// JSXエリア //////////////////////////
   return (
@@ -91,17 +71,15 @@ export default function mypage() {
               )
             )}
 
+            <div className="flex flex-row flex-wrap my-5 justify-center gap-1 items-center">
+              <Emoji emoji="handshake" size={20} />
+              <p className="text-base">{`${connection}人`}</p>
+            </div>
 
-              <div className="flex flex-row flex-wrap my-5 justify-center gap-1 items-center">
-                <Emoji emoji="handshake" size={20} />
-                <p className="text-base">{`${connection}人`}</p>
-              </div>
-
-              <div className="flex flex-row flex-wrap my-5 justify-center gap-1 items-center">
-                <Emoji emoji="female-detective" size={20} />
-                <p className="text-base">{scout}</p>
-              </div>
-
+            <div className="flex flex-row flex-wrap my-5 justify-center gap-1 items-center">
+              <Emoji emoji="female-detective" size={20} />
+              <p className="text-base">{scout}</p>
+            </div>
           </div>
 
           <div className="col-span-9">
@@ -128,10 +106,13 @@ export default function mypage() {
                   <Emoji emoji="round_pushpin" size={20} />
                   <p className="text-base">{homeAddress}</p>
                 </div>
-              ):(
+              ) : (
                 <div className="flex flex-row flex-wrap gap-1 items-center">
-                  <p className="text-2xl font-bold text-blue-400">まずは、画面上部の <Emoji emoji="gear" size={30} /> からプロフィール情報を入力<Emoji emoji="male_mage" size={50} /></p>
-                  
+                  <p className="text-2xl font-bold text-blue-400">
+                    まずは、画面上部の <Emoji emoji="gear" size={30} />{" "}
+                    からプロフィール情報を入力
+                    <Emoji emoji="male_mage" size={50} />
+                  </p>
                 </div>
               )}
 
@@ -220,14 +201,15 @@ export default function mypage() {
               </div>
             )}
 
-            {yearsOfExperience[0] && yearsOfExperience[0].experience && (
+
+            {experiences[0] && experiences[0].experience && (
               <div className="my-10">
                 <div className="flex flex-row flex-wrap gap-1 items-center">
                   <Emoji emoji="hourglass_flowing_sand" size={20} />
                   <p className="text-base font-bold">経験年数</p>
                 </div>
-                {yearsOfExperience.map((ex) => (
-                  <div key={ex.id} className="grid grid-cols-2">
+                {experiences.map((ex, index) => (
+                  <div key={index} className="grid grid-cols-2">
                     <div>
                       <p className="text-base">{`${ex.experience}経験`}</p>
                     </div>
@@ -239,14 +221,14 @@ export default function mypage() {
               </div>
             )}
 
-            {resume[0] && resume[0].companyName && (
+            {resumes[0] && resumes[0].companyName && (
               <div className="my-10">
                 <div className="flex flex-row flex-wrap gap-1 items-center">
                   <Emoji emoji="page_facing_up" size={20} />
                   <p className="text-base font-bold">経歴詳細</p>
                 </div>
-                {resume.map((re) => (
-                  <div key={re.id} className="grid grid-cols-3">
+                {resumes.map((re,index) => (
+                  <div key={index} className="grid grid-cols-3">
                     <div>
                       <p className="text-base">{re.companyName}</p>
                     </div>
@@ -255,13 +237,15 @@ export default function mypage() {
                     </div>
                     <div>
                       <p className="text-base">
-                      {`${re.workStart} ~ ${re.workEnd}`}
-                     </p>
+                        {`${re.workStart} ~ ${re.workEnd}`}
+                      </p>
                     </div>
                   </div>
                 ))}
               </div>
             )}
+
+
           </div>
         </div>
       </Layout>

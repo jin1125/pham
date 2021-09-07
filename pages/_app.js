@@ -31,26 +31,8 @@ function MyApp({ Component, pageProps }) {
   const [connection, setConnection] = useState("");
   const [scout, setScout] = useState("");
 
-  const [yearsOfExperience, setYearsOfExperience] = useState([]);
-  const [resume, setResume] = useState([]);
-
-  // console.log(jobTitle);
-  // console.log(homeAddress);
-  // console.log(dobYY);
-  // console.log(dobMM);
-  // console.log(dobDD);
-  // console.log(school);
-  // console.log(birthPlace);
-  // console.log(language);
-  // console.log(comments);
-  // console.log(hobby);
-  // console.log(dream);
-  // console.log(certification);
-  // console.log(strongArea);
-  // console.log(subjectArea);
-
-  // console.log(yearsOfExperience);
-  // console.log(resume);
+  const [experiences, setExperiences] = useState([]);
+  const [resumes, setResumes] = useState([]);
 
   useEffect(() => {
     const unSub = auth.onAuthStateChanged((user) => {
@@ -68,7 +50,7 @@ function MyApp({ Component, pageProps }) {
       db.collection("userProfiles")
         .doc(userId)
         .onSnapshot((doc) => {
-          if (doc.data() === undefined) {
+          if (!doc.data()) {
             const profileInformation = {
               profileImageUrl: "",
               jobTitle: "",
@@ -87,53 +69,20 @@ function MyApp({ Component, pageProps }) {
               subjectArea: "",
               connection: 0,
               scout: "スカウトを受け取る",
-            };
-
-            const experienceInformation = {
-              id:'0',
-              experience: "",
-              years: "",
-            };
-
-            const resumeInformation = {
-              companyName: "",
-              employmentStatus: "",
-              workStart: "",
-              workEnd: "",
+              experiences:[{experience:'',years:''}],
+              resumes:[{companyName:'',employmentStatus:'',workStart:'',workEnd:''}],
             };
 
             db.collection("userProfiles")
               .doc(userId)
               .set(profileInformation)
               .then((docRef) => {
-                console.log("profileInformation");
+                console.log("initialize");
               })
               .catch((error) => {
                 console.log("error");
               });
 
-            db.collection("userProfiles")
-              .doc(userId)
-              .collection("yearsOfExperience")
-              .doc('0')
-              .set(experienceInformation)
-              .then((docRef) => {
-                console.log("experienceInformation");
-              })
-              .catch((error) => {
-                console.log("error");
-              });
-
-            db.collection("userProfiles")
-              .doc(userId)
-              .collection("resume")
-              .add(resumeInformation)
-              .then((docRef) => {
-                console.log("resumeInformation");
-              })
-              .catch((error) => {
-                console.log("error");
-              });
           }
         });
     }
@@ -145,7 +94,7 @@ function MyApp({ Component, pageProps }) {
       db.collection("userProfiles")
         .doc(userId)
         .onSnapshot((doc) => {
-          // console.log(doc.data());
+
           if (doc.data()) {
             setProfileId(doc.id);
             setProfileImageSrc(doc.data().profileImageUrl);
@@ -165,46 +114,11 @@ function MyApp({ Component, pageProps }) {
             setSubjectArea(doc.data().subjectArea);
             setConnection(doc.data().connection);
             setScout(doc.data().scout);
+            setExperiences(doc.data().experiences);
+            setResumes(doc.data().resumes);
           }
         });
 
-      db.collection("userProfiles")
-        .doc(userId)
-        .collection("yearsOfExperience")
-        .onSnapshot((snapshot) => {
-          // console.log(snapshot.docs);
-          if (snapshot.docs === []) {
-            return;
-          }
-
-          setYearsOfExperience(
-            snapshot.docs.map((doc) => ({
-              id: doc.id,
-              experience: doc.data().experience,
-              years: doc.data().years,
-            }))
-          );
-        });
-
-      db.collection("userProfiles")
-        .doc(userId)
-        .collection("resume")
-        .onSnapshot((snapshot) => {
-          // console.log(snapshot.docs);
-          if (snapshot.docs === []) {
-            return;
-          }
-
-          setResume(
-            snapshot.docs.map((doc) => ({
-              id: doc.id,
-              companyName: doc.data().companyName,
-              employmentStatus: doc.data().employmentStatus,
-              workStart: doc.data().workStart,
-              workEnd: doc.data().workEnd,
-            }))
-          );
-        });
     }
   }, [userId]);
 
@@ -218,6 +132,7 @@ function MyApp({ Component, pageProps }) {
       });
   }, []);
 
+  /// アラート設定 ///
   const options = {
     timeout: 2000,
     position: positions.TOP_CENTER,
@@ -273,10 +188,10 @@ function MyApp({ Component, pageProps }) {
         setConnection,
         scout,
         setScout,
-        yearsOfExperience,
-        setYearsOfExperience,
-        resume,
-        setResume,
+        experiences,
+        setExperiences,
+        resumes,
+        setResumes
       }}
     >
       <AlertProvider template={AlertTemplate} {...options}>

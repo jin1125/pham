@@ -57,10 +57,10 @@ export default function edit() {
     setConnection,
     scout,
     setScout,
-    yearsOfExperience,
-    setYearsOfExperience,
-    resume,
-    setResume,
+    experiences,
+    setExperiences,
+    resumes,
+    setResumes,
   } = useContext(UserContext);
 
   const [profileImage, setProfileImage] = useState("");
@@ -79,6 +79,7 @@ export default function edit() {
     }
   };
 
+  /// プロフィール変更ボタン処理 ///
   const editHandler = async () => {
     let url = "";
     if (profileImage) {
@@ -108,34 +109,16 @@ export default function edit() {
       certification: certification,
       strongArea: strongArea,
       subjectArea: subjectArea,
+      experiences: experiences,
+      resumes: resumes,
     };
 
+    /// 名前変更処理 ///
     const user = auth.currentUser;
+    console.log(user);
     user.updateProfile({
       displayName: userName,
     });
-
-    const experienceInformation = () => {
-      const list = [...yearsOfExperience];
-      list.map((ex) =>
-        db
-          .collection("userProfiles")
-          .doc(userId)
-          .collection("yearsOfExperience")
-          .doc(ex.id)
-          .set(ex)
-          .then((docRef) => {
-            console.log("yearsOfExperience");
-          })
-          .catch((error) => {
-            console.log("y");
-          })
-      );
-    };
-
-    // const resumeInformation = {
-    //   resume: resume,
-    // };
 
     await db
       .collection("userProfiles")
@@ -143,75 +126,47 @@ export default function edit() {
       .set(profileInformation)
       .then(() => {
         alert.success("プロフィールを変更しました");
-        console.log("profileInformation");
       })
       .catch(() => {
         alert.error("プロフィールを変更できませんでした");
-        console.log("P");
       });
 
-    await experienceInformation();
-
-    // await db
-    //   .collection("userProfiles")
-    //   .doc(userId)
-    //   .collection("yearsOfExperience")
-    //   .doc()
-    //   .set(yearsOfExperience)
-    //   .then((docRef) => {
-    //     console.log("yearsOfExperience");
-    //   })
-    //   .catch((error) => {
-    //     console.log("y");
-    //   });
-
-    // await db
-    // .collection("userProfiles")
-    // .doc(userId)
-    // .collection("resume")
-    // .add(resume)
-    // .then((docRef) => {
-    //   console.log("resume");
-    // })
-    // .catch((error) => {
-    //   console.log("r");
-    // });
   };
 
+  ///////////////////////////////////////////////
+
   const changeExperience = (e, index) => {
-    const list = [...yearsOfExperience];
+    const list = [...experiences];
     list[index] = {
-      id: String(index),
       experience: e.target.value,
       years: list[index].years,
     };
-    setYearsOfExperience(list);
+    setExperiences(list);
   };
 
   const changeYears = (e, index) => {
-    const list = [...yearsOfExperience];
+    const list = [...experiences];
     list[index] = {
-      id: String(index),
       experience: list[index].experience,
       years: e.target.value,
     };
-    setYearsOfExperience(list);
+    setExperiences(list);
   };
 
   const addExperience = () => {
-    const list = [...yearsOfExperience];
+    const list = [...experiences];
     list.push({ experience: "", years: "" });
-    setYearsOfExperience(list);
+    setExperiences(list);
   };
 
   const deleteExperience = (index) => {
-    const list = [...yearsOfExperience];
+    const list = [...experiences];
     list.splice(index, 1);
-    setYearsOfExperience(list);
+    setExperiences(list);
   };
 
   const changeCompanyName = (e, index) => {
-    const list = [...resume];
+    const list = [...resumes];
     list[index] = {
       companyName: e.target.value,
       employmentStatus: list[index].employmentStatus,
@@ -219,11 +174,11 @@ export default function edit() {
       workEnd: list[index].workEnd,
     };
 
-    setResume(list);
+    setResumes(list);
   };
 
   const changeEmploymentStatus = (e, index) => {
-    const list = [...resume];
+    const list = [...resumes];
     list[index] = {
       companyName: list[index].companyName,
       employmentStatus: e.target.value,
@@ -231,11 +186,11 @@ export default function edit() {
       workEnd: list[index].workEnd,
     };
 
-    setResume(list);
+    setResumes(list);
   };
 
   const changeWorkStart = (e, index) => {
-    const list = [...resume];
+    const list = [...resumes];
     list[index] = {
       companyName: list[index].companyName,
       employmentStatus: list[index].employmentStatus,
@@ -243,11 +198,11 @@ export default function edit() {
       workEnd: list[index].workEnd,
     };
 
-    setResume(list);
+    setResumes(list);
   };
 
   const changeWorkEnd = (e, index) => {
-    const list = [...resume];
+    const list = [...resumes];
     list[index] = {
       companyName: list[index].companyName,
       employmentStatus: list[index].employmentStatus,
@@ -255,26 +210,28 @@ export default function edit() {
       workEnd: e.target.value,
     };
 
-    setResume(list);
+    setResumes(list);
   };
 
   const addResume = () => {
-    const list = [...resume];
+    const list = [...resumes];
     list.push({
       companyName: "",
       employmentStatus: "",
       workStart: "",
       workEnd: "",
     });
-    setResume(list);
+    setResumes(list);
   };
 
   const deleteResume = (index) => {
-    const list = [...resume];
+    const list = [...resumes];
     list.splice(index, 1);
-    setResume(list);
+    setResumes(list);
   };
 
+  ///////////////////////////////////////////////
+  /// メールアドレス変更処理 ///
   const changeEmail = () => {
     // const result = confirm("メールアドレスを変更してもよろしいですか?");
 
@@ -337,7 +294,9 @@ export default function edit() {
   // }
 
   // reauthenticateWithCredential();
+  
 
+  /////////////////////////////////////////////////////
 
   /// パスワード変更処理 ///
   const sendResetEmail = async () => {
@@ -765,7 +724,7 @@ export default function edit() {
                   欄を追加
                 </button>
               </div>
-              {yearsOfExperience.map((ex, index) => (
+              {experiences.map((ex, index) => (
                 <div
                   key={index}
                   className="grid grid-cols-12 gap-2 items-center"
@@ -788,7 +747,6 @@ export default function edit() {
                       value={ex.years}
                       name="years"
                       maxLength="15"
-                      placeholder="3"
                       onChange={(e) => changeYears(e, index)}
                       className="text-base bg-blue-100 placeholder-blue-300 text-left rounded-full py-1 pl-5 outline-none"
                     />
@@ -817,7 +775,7 @@ export default function edit() {
                   欄を追加
                 </button>
               </div>
-              {resume.map((re, index) => (
+              {resumes.map((re, index) => (
                 <div
                   key={index}
                   className="grid grid-cols-12 gap-2 items-center"
