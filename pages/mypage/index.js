@@ -11,7 +11,7 @@ export default function mypage() {
   const {
     userId,
     userName,
-    profileImageSrc,
+    profileImageUrl,
     demoImg,
     jobTitle,
     homeAddress,
@@ -51,12 +51,12 @@ export default function mypage() {
       <Layout>
         <div className="grid grid-cols-12 gap-10 m-10">
           <div className="col-span-3 justify-self-center">
-            {profileImageSrc ? (
+            {profileImageUrl ? (
               <Image
                 className="inline object-cover mr-2 rounded-full"
                 width={200}
                 height={200}
-                src={profileImageSrc}
+                src={profileImageUrl}
                 alt="Profile image"
               />
             ) : (
@@ -209,12 +209,16 @@ export default function mypage() {
                 </div>
                 {experiences.map((ex, index) => (
                   <div key={index} className="grid grid-cols-2">
-                    <div>
-                      <p className="text-base">{`${ex.experience}経験`}</p>
-                    </div>
-                    <div>
-                      <p className="text-base">{`${ex.years}年程度`}</p>
-                    </div>
+                    {ex.experience && (
+                      <div>
+                        <p className="text-base">{`${ex.experience}経験`}</p>
+                      </div>
+                    )}
+                    {ex.years && (
+                      <div>
+                        <p className="text-base">{`${ex.years}年程度`}</p>
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>

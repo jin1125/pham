@@ -23,8 +23,8 @@ export default function edit() {
     setNameTrigger,
     profileId,
     setProfileId,
-    profileImageSrc,
-    setProfileImageSrc,
+    profileImageUrl,
+    setProfileImageUrl,
     jobTitle,
     setJobTitle,
     homeAddress,
@@ -88,7 +88,7 @@ export default function edit() {
       //画像がクラウド上のどこにあるかURLで取得
       url = await storage.ref("profileImages").child(userId).getDownloadURL();
     } else {
-      url = profileImageSrc;
+      url = profileImageUrl;
     }
 
     const profileInformation = {
@@ -130,7 +130,6 @@ export default function edit() {
       .catch(() => {
         alert.error("プロフィールを変更できませんでした");
       });
-
   };
 
   ///////////////////////////////////////////////
@@ -294,7 +293,6 @@ export default function edit() {
   // }
 
   // reauthenticateWithCredential();
-  
 
   /////////////////////////////////////////////////////
 
@@ -339,10 +337,8 @@ export default function edit() {
       });
   };
 
-
   /// disabled判定処理 ///
-  const check1 = !userName || !homeAddress || !dobYY || !dobMM || !dobDD || !profileImage ;
-
+  const check1 = !userName || !homeAddress || !dobYY || !dobMM || !dobDD;
 
   ////////////////// JSXエリア //////////////////
   return (
@@ -364,12 +360,12 @@ export default function edit() {
                   src={fileUrl}
                   alt="Profile image"
                 />
-              ) : profileImageSrc ? (
+              ) : profileImageUrl ? (
                 <Image
                   className="inline object-cover mr-2 rounded-full cursor-pointer"
                   width={200}
                   height={200}
-                  src={profileImageSrc}
+                  src={profileImageUrl}
                   alt="Profile image"
                 />
               ) : (
@@ -383,7 +379,7 @@ export default function edit() {
                   />
                 )
               )}
-              <span className="text-red-500 align-top">*</span>
+              {/* <span className="text-red-500 align-top">*</span> */}
 
               <input
                 className="hidden"
@@ -735,7 +731,7 @@ export default function edit() {
                   key={index}
                   className="grid grid-cols-12 gap-2 items-center"
                 >
-                  <div className="grid grid-cols-12 my-1 col-span-7 gap-1 items-center">
+                  <div className="grid grid-cols-12 my-1 col-span-8 gap-1 items-center">
                     <input
                       type="text"
                       value={ex.experience}
@@ -758,7 +754,7 @@ export default function edit() {
                     />
                     <p className="text-base">年程度</p>
                   </div>
-                  <div className="col-span-2">
+                  <div className="col-span-1">
                     <button
                       className="text-white bg-gray-400 hover:bg-gray-300 py-1 px-2 rounded-full shadow-lg text-xs"
                       onClick={() => deleteExperience(index)}
@@ -816,6 +812,8 @@ export default function edit() {
                     className="text-base bg-blue-100 placeholder-blue-300 text-left rounded-full py-1 pl-5 outline-none w-full col-span-2 my-1"
                   />
 
+                  <p className="col-span-1 justify-self-center">~</p>
+
                   <input
                     type="text"
                     value={re.workEnd}
@@ -826,7 +824,7 @@ export default function edit() {
                     className="text-base bg-blue-100 placeholder-blue-300 text-left rounded-full py-1 pl-5 outline-none w-full col-span-2 my-1"
                   />
 
-                  <div className="col-span-2">
+                  <div className="col-span-1">
                     <button
                       className="text-white bg-gray-400 hover:bg-gray-300 py-1 px-2 rounded-full shadow-lg text-xs"
                       onClick={() => deleteResume(index)}
@@ -850,9 +848,11 @@ export default function edit() {
             >
               変更を保存
             </button>
-            {check1 &&
-            <p className="text-red-500 text-xs mt-2">*画像アップロードと必須項目を入力しましょう</p>
-            }
+            {check1 && (
+              <p className="text-red-500 text-xs mt-2">
+                *必須項目を入力しましょう
+              </p>
+            )}
           </div>
         </div>
         <hr />

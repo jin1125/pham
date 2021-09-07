@@ -13,7 +13,7 @@ function MyApp({ Component, pageProps }) {
   const [demoImg, setDemoImg] = useState("");
   const [nameTrigger, setNameTrigger] = useState("");
   const [profileId, setProfileId] = useState("");
-  const [profileImageSrc, setProfileImageSrc] = useState("");
+  const [profileImageUrl, setProfileImageUrl] = useState("");
   const [jobTitle, setJobTitle] = useState("");
   const [homeAddress, setHomeAddress] = useState("");
   const [dobYY, setDobYY] = useState("");
@@ -97,7 +97,7 @@ function MyApp({ Component, pageProps }) {
 
           if (doc.data()) {
             setProfileId(doc.id);
-            setProfileImageSrc(doc.data().profileImageUrl);
+            setProfileImageUrl(doc.data().profileImageUrl);
             setJobTitle(doc.data().jobTitle);
             setHomeAddress(doc.data().homeAddress);
             setDobYY(doc.data().dobYY);
@@ -154,8 +154,8 @@ function MyApp({ Component, pageProps }) {
         setNameTrigger,
         profileId,
         setProfileId,
-        profileImageSrc,
-        setProfileImageSrc,
+        profileImageUrl,
+        setProfileImageUrl,
         jobTitle,
         setJobTitle,
         homeAddress,
