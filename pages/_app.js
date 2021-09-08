@@ -11,9 +11,13 @@ function MyApp({ Component, pageProps }) {
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [demoImg, setDemoImg] = useState("");
+  const [demoImgs, setDemoImgs] = useState('');
   const [nameTrigger, setNameTrigger] = useState("");
   const [profileId, setProfileId] = useState("");
   const [profileImageUrl, setProfileImageUrl] = useState("");
+  const [freeImageUrl0, setFreeImageUrl0] = useState("");
+  const [freeImageUrl1, setFreeImageUrl1] = useState("");
+  const [freeImageUrl2, setFreeImageUrl2] = useState("");
   const [jobTitle, setJobTitle] = useState("");
   const [homeAddress, setHomeAddress] = useState("");
   const [dobYY, setDobYY] = useState("");
@@ -53,6 +57,9 @@ function MyApp({ Component, pageProps }) {
           if (!doc.data()) {
             const profileInformation = {
               profileImageUrl: "",
+              freeImageUrl0:'',
+              freeImageUrl1:'',
+              freeImageUrl2:'',
               jobTitle: "",
               homeAddress: "",
               dobYY: "",
@@ -98,6 +105,9 @@ function MyApp({ Component, pageProps }) {
           if (doc.data()) {
             setProfileId(doc.id);
             setProfileImageUrl(doc.data().profileImageUrl);
+            setFreeImageUrl0(doc.data().freeImageUrl0)
+            setFreeImageUrl1(doc.data().freeImageUrl1)
+            setFreeImageUrl2(doc.data().freeImageUrl2)
             setJobTitle(doc.data().jobTitle);
             setHomeAddress(doc.data().homeAddress);
             setDobYY(doc.data().dobYY);
@@ -130,6 +140,15 @@ function MyApp({ Component, pageProps }) {
       .then(function (url) {
         setDemoImg(url);
       });
+
+    storage
+      .ref()
+      .child("demo_imgs.jpeg")
+      .getDownloadURL()
+      .then(function (url) {
+        setDemoImgs(url);
+      });
+
   }, []);
 
   /// アラート設定 ///
@@ -150,12 +169,20 @@ function MyApp({ Component, pageProps }) {
         setUserEmail,
         demoImg,
         setDemoImg,
+        demoImgs,
+        setDemoImgs,
         nameTrigger,
         setNameTrigger,
         profileId,
         setProfileId,
         profileImageUrl,
         setProfileImageUrl,
+        freeImageUrl0,
+        setFreeImageUrl0,
+        freeImageUrl1,
+        setFreeImageUrl1,
+        freeImageUrl2,
+        setFreeImageUrl2,
         jobTitle,
         setJobTitle,
         homeAddress,

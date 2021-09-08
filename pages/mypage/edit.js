@@ -1,4 +1,5 @@
 import { Emoji } from "emoji-mart";
+import firebase from "firebase/app";
 import Head from "next/head";
 import Image from "next/image";
 import Router from "next/router";
@@ -19,12 +20,20 @@ export default function edit() {
     setUserEmail,
     demoImg,
     setDemoImg,
+    demoImgs,
+    setDemoImgs,
     nameTrigger,
     setNameTrigger,
     profileId,
     setProfileId,
     profileImageUrl,
     setProfileImageUrl,
+    freeImageUrl0,
+    setFreeImageUrl0,
+    freeImageUrl1,
+    setFreeImageUrl1,
+    freeImageUrl2,
+    setFreeImageUrl2,
     jobTitle,
     setJobTitle,
     homeAddress,
@@ -64,12 +73,18 @@ export default function edit() {
   } = useContext(UserContext);
 
   const [profileImage, setProfileImage] = useState("");
+  const [freeImage0, setFreeImage0] =  useState("");
+  const [freeImage1, setFreeImage1] =  useState("");
+  const [freeImage2, setFreeImage2] =  useState("");
   const [fileUrl, setFileUrl] = useState("");
+  const [fileUrls0, setFileUrls0] = useState("");
+  const [fileUrls1, setFileUrls1] = useState("");
+  const [fileUrls2, setFileUrls2] = useState("");
 
   ////////////////// 関数エリア //////////////////
   const alert = useAlert();
-
   const uploadImage = (e) => {
+
     if (e.target.files[0]) {
       const imageFile = e.target.files[0];
       const imageUrl = URL.createObjectURL(imageFile);
@@ -79,20 +94,97 @@ export default function edit() {
     }
   };
 
+  // const uploadImages = (e,index) => {
+  //   if (e.target.files[0]) {
+  //     const imageFile = e.target.files[0];
+  //     const imageUrl = URL.createObjectURL(imageFile);
+  //     const lists = [...fileUrls]
+  //     const frees = [...freeImage]
+  //     lists[index] = imageUrl;
+  //     frees[index] = e.target.files[0]
+  //     setFileUrls(lists);
+  //     setFreeImage(frees);
+  //     e.target.value = "";
+  //   }
+  // };
+
+  const uploadFreeImage0 = (e) => {
+
+    if (e.target.files[0]) {
+      const imageFile = e.target.files[0];
+      const imageUrl = URL.createObjectURL(imageFile);
+      setFileUrls0(imageUrl);
+      setFreeImage0(e.target.files[0]);
+      e.target.value = "";
+    }
+  };
+
+  const uploadFreeImage1 = (e) => {
+
+    if (e.target.files[0]) {
+      const imageFile = e.target.files[0];
+      const imageUrl = URL.createObjectURL(imageFile);
+      setFileUrls1(imageUrl);
+      setFreeImage1(e.target.files[0]);
+      e.target.value = "";
+    }
+  };
+
+  const uploadFreeImage2 = (e) => {
+
+    if (e.target.files[0]) {
+      const imageFile = e.target.files[0];
+      const imageUrl = URL.createObjectURL(imageFile);
+      setFileUrls2(imageUrl);
+      setFreeImage2(e.target.files[0]);
+      e.target.value = "";
+    }
+  };
+
   /// 変更を保存ボタン処理 ///
   const editHandler = async () => {
-    let url = "";
+    let profileUrl = "";
+    let freeUrl0 = "";
+    let freeUrl1 = "";
+    let freeUrl2 = "";
+
     if (profileImage) {
       //画像をストレージにアップロード
       await storage.ref(`profileImages/${userId}`).put(profileImage);
       //画像がクラウド上のどこにあるかURLで取得
-      url = await storage.ref("profileImages").child(userId).getDownloadURL();
+      profileUrl = await storage.ref("profileImages").child(userId).getDownloadURL();
     } else {
-      url = profileImageUrl;
+      profileUrl = profileImageUrl;
     }
 
+    if (freeImage0) {
+      await storage.ref(`freeImages/${userId}0`).put(freeImage0);
+      freeUrl0 = await storage.ref("freeImages").child(`${userId}0`).getDownloadURL();
+    } else {
+      freeUrl0 = freeImageUrl0;
+    }
+
+    if (freeImage1) {
+      await storage.ref(`freeImages/${userId}1`).put(freeImage1);
+      freeUrl1 = await storage.ref("freeImages").child(`${userId}1`).getDownloadURL();
+    } else {
+      freeUrl1 = freeImageUrl1;
+    }
+
+    if (freeImage2) {
+      await storage.ref(`freeImages/${userId}2`).put(freeImage2);
+      freeUrl2 = await storage.ref("freeImages").child(`${userId}2`).getDownloadURL();
+    } else {
+      freeUrl2 = freeImageUrl2;
+    }
+
+
+
     const profileInformation = {
-      profileImageUrl: url,
+      profileImageUrl: profileUrl,
+      freeImageUrl0: freeUrl0,
+      freeImageUrl1: freeUrl1,
+      freeImageUrl2: freeUrl2,
       connection: connection,
       scout: scout,
       jobTitle: jobTitle,
@@ -270,14 +362,19 @@ export default function edit() {
 
   //     console.log(user);
 
-  //     /**
-  //      * @returns {object}
-  //      */
-  //     function promptForCredentials() {
-  //       return {};
-  //     }
+  //     // /**
+  //     //  * @returns {object}
+  //     //  */
+  //     // function promptForCredentials() {
+  //     //   return {};
+  //     // }
 
-  //     const credential = promptForCredentials();
+  //     const credential = firebase.auth.EmailAuthProvider.credential(
+  //       user.email,
+  //       user.password,
+  //     )
+
+  //     // const credential = promptForCredentials();
 
   //     if (user) {
   //       // ログインしていれば中通る
@@ -340,6 +437,8 @@ export default function edit() {
   /// disabled判定処理 ///
   const check1 = !userName || !homeAddress || !dobYY || !dobMM || !dobDD;
 
+  console.log(demoImgs);
+
   ////////////////// JSXエリア //////////////////
   return (
     <div className="min-h-screen">
@@ -389,7 +488,8 @@ export default function edit() {
               />
             </label>
 
-            <div className="flex flex-row flex-wrap my-5 justify-center gap-1 items-center">
+            {/* /// スカウト受信設定 /// */}
+            <div className="flex flex-row flex-wrap my-10 justify-center gap-1 items-center">
               <Emoji emoji="female-detective" size={20} />
               <select
                 className="bg-blue-100 rounded-full pl-3 py-1"
@@ -402,6 +502,130 @@ export default function edit() {
                   スカウトを受け取らない
                 </option>
               </select>
+            </div>
+
+            {/* /// フリー画像アップロード0 /// */}
+            <div className="my-5">
+
+            <label>
+              {fileUrls0 ? (
+                <Image
+                  className="inline object-cover mr-2 cursor-pointer"
+                  width={200}
+                  height={200}
+                  src={fileUrls0}
+                  alt="Free image0"
+                />
+              ) : freeImageUrl0 ? (
+                <Image
+                  className="inline object-cover mr-2 cursor-pointer"
+                  width={200}
+                  height={200}
+                  src={freeImageUrl0}
+                  alt="Free image0"
+                />
+              ) : (
+                demoImgs && (
+                  <Image
+                    className="inline object-cover mr-2 cursor-pointer"
+                    width={200}
+                    height={200}
+                    src={demoImgs}
+                    alt="Free image0"
+                  />
+                )
+              )}
+
+              <input
+                className="hidden"
+                accept="image/*"
+                type="file"
+                onChange={uploadFreeImage0}
+              />
+            </label>
+
+            </div>
+            {/* /// フリー画像アップロード1 /// */}
+            <div className="my-5">
+
+            <label>
+              {fileUrls1 ? (
+                <Image
+                  className="inline object-cover mr-2 cursor-pointer"
+                  width={200}
+                  height={200}
+                  src={fileUrls1}
+                  alt="Free image1"
+                />
+              ) : freeImageUrl1 ? (
+                <Image
+                  className="inline object-cover mr-2 cursor-pointer"
+                  width={200}
+                  height={200}
+                  src={freeImageUrl1}
+                  alt="Free image1"
+                />
+              ) : (
+                demoImgs && (
+                  <Image
+                    className="inline object-cover mr-2 cursor-pointer"
+                    width={200}
+                    height={200}
+                    src={demoImgs}
+                    alt="Free image1"
+                  />
+                )
+              )}
+
+              <input
+                className="hidden"
+                accept="image/*"
+                type="file"
+                onChange={uploadFreeImage1}
+              />
+            </label>
+
+            </div>
+            {/* /// フリー画像アップロード2 /// */}
+            <div className="my-5">
+
+            <label>
+              {fileUrls2 ? (
+                <Image
+                  className="inline object-cover mr-2 cursor-pointer"
+                  width={200}
+                  height={200}
+                  src={fileUrls2}
+                  alt="Free image2"
+                />
+              ) : freeImageUrl2 ? (
+                <Image
+                  className="inline object-cover mr-2 cursor-pointer"
+                  width={200}
+                  height={200}
+                  src={freeImageUrl2}
+                  alt="Free image2"
+                />
+              ) : (
+                demoImgs && (
+                  <Image
+                    className="inline object-cover mr-2 cursor-pointer"
+                    width={200}
+                    height={200}
+                    src={demoImgs}
+                    alt="Free image2"
+                  />
+                )
+              )}
+
+              <input
+                className="hidden"
+                accept="image/*"
+                type="file"
+                onChange={uploadFreeImage2}
+              />
+            </label>
+
             </div>
           </div>
 
@@ -861,6 +1085,8 @@ export default function edit() {
         <div className="grid grid-cols-2 my-10 justify-items-center">
           <div className="w-full text-center">
             <p className="font-bold">メールアドレス変更</p>
+            <label>
+              <p>新しいメールアドレス</p>
             <input
               className="text-base bg-blue-100 placeholder-blue-300 rounded-full py-1 outline-none my-3 text-center w-3/5"
               placeholder="email@example.com"
@@ -871,6 +1097,7 @@ export default function edit() {
               value={userEmail}
               onChange={(e) => setUserEmail(e.target.value)}
             />
+            </label>
             <div>
               <button
                 className="text-white bg-blue-400 hover:bg-blue-300 py-1 px-5 rounded-full shadow-lg text-sm"

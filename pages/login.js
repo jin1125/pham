@@ -187,7 +187,6 @@ export default function login() {
               <div>
                 <button
                   className="text-white bg-blue-400 hover:bg-blue-300 disabled:bg-blue-200 py-2 w-1/2 rounded-full shadow-lg font-bold"
-                  // disabled={!isLogin && userName.trim() === "" ? true : false}
                   disabled={
                     isLogin
                       ? email.trim() === "" || password.trim().length+1 <= 6

@@ -12,7 +12,11 @@ export default function mypage() {
     userId,
     userName,
     profileImageUrl,
+    freeImageUrl0,
+    freeImageUrl1,
+    freeImageUrl2,
     demoImg,
+    demoImgs,
     jobTitle,
     homeAddress,
     dobYY,
@@ -76,10 +80,81 @@ export default function mypage() {
               <p className="text-base">{`${connection}人`}</p>
             </div>
 
-            <div className="flex flex-row flex-wrap my-5 justify-center gap-1 items-center">
+            <div className="flex flex-row flex-wrap mt-5 mb-10 justify-center gap-1 items-center">
               <Emoji emoji="female-detective" size={20} />
               <p className="text-base">{scout}</p>
             </div>
+
+            {freeImageUrl0 ? (
+              <div className='mr-2 my-5'>
+                <Image
+                  className="inline object-cover"
+                  width={200}
+                  height={200}
+                  src={freeImageUrl0}
+                  alt="Free image0"
+                />
+              </div>
+            ) : (
+              demoImgs && (
+                <div className='mr-2 my-5'>
+                <Image
+                  className="inline object-cover mr-2 my-5"
+                  width={200}
+                  height={200}
+                  src={demoImgs}
+                  alt="Free image0"
+                />
+                </div>
+              )
+            )}
+            {freeImageUrl1 ? (
+              <div className='mr-2 my-5'>
+                <Image
+                  className="inline object-cover"
+                  width={200}
+                  height={200}
+                  src={freeImageUrl1}
+                  alt="Free image0"
+                />
+              </div>
+            ) : (
+              demoImgs && (
+                <div className='mr-2 my-5'>
+                <Image
+                  className="inline object-cover mr-2 my-5"
+                  width={200}
+                  height={200}
+                  src={demoImgs}
+                  alt="Free image0"
+                />
+                </div>
+              )
+            )}
+            {freeImageUrl2 ? (
+              <div className='mr-2 my-5'>
+                <Image
+                  className="inline object-cover"
+                  width={200}
+                  height={200}
+                  src={freeImageUrl2}
+                  alt="Free image0"
+                />
+              </div>
+            ) : (
+              demoImgs && (
+                <div className='mr-2 my-5'>
+                <Image
+                  className="inline object-cover mr-2 my-5"
+                  width={200}
+                  height={200}
+                  src={demoImgs}
+                  alt="Free image0"
+                />
+                </div>
+              )
+            )}
+            
           </div>
 
           <div className="col-span-9">

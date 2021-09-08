@@ -169,8 +169,9 @@ export default function recruit() {
                 <div className="my-7">
                   <button
                     type="submit"
-                    className="text-white bg-blue-400 hover:bg-blue-300 py-2 w-1/2 rounded-full shadow-lg font-bold"
+                    className="text-white bg-blue-400 hover:bg-blue-300 disabled:bg-blue-200 py-2 w-1/2 rounded-full shadow-lg font-bold"
                     onClick={contactUs}
+                    disabled={companyName.trim() === '' || clientName.trim() === '' || email.trim() === '' || tel.trim() === '' }
                   >
                     お問い合わせ
                   </button>
