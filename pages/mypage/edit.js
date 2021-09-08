@@ -73,18 +73,22 @@ export default function edit() {
   } = useContext(UserContext);
 
   const [profileImage, setProfileImage] = useState("");
-  const [freeImage0, setFreeImage0] =  useState("");
-  const [freeImage1, setFreeImage1] =  useState("");
-  const [freeImage2, setFreeImage2] =  useState("");
+  const [freeImage0, setFreeImage0] = useState("");
+  const [freeImage1, setFreeImage1] = useState("");
+  const [freeImage2, setFreeImage2] = useState("");
   const [fileUrl, setFileUrl] = useState("");
   const [fileUrls0, setFileUrls0] = useState("");
   const [fileUrls1, setFileUrls1] = useState("");
   const [fileUrls2, setFileUrls2] = useState("");
+  const [resetEmailPassword, setResetEmailPassword] = useState("");
+  const [deleteAccountPassword, setDeleteAccountPassword] = useState("");
+  const [openEditEmail, setOpenEditEmail] = useState(false);
+  const [openEditPassword, setOpenEditPassword] = useState(false);
+  const [openDeleteAccount, setOpenDeleteAccount] = useState(false);
 
   ////////////////// 関数エリア //////////////////
   const alert = useAlert();
   const uploadImage = (e) => {
-
     if (e.target.files[0]) {
       const imageFile = e.target.files[0];
       const imageUrl = URL.createObjectURL(imageFile);
@@ -94,22 +98,7 @@ export default function edit() {
     }
   };
 
-  // const uploadImages = (e,index) => {
-  //   if (e.target.files[0]) {
-  //     const imageFile = e.target.files[0];
-  //     const imageUrl = URL.createObjectURL(imageFile);
-  //     const lists = [...fileUrls]
-  //     const frees = [...freeImage]
-  //     lists[index] = imageUrl;
-  //     frees[index] = e.target.files[0]
-  //     setFileUrls(lists);
-  //     setFreeImage(frees);
-  //     e.target.value = "";
-  //   }
-  // };
-
   const uploadFreeImage0 = (e) => {
-
     if (e.target.files[0]) {
       const imageFile = e.target.files[0];
       const imageUrl = URL.createObjectURL(imageFile);
@@ -120,7 +109,6 @@ export default function edit() {
   };
 
   const uploadFreeImage1 = (e) => {
-
     if (e.target.files[0]) {
       const imageFile = e.target.files[0];
       const imageUrl = URL.createObjectURL(imageFile);
@@ -131,7 +119,6 @@ export default function edit() {
   };
 
   const uploadFreeImage2 = (e) => {
-
     if (e.target.files[0]) {
       const imageFile = e.target.files[0];
       const imageUrl = URL.createObjectURL(imageFile);
@@ -152,33 +139,43 @@ export default function edit() {
       //画像をストレージにアップロード
       await storage.ref(`profileImages/${userId}`).put(profileImage);
       //画像がクラウド上のどこにあるかURLで取得
-      profileUrl = await storage.ref("profileImages").child(userId).getDownloadURL();
+      profileUrl = await storage
+        .ref("profileImages")
+        .child(userId)
+        .getDownloadURL();
     } else {
       profileUrl = profileImageUrl;
     }
 
     if (freeImage0) {
       await storage.ref(`freeImages/${userId}0`).put(freeImage0);
-      freeUrl0 = await storage.ref("freeImages").child(`${userId}0`).getDownloadURL();
+      freeUrl0 = await storage
+        .ref("freeImages")
+        .child(`${userId}0`)
+        .getDownloadURL();
     } else {
       freeUrl0 = freeImageUrl0;
     }
 
     if (freeImage1) {
       await storage.ref(`freeImages/${userId}1`).put(freeImage1);
-      freeUrl1 = await storage.ref("freeImages").child(`${userId}1`).getDownloadURL();
+      freeUrl1 = await storage
+        .ref("freeImages")
+        .child(`${userId}1`)
+        .getDownloadURL();
     } else {
       freeUrl1 = freeImageUrl1;
     }
 
     if (freeImage2) {
       await storage.ref(`freeImages/${userId}2`).put(freeImage2);
-      freeUrl2 = await storage.ref("freeImages").child(`${userId}2`).getDownloadURL();
+      freeUrl2 = await storage
+        .ref("freeImages")
+        .child(`${userId}2`)
+        .getDownloadURL();
     } else {
       freeUrl2 = freeImageUrl2;
     }
-
-
 
     const profileInformation = {
       profileImageUrl: profileUrl,
@@ -205,7 +202,7 @@ export default function edit() {
       resumes: resumes,
     };
 
-    /// 名前変更処理 ///
+    /// 名前変更の処理 ///
     const user = auth.currentUser;
     console.log(user);
     user.updateProfile({
@@ -224,8 +221,7 @@ export default function edit() {
       });
   };
 
-  ///////////////////////////////////////////////
-
+  /// 経験年数の各experienceの変更処理 ///
   const changeExperience = (e, index) => {
     const list = [...experiences];
     list[index] = {
@@ -235,6 +231,7 @@ export default function edit() {
     setExperiences(list);
   };
 
+  /// 経験年数の各yearsの変更処理 ///
   const changeYears = (e, index) => {
     const list = [...experiences];
     list[index] = {
@@ -244,12 +241,14 @@ export default function edit() {
     setExperiences(list);
   };
 
+  /// 経験年数の欄追加処理 ///
   const addExperience = () => {
     const list = [...experiences];
     list.push({ experience: "", years: "" });
     setExperiences(list);
   };
 
+  /// 経験年数の欄削除処理 ///
   const deleteExperience = (index) => {
     const list = [...experiences];
     list.splice(index, 1);
@@ -321,77 +320,80 @@ export default function edit() {
     setResumes(list);
   };
 
-  ///////////////////////////////////////////////
   /// メールアドレス変更処理 ///
   const changeEmail = () => {
-    // const result = confirm("メールアドレスを変更してもよろしいですか?");
-
-    // if (result) {
     const unsub = auth.onAuthStateChanged((user) => {
-      if (user) {
-        // ログインしていれば中通る
-        console.log(user);
+      if (user && resetEmailPassword) {
+        const credential = firebase.auth.EmailAuthProvider.credential(
+          user.email,
+          resetEmailPassword
+        );
 
-        // const userInfo = auth.currentUser;
-
-        // console.log(userInfo);
-        console.log(userEmail);
-
+        // ログインしていれば通る
         user
-          .updateEmail(userEmail)
+          .reauthenticateWithCredential(credential)
           .then(() => {
-            alert.success("メールアドレスを変更しました");
+            const result = confirm("メールアドレスを変更してもよろしいですか?");
+
+            if (result) {
+              user
+                .updateEmail(userEmail)
+                .then(() => {
+                  alert.success("メールアドレスを変更しました");
+                })
+                .catch((error) => {
+                  alert.error("メールアドレスを変更できませんでした");
+                });
+            } else {
+              alert.error("変更をキャンセルしました");
+            }
           })
-          .catch((error) => {
-            alert.error("メールアドレスを変更できませんでした");
+          .catch(() => {
+            alert.error("パスワードが異なっています");
           });
       }
-
       // 登録解除
       unsub();
     });
-
-    // } else {
-    //   alert.error("変更をキャンセルしました");
-    // }
   };
 
-  // function reauthenticateWithCredential() {
+  /// アカウント削除 ///
+  const deleteAccount = () => {
+    const unsub = auth.onAuthStateChanged((user) => {
+      if (user && deleteAccountPassword) {
+        const credential = firebase.auth.EmailAuthProvider.credential(
+          user.email,
+          deleteAccountPassword
+        );
 
-  //   const unsub = auth.onAuthStateChanged((user) => {
+        // ログインしていれば通る
+        user
+          .reauthenticateWithCredential(credential)
+          .then(() => {
+            const result = confirm("本当に退会しますか?");
 
-  //     console.log(user);
-
-  //     // /**
-  //     //  * @returns {object}
-  //     //  */
-  //     // function promptForCredentials() {
-  //     //   return {};
-  //     // }
-
-  //     const credential = firebase.auth.EmailAuthProvider.credential(
-  //       user.email,
-  //       user.password,
-  //     )
-
-  //     // const credential = promptForCredentials();
-
-  //     if (user) {
-  //       // ログインしていれば中通る
-  //       user.reauthenticateWithCredential(credential).then(() => {
-  //         console.log('OK');
-  //       }).catch((error) => {
-  //         console.log('NG');
-  //       });
-  //     }
-  //     // 登録解除
-  //     unsub();
-  //   });
-  // }
-
-  // reauthenticateWithCredential();
-
-  /////////////////////////////////////////////////////
+            if (result) {
+              user
+                .delete()
+                .then(() => {
+                  alert.success("退会しました");
+                  Router.push("/login");
+                })
+                .catch((error) => {
+                  alert.error("退会できませんでした");
+                });
+            } else {
+              alert.error("退会をキャンセルしました");
+            }
+          })
+          .catch(() => {
+            alert.error("パスワードが異なっています");
+          });
+      }
+      // 登録解除
+      unsub();
+    });
+  };
 
   /// パスワード変更処理 ///
   const sendResetEmail = async () => {
@@ -419,25 +421,8 @@ export default function edit() {
     }
   };
 
-  /// 退会処理 ///
-  const deleteUser = () => {
-    const user = firebase.auth().currentUser;
-
-    user
-      .delete()
-      .then(() => {
-        // User deleted.
-      })
-      .catch((error) => {
-        // An error ocurred
-        // ...
-      });
-  };
-
   /// disabled判定処理 ///
   const check1 = !userName || !homeAddress || !dobYY || !dobMM || !dobDD;
-
-  console.log(demoImgs);
 
   ////////////////// JSXエリア //////////////////
   return (
@@ -506,126 +491,120 @@ export default function edit() {
 
             {/* /// フリー画像アップロード0 /// */}
             <div className="my-5">
-
-            <label>
-              {fileUrls0 ? (
-                <Image
-                  className="inline object-cover mr-2 cursor-pointer"
-                  width={200}
-                  height={200}
-                  src={fileUrls0}
-                  alt="Free image0"
-                />
-              ) : freeImageUrl0 ? (
-                <Image
-                  className="inline object-cover mr-2 cursor-pointer"
-                  width={200}
-                  height={200}
-                  src={freeImageUrl0}
-                  alt="Free image0"
-                />
-              ) : (
-                demoImgs && (
+              <label>
+                {fileUrls0 ? (
                   <Image
                     className="inline object-cover mr-2 cursor-pointer"
                     width={200}
                     height={200}
-                    src={demoImgs}
+                    src={fileUrls0}
                     alt="Free image0"
                   />
-                )
-              )}
+                ) : freeImageUrl0 ? (
+                  <Image
+                    className="inline object-cover mr-2 cursor-pointer"
+                    width={200}
+                    height={200}
+                    src={freeImageUrl0}
+                    alt="Free image0"
+                  />
+                ) : (
+                  demoImgs && (
+                    <Image
+                      className="inline object-cover mr-2 cursor-pointer"
+                      width={200}
+                      height={200}
+                      src={demoImgs}
+                      alt="Free image0"
+                    />
+                  )
+                )}
 
-              <input
-                className="hidden"
-                accept="image/*"
-                type="file"
-                onChange={uploadFreeImage0}
-              />
-            </label>
-
+                <input
+                  className="hidden"
+                  accept="image/*"
+                  type="file"
+                  onChange={uploadFreeImage0}
+                />
+              </label>
             </div>
             {/* /// フリー画像アップロード1 /// */}
             <div className="my-5">
-
-            <label>
-              {fileUrls1 ? (
-                <Image
-                  className="inline object-cover mr-2 cursor-pointer"
-                  width={200}
-                  height={200}
-                  src={fileUrls1}
-                  alt="Free image1"
-                />
-              ) : freeImageUrl1 ? (
-                <Image
-                  className="inline object-cover mr-2 cursor-pointer"
-                  width={200}
-                  height={200}
-                  src={freeImageUrl1}
-                  alt="Free image1"
-                />
-              ) : (
-                demoImgs && (
+              <label>
+                {fileUrls1 ? (
                   <Image
                     className="inline object-cover mr-2 cursor-pointer"
                     width={200}
                     height={200}
-                    src={demoImgs}
+                    src={fileUrls1}
                     alt="Free image1"
                   />
-                )
-              )}
+                ) : freeImageUrl1 ? (
+                  <Image
+                    className="inline object-cover mr-2 cursor-pointer"
+                    width={200}
+                    height={200}
+                    src={freeImageUrl1}
+                    alt="Free image1"
+                  />
+                ) : (
+                  demoImgs && (
+                    <Image
+                      className="inline object-cover mr-2 cursor-pointer"
+                      width={200}
+                      height={200}
+                      src={demoImgs}
+                      alt="Free image1"
+                    />
+                  )
+                )}
 
-              <input
-                className="hidden"
-                accept="image/*"
-                type="file"
-                onChange={uploadFreeImage1}
-              />
-            </label>
-
+                <input
+                  className="hidden"
+                  accept="image/*"
+                  type="file"
+                  onChange={uploadFreeImage1}
+                />
+              </label>
             </div>
             {/* /// フリー画像アップロード2 /// */}
             <div className="my-5">
-
-            <label>
-              {fileUrls2 ? (
-                <Image
-                  className="inline object-cover mr-2 cursor-pointer"
-                  width={200}
-                  height={200}
-                  src={fileUrls2}
-                  alt="Free image2"
-                />
-              ) : freeImageUrl2 ? (
-                <Image
-                  className="inline object-cover mr-2 cursor-pointer"
-                  width={200}
-                  height={200}
-                  src={freeImageUrl2}
-                  alt="Free image2"
-                />
-              ) : (
-                demoImgs && (
+              <label>
+                {fileUrls2 ? (
                   <Image
                     className="inline object-cover mr-2 cursor-pointer"
                     width={200}
                     height={200}
-                    src={demoImgs}
+                    src={fileUrls2}
                     alt="Free image2"
                   />
-                )
-              )}
+                ) : freeImageUrl2 ? (
+                  <Image
+                    className="inline object-cover mr-2 cursor-pointer"
+                    width={200}
+                    height={200}
+                    src={freeImageUrl2}
+                    alt="Free image2"
+                  />
+                ) : (
+                  demoImgs && (
+                    <Image
+                      className="inline object-cover mr-2 cursor-pointer"
+                      width={200}
+                      height={200}
+                      src={demoImgs}
+                      alt="Free image2"
+                    />
+                  )
+                )}
 
-              <input
-                className="hidden"
-                accept="image/*"
-                type="file"
-                onChange={uploadFreeImage2}
-              />
-            </label>
-
+                <input
+                  className="hidden"
+                  accept="image/*"
+                  type="file"
+                  onChange={uploadFreeImage2}
+                />
+              </label>
             </div>
           </div>
 
@@ -1082,64 +1061,127 @@ export default function edit() {
         <hr />
 
         {/* ////// メールアドレス＆パスワード変更 ////// */}
-        <div className="grid grid-cols-2 my-10 justify-items-center">
+        <div className="grid grid-cols-4 my-10 justify-items-center">
           <div className="w-full text-center">
-            <p className="font-bold">メールアドレス変更</p>
-            <label>
-              <p>新しいメールアドレス</p>
-            <input
-              className="text-base bg-blue-100 placeholder-blue-300 rounded-full py-1 outline-none my-3 text-center w-3/5"
-              placeholder="email@example.com"
-              name="email"
-              autoComplete="email"
-              type="email"
-              maxLength="256"
-              value={userEmail}
-              onChange={(e) => setUserEmail(e.target.value)}
-            />
-            </label>
-            <div>
-              <button
-                className="text-white bg-blue-400 hover:bg-blue-300 py-1 px-5 rounded-full shadow-lg text-sm"
-                onClick={changeEmail}
-              >
-                変更
-              </button>
-            </div>
+            <button
+            className="text-white bg-blue-400 hover:bg-blue-300 py-1 px-5 rounded-full shadow-lg text-sm"
+            onClick={() => setOpenEditEmail(!openEditEmail)}
+          >
+             メールアドレス変更
+          </button>
+            {openEditEmail && (
+              <>
+                <label>
+                  <p className="mt-5 text-sm text-blue-300">
+                    新しいメールアドレス
+                  </p>
+                  <input
+                    className="text-base bg-blue-100 placeholder-blue-300 rounded-full py-1 outline-none text-center w-4/5"
+                    placeholder="email@example.com"
+                    name="email"
+                    autoComplete="email"
+                    type="email"
+                    maxLength="256"
+                    value={userEmail}
+                    onChange={(e) => setUserEmail(e.target.value)}
+                  />
+                </label>
+                <label>
+                  <p className="mt-3 text-sm text-blue-300">パスワード</p>
+                  <input
+                    className="text-base bg-blue-100 placeholder-blue-300 rounded-full py-1 outline-none text-center w-4/5"
+                    name="password"
+                    autoComplete="password"
+                    type="password"
+                    maxLength="20"
+                    value={resetEmailPassword}
+                    onChange={(e) => setResetEmailPassword(e.target.value)}
+                  />
+                </label>
+                <div>
+                  <button
+                    className="text-white bg-blue-400 hover:bg-blue-300 disabled:bg-blue-200 py-1 px-5 rounded-full shadow-lg text-sm my-3"
+                    onClick={changeEmail}
+                    disabled={
+                      userEmail.trim() === "" || resetEmailPassword.length < 6
+                    }
+                  >
+                    変更
+                  </button>
+                </div>
+              </>
+            )}
           </div>
 
           <div className="w-full text-center">
-            <p className="font-bold">パスワード変更</p>
-            <p className="w-3/5 my-3 text-center mx-auto text-blue-300 text-sm">
-              現在登録されているメールアドレスにパスワード変更メールが送信されます
-            </p>
-            <div>
-              <button
-                className="text-white bg-blue-400 hover:bg-blue-300 py-1 px-5 rounded-full shadow-lg text-sm"
-                onClick={sendResetEmail}
-              >
-                変更
-              </button>
-            </div>
+            <button
+            className="text-white bg-blue-400 hover:bg-blue-300 py-1 px-5 rounded-full shadow-lg text-sm"
+            onClick={() => setOpenEditPassword(!openEditPassword)}
+          >
+             パスワード変更
+          </button>
+            {openEditPassword && (
+              <>
+                <p className="w-4/5 my-3 text-center mx-auto text-blue-300 text-sm">
+                  現在登録されているメールアドレスにパスワード変更メールが送信されます
+                </p>
+                <div>
+                  <button
+                    className="text-white bg-blue-400 hover:bg-blue-300 py-1 px-5 rounded-full shadow-lg text-sm"
+                    onClick={sendResetEmail}
+                  >
+                    変更
+                  </button>
+                </div>
+              </>
+            )}
           </div>
-        </div>
-        <hr />
 
-        {/* ////// ログアウト＆退会 ////// */}
-        <div className="flex flex-row flex-wrap justify-center gap-10 my-10">
+          <div className="w-full text-center">
           <button
             className="text-white bg-gray-400 hover:bg-gray-300 py-1 px-5 rounded-full shadow-lg text-sm"
             onClick={signOutUser}
           >
             ログアウト
           </button>
-          <button
-            className="text-gray-400 border-2 border-gray-400 hover:bg-gray-200 py-1 px-5 rounded-full shadow-lg text-sm"
-            onClick={deleteUser}
+          </div>
+
+          <div className="w-full text-center">
+            <button
+            className="text-white bg-gray-400 hover:bg-gray-300 py-1 px-5 rounded-full shadow-lg text-sm"
+            onClick={() => setOpenDeleteAccount(!openDeleteAccount)}
           >
-            退会
+             アカウント削除
           </button>
+            {openDeleteAccount && (
+              <>
+            <label>
+              <p className="mt-3 text-sm text-blue-300">パスワード</p>
+              <input
+                className="text-base bg-blue-100 placeholder-blue-300 rounded-full py-1 outline-none text-center w-4/5"
+                name="password"
+                autoComplete="password"
+                type="password"
+                maxLength="20"
+                value={deleteAccountPassword}
+                onChange={(e) => setDeleteAccountPassword(e.target.value)}
+              />
+            </label>
+            <div>
+              <button
+                className="text-white bg-blue-400 hover:bg-blue-300 disabled:bg-blue-200 py-1 px-5 rounded-full shadow-lg text-sm my-3"
+                onClick={deleteAccount}
+                disabled={deleteAccountPassword.length < 6}
+              >
+                削除
+              </button>
+            </div>
+              </>
+            )}
+            
+          </div>
         </div>
+
       </Layout>
     </div>
   );
