@@ -528,7 +528,7 @@ export default function edit() {
             <div className="flex flex-row flex-wrap my-10 justify-center gap-1 items-center">
               <Emoji emoji="female-detective" size={20} />
               <select
-                className="bg-blue-100 rounded-full pl-3 py-1"
+                className="bg-blue-100 rounded-full outline-none pl-3 py-1"
                 name="scout"
                 value={scout}
                 onChange={(e) => setScout(e.target.value)}
@@ -711,7 +711,7 @@ export default function edit() {
                 <Emoji emoji="birthday" size={20} />
                 <label>
                   <select
-                    className="bg-blue-100 rounded-full pl-3 py-1"
+                    className="bg-blue-100 rounded-full outline-none pl-3 py-1"
                     name="dobYY"
                     value={dobYY}
                     onChange={(e) => setDobYY(e.target.value)}
@@ -773,7 +773,7 @@ export default function edit() {
                 <p>/</p>
                 <label>
                   <select
-                    className="bg-blue-100 rounded-full pl-3 py-1"
+                    className="bg-blue-100 rounded-full outline-none pl-3 py-1"
                     name="dobMM"
                     value={dobMM}
                     onChange={(e) => setDobMM(e.target.value)}
@@ -797,7 +797,7 @@ export default function edit() {
                 <p>/</p>
                 <label>
                   <select
-                    className="bg-blue-100 rounded-full pl-3 py-1"
+                    className="bg-blue-100 rounded-full outline-none pl-3 py-1"
                     name="dobDD"
                     value={dobDD}
                     onChange={(e) => setDobDD(e.target.value)}
