@@ -1,6 +1,7 @@
 import Head from "next/head";
 import React from "react";
 import Layout from "../../../components/layout/Layout";
+import Search from "../../../components/search/Search";
 
 export default function profiles() {
   return (
@@ -11,7 +12,7 @@ export default function profiles() {
       </Head>
 
       <Layout>
-        <div>薬剤師検索結果</div>
+        <Search/>
       </Layout>
     </div>
   );

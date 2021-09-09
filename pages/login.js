@@ -52,16 +52,21 @@ export default function login() {
     }
   };
 
+  console.log(userName);
+
   const signUp = async () => {
+    if(userName){
     try {
       const authUser = await auth.createUserWithEmailAndPassword(
         email,
         password
       );
-
-      await authUser.user.updateProfile({
-        displayName: userName,
-      });
+      
+      if(userName){
+        await authUser.user.updateProfile({
+          displayName: userName,
+        });
+      }
 
       setNameTrigger(userName)
       alert.success("アカウントを作成できました");
@@ -69,6 +74,8 @@ export default function login() {
     } catch (error) {
       alert.error("アカウントを作成できませんでした");
     }
+
+  }
   };
 
   const switchSignIn = () => {

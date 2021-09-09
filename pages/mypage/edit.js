@@ -180,6 +180,7 @@ export default function edit() {
 
     const profileInformation = {
       profileImageUrl: profileUrl,
+      userName:userName,
       freeImageUrl0: freeUrl0,
       freeImageUrl1: freeUrl1,
       freeImageUrl2: freeUrl2,
@@ -205,9 +206,11 @@ export default function edit() {
 
     /// 名前変更の処理 ///
     auth.onAuthStateChanged((user) => {
-      user.updateProfile({
-        displayName: userName,
-      });
+      if(userName){
+        user.updateProfile({
+          displayName: userName,
+        });
+      }
     });
 
     await db

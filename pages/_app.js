@@ -49,13 +49,15 @@ function MyApp({ Component, pageProps }) {
     return () => unSub();
   }, [nameTrigger]);
 
+
   useEffect(() => {
-    if (userId) {
+    if (userId,userName) {
       db.collection("userProfiles")
         .doc(userId)
         .onSnapshot((doc) => {
           if (!doc.data()) {
             const profileInformation = {
+              userName:userName,
               profileImageUrl: "",
               freeImageUrl0:'',
               freeImageUrl1:'',
@@ -93,7 +95,7 @@ function MyApp({ Component, pageProps }) {
           }
         });
     }
-  }, [userId]);
+  }, [userId,userName]);
 
 
   useEffect(() => {
@@ -104,6 +106,7 @@ function MyApp({ Component, pageProps }) {
 
           if (doc.data()) {
             setProfileId(doc.id);
+            setUserName(doc.data().userName)
             setProfileImageUrl(doc.data().profileImageUrl);
             setFreeImageUrl0(doc.data().freeImageUrl0)
             setFreeImageUrl1(doc.data().freeImageUrl1)
