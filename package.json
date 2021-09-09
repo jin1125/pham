@@ -10,6 +10,7 @@
     "emoji-mart": "^3.0.1",
     "firebase": "8.10.0",
     "firebase-admin": "^9.11.1",
+    "firebase-tools": "^9.18.0",
     "next": "^11.1.2",
     "react": "^17.0.2",
     "react-alert": "^7.0.3",
