@@ -8,7 +8,7 @@ import { auth, provider } from "../firebase";
 import { UserContext } from "../UserContext";
 
 export default function login() {
-  const [userName, setUserName] = useState("");
+  const [name, setName] = useState("");
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -55,7 +55,7 @@ export default function login() {
  
 
   const signUp = async () => {
-    if(userName){
+    if(name){
     try {
       const authUser = await auth.createUserWithEmailAndPassword(
         email,
@@ -64,11 +64,11 @@ export default function login() {
 
       if(authUser){
         await authUser.user.updateProfile({
-          displayName: userName,
+          displayName: name,
         });
       }
 
-      setNameTrigger(userName)
+      setNameTrigger(name)
       alert.success("アカウントを作成できました");
       Router.push("/mypage");
     } catch (error) {
@@ -149,8 +149,8 @@ export default function login() {
                       autoComplete="name"
                       type="text"
                       maxLength="20"
-                      value={userName}
-                      onChange={(e) => setUserName(e.target.value)}
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
                     />
                   </label>
                   <small className="text-gray-400">
@@ -198,7 +198,7 @@ export default function login() {
                   disabled={
                     isLogin
                       ? email.trim() === "" || password.trim().length+1 <= 6
-                      : userName.trim() === "" ||
+                      : name.trim() === "" ||
                         email.trim() === "" ||
                         password.trim().length+1 <= 6
                   }

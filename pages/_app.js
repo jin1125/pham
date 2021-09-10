@@ -34,9 +34,10 @@ function MyApp({ Component, pageProps }) {
   const [subjectArea, setSubjectArea] = useState("");
   const [connection, setConnection] = useState("");
   const [scout, setScout] = useState("");
-
   const [experiences, setExperiences] = useState([]);
   const [resumes, setResumes] = useState([]);
+
+  const [selectHomeAddress, setSelectHomeAddress] = useState("");
 
   useEffect(() => {
     const unSub = auth.onAuthStateChanged((user) => {
@@ -222,7 +223,9 @@ function MyApp({ Component, pageProps }) {
         experiences,
         setExperiences,
         resumes,
-        setResumes
+        setResumes,
+        selectHomeAddress, 
+        setSelectHomeAddress
       }}
     >
       <AlertProvider template={AlertTemplate} {...options}>

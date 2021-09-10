@@ -700,10 +700,9 @@ export default function edit() {
                 <Emoji emoji="round_pushpin" size={20} />
                 <label>
                   <select
-                    className="bg-blue-100 rounded-full outline-none pl-3 py-1"
+                    className="bg-blue-100 rounded-full outline-none pl-3 pr-2 py-1"
                     name="homeAddress"
                     value={homeAddress}
-                    onChange={(e) => setDobMM(e.target.value)}
                     onChange={(e) => setHomeAddress(e.target.value)}
                   >
                     <option value="">住所</option>
@@ -764,7 +763,7 @@ export default function edit() {
                 <Emoji emoji="birthday" size={20} />
                 <label>
                   <select
-                    className="bg-blue-100 rounded-full outline-none pl-3 py-1"
+                    className="bg-blue-100 rounded-full outline-none pl-3 pr-2 py-1"
                     name="dobYY"
                     value={dobYY}
                     onChange={(e) => setDobYY(e.target.value)}
@@ -826,7 +825,7 @@ export default function edit() {
                 <p>/</p>
                 <label>
                   <select
-                    className="bg-blue-100 rounded-full outline-none pl-3 py-1"
+                    className="bg-blue-100 rounded-full outline-none pl-3 pr-2 py-1"
                     name="dobMM"
                     value={dobMM}
                     onChange={(e) => setDobMM(e.target.value)}
@@ -850,7 +849,7 @@ export default function edit() {
                 <p>/</p>
                 <label>
                   <select
-                    className="bg-blue-100 rounded-full outline-none pl-3 py-1"
+                    className="bg-blue-100 rounded-full outline-none pl-3 pr-2 py-1"
                     name="dobDD"
                     value={dobDD}
                     onChange={(e) => setDobDD(e.target.value)}
