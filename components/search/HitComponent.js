@@ -5,38 +5,39 @@ import { UserContext } from "../../UserContext";
 
 export function hitComponent({ hit }) {
   const { demoImg } = useContext(UserContext);
-  
-  const selectProfile = ()=>{
+
+  const selectProfile = () => {
     console.log(hit.userName);
-  }
+  };
 
   return (
     <div>
-      <button onClick={selectProfile}>
-      {hit.profileImageUrl ? (
-        <Image
-          className="inline object-cover mr-2 rounded-full"
-          width={50}
-          height={50}
-          src={hit.profileImageUrl}
-          alt="Profile image"
-        />
-      ) : (
-        demoImg && (
-          <Image
-            className="inline object-cover mr-2 rounded-full"
-            width={50}
-            height={50}
-            src={demoImg}
-            alt="Profile image"
-          />
-        )
+      {hit.homeAddress === "山形県" && (
+        <button onClick={selectProfile}>
+          {hit.profileImageUrl ? (
+            <Image
+              className="inline object-cover mr-2 rounded-full"
+              width={50}
+              height={50}
+              src={hit.profileImageUrl}
+              alt="Profile image"
+            />
+          ) : (
+            demoImg && (
+              <Image
+                className="inline object-cover mr-2 rounded-full"
+                width={50}
+                height={50}
+                src={demoImg}
+                alt="Profile image"
+              />
+            )
+          )}
+
+          <Highlight attribute="userName" tagName="mark" hit={hit} />
+          <Highlight attribute="homeAddress" tagName="mark" hit={hit} />
+        </button>
       )}
-
-      <Highlight attribute="userName" tagName="mark" hit={hit}/>
-      <Highlight attribute="homeAddress" tagName="mark" hit={hit} />
-
-      </button>
     </div>
   );
 }
