@@ -206,7 +206,6 @@ export default function edit() {
 
     /// 名前変更の処理 ///
     auth.onAuthStateChanged((user) => {
-      console.log(user);
       if(user){
         user.updateProfile({
           displayName: userName,
@@ -392,6 +391,7 @@ export default function edit() {
               user
                 .delete()
                 .then(() => {
+                  setUserName('')
                   alert.success("アカウントを削除しました");
                   Router.push("/login");
                 })
@@ -434,6 +434,7 @@ export default function edit() {
           user
             .delete()
             .then(() => {
+              setUserName('')
               alert.success("アカウントを削除しました");
               Router.push("/login");
             })

@@ -62,9 +62,6 @@ export default function login() {
         password
       );
 
-       console.log(authUser.user);
-       console.log(authUser);
-      
       if(authUser){
         await authUser.user.updateProfile({
           displayName: userName,
@@ -88,6 +85,7 @@ export default function login() {
   const switchSignUp = () => {
     setIsLogin(false);
   };
+
 
   ////////////////////////// JSXエリア //////////////////////////
   return (
