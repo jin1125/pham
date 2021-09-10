@@ -63,8 +63,9 @@ export default function login() {
       );
 
        console.log(authUser.user);
+       console.log(authUser);
       
-      if(authUser.user){
+      if(authUser){
         await authUser.user.updateProfile({
           displayName: userName,
         });

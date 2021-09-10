@@ -206,7 +206,8 @@ export default function edit() {
 
     /// 名前変更の処理 ///
     auth.onAuthStateChanged((user) => {
-      if(userName){
+      console.log(user);
+      if(user){
         user.updateProfile({
           displayName: userName,
         });

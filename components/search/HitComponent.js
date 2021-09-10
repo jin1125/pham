@@ -3,7 +3,7 @@ import { Hit } from 'react-instantsearch-core';
 
 function HitComponent({ hit }) {
   return (
-    <div>
+    <div>      
         <a className="hover:text-[#06bbbc]">{hit.userName}</a>
         <a className="hover:text-[#06bbbc]">{hit.homeAddress}</a>
     </div>
