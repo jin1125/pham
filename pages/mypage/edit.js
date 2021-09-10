@@ -326,13 +326,14 @@ export default function edit() {
 
   /// google認識でログインか判別処理 ///
   useEffect(() => {
-    auth.onAuthStateChanged((user) => {
+    const unSub = auth.onAuthStateChanged((user) => {
       if (user) {
         if (user.providerData[0].providerId === "google.com") {
           setIsGoogleLogin(true);
         }
       }
     });
+    return () => unSub();
   }, []);
 
   /// メールアドレス変更処理 ///

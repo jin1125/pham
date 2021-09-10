@@ -100,7 +100,7 @@ function MyApp({ Component, pageProps }) {
 
   useEffect(() => {
     if (userId) {
-      db.collection("userProfiles")
+      const unSub =  db.collection("userProfiles")
         .doc(userId)
         .onSnapshot((doc) => {
 
@@ -132,6 +132,7 @@ function MyApp({ Component, pageProps }) {
           }
         });
 
+        return () => unSub();
     }
   }, [userId]);
 
@@ -153,6 +154,8 @@ function MyApp({ Component, pageProps }) {
       });
 
   }, []);
+
+  console.log(homeAddress);
 
   /// アラート設定 ///
   const options = {
