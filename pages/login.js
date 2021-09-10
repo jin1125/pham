@@ -52,7 +52,7 @@ export default function login() {
     }
   };
 
-  console.log(userName);
+ 
 
   const signUp = async () => {
     if(userName){
@@ -61,8 +61,10 @@ export default function login() {
         email,
         password
       );
+
+       console.log(authUser.user);
       
-      if(userName){
+      if(authUser.user){
         await authUser.user.updateProfile({
           displayName: userName,
         });

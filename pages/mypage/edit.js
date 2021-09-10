@@ -328,7 +328,6 @@ export default function edit() {
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
       if (user) {
-        console.log(user.providerData[0].providerId);
         if (user.providerData[0].providerId === "google.com") {
           setIsGoogleLogin(true);
         }
