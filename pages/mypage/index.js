@@ -115,7 +115,7 @@ export default function mypage() {
                   width={200}
                   height={200}
                   src={freeImageUrl1}
-                  alt="Free image0"
+                  alt="Free image1"
                 />
               </div>
             ) : (
@@ -126,7 +126,7 @@ export default function mypage() {
                   width={200}
                   height={200}
                   src={demoImgs}
-                  alt="Free image0"
+                  alt="Free image1"
                 />
                 </div>
               )
@@ -138,7 +138,7 @@ export default function mypage() {
                   width={200}
                   height={200}
                   src={freeImageUrl2}
-                  alt="Free image0"
+                  alt="Free image2"
                 />
               </div>
             ) : (
@@ -149,7 +149,7 @@ export default function mypage() {
                   width={200}
                   height={200}
                   src={demoImgs}
-                  alt="Free image0"
+                  alt="Free image2"
                 />
                 </div>
               )

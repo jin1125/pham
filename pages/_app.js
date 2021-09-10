@@ -155,8 +155,6 @@ function MyApp({ Component, pageProps }) {
 
   }, []);
 
-  console.log(homeAddress);
-
   /// アラート設定 ///
   const options = {
     timeout: 2000,
