@@ -86,10 +86,10 @@ function MyApp({ Component, pageProps }) {
             db.collection("userProfiles")
               .doc(userId)
               .set(profileInformation)
-              .then((docRef) => {
+              .then(() => {
                 console.log("initialize");
               })
-              .catch((error) => {
+              .catch(() => {
                 console.log("error");
               });
 
