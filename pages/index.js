@@ -19,7 +19,7 @@ export default function Lp() {
           </div>
           <div className='m-7'>
             <Link href="/recruit">
-              <button className='text-blue-400 hover:text-blue-300'>採用担当者様はこちら</button>
+              <button className='text-blue-400 hover:text-blue-300 transition duration-300'>採用担当者様はこちら</button>
             </Link>
           </div>
         </div>
@@ -44,7 +44,7 @@ export default function Lp() {
 
           <div className='mt-10'>
            <Link href="/login">
-              <button className='text-white bg-blue-400 hover:bg-blue-300 py-3 px-14 rounded-full shadow-lg font-bold'>ログイン / 新規登録</button>
+              <button className='text-white bg-blue-400 hover:bg-blue-300  transition duration-300 py-3 px-14 rounded-full shadow-lg font-bold'>ログイン / 新規登録</button>
             </Link>
           </div>
 

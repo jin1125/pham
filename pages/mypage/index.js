@@ -88,7 +88,7 @@ export default function mypage() {
             {freeImageUrl0 ? (
               <div className='mr-2 my-5'>
                 <Image
-                  className="inline object-cover"
+                  className="inline object-cover transform hover:scale-150 transition duration-300"
                   width={200}
                   height={200}
                   src={freeImageUrl0}
@@ -99,7 +99,7 @@ export default function mypage() {
               demoImgs && (
                 <div className='mr-2 my-5'>
                 <Image
-                  className="inline object-cover mr-2 my-5"
+                  className="inline object-cover"
                   width={200}
                   height={200}
                   src={demoImgs}
@@ -111,7 +111,7 @@ export default function mypage() {
             {freeImageUrl1 ? (
               <div className='mr-2 my-5'>
                 <Image
-                  className="inline object-cover"
+                  className="inline object-cover transform hover:scale-150 transition duration-300"
                   width={200}
                   height={200}
                   src={freeImageUrl1}
@@ -122,7 +122,7 @@ export default function mypage() {
               demoImgs && (
                 <div className='mr-2 my-5'>
                 <Image
-                  className="inline object-cover mr-2 my-5"
+                  className="inline object-cover"
                   width={200}
                   height={200}
                   src={demoImgs}
@@ -134,7 +134,7 @@ export default function mypage() {
             {freeImageUrl2 ? (
               <div className='mr-2 my-5'>
                 <Image
-                  className="inline object-cover"
+                  className="inline object-cover transform hover:scale-150 transition duration-300"
                   width={200}
                   height={200}
                   src={freeImageUrl2}
@@ -145,7 +145,7 @@ export default function mypage() {
               demoImgs && (
                 <div className='mr-2 my-5'>
                 <Image
-                  className="inline object-cover mr-2 my-5"
+                  className="inline object-cover"
                   width={200}
                   height={200}
                   src={demoImgs}

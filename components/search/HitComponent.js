@@ -4,16 +4,17 @@ import { Highlight } from "react-instantsearch-dom";
 import { UserContext } from "../../UserContext";
 
 export function hitComponent({ hit }) {
-  const { demoImg, selectHomeAddress } = useContext(UserContext);
+  const { demoImg, selectHomeAddress, setSelectProfile } = useContext(UserContext);
 
-  const selectProfile = () => {
-    console.log(hit.userName);
-  };
+  const click = ()=>{
+    setSelectProfile(hit)
+  }
 
   return (
+    
     <div>
       {selectHomeAddress === "" ? (
-        <button onClick={selectProfile}>
+        <button onClick={click}>
           {hit.profileImageUrl ? (
             <Image
               className="inline object-cover mr-2 rounded-full"
@@ -39,8 +40,10 @@ export function hitComponent({ hit }) {
         </button>
       ) : (
         hit.homeAddress === selectHomeAddress && (
-          <button onClick={selectProfile}>
+         
+          <button onClick={click} className='border text-red-500'>
             {hit.profileImageUrl ? (
+
               <Image
                 className="inline object-cover mr-2 rounded-full"
                 width={50}
@@ -61,8 +64,10 @@ export function hitComponent({ hit }) {
             )}
 
             <Highlight attribute="userName" tagName="mark" hit={hit} />
+
             <Highlight attribute="homeAddress" tagName="mark" hit={hit} />
           </button>
+      
         )
       )}
     </div>

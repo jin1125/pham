@@ -38,6 +38,7 @@ function MyApp({ Component, pageProps }) {
   const [resumes, setResumes] = useState([]);
 
   const [selectHomeAddress, setSelectHomeAddress] = useState("");
+  const [selectProfile, setSelectProfile] = useState("");
 
   useEffect(() => {
     const unSub = auth.onAuthStateChanged((user) => {
@@ -225,7 +226,9 @@ function MyApp({ Component, pageProps }) {
         resumes,
         setResumes,
         selectHomeAddress, 
-        setSelectHomeAddress
+        setSelectHomeAddress,
+        selectProfile,
+        setSelectProfile
       }}
     >
       <AlertProvider template={AlertTemplate} {...options}>

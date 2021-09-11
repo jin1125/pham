@@ -104,7 +104,7 @@ export default function search() {
 
               <div className="mt-10 mb-7">
                 <div>
-                  <button className="text-white bg-blue-400 hover:bg-blue-300 py-2 w-1/2 rounded-full shadow-lg font-bold">
+                  <button className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 py-2 w-1/2 rounded-full shadow-lg font-bold">
                     検索
                   </button>
                 </div>

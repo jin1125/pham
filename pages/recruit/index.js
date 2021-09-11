@@ -88,7 +88,7 @@ export default function recruit() {
           {isContactUs ? (
             <div className='mt-10 ml-20'>
             <Link href="/">
-               <button className='text-white bg-blue-400 hover:bg-blue-300 py-3 px-14 rounded-full shadow-lg font-bold'>トップページへ</button>
+               <button className='text-white bg-blue-400 transition duration-300 hover:bg-blue-300 py-3 px-14 rounded-full shadow-lg font-bold'>トップページへ</button>
              </Link>
            </div>
           ) : (
@@ -169,7 +169,7 @@ export default function recruit() {
                 <div className="my-7">
                   <button
                     type="submit"
-                    className="text-white bg-blue-400 hover:bg-blue-300 disabled:bg-blue-200 py-2 w-1/2 rounded-full shadow-lg font-bold"
+                    className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 disabled:bg-blue-200 py-2 w-1/2 rounded-full shadow-lg font-bold"
                     onClick={contactUs}
                     disabled={companyName.trim() === '' || clientName.trim() === '' || email.trim() === '' || tel.trim() === '' }
                   >

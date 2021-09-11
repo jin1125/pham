@@ -118,7 +118,7 @@ export default function login() {
               <div>
                 <button
                   onClick={switchSignIn}
-                  className="font-bold my-5 hover:text-gray-500"
+                  className="font-bold my-5 hover:text-gray-500 transition duration-300"
                 >
                   <p className={isLogin ? "border-b-4 border-blue-400" : ""}>
                     ログイン
@@ -128,7 +128,7 @@ export default function login() {
               <div>
                 <button
                   onClick={switchSignUp}
-                  className="font-bold my-5 hover:text-gray-500"
+                  className="font-bold my-5 hover:text-gray-500 transition duration-300"
                 >
                   <p className={isLogin ? "" : "border-b-4 border-blue-400"}>
                     新規登録
@@ -194,7 +194,7 @@ export default function login() {
             <div className="mt-10 mb-7">
               <div>
                 <button
-                  className="text-white bg-blue-400 hover:bg-blue-300 disabled:bg-blue-200 py-2 w-1/2 rounded-full shadow-lg font-bold"
+                  className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 disabled:bg-blue-200 py-2 w-1/2 rounded-full shadow-lg font-bold"
                   disabled={
                     isLogin
                       ? email.trim() === "" || password.trim().length+1 <= 6
@@ -219,7 +219,7 @@ export default function login() {
               {isLogin && (
                 <div className="mt-3">
                   <span
-                    className="cursor-pointer text-sm text-blue-400 hover:text-blue-300"
+                    className="cursor-pointer text-sm text-blue-400 transition duration-300 hover:text-blue-300"
                     onClick={() => setOpenReset(!openReset)}
                   >
                     パスワードをお忘れの方
@@ -236,7 +236,7 @@ export default function login() {
                       />
                       <button
                         onClick={sendResetEmail}
-                        className="text-white bg-blue-400 hover:bg-blue-300 py-1 px-2  rounded-r font-bold"
+                        className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 py-1 px-2  rounded-r font-bold"
                       >
                         送信
                       </button>
@@ -256,7 +256,7 @@ export default function login() {
             <div>
               <div className="my-7">
                 <button
-                  className="text-white bg-blue-400 hover:bg-blue-300 py-2 w-1/2 rounded-full shadow-lg font-bold"
+                  className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 py-2 w-1/2 rounded-full shadow-lg font-bold"
                   onClick={signInGoogle}
                 >
                   Googleで続行

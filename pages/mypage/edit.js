@@ -550,7 +550,7 @@ export default function edit() {
               <label>
                 {fileUrls0 ? (
                   <Image
-                    className="inline object-cover mr-2 cursor-pointer"
+                    className="inline object-cover mr-2 cursor-pointer transform hover:scale-150 transition duration-300"
                     width={200}
                     height={200}
                     src={fileUrls0}
@@ -558,7 +558,7 @@ export default function edit() {
                   />
                 ) : freeImageUrl0 ? (
                   <Image
-                    className="inline object-cover mr-2 cursor-pointer"
+                    className="inline object-cover mr-2 cursor-pointer transform hover:scale-150 transition duration-300"
                     width={200}
                     height={200}
                     src={freeImageUrl0}
@@ -589,7 +589,7 @@ export default function edit() {
               <label>
                 {fileUrls1 ? (
                   <Image
-                    className="inline object-cover mr-2 cursor-pointer"
+                    className="inline object-cover mr-2 cursor-pointer transform hover:scale-150 transition duration-300"
                     width={200}
                     height={200}
                     src={fileUrls1}
@@ -597,7 +597,7 @@ export default function edit() {
                   />
                 ) : freeImageUrl1 ? (
                   <Image
-                    className="inline object-cover mr-2 cursor-pointer"
+                    className="inline object-cover mr-2 cursor-pointer transform hover:scale-150 transition duration-300"
                     width={200}
                     height={200}
                     src={freeImageUrl1}
@@ -628,7 +628,7 @@ export default function edit() {
               <label>
                 {fileUrls2 ? (
                   <Image
-                    className="inline object-cover mr-2 cursor-pointer"
+                    className="inline object-cover mr-2 cursor-pointer transform hover:scale-150 transition duration-300"
                     width={200}
                     height={200}
                     src={fileUrls2}
@@ -636,7 +636,7 @@ export default function edit() {
                   />
                 ) : freeImageUrl2 ? (
                   <Image
-                    className="inline object-cover mr-2 cursor-pointer"
+                    className="inline object-cover mr-2 cursor-pointer transform hover:scale-150 transition duration-300"
                     width={200}
                     height={200}
                     src={freeImageUrl2}
@@ -673,7 +673,7 @@ export default function edit() {
                   onChange={(e) => setUserName(e.target.value.trim())}
                   placeholder="姓 名"
                   name="name"
-                  maxLength="15"
+                  maxLength="12"
                   className="text-4xl font-bold bg-blue-100 placeholder-blue-300 text-center rounded-full py-1 outline-none"
                 />
                 <span className="text-red-500 align-top">*</span>
@@ -1016,7 +1016,7 @@ export default function edit() {
                 value={subjectArea}
                 name="subjectArea"
                 maxLength="30"
-                onChange={(e) => subjectArea(e.target.value.trim())}
+                onChange={(e) => setSubjectArea(e.target.value.trim())}
                 className="text-base bg-blue-100 placeholder-blue-300 text-left rounded-full py-1 pl-5 outline-none w-full"
               />
             </div>
@@ -1026,7 +1026,7 @@ export default function edit() {
                 <Emoji emoji="hourglass_flowing_sand" size={20} />
                 <p className="text-base font-bold">経験年数</p>
                 <button
-                  className="text-white bg-blue-400 hover:bg-blue-300 py-1 px-2 ml-1 rounded-full shadow-lg text-xs"
+                  className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 py-1 px-2 ml-1 rounded-full shadow-lg text-xs"
                   onClick={addExperience}
                 >
                   欄を追加
@@ -1062,7 +1062,7 @@ export default function edit() {
                   </div>
                   <div className="col-span-1">
                     <button
-                      className="text-white bg-gray-400 hover:bg-gray-300 py-1 px-2 rounded-full shadow-lg text-xs"
+                      className="text-white bg-gray-400 transition duration-300 hover:bg-gray-300 py-1 px-2 rounded-full shadow-lg text-xs"
                       onClick={() => deleteExperience(index)}
                     >
                       削除
@@ -1077,7 +1077,7 @@ export default function edit() {
                 <Emoji emoji="page_facing_up" size={20} />
                 <p className="text-base font-bold">経歴詳細</p>
                 <button
-                  className="text-white bg-blue-400 hover:bg-blue-300 py-1 px-2 ml-1 rounded-full shadow-lg text-xs"
+                  className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 py-1 px-2 ml-1 rounded-full shadow-lg text-xs"
                   onClick={addResume}
                 >
                   欄を追加
@@ -1132,7 +1132,7 @@ export default function edit() {
 
                   <div className="col-span-1">
                     <button
-                      className="text-white bg-gray-400 hover:bg-gray-300 py-1 px-2 rounded-full shadow-lg text-xs"
+                      className="text-white bg-gray-400 transition duration-300 hover:bg-gray-300 py-1 px-2 rounded-full shadow-lg text-xs"
                       onClick={() => deleteResume(index)}
                     >
                       削除
@@ -1148,7 +1148,7 @@ export default function edit() {
         <div>
           <div className="mt-5 mb-10 text-center">
             <button
-              className="text-white bg-blue-400 hover:bg-blue-300 disabled:bg-blue-200 py-2 w-1/2 rounded-full shadow-lg font-bold"
+              className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 disabled:bg-blue-200 py-2 w-1/2 rounded-full shadow-lg font-bold"
               onClick={editHandler}
               disabled={check1}
             >
@@ -1167,7 +1167,7 @@ export default function edit() {
         <div className="grid grid-cols-4 my-10 justify-items-center">
           <div className="w-full text-center">
             <button
-              className="text-white bg-blue-400 hover:bg-blue-300 py-1 px-5 rounded-full shadow-lg text-sm"
+              className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 py-1 px-5 rounded-full shadow-lg text-sm"
               onClick={() => setOpenEditEmail(!openEditEmail)}
             >
               メールアドレス変更
@@ -1205,7 +1205,7 @@ export default function edit() {
                     </label>
                     <div>
                       <button
-                        className="text-white bg-blue-400 hover:bg-blue-300 disabled:bg-blue-200 py-1 px-5 rounded-full shadow-lg text-sm my-3"
+                        className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 disabled:bg-blue-200 py-1 px-5 rounded-full shadow-lg text-sm my-3"
                         onClick={changeEmail}
                         disabled={
                           userEmail.trim() === "" ||
@@ -1228,7 +1228,7 @@ export default function edit() {
 
           <div className="w-full text-center">
             <button
-              className="text-white bg-blue-400 hover:bg-blue-300 py-1 px-5 rounded-full shadow-lg text-sm"
+              className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 py-1 px-5 rounded-full shadow-lg text-sm"
               onClick={() => setOpenEditPassword(!openEditPassword)}
             >
               パスワード変更
@@ -1240,7 +1240,7 @@ export default function edit() {
                 </p>
                 <div>
                   <button
-                    className="text-white bg-blue-400 hover:bg-blue-300 py-1 px-5 rounded-full shadow-lg text-sm"
+                    className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 py-1 px-5 rounded-full shadow-lg text-sm"
                     onClick={sendResetEmail}
                   >
                     変更
@@ -1252,7 +1252,7 @@ export default function edit() {
 
           <div className="w-full text-center">
             <button
-              className="text-white bg-gray-400 hover:bg-gray-300 py-1 px-5 rounded-full shadow-lg text-sm"
+              className="text-white bg-gray-400 transition duration-300 hover:bg-gray-300 py-1 px-5 rounded-full shadow-lg text-sm"
               onClick={signOutUser}
             >
               ログアウト
@@ -1261,7 +1261,7 @@ export default function edit() {
 
           <div className="w-full text-center">
             <button
-              className="text-white bg-gray-400 hover:bg-gray-300 py-1 px-5 rounded-full shadow-lg text-sm"
+              className="text-white bg-gray-400 transition duration-300 hover:bg-gray-300 py-1 px-5 rounded-full shadow-lg text-sm"
               onClick={() => setOpenDeleteAccount(!openDeleteAccount)}
             >
               アカウント削除
@@ -1286,7 +1286,7 @@ export default function edit() {
                     </label>
                     <div>
                       <button
-                        className="text-white bg-blue-400 hover:bg-blue-300 disabled:bg-blue-200 py-1 px-5 rounded-full shadow-lg text-sm my-3"
+                        className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 disabled:bg-blue-200 py-1 px-5 rounded-full shadow-lg text-sm my-3"
                         onClick={deleteAccount}
                         disabled={deleteAccountPassword.length < 6}
                       >
@@ -1303,7 +1303,7 @@ export default function edit() {
                     </p>
                     <div>
                       <button
-                        className="text-white bg-blue-400 hover:bg-blue-300 disabled:bg-blue-200 py-1 px-5 rounded-full shadow-lg text-sm my-3"
+                        className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 disabled:bg-blue-200 py-1 px-5 rounded-full shadow-lg text-sm my-3"
                         onClick={signInGoogle}
                       >
                         google認証
@@ -1311,7 +1311,7 @@ export default function edit() {
                     </div>
                     <div>
                       <button
-                        className="text-white bg-red-400 hover:bg-red-300 disabled:bg-blue-200 py-1 px-5 rounded-full shadow-lg text-sm my-3"
+                        className="text-white bg-red-400 transition duration-300 hover:bg-red-300 disabled:bg-blue-200 py-1 px-5 rounded-full shadow-lg text-sm my-3"
                         onClick={deleteGoogleAccount}
                       >
                         削除
