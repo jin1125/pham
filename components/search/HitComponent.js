@@ -14,7 +14,7 @@ export function hitComponent({ hit }) {
   return (
     <>
       <div onClick={click} className="" className={selectProfile.objectID === hit.objectID ? 'bg-blue-100 cursor-pointer':'cursor-pointer hover:bg-blue-100'}>
-        {selectHomeAddress === "" ? (
+        {selectHomeAddress === "" && selectProfile.objectID !== hit.objectID ? (
           <div className="grid grid-cols-12 px-3 py-2 border-b items-center">
             <div className="col-span-4 flex items-center">
               {hit.profileImageUrl ? (
@@ -48,7 +48,7 @@ export function hitComponent({ hit }) {
             </div>
           </div>
         ) : (
-          hit.homeAddress === selectHomeAddress && (
+          hit.homeAddress === selectHomeAddress && selectProfile.objectID !== hit.objectID && (
             <div className="grid grid-cols-12 px-3 py-2 border-b items-center">
             <div className="col-span-4 flex items-center">
               {hit.profileImageUrl ? (

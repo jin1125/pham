@@ -7,7 +7,6 @@ import {
   Hits,
   InstantSearch,
   // PoweredBy,
-  SearchBox,
 } from "react-instantsearch-dom";
 import { UserContext } from "../../UserContext";
 import { hitComponent } from "./HitComponent";
