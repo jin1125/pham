@@ -9,8 +9,8 @@ const SearchBox = ({ currentRefinement, isSearchStalled, refine }) => (
       onChange={(event) => refine(event.currentTarget.value)}
     />
     {isSearchStalled ? (
-      <div class="flex items-center justify-center my-3">
-        <div class="w-7 h-7 border-b-4 border-blue-300 rounded-full animate-spin"></div>
+      <div className="flex items-center justify-center my-3">
+        <div className="w-7 h-7 border-b-4 border-blue-300 rounded-full animate-spin"></div>
       </div>
     ) : (
       ""
