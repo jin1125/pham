@@ -4,73 +4,87 @@ import { Highlight } from "react-instantsearch-dom";
 import { UserContext } from "../../UserContext";
 
 export function hitComponent({ hit }) {
-  const { demoImg, selectHomeAddress, setSelectProfile } = useContext(UserContext);
+  const { demoImg, selectHomeAddress, setSelectProfile, selectProfile } =
+    useContext(UserContext);
 
-  const click = ()=>{
-    setSelectProfile(hit)
-  }
+  const click = () => {
+    setSelectProfile(hit);
+  };
 
   return (
-    
-    <div>
-      {selectHomeAddress === "" ? (
-        <button onClick={click}>
-          {hit.profileImageUrl ? (
-            <Image
-              className="inline object-cover mr-2 rounded-full"
-              width={50}
-              height={50}
-              src={hit.profileImageUrl}
-              alt="Profile image"
-            />
-          ) : (
-            demoImg && (
-              <Image
-                className="inline object-cover mr-2 rounded-full"
-                width={50}
-                height={50}
-                src={demoImg}
-                alt="Profile image"
-              />
-            )
-          )}
-
-          <Highlight attribute="userName" tagName="mark" hit={hit} />
-          <Highlight attribute="homeAddress" tagName="mark" hit={hit} />
-        </button>
-      ) : (
-        hit.homeAddress === selectHomeAddress && (
-         
-          <button onClick={click} className='border text-red-500'>
-            {hit.profileImageUrl ? (
-
-              <Image
-                className="inline object-cover mr-2 rounded-full"
-                width={50}
-                height={50}
-                src={hit.profileImageUrl}
-                alt="Profile image"
-              />
-            ) : (
-              demoImg && (
+    <>
+      <div onClick={click} className="" className={selectProfile.objectID === hit.objectID ? 'bg-blue-100 cursor-pointer':'cursor-pointer hover:bg-blue-100'}>
+        {selectHomeAddress === "" ? (
+          <div className="grid grid-cols-12 px-3 py-2 border-b items-center">
+            <div className="col-span-4 flex items-center">
+              {hit.profileImageUrl ? (
                 <Image
-                  className="inline object-cover mr-2 rounded-full"
+                  className="inline object-cover rounded-full"
                   width={50}
                   height={50}
-                  src={demoImg}
+                  src={hit.profileImageUrl}
                   alt="Profile image"
                 />
-              )
-            )}
+              ) : (
+                demoImg && (
+                  <Image
+                    className="inline object-cover rounded-full"
+                    width={50}
+                    height={50}
+                    src={demoImg}
+                    alt="Profile image"
+                  />
+                )
+              )}
+            </div>
 
-            <Highlight attribute="userName" tagName="mark" hit={hit} />
+            <div className="col-span-8 break-words">
+              <div>
+                <Highlight attribute="userName" tagName="mark" hit={hit} />
+              </div>
+              <div className="text-xs text-blue-300 ">
+                <Highlight attribute="homeAddress" tagName="mark" hit={hit} />
+              </div>
+            </div>
+          </div>
+        ) : (
+          hit.homeAddress === selectHomeAddress && (
+            <div className="grid grid-cols-12 px-3 py-2 border-b items-center">
+            <div className="col-span-4 flex items-center">
+              {hit.profileImageUrl ? (
+                <Image
+                  className="inline object-cover rounded-full"
+                  width={50}
+                  height={50}
+                  src={hit.profileImageUrl}
+                  alt="Profile image"
+                />
+              ) : (
+                demoImg && (
+                  <Image
+                    className="inline object-cover rounded-full"
+                    width={50}
+                    height={50}
+                    src={demoImg}
+                    alt="Profile image"
+                  />
+                )
+              )}
+            </div>
 
-            <Highlight attribute="homeAddress" tagName="mark" hit={hit} />
-          </button>
-      
-        )
-      )}
-    </div>
+            <div className="col-span-8 break-words">
+              <div>
+                <Highlight attribute="userName" tagName="mark" hit={hit} />
+              </div>
+              <div className="text-xs text-blue-300 ">
+                <Highlight attribute="homeAddress" tagName="mark" hit={hit} />
+              </div>
+            </div>
+          </div>
+          )
+        )}
+      </div>
+    </>
   );
 }
 

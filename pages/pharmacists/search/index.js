@@ -12,7 +12,7 @@ export default function profiles() {
       </Head>
 
       <Layout>
-        <Search/>
+        <Search name={"名前"} address={"住所"}/>
       </Layout>
     </div>
   );
