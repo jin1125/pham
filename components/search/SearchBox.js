@@ -1,7 +1,7 @@
 import { connectSearchBox } from "react-instantsearch-dom";
 
 const SearchBox = ({ currentRefinement, isSearchStalled, refine }) => (
-  <form noValidate action="" role="search">
+  <form noValidate role="search">
     <input
       className="bg-blue-100 rounded-full pl-3 py-1 w-full outline-none"
       type="search"
