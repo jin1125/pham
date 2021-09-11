@@ -121,7 +121,7 @@ export default function Search(props) {
         </div>
 
         {/* ////// プロフィール描画(ページ右) ////// */}
-        {selectProfile && (
+        {selectProfile ? (
           <div className="col-span-9">
             <div className="grid grid-cols-12 gap-10 my-10 mr-10">
               <div className="col-span-3 justify-self-center">
@@ -399,6 +399,15 @@ export default function Search(props) {
                   )}
               </div>
             </div>
+          </div>
+        ):(
+          <div className="col-span-9 justify-self-center self-center">
+            <Image
+              src="/pharmacists_search_img.png"
+              alt="login_img"
+              width={400}
+              height={300}
+            />
           </div>
         )}
       </div>
