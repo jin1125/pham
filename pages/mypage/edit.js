@@ -325,7 +325,8 @@ export default memo( function edit() {
     });
     setResumes(list);
   });
-
+  
+  
   const deleteResume = useCallback((index) => {
     const list = [...resumes];
     list.splice(index, 1);
@@ -486,9 +487,14 @@ export default memo( function edit() {
   };
 
   /// disabled判定処理 ///
-  const check1 = useMemo(()=>{
-    !userName || !homeAddress || !dobYY || !dobMM || !dobDD;
-  },[userName,homeAddress,dobYY,dobMM,dobDD])
+  // const check1 = useMemo(()=>{
+  //   !userName || !homeAddress || !dobYY || !dobMM || !dobDD;
+  // },[userName,homeAddress,dobYY,dobMM,dobDD])
+
+  const check1 = useMemo(()=>
+  !userName || !homeAddress || !dobYY || !dobMM || !dobDD
+  ,[userName,homeAddress,dobYY,dobMM,dobDD])
+
 
   ////////////////// JSXエリア //////////////////
   return (

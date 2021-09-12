@@ -11,7 +11,7 @@ function MyApp({ Component, pageProps }) {
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [demoImg, setDemoImg] = useState("");
-  const [demoImgs, setDemoImgs] = useState('');
+  const [demoImgs, setDemoImgs] = useState("");
   const [nameTrigger, setNameTrigger] = useState("");
   const [profileId, setProfileId] = useState("");
   const [profileImageUrl, setProfileImageUrl] = useState("");
@@ -41,8 +41,7 @@ function MyApp({ Component, pageProps }) {
   const [selectHomeAddress, setSelectHomeAddress] = useState("");
   const [selectProfile, setSelectProfile] = useState("");
 
-  console.log(userId);
-
+  // console.log(userId);
 
   useEffect(() => {
     const unSub = auth.onAuthStateChanged((user) => {
@@ -55,69 +54,77 @@ function MyApp({ Component, pageProps }) {
     return () => unSub();
   }, [nameTrigger]);
 
-
   useEffect(() => {
-    if (userId,userName) {
-      db.collection("userProfiles")
-        .doc(userId)
-        .onSnapshot((doc) => {
-          if (!doc.data()) {
-            const profileInformation = {
-              userName:userName,
-              profileImageUrl: "",
-              freeImageUrl0:'',
-              freeImageUrl1:'',
-              freeImageUrl2:'',
-              jobTitle: "",
-              homeAddress: "",
-              dobYY: "",
-              dobMM: "",
-              dobDD: "",
-              school: "",
-              birthPlace: "",
-              language: "",
-              comments: "",
-              hobby: "",
-              dream: "",
-              certification: "",
-              strongArea: "",
-              subjectArea: "",
-              connection: 0,
-              scout: "スカウトを受け取る",
-              experiences:[{experience:'',years:''}],
-              resumes:[{companyName:'',employmentStatus:'',workStart:'',workEnd:''}],
-              res:[{id:''}]
-            };
+    if ((userId, userName)) {
+      try {
+        db.collection("userProfiles")
+          .doc(userId)
+          .onSnapshot((doc) => {
+            if (!doc.data()) {
+              const profileInformation = {
+                userName: userName,
+                profileImageUrl: "",
+                freeImageUrl0: "",
+                freeImageUrl1: "",
+                freeImageUrl2: "",
+                jobTitle: "",
+                homeAddress: "",
+                dobYY: "",
+                dobMM: "",
+                dobDD: "",
+                school: "",
+                birthPlace: "",
+                language: "",
+                comments: "",
+                hobby: "",
+                dream: "",
+                certification: "",
+                strongArea: "",
+                subjectArea: "",
+                connection: 0,
+                scout: "スカウトを受け取る",
+                experiences: [{ experience: "", years: "" }],
+                resumes: [
+                  {
+                    companyName: "",
+                    employmentStatus: "",
+                    workStart: "",
+                    workEnd: "",
+                  },
+                ],
+                res: [{ id: "" }],
+              };
 
-            db.collection("userProfiles")
-              .doc(userId)
-              .set(profileInformation)
-              .then(() => {
-                console.log("initialize");
-              })
-              .catch(() => {
-                console.log("error");
-              });
-
-          }
-        });
+              db.collection("userProfiles")
+                .doc(userId)
+                .set(profileInformation)
+                .then(() => {
+                  console.log("initialize");
+                })
+                .catch(() => {
+                  console.log("error");
+                });
+            }
+          });
+      } catch (error) {
+        console.log(error);
+      }
     }
-  }, [userId,userName]);
-
+  }, [userId, userName]);
 
   useEffect(() => {
     if (userId) {
-      const unSub =  db.collection("userProfiles")
+      const unSub = db
+        .collection("userProfiles")
         .doc(userId)
         .onSnapshot((doc) => {
-
           if (doc.data()) {
             setProfileId(doc.id);
-            setUserName(doc.data().userName)
+            setUserName(doc.data().userName);
             setProfileImageUrl(doc.data().profileImageUrl);
-            setFreeImageUrl0(doc.data().freeImageUrl0)
-            setFreeImageUrl1(doc.data().freeImageUrl1)
-            setFreeImageUrl2(doc.data().freeImageUrl2)
+            setFreeImageUrl0(doc.data().freeImageUrl0);
+            setFreeImageUrl1(doc.data().freeImageUrl1);
+            setFreeImageUrl2(doc.data().freeImageUrl2);
             setJobTitle(doc.data().jobTitle);
             setHomeAddress(doc.data().homeAddress);
             setDobYY(doc.data().dobYY);
@@ -139,11 +146,11 @@ function MyApp({ Component, pageProps }) {
             setRes(doc.data().res);
           }
         });
-        
-        return () => unSub();
-      }
-    }, [userId]);
-    
+
+      return () => unSub();
+    }
+  }, [userId]);
+
   useEffect(() => {
     storage
       .ref()
@@ -160,9 +167,7 @@ function MyApp({ Component, pageProps }) {
       .then(function (url) {
         setDemoImgs(url);
       });
-
   }, []);
-  
 
   /// アラート設定 ///
   const options = {
@@ -232,12 +237,12 @@ function MyApp({ Component, pageProps }) {
         setExperiences,
         resumes,
         setResumes,
-        selectHomeAddress, 
+        selectHomeAddress,
         setSelectHomeAddress,
         selectProfile,
         setSelectProfile,
         res,
-        setRes
+        setRes,
       }}
     >
       <AlertProvider template={AlertTemplate} {...options}>
