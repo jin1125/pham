@@ -1,7 +1,7 @@
 import algoliasearch from "algoliasearch/lite";
 import { Emoji } from "emoji-mart";
 import Image from "next/image";
-import { useContext } from "react";
+import { useContext,memo,useMemo } from "react";
 import {
   Configure,
   Hits,
@@ -11,14 +11,16 @@ import {
 import { UserContext } from "../../UserContext";
 import { hitComponent } from "./HitComponent";
 import { CustomSearchBox } from "./SearchBox";
-// import 'instantsearch.css/themes/satellite-min.css';
 
-export default function Search(props) {
-  const searchClient = algoliasearch(
-    props.appId,
-    props.searchKey
-  );
+export default memo( function Search(props) {
+
+  const searchClient = useMemo(() => algoliasearch(
+      props.appId,
+      props.searchKey
+  ), [])
+  
   const indexName = "pham";
+  
   const {
     selectHomeAddress,
     setSelectHomeAddress,
@@ -26,8 +28,6 @@ export default function Search(props) {
     demoImg,
     demoImgs,
   } = useContext(UserContext);
-
-  // console.log(selectProfile.objectID);
 
   return (
     <div className="min-h-screen">
@@ -44,7 +44,7 @@ export default function Search(props) {
               <div className="mx-5 my-7">
                 <div className="my-5">
                   <p>{props.name}</p>
-                  <div className=''>
+                  <div>
                     <CustomSearchBox />
                   </div>
                 </div>
@@ -411,4 +411,6 @@ export default function Search(props) {
       </div>
     </div>
   );
+
 }
+)

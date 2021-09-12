@@ -41,6 +41,8 @@ function MyApp({ Component, pageProps }) {
   const [selectHomeAddress, setSelectHomeAddress] = useState("");
   const [selectProfile, setSelectProfile] = useState("");
 
+  console.log(userId);
+
 
   useEffect(() => {
     const unSub = auth.onAuthStateChanged((user) => {
@@ -160,6 +162,7 @@ function MyApp({ Component, pageProps }) {
       });
 
   }, []);
+  
 
   /// アラート設定 ///
   const options = {

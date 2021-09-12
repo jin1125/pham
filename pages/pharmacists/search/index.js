@@ -1,12 +1,13 @@
 import Head from "next/head";
-import React, { useEffect } from "react";
+import React, { useEffect,memo } from "react";
 import Layout from "../../../components/layout/Layout";
 import Search from "../../../components/search/Search";
 import { auth } from "../../../firebase";
 import Router from "next/router";
 
 
-export default function profiles() {
+
+export default memo( function profiles() {
   useEffect(() => {
     const unSub = auth.onAuthStateChanged((user) => {
       !user && Router.push("/login");
@@ -27,3 +28,4 @@ export default function profiles() {
     </div>
   );
 }
+)

@@ -2,12 +2,12 @@ import { Emoji } from "emoji-mart";
 import Head from "next/head";
 import Image from "next/image";
 import Router from "next/router";
-import React, { useContext, useEffect } from "react";
+import React, { memo, useContext, useEffect } from "react";
 import Layout from "../../components/layout/Layout";
 import { auth } from "../../firebase";
 import { UserContext } from "../../UserContext";
 
-export default function mypage() {
+export default memo( function mypage() {
   const {
     userId,
     userName,
@@ -53,6 +53,9 @@ export default function mypage() {
     ))
     
   }, [res])
+
+  console.log('aaa');
+
 
   ////////////////////////// JSXエリア //////////////////////////
   return (
@@ -340,3 +343,4 @@ export default function mypage() {
     </div>
   );
 }
+)

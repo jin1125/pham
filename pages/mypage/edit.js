@@ -3,14 +3,14 @@ import firebase from "firebase/app";
 import Head from "next/head";
 import Image from "next/image";
 import Router from "next/router";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState,memo, useCallback, useMemo } from "react";
 import { useAlert } from "react-alert";
 import Layout from "../../components/layout/Layout";
 import { auth, db, provider, storage } from "../../firebase";
 import { UserContext } from "../../UserContext";
 
-export default function edit() {
-  ////////////////// ステートエリア //////////////////
+export default memo( function edit() {
+////////////////// ステートエリア //////////////////
   const {
     userId,
     setUserId,
@@ -97,7 +97,7 @@ export default function edit() {
     return () => unSub();
   }, []);
 
-  const uploadImage = (e) => {
+  const uploadImage = useCallback((e) => {
     if (e.target.files[0]) {
       const imageFile = e.target.files[0];
       const imageUrl = URL.createObjectURL(imageFile);
@@ -105,9 +105,9 @@ export default function edit() {
       setProfileImage(e.target.files[0]);
       e.target.value = "";
     }
-  };
+  });
 
-  const uploadFreeImage0 = (e) => {
+  const uploadFreeImage0 = useCallback((e) => {
     if (e.target.files[0]) {
       const imageFile = e.target.files[0];
       const imageUrl = URL.createObjectURL(imageFile);
@@ -115,9 +115,9 @@ export default function edit() {
       setFreeImage0(e.target.files[0]);
       e.target.value = "";
     }
-  };
+  });
 
-  const uploadFreeImage1 = (e) => {
+  const uploadFreeImage1 = useCallback((e) => {
     if (e.target.files[0]) {
       const imageFile = e.target.files[0];
       const imageUrl = URL.createObjectURL(imageFile);
@@ -125,9 +125,9 @@ export default function edit() {
       setFreeImage1(e.target.files[0]);
       e.target.value = "";
     }
-  };
+  });
 
-  const uploadFreeImage2 = (e) => {
+  const uploadFreeImage2 = useCallback((e) => {
     if (e.target.files[0]) {
       const imageFile = e.target.files[0];
       const imageUrl = URL.createObjectURL(imageFile);
@@ -135,7 +135,7 @@ export default function edit() {
       setFreeImage2(e.target.files[0]);
       e.target.value = "";
     }
-  };
+  });
 
   /// 変更を保存ボタン処理 ///
   const editHandler = async () => {
@@ -234,40 +234,40 @@ export default function edit() {
   };
 
   /// 経験年数の各experienceの変更処理 ///
-  const changeExperience = (e, index) => {
+  const changeExperience = useCallback((e, index) => {
     const list = [...experiences];
     list[index] = {
       experience: e.target.value,
       years: list[index].years,
     };
     setExperiences(list);
-  };
+  });
 
   /// 経験年数の各yearsの変更処理 ///
-  const changeYears = (e, index) => {
+  const changeYears = useCallback((e, index) => {
     const list = [...experiences];
     list[index] = {
       experience: list[index].experience,
       years: e.target.value,
     };
     setExperiences(list);
-  };
+  });
 
   /// 経験年数の欄追加処理 ///
-  const addExperience = () => {
+  const addExperience = useCallback(() => {
     const list = [...experiences];
     list.push({ experience: "", years: "" });
     setExperiences(list);
-  };
+  });
 
   /// 経験年数の欄削除処理 ///
-  const deleteExperience = (index) => {
+  const deleteExperience = useCallback((index) => {
     const list = [...experiences];
     list.splice(index, 1);
     setExperiences(list);
-  };
+  });
 
-  const changeCompanyName = (e, index) => {
+  const changeCompanyName = useCallback((e, index) => {
     const list = [...resumes];
     list[index] = {
       companyName: e.target.value,
@@ -277,9 +277,9 @@ export default function edit() {
     };
 
     setResumes(list);
-  };
+  });
 
-  const changeEmploymentStatus = (e, index) => {
+  const changeEmploymentStatus = useCallback((e, index) => {
     const list = [...resumes];
     list[index] = {
       companyName: list[index].companyName,
@@ -289,9 +289,9 @@ export default function edit() {
     };
 
     setResumes(list);
-  };
+  });
 
-  const changeWorkStart = (e, index) => {
+  const changeWorkStart = useCallback((e, index) => {
     const list = [...resumes];
     list[index] = {
       companyName: list[index].companyName,
@@ -301,9 +301,9 @@ export default function edit() {
     };
 
     setResumes(list);
-  };
+  });
 
-  const changeWorkEnd = (e, index) => {
+  const changeWorkEnd = useCallback((e, index) => {
     const list = [...resumes];
     list[index] = {
       companyName: list[index].companyName,
@@ -313,9 +313,9 @@ export default function edit() {
     };
 
     setResumes(list);
-  };
+  });
 
-  const addResume = () => {
+  const addResume = useCallback(() => {
     const list = [...resumes];
     list.push({
       companyName: "",
@@ -324,13 +324,13 @@ export default function edit() {
       workEnd: "",
     });
     setResumes(list);
-  };
+  });
 
-  const deleteResume = (index) => {
+  const deleteResume = useCallback((index) => {
     const list = [...resumes];
     list.splice(index, 1);
     setResumes(list);
-  };
+  });
 
   /// google認識でログインか判別処理 ///
   useEffect(() => {
@@ -345,7 +345,7 @@ export default function edit() {
   }, []);
 
   /// メールアドレス変更処理 ///
-  const changeEmail = () => {
+  const changeEmail = useCallback(() => {
     const unsub = auth.onAuthStateChanged((user) => {
       if (user && resetEmailPassword) {
         const credential = firebase.auth.EmailAuthProvider.credential(
@@ -379,10 +379,10 @@ export default function edit() {
       // 登録解除
       unsub();
     });
-  };
+  });
 
   /// アカウント削除 ///
-  const deleteAccount = () => {
+  const deleteAccount = useCallback(() => {
     const unsub = auth.onAuthStateChanged((user) => {
       if (user && deleteAccountPassword) {
         const credential = firebase.auth.EmailAuthProvider.credential(
@@ -418,11 +418,11 @@ export default function edit() {
       // 登録解除
       unsub();
     });
-  };
+  });
 
   /// アカウント(google)削除処理 ///
   //google認証
-  const signInGoogle = () => {
+  const signInGoogle = useCallback(() => {
     auth
       .signInWithPopup(provider)
       .then(() => {
@@ -431,10 +431,10 @@ export default function edit() {
       .catch(() => {
         alert.error("googleログイン情報を取得できませんでした");
       });
-  };
+  });
 
   //アカウント(google)削除
-  const deleteGoogleAccount = () => {
+  const deleteGoogleAccount = useCallback(() => {
     const unsub = auth.onAuthStateChanged((user) => {
       if (user) {
         const result = confirm("本当にアカウントを削除しますか?");
@@ -457,7 +457,7 @@ export default function edit() {
       // 登録解除
       unsub();
     });
-  };
+  });
 
   /// パスワード変更処理 ///
   const sendResetEmail = async () => {
@@ -486,7 +486,9 @@ export default function edit() {
   };
 
   /// disabled判定処理 ///
-  const check1 = !userName || !homeAddress || !dobYY || !dobMM || !dobDD;
+  const check1 = useMemo(()=>{
+    !userName || !homeAddress || !dobYY || !dobMM || !dobDD;
+  },[userName,homeAddress,dobYY,dobMM,dobDD])
 
   ////////////////// JSXエリア //////////////////
   return (
@@ -1335,3 +1337,4 @@ export default function edit() {
     </div>
   );
 }
+)
