@@ -14,7 +14,7 @@ export default function login() {
   const [password, setPassword] = useState("");
   const [resetEmail, setResetEmail] = useState("");
   const [openReset, setOpenReset] = useState(false);
-  const { setNameTrigger } = useContext(UserContext);
+  const { setNameTrigger,setUserName } = useContext(UserContext);
 
   const alert = useAlert();
 
@@ -33,6 +33,8 @@ export default function login() {
   };
 
   const signInGoogle = async () => {
+    setUserName("");
+    await auth.signOut();
     await auth
       .signInWithPopup(provider)
       .then(() => {
@@ -44,6 +46,8 @@ export default function login() {
 
   const signIn = async () => {
     try {
+      setUserName('');
+      await auth.signOut();
       await auth.signInWithEmailAndPassword(email, password);
       alert.success("ログインしました");
       Router.push("/mypage");
@@ -52,30 +56,29 @@ export default function login() {
     }
   };
 
- 
-
   const signUp = async () => {
-    if(name){
-    try {
-      const authUser = await auth.createUserWithEmailAndPassword(
-        email,
-        password
-      );
+    if (name) {
+      try {
+        setUserName('');
+        await auth.signOut();
+        const authUser = await auth.createUserWithEmailAndPassword(
+          email,
+          password
+        );
 
-      if(authUser){
-        await authUser.user.updateProfile({
-          displayName: name,
-        });
+        if (authUser) {
+          await authUser.user.updateProfile({
+            displayName: name,
+          });
+        }
+
+        setNameTrigger(name);
+        alert.success("アカウントを作成できました");
+        Router.push("/mypage");
+      } catch (error) {
+        alert.error("アカウントを作成できませんでした");
       }
-
-      setNameTrigger(name)
-      alert.success("アカウントを作成できました");
-      Router.push("/mypage");
-    } catch (error) {
-      alert.error("アカウントを作成できませんでした");
     }
-
-  }
   };
 
   const switchSignIn = () => {
@@ -85,7 +88,6 @@ export default function login() {
   const switchSignUp = () => {
     setIsLogin(false);
   };
-
 
   ////////////////////////// JSXエリア //////////////////////////
   return (
@@ -197,10 +199,10 @@ export default function login() {
                   className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 disabled:bg-blue-200 py-2 w-1/2 rounded-full shadow-lg font-bold"
                   disabled={
                     isLogin
-                      ? email.trim() === "" || password.trim().length+1 <= 6
+                      ? email.trim() === "" || password.trim().length + 1 <= 6
                       : name.trim() === "" ||
                         email.trim() === "" ||
-                        password.trim().length+1 <= 6
+                        password.trim().length + 1 <= 6
                   }
                   onClick={
                     isLogin

@@ -89,6 +89,14 @@ export default function edit() {
 
   ////////////////// 関数エリア //////////////////
   const alert = useAlert();
+
+  useEffect(() => {
+    const unSub = auth.onAuthStateChanged((user) => {
+      !user && Router.push("/login");
+    });
+    return () => unSub();
+  }, []);
+
   const uploadImage = (e) => {
     if (e.target.files[0]) {
       const imageFile = e.target.files[0];

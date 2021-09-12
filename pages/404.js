@@ -10,7 +10,17 @@ export default function Custom404() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="grid grid-cols-2 h-screen justify-items-center items-center">
+      <header>
+        <div className="m-5">
+          <Link href="/">
+            <button>
+              <h2 className="text-2xl text-blue-400 font-bold">Pham</h2>
+            </button>
+          </Link>
+        </div>
+      </header>
+
+      <div className="grid grid-cols-2 h-screen -mt-20 justify-items-center items-center">
         <div className="text-center">
           <h1 className="text-8xl text-blue-400">404</h1>
           <h4 className="text-2xl text-blue-400">page not found</h4>
