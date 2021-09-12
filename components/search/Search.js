@@ -15,11 +15,10 @@ import { CustomSearchBox } from "./SearchBox";
 
 export default function Search(props) {
   const searchClient = algoliasearch(
-    "0TMIYQ8E9N",
-    "58e6e394abd7a5cfcc6fcae0d7b51ac5"
+    props.appId,
+    props.searchKey
   );
   const indexName = "pham";
-
   const {
     selectHomeAddress,
     setSelectHomeAddress,
@@ -37,7 +36,7 @@ export default function Search(props) {
         <div className="col-span-3 border-r-2 border-blue-400 min-h-screen">
           <div className="text-center">
             <h4 className="text-white bg-blue-400 font-bold text-lg py-3">
-              薬剤師検索
+              {props.title}
             </h4>
           </div>
           <InstantSearch indexName={indexName} searchClient={searchClient}>

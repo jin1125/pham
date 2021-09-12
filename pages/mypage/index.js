@@ -35,6 +35,8 @@ export default function mypage() {
     scout,
     experiences,
     resumes,
+    res,
+    setRes
   } = useContext(UserContext);
 
   useEffect(() => {
@@ -43,6 +45,14 @@ export default function mypage() {
     });
     return () => unSub();
   }, []);
+
+
+  useEffect(() => {
+    res.map((r)=>(
+      console.log(r.id)
+    ))
+    
+  }, [res])
 
   ////////////////////////// JSXエリア //////////////////////////
   return (

@@ -36,9 +36,11 @@ function MyApp({ Component, pageProps }) {
   const [scout, setScout] = useState("");
   const [experiences, setExperiences] = useState([]);
   const [resumes, setResumes] = useState([]);
+  const [res, setRes] = useState([]);
 
   const [selectHomeAddress, setSelectHomeAddress] = useState("");
   const [selectProfile, setSelectProfile] = useState("");
+
 
   useEffect(() => {
     const unSub = auth.onAuthStateChanged((user) => {
@@ -82,6 +84,7 @@ function MyApp({ Component, pageProps }) {
               scout: "スカウトを受け取る",
               experiences:[{experience:'',years:''}],
               resumes:[{companyName:'',employmentStatus:'',workStart:'',workEnd:''}],
+              res:[{id:''}]
             };
 
             db.collection("userProfiles")
@@ -131,13 +134,14 @@ function MyApp({ Component, pageProps }) {
             setScout(doc.data().scout);
             setExperiences(doc.data().experiences);
             setResumes(doc.data().resumes);
+            setRes(doc.data().res);
           }
         });
-
+        
         return () => unSub();
-    }
-  }, [userId]);
-
+      }
+    }, [userId]);
+    
   useEffect(() => {
     storage
       .ref()
@@ -228,7 +232,9 @@ function MyApp({ Component, pageProps }) {
         selectHomeAddress, 
         setSelectHomeAddress,
         selectProfile,
-        setSelectProfile
+        setSelectProfile,
+        res,
+        setRes
       }}
     >
       <AlertProvider template={AlertTemplate} {...options}>
