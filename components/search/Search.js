@@ -1,7 +1,7 @@
 import algoliasearch from "algoliasearch/lite";
 import { Emoji } from "emoji-mart";
 import Image from "next/image";
-import { useContext,memo,useMemo } from "react";
+import { useContext } from "react";
 import {
   Configure,
   Hits,
@@ -12,12 +12,12 @@ import { UserContext } from "../../UserContext";
 import { hitComponent } from "./HitComponent";
 import { CustomSearchBox } from "./SearchBox";
 
-export default memo( function Search(props) {
+export default function Search(props) {
 
-  const searchClient = useMemo(() => algoliasearch(
+  const searchClient = algoliasearch(
       props.appId,
       props.searchKey
-  ), [])
+  )
   
   const indexName = "pham";
   
@@ -413,4 +413,3 @@ export default memo( function Search(props) {
   );
 
 }
-)

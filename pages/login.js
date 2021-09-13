@@ -14,7 +14,7 @@ export default function login() {
   const [password, setPassword] = useState("");
   const [resetEmail, setResetEmail] = useState("");
   const [openReset, setOpenReset] = useState(false);
-  const { setNameTrigger,setUserName } = useContext(UserContext);
+  const { reset,setNameTrigger,setUserName } = useContext(UserContext);
 
   const alert = useAlert();
 
@@ -33,7 +33,7 @@ export default function login() {
   };
 
   const signInGoogle = async () => {
-    setUserName("");
+    reset()
     await auth.signOut();
     await auth
       .signInWithPopup(provider)
@@ -46,7 +46,7 @@ export default function login() {
 
   const signIn = async () => {
     try {
-      setUserName('');
+      reset()
       await auth.signOut();
       await auth.signInWithEmailAndPassword(email, password);
       alert.success("ログインしました");
@@ -59,7 +59,7 @@ export default function login() {
   const signUp = async () => {
     if (name) {
       try {
-        setUserName('');
+        reset()
         await auth.signOut();
         const authUser = await auth.createUserWithEmailAndPassword(
           email,

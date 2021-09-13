@@ -7,13 +7,13 @@ import "../styles/global.css";
 import { UserContext } from "../UserContext";
 
 function MyApp({ Component, pageProps }) {
+  const [profile,setProfile] = useState({})
   const [userId, setUserId] = useState("");
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [demoImg, setDemoImg] = useState("");
   const [demoImgs, setDemoImgs] = useState("");
   const [nameTrigger, setNameTrigger] = useState("");
-  const [profileId, setProfileId] = useState("");
   const [profileImageUrl, setProfileImageUrl] = useState("");
   const [freeImageUrl0, setFreeImageUrl0] = useState("");
   const [freeImageUrl1, setFreeImageUrl1] = useState("");
@@ -41,7 +41,6 @@ function MyApp({ Component, pageProps }) {
   const [selectHomeAddress, setSelectHomeAddress] = useState("");
   const [selectProfile, setSelectProfile] = useState("");
 
-  // console.log(userId);
 
   useEffect(() => {
     const unSub = auth.onAuthStateChanged((user) => {
@@ -54,63 +53,98 @@ function MyApp({ Component, pageProps }) {
     return () => unSub();
   }, [nameTrigger]);
 
-  useEffect(() => {
-    if ((userId, userName)) {
-      try {
-        db.collection("userProfiles")
-          .doc(userId)
-          .onSnapshot((doc) => {
-            if (!doc.data()) {
-              const profileInformation = {
-                userName: userName,
-                profileImageUrl: "",
-                freeImageUrl0: "",
-                freeImageUrl1: "",
-                freeImageUrl2: "",
-                jobTitle: "",
-                homeAddress: "",
-                dobYY: "",
-                dobMM: "",
-                dobDD: "",
-                school: "",
-                birthPlace: "",
-                language: "",
-                comments: "",
-                hobby: "",
-                dream: "",
-                certification: "",
-                strongArea: "",
-                subjectArea: "",
-                connection: 0,
-                scout: "スカウトを受け取る",
-                experiences: [{ experience: "", years: "" }],
-                resumes: [
-                  {
-                    companyName: "",
-                    employmentStatus: "",
-                    workStart: "",
-                    workEnd: "",
-                  },
-                ],
-                res: [{ id: "" }],
-              };
+  const reset = ()=>{
+    setUserId('')
+    setUserName('')
+    setUserEmail('')
+    setNameTrigger('')
+    setProfileImageUrl('')
+    setFreeImageUrl0('')
+    setFreeImageUrl1('')
+    setFreeImageUrl2('')
+    setJobTitle('')
+    setHomeAddress('')
+    setDobYY('')
+    setDobMM('')
+    setDobDD('')
+    setSchool('')
+    setBirthPlace('')
+    setLanguage('')
+    setComments('')
+    setHobby('')
+    setDream('')
+    setCertification('')
+    setStrongArea('')
+    setSubjectArea('')
+    setConnection('')
+    setScout('')
+    setExperiences('')
+    setResumes('')
+    setRes('')
+    setSelectHomeAddress('')
+    setSelectProfile('')
+    console.log('reset');
+  }
 
-              db.collection("userProfiles")
-                .doc(userId)
-                .set(profileInformation)
-                .then(() => {
-                  console.log("initialize");
-                })
-                .catch(() => {
-                  console.log("error");
-                });
-            }
-          });
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  }, [userId, userName]);
+  // useEffect(() => {
+  //   if ((userId, userName)) {
+  //     try {
+  //       db.collection("userProfiles")
+  //         .doc(userId)
+  //         .onSnapshot((doc) => {
+  //           if (!doc.data()) {
+  //             const profileInformation = {
+  //               userName: userName,
+  //               profileImageUrl: "",
+  //               freeImageUrl0: "",
+  //               freeImageUrl1: "",
+  //               freeImageUrl2: "",
+  //               jobTitle: "",
+  //               homeAddress: "",
+  //               dobYY: "",
+  //               dobMM: "",
+  //               dobDD: "",
+  //               school: "",
+  //               birthPlace: "",
+  //               language: "",
+  //               comments: "",
+  //               hobby: "",
+  //               dream: "",
+  //               certification: "",
+  //               strongArea: "",
+  //               subjectArea: "",
+  //               connection: 0,
+  //               scout: "スカウトを受け取る",
+  //               experiences: [{ experience: "", years: "" }],
+  //               resumes: [
+  //                 {
+  //                   companyName: "",
+  //                   employmentStatus: "",
+  //                   workStart: "",
+  //                   workEnd: "",
+  //                 },
+  //               ],
+  //               res: [{ id: "" }],
+  //             };
+
+  //             db.collection("userProfiles")
+  //               .doc(userId)
+  //               .set(profileInformation)
+  //               .then(() => {
+  //                 console.log("initialize");
+  //               })
+  //               .catch(() => {
+  //                 console.log("error");
+  //               });
+  //           }
+  //         });
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   }
+  // }, [userId, userName]);
+
+  console.log(profile.userName);
 
   useEffect(() => {
     if (userId) {
@@ -119,7 +153,8 @@ function MyApp({ Component, pageProps }) {
         .doc(userId)
         .onSnapshot((doc) => {
           if (doc.data()) {
-            setProfileId(doc.id);
+            // setProfile({userId:doc.id,userName:doc.data().userName,profileImageUrl:doc.data().profileImageUrl,freeImageUrl0:doc.data().freeImageUrl0,freeImageUrl1:doc.data().freeImageUrl1,freeImageUrl2:doc.data().freeImageUrl2,jobTitle:doc.data().jobTitle})
+            setProfile(doc.data())
             setUserName(doc.data().userName);
             setProfileImageUrl(doc.data().profileImageUrl);
             setFreeImageUrl0(doc.data().freeImageUrl0);
@@ -179,6 +214,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <UserContext.Provider
       value={{
+        reset,
         userId,
         setUserId,
         userName,
@@ -191,8 +227,6 @@ function MyApp({ Component, pageProps }) {
         setDemoImgs,
         nameTrigger,
         setNameTrigger,
-        profileId,
-        setProfileId,
         profileImageUrl,
         setProfileImageUrl,
         freeImageUrl0,

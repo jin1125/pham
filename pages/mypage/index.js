@@ -2,12 +2,12 @@ import { Emoji } from "emoji-mart";
 import Head from "next/head";
 import Image from "next/image";
 import Router from "next/router";
-import React, { memo, useContext, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import Layout from "../../components/layout/Layout";
 import { auth } from "../../firebase";
 import { UserContext } from "../../UserContext";
 
-export default memo( function mypage() {
+export default function mypage() {
   const {
     userId,
     userName,
@@ -47,15 +47,12 @@ export default memo( function mypage() {
   }, []);
 
 
-  useEffect(() => {
-    res.map((r)=>(
-      console.log(r.id)
-    ))
+  // useEffect(() => {
+  //   res.map((r)=>(
+  //     console.log(r.id)
+  //   ))
     
-  }, [res])
-
-  console.log('aaa');
-
+  // }, [res])
 
   ////////////////////////// JSXエリア //////////////////////////
   return (
@@ -343,4 +340,3 @@ export default memo( function mypage() {
     </div>
   );
 }
-)

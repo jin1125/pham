@@ -3,13 +3,13 @@ import firebase from "firebase/app";
 import Head from "next/head";
 import Image from "next/image";
 import Router from "next/router";
-import React, { useContext, useEffect, useState,memo, useCallback, useMemo } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useAlert } from "react-alert";
 import Layout from "../../components/layout/Layout";
 import { auth, db, provider, storage } from "../../firebase";
 import { UserContext } from "../../UserContext";
 
-export default memo( function edit() {
+export default function edit() {
 ////////////////// ステートエリア //////////////////
   const {
     userId,
@@ -24,8 +24,6 @@ export default memo( function edit() {
     setDemoImgs,
     nameTrigger,
     setNameTrigger,
-    profileId,
-    setProfileId,
     profileImageUrl,
     setProfileImageUrl,
     freeImageUrl0,
@@ -97,7 +95,7 @@ export default memo( function edit() {
     return () => unSub();
   }, []);
 
-  const uploadImage = useCallback((e) => {
+  const uploadImage = (e) => {
     if (e.target.files[0]) {
       const imageFile = e.target.files[0];
       const imageUrl = URL.createObjectURL(imageFile);
@@ -105,9 +103,9 @@ export default memo( function edit() {
       setProfileImage(e.target.files[0]);
       e.target.value = "";
     }
-  });
+  };
 
-  const uploadFreeImage0 = useCallback((e) => {
+  const uploadFreeImage0 = (e) => {
     if (e.target.files[0]) {
       const imageFile = e.target.files[0];
       const imageUrl = URL.createObjectURL(imageFile);
@@ -115,9 +113,9 @@ export default memo( function edit() {
       setFreeImage0(e.target.files[0]);
       e.target.value = "";
     }
-  });
+  };
 
-  const uploadFreeImage1 = useCallback((e) => {
+  const uploadFreeImage1 = (e) => {
     if (e.target.files[0]) {
       const imageFile = e.target.files[0];
       const imageUrl = URL.createObjectURL(imageFile);
@@ -125,9 +123,9 @@ export default memo( function edit() {
       setFreeImage1(e.target.files[0]);
       e.target.value = "";
     }
-  });
+  };
 
-  const uploadFreeImage2 = useCallback((e) => {
+  const uploadFreeImage2 = (e) => {
     if (e.target.files[0]) {
       const imageFile = e.target.files[0];
       const imageUrl = URL.createObjectURL(imageFile);
@@ -135,7 +133,7 @@ export default memo( function edit() {
       setFreeImage2(e.target.files[0]);
       e.target.value = "";
     }
-  });
+  };
 
   /// 変更を保存ボタン処理 ///
   const editHandler = async () => {
@@ -234,40 +232,40 @@ export default memo( function edit() {
   };
 
   /// 経験年数の各experienceの変更処理 ///
-  const changeExperience = useCallback((e, index) => {
+  const changeExperience = (e, index) => {
     const list = [...experiences];
     list[index] = {
       experience: e.target.value,
       years: list[index].years,
     };
     setExperiences(list);
-  });
+  };
 
   /// 経験年数の各yearsの変更処理 ///
-  const changeYears = useCallback((e, index) => {
+  const changeYears = (e, index) => {
     const list = [...experiences];
     list[index] = {
       experience: list[index].experience,
       years: e.target.value,
     };
     setExperiences(list);
-  });
+  };
 
   /// 経験年数の欄追加処理 ///
-  const addExperience = useCallback(() => {
+  const addExperience = () => {
     const list = [...experiences];
     list.push({ experience: "", years: "" });
     setExperiences(list);
-  });
+  };
 
   /// 経験年数の欄削除処理 ///
-  const deleteExperience = useCallback((index) => {
+  const deleteExperience = (index) => {
     const list = [...experiences];
     list.splice(index, 1);
     setExperiences(list);
-  });
+  };
 
-  const changeCompanyName = useCallback((e, index) => {
+  const changeCompanyName = (e, index) => {
     const list = [...resumes];
     list[index] = {
       companyName: e.target.value,
@@ -277,9 +275,9 @@ export default memo( function edit() {
     };
 
     setResumes(list);
-  });
+  };
 
-  const changeEmploymentStatus = useCallback((e, index) => {
+  const changeEmploymentStatus = (e, index) => {
     const list = [...resumes];
     list[index] = {
       companyName: list[index].companyName,
@@ -289,9 +287,9 @@ export default memo( function edit() {
     };
 
     setResumes(list);
-  });
+  };
 
-  const changeWorkStart = useCallback((e, index) => {
+  const changeWorkStart = (e, index) => {
     const list = [...resumes];
     list[index] = {
       companyName: list[index].companyName,
@@ -301,9 +299,9 @@ export default memo( function edit() {
     };
 
     setResumes(list);
-  });
+  };
 
-  const changeWorkEnd = useCallback((e, index) => {
+  const changeWorkEnd = (e, index) => {
     const list = [...resumes];
     list[index] = {
       companyName: list[index].companyName,
@@ -313,9 +311,9 @@ export default memo( function edit() {
     };
 
     setResumes(list);
-  });
+  };
 
-  const addResume = useCallback(() => {
+  const addResume = () => {
     const list = [...resumes];
     list.push({
       companyName: "",
@@ -324,14 +322,14 @@ export default memo( function edit() {
       workEnd: "",
     });
     setResumes(list);
-  });
+  };
   
   
-  const deleteResume = useCallback((index) => {
+  const deleteResume = (index) => {
     const list = [...resumes];
     list.splice(index, 1);
     setResumes(list);
-  });
+  };
 
   /// google認識でログインか判別処理 ///
   useEffect(() => {
@@ -346,7 +344,7 @@ export default memo( function edit() {
   }, []);
 
   /// メールアドレス変更処理 ///
-  const changeEmail = useCallback(() => {
+  const changeEmail = () => {
     const unsub = auth.onAuthStateChanged((user) => {
       if (user && resetEmailPassword) {
         const credential = firebase.auth.EmailAuthProvider.credential(
@@ -380,10 +378,10 @@ export default memo( function edit() {
       // 登録解除
       unsub();
     });
-  });
+  };
 
   /// アカウント削除 ///
-  const deleteAccount = useCallback(() => {
+  const deleteAccount = () => {
     const unsub = auth.onAuthStateChanged((user) => {
       if (user && deleteAccountPassword) {
         const credential = firebase.auth.EmailAuthProvider.credential(
@@ -401,7 +399,7 @@ export default memo( function edit() {
               user
                 .delete()
                 .then(() => {
-                  setUserName("");
+                  reset()
                   alert.success("アカウントを削除しました");
                   Router.push("/login");
                 })
@@ -419,11 +417,11 @@ export default memo( function edit() {
       // 登録解除
       unsub();
     });
-  });
+  };
 
   /// アカウント(google)削除処理 ///
   //google認証
-  const signInGoogle = useCallback(() => {
+  const signInGoogle = () => {
     auth
       .signInWithPopup(provider)
       .then(() => {
@@ -432,10 +430,10 @@ export default memo( function edit() {
       .catch(() => {
         alert.error("googleログイン情報を取得できませんでした");
       });
-  });
+  };
 
   //アカウント(google)削除
-  const deleteGoogleAccount = useCallback(() => {
+  const deleteGoogleAccount = () => {
     const unsub = auth.onAuthStateChanged((user) => {
       if (user) {
         const result = confirm("本当にアカウントを削除しますか?");
@@ -444,7 +442,7 @@ export default memo( function edit() {
           user
             .delete()
             .then(() => {
-              setUserName("");
+              reset()
               alert.success("アカウントを削除しました");
               Router.push("/login");
             })
@@ -458,7 +456,7 @@ export default memo( function edit() {
       // 登録解除
       unsub();
     });
-  });
+  };
 
   /// パスワード変更処理 ///
   const sendResetEmail = async () => {
@@ -477,23 +475,18 @@ export default memo( function edit() {
     const result = confirm("ログアウトしますか？");
     if (result) {
       try {
+        // reset()
         await auth.signOut();
         alert.success("ログアウトしました");
         Router.push("/login");
       } catch (error) {
+        console.log(error);
         alert.error("ログアウトできませんでした");
       }
     }
   };
 
-  /// disabled判定処理 ///
-  // const check1 = useMemo(()=>{
-  //   !userName || !homeAddress || !dobYY || !dobMM || !dobDD;
-  // },[userName,homeAddress,dobYY,dobMM,dobDD])
-
-  const check1 = useMemo(()=>
-  !userName || !homeAddress || !dobYY || !dobMM || !dobDD
-  ,[userName,homeAddress,dobYY,dobMM,dobDD])
+  const check1 = !userName || !homeAddress || !dobYY || !dobMM || !dobDD;
 
 
   ////////////////// JSXエリア //////////////////
@@ -1343,4 +1336,3 @@ export default memo( function edit() {
     </div>
   );
 }
-)
