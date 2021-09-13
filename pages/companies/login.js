@@ -10,7 +10,7 @@ import { UserContext } from "../../UserContext";
 export default function login() {
   const [companyEmail, setCompanyEmail] = useState("");
   const [companyPassword, setCompanyPassword] = useState("");
-  const {setUserId,setUserName,setUserEmail} = useContext(UserContext);
+  const {setUserId,setUserName} = useContext(UserContext);
 
   const alert = useAlert();
 
@@ -18,7 +18,6 @@ export default function login() {
     try {
       setUserId('');
       setUserName('');
-      setUserEmail('');
       await auth.signOut();
       await auth.signInWithEmailAndPassword(companyEmail, companyPassword);
       alert.success("ログインしました");

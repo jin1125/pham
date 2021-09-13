@@ -1,7 +1,7 @@
 import algoliasearch from "algoliasearch/lite";
 import { Emoji } from "emoji-mart";
 import Image from "next/image";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import {
   Configure,
   Hits,
@@ -13,11 +13,12 @@ import { hitComponent } from "./HitComponent";
 import { CustomSearchBox } from "./SearchBox";
 
 export default function Search(props) {
+  
+    const searchClient = algoliasearch(
+        props.appId,
+        props.searchKey
+    )
 
-  const searchClient = algoliasearch(
-      props.appId,
-      props.searchKey
-  )
   
   const indexName = "pham";
   
@@ -143,10 +144,12 @@ export default function Search(props) {
                   )
                 )}
 
+                {selectProfile.connection &&
                 <div className="flex flex-row flex-wrap my-5 justify-center gap-1 items-center">
                   <Emoji emoji="handshake" size={20} />
                   <p className="text-base">{`${selectProfile.connection}人`}</p>
                 </div>
+                }  
 
                 <div className="my-10 text-center">
                   <button className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 disabled:bg-blue-200 py-2 w-full rounded-full shadow-lg font-bold">
@@ -243,21 +246,12 @@ export default function Search(props) {
                 </div>
 
                 <div className="flex flex-row flex-wrap my-5 gap-6 leading-none">
-                  {selectProfile.homeAddress ? (
+      
                     <div className="flex flex-row flex-wrap gap-1 items-center">
                       <Emoji emoji="round_pushpin" size={20} />
                       <p className="text-base">{selectProfile.homeAddress}</p>
                     </div>
-                  ) : (
-                    <div className="flex flex-row flex-wrap gap-1 items-center">
-                      <p className="text-2xl font-bold text-blue-400">
-                        まずは、画面上部の <Emoji emoji="gear" size={30} />{" "}
-                        からプロフィール情報を入力
-                        <Emoji emoji="male_mage" size={50} />
-                      </p>
-                    </div>
-                  )}
-
+     
                   {selectProfile.dobYY &&
                     selectProfile.dobMM &&
                     selectProfile.dobDD && (

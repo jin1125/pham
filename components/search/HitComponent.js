@@ -4,8 +4,10 @@ import { Highlight } from "react-instantsearch-dom";
 import { UserContext } from "../../UserContext";
 
 export function hitComponent({ hit }) {
-  const { demoImg, selectHomeAddress, setSelectProfile, selectProfile,userId } =
+  const { demoImg, selectHomeAddress, setSelectProfile, selectProfile, user } =
     useContext(UserContext);
+
+    const {uid} = user;
 
   const click = () => {
     setSelectProfile(hit);
@@ -14,7 +16,7 @@ export function hitComponent({ hit }) {
   return (
     <>
       <div onClick={click} className={selectProfile.objectID === hit.objectID ? 'bg-blue-100 cursor-pointer':'cursor-pointer hover:bg-blue-100'}>
-        {selectHomeAddress === "" && hit.objectID !== userId ? (
+        {selectHomeAddress === "" && hit.objectID !== uid ? (
           <div className="grid grid-cols-12 px-3 py-2 border-b items-center">
             <div className="col-span-4 flex items-center">
               {hit.profileImageUrl ? (
@@ -48,7 +50,7 @@ export function hitComponent({ hit }) {
             </div>
           </div>
         ) : (
-          hit.homeAddress === selectHomeAddress && hit.objectID !== userId  && (
+          hit.homeAddress === selectHomeAddress && hit.objectID !== uid  && (
             <div className="grid grid-cols-12 px-3 py-2 border-b items-center">
             <div className="col-span-4 flex items-center">
               {hit.profileImageUrl ? (

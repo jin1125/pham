@@ -2,9 +2,9 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import Router from "next/router";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useAlert } from "react-alert";
-import { auth, provider } from "../firebase";
+import { auth, db, provider } from "../firebase";
 import { UserContext } from "../UserContext";
 
 export default function login() {
@@ -14,39 +14,44 @@ export default function login() {
   const [password, setPassword] = useState("");
   const [resetEmail, setResetEmail] = useState("");
   const [openReset, setOpenReset] = useState(false);
-  const { reset,setNameTrigger,setUserName } = useContext(UserContext);
+  const { setNameTrigger,profile,setProfile } = useContext(UserContext);
 
   const alert = useAlert();
 
-  const sendResetEmail = async () => {
-    await auth
-      .sendPasswordResetEmail(resetEmail)
-      .then(() => {
-        setOpenReset(false);
-        alert.success("メールを送信しました");
-        setResetEmail("");
-      })
-      .catch(() => {
-        alert.error("正しい内容を入力してください");
-        setResetEmail("");
-      });
-  };
+ 
 
+  //Google新規登録＆ログイン
   const signInGoogle = async () => {
-    reset()
-    await auth.signOut();
     await auth
       .signInWithPopup(provider)
       .then(() => {
-        alert.success("Googleで続行しました");
-        Router.push("/mypage");
+        auth.onAuthStateChanged(async (user) => {
+          if (user) {
+              await db
+                .collection("userProfiles")
+                .doc(user.uid)
+                .set({userId: user.uid})
+                .then(() => {
+                  console.log("データ作成(Google)");
+                })
+                .catch(() => {
+                  console.log("データ作成失敗(Google)");
+                });
+  
+              alert.success("Googleで続行しました");
+              Router.push("/mypage");
+
+
+          }
+        })
       })
       .catch(() => alert.error("Googleで続行できませんでした"));
   };
 
+  //メールアドレスログイン
   const signIn = async () => {
     try {
-      reset()
+      // reset()
       await auth.signOut();
       await auth.signInWithEmailAndPassword(email, password);
       alert.success("ログインしました");
@@ -56,10 +61,11 @@ export default function login() {
     }
   };
 
+   //メールアドレス新規登録
   const signUp = async () => {
     if (name) {
       try {
-        reset()
+        // reset()
         await auth.signOut();
         const authUser = await auth.createUserWithEmailAndPassword(
           email,
@@ -81,6 +87,20 @@ export default function login() {
     }
   };
 
+  const sendResetEmail = async () => {
+    await auth
+      .sendPasswordResetEmail(resetEmail)
+      .then(() => {
+        setOpenReset(false);
+        alert.success("メールを送信しました");
+        setResetEmail("");
+      })
+      .catch(() => {
+        alert.error("正しい内容を入力してください");
+        setResetEmail("");
+      });
+  };
+
   const switchSignIn = () => {
     setIsLogin(true);
   };
@@ -88,6 +108,7 @@ export default function login() {
   const switchSignUp = () => {
     setIsLogin(false);
   };
+
 
   ////////////////////////// JSXエリア //////////////////////////
   return (

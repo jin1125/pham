@@ -10,7 +10,9 @@ import Router from "next/router";
 export default  function profiles() {
   useEffect(() => {
     const unSub = auth.onAuthStateChanged((user) => {
-      !user && Router.push("/login");
+      if (!user) {
+        Router.push("/login");
+      }
     });
     return () => unSub();
   }, []);

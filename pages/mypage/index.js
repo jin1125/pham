@@ -2,57 +2,62 @@ import { Emoji } from "emoji-mart";
 import Head from "next/head";
 import Image from "next/image";
 import Router from "next/router";
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Layout from "../../components/layout/Layout";
-import { auth } from "../../firebase";
+import { auth, db } from "../../firebase";
 import { UserContext } from "../../UserContext";
 
 export default function mypage() {
+  const { profile, setProfile,demoImg, demoImgs } = useContext(UserContext);
+  const [name, setName] = useState("");
+
   const {
-    userId,
-    userName,
-    profileImageUrl,
+    birthPlace,
+    certification,
+    comments,
+    connection,
+    dobDD,
+    dobMM,
+    dobYY,
+    dream,
+    experiences,
     freeImageUrl0,
     freeImageUrl1,
     freeImageUrl2,
-    demoImg,
-    demoImgs,
-    jobTitle,
-    homeAddress,
-    dobYY,
-    dobMM,
-    dobDD,
-    school,
-    birthPlace,
-    language,
-    comments,
     hobby,
-    dream,
-    certification,
+    homeAddress,
+    jobTitle,
+    language,
+    profileImageUrl,
+    resumes,
+    school,
+    scout,
     strongArea,
     subjectArea,
-    connection,
-    scout,
-    experiences,
-    resumes,
-    res,
-    setRes
-  } = useContext(UserContext);
+    userName,
+  } = profile;
+
 
   useEffect(() => {
     const unSub = auth.onAuthStateChanged((user) => {
-      !user && Router.push("/login");
+      if (user) {
+        setName(user.displayName);
+       db
+        .collection("userProfiles")
+        .doc(user.uid)
+        .onSnapshot((doc) => {
+          if (doc.data()) {
+            setProfile(doc.data());
+          }
+        });
+        
+      } else {
+        Router.push("/login");
+      }
     });
     return () => unSub();
   }, []);
 
-
-  // useEffect(() => {
-  //   res.map((r)=>(
-  //     console.log(r.id)
-  //   ))
-    
-  // }, [res])
 
   ////////////////////////// JSXエリア //////////////////////////
   return (
@@ -85,18 +90,22 @@ export default function mypage() {
               )
             )}
 
-            <div className="flex flex-row flex-wrap my-5 justify-center gap-1 items-center">
-              <Emoji emoji="handshake" size={20} />
-              <p className="text-base">{`${connection}人`}</p>
-            </div>
+            {connection && (
+              <div className="flex flex-row flex-wrap my-5 justify-center gap-1 items-center">
+                <Emoji emoji="handshake" size={20} />
+                <p className="text-base">{`${connection}人`}</p>
+              </div>
+            )}
 
-            <div className="flex flex-row flex-wrap mt-5 mb-10 justify-center gap-1 items-center">
-              <Emoji emoji="female-detective" size={20} />
-              <p className="text-base">{scout}</p>
-            </div>
+            {scout && (
+              <div className="flex flex-row flex-wrap mt-5 mb-10 justify-center gap-1 items-center">
+                <Emoji emoji="female-detective" size={20} />
+                <p className="text-base">{scout}</p>
+              </div>
+            )}
 
             {freeImageUrl0 ? (
-              <div className='mr-2 my-5'>
+              <div className="mr-2 my-5">
                 <Image
                   className="inline object-cover transform hover:scale-150 transition duration-300"
                   width={200}
@@ -107,19 +116,19 @@ export default function mypage() {
               </div>
             ) : (
               demoImgs && (
-                <div className='mr-2 my-5'>
-                <Image
-                  className="inline object-cover"
-                  width={200}
-                  height={200}
-                  src={demoImgs}
-                  alt="Free image0"
-                />
+                <div className="mr-2 my-5">
+                  <Image
+                    className="inline object-cover"
+                    width={200}
+                    height={200}
+                    src={demoImgs}
+                    alt="Free image0"
+                  />
                 </div>
               )
             )}
             {freeImageUrl1 ? (
-              <div className='mr-2 my-5'>
+              <div className="mr-2 my-5">
                 <Image
                   className="inline object-cover transform hover:scale-150 transition duration-300"
                   width={200}
@@ -130,19 +139,19 @@ export default function mypage() {
               </div>
             ) : (
               demoImgs && (
-                <div className='mr-2 my-5'>
-                <Image
-                  className="inline object-cover"
-                  width={200}
-                  height={200}
-                  src={demoImgs}
-                  alt="Free image1"
-                />
+                <div className="mr-2 my-5">
+                  <Image
+                    className="inline object-cover"
+                    width={200}
+                    height={200}
+                    src={demoImgs}
+                    alt="Free image1"
+                  />
                 </div>
               )
             )}
             {freeImageUrl2 ? (
-              <div className='mr-2 my-5'>
+              <div className="mr-2 my-5">
                 <Image
                   className="inline object-cover transform hover:scale-150 transition duration-300"
                   width={200}
@@ -153,24 +162,27 @@ export default function mypage() {
               </div>
             ) : (
               demoImgs && (
-                <div className='mr-2 my-5'>
-                <Image
-                  className="inline object-cover"
-                  width={200}
-                  height={200}
-                  src={demoImgs}
-                  alt="Free image2"
-                />
+                <div className="mr-2 my-5">
+                  <Image
+                    className="inline object-cover"
+                    width={200}
+                    height={200}
+                    src={demoImgs}
+                    alt="Free image2"
+                  />
                 </div>
               )
             )}
-            
           </div>
 
           <div className="col-span-9">
             <div className="flex flex-row flex-wrap items-end my-10 gap-8">
               <div>
-                <h2 className="text-4xl font-bold">{userName}</h2>
+                {profile.userName ? (
+                  <h2 className="text-4xl font-bold">{profile.userName}</h2>
+                ) : (
+                  <h2 className="text-4xl font-bold">{name}</h2>
+                )}
               </div>
 
               {jobTitle && (
@@ -182,7 +194,7 @@ export default function mypage() {
 
             <div className="flex flex-row flex-wrap items-center my-3 gap-1 leading-none">
               <Emoji emoji="id" size={20} />
-              <p className="text-base">{userId}</p>
+              <p className="text-base">{profile.userId}</p>
             </div>
 
             <div className="flex flex-row flex-wrap my-5 gap-6 leading-none">
@@ -286,7 +298,7 @@ export default function mypage() {
               </div>
             )}
 
-            {experiences[0] && experiences[0].experience && (
+            {experiences && experiences[0].experience && (
               <div className="my-10">
                 <div className="flex flex-row flex-wrap gap-1 items-center">
                   <Emoji emoji="hourglass_flowing_sand" size={20} />
@@ -309,7 +321,7 @@ export default function mypage() {
               </div>
             )}
 
-            {resumes[0] && resumes[0].companyName && (
+            {resumes && resumes[0].companyName && (
               <div className="my-10">
                 <div className="flex flex-row flex-wrap gap-1 items-center">
                   <Emoji emoji="page_facing_up" size={20} />

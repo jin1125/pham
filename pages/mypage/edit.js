@@ -10,66 +10,87 @@ import { auth, db, provider, storage } from "../../firebase";
 import { UserContext } from "../../UserContext";
 
 export default function edit() {
-////////////////// ステートエリア //////////////////
+  ////////////////// ステートエリア //////////////////
   const {
-    userId,
-    setUserId,
-    userName,
-    setUserName,
-    userEmail,
-    setUserEmail,
+    profile,
+    setProfile,
+    // userName,
+    // setUserName,
     demoImg,
-    setDemoImg,
     demoImgs,
-    setDemoImgs,
-    nameTrigger,
-    setNameTrigger,
-    profileImageUrl,
-    setProfileImageUrl,
-    freeImageUrl0,
-    setFreeImageUrl0,
-    freeImageUrl1,
-    setFreeImageUrl1,
-    freeImageUrl2,
-    setFreeImageUrl2,
-    jobTitle,
-    setJobTitle,
-    homeAddress,
-    setHomeAddress,
-    dobYY,
-    setDobYY,
-    dobMM,
-    setDobMM,
-    dobDD,
-    setDobDD,
-    school,
-    setSchool,
-    birthPlace,
-    setBirthPlace,
-    language,
-    setLanguage,
-    comments,
-    setComments,
-    hobby,
-    setHobby,
-    dream,
-    setDream,
-    certification,
-    setCertification,
-    strongArea,
-    setStrongArea,
-    subjectArea,
-    setSubjectArea,
-    connection,
-    setConnection,
-    scout,
-    setScout,
-    experiences,
-    setExperiences,
-    resumes,
-    setResumes,
+    // profileImageUrl,
+    // setProfileImageUrl,
+    // freeImageUrl0,
+    // setFreeImageUrl0,
+    // freeImageUrl1,
+    // setFreeImageUrl1,
+    // freeImageUrl2,
+    // setFreeImageUrl2,
+    // jobTitle,
+    // setJobTitle,
+    // homeAddress,
+    // setHomeAddress,
+    // dobYY,
+    // setDobYY,
+    // dobMM,
+    // setDobMM,
+    // dobDD,
+    // setDobDD,
+    // school,
+    // setSchool,
+    // birthPlace,
+    // setBirthPlace,
+    // language,
+    // setLanguage,
+    // comments,
+    // setComments,
+    // hobby,
+    // setHobby,
+    // dream,
+    // setDream,
+    // certification,
+    // setCertification,
+    // strongArea,
+    // setStrongArea,
+    // subjectArea,
+    // setSubjectArea,
+    // connection,
+    // setConnection,
+    // scout,
+    // setScout,
+    // experiences,
+    // setExperiences,
+    // resumes,
+    // setResumes,
   } = useContext(UserContext);
 
+  const {
+    birthPlace,
+    certification,
+    comments,
+    connection,
+    dobDD,
+    dobMM,
+    dobYY,
+    dream,
+    experiences,
+    freeImageUrl0,
+    freeImageUrl1,
+    freeImageUrl2,
+    hobby,
+    homeAddress,
+    jobTitle,
+    language,
+    profileImageUrl,
+    resumes,
+    school,
+    scout,
+    strongArea,
+    subjectArea,
+    userName,
+  } = profile;
+
+  const [userEmail, setUserEmail] = useState("");
   const [profileImage, setProfileImage] = useState("");
   const [freeImage0, setFreeImage0] = useState("");
   const [freeImage1, setFreeImage1] = useState("");
@@ -84,16 +105,33 @@ export default function edit() {
   const [openEditPassword, setOpenEditPassword] = useState(false);
   const [openDeleteAccount, setOpenDeleteAccount] = useState(false);
   const [isGoogleLogin, setIsGoogleLogin] = useState(false);
+  const [name, setName] = useState("");
 
   ////////////////// 関数エリア //////////////////
   const alert = useAlert();
 
   useEffect(() => {
     const unSub = auth.onAuthStateChanged((user) => {
-      !user && Router.push("/login");
+      if (user) {
+        setName(user.displayName);
+      db
+        .collection("userProfiles")
+        .doc(user.uid)
+        .onSnapshot((doc) => {
+          if (doc.data()) {
+            setProfile(doc.data());
+          }
+        });
+
+        console.log(name);
+        
+      } else {
+        Router.push("/login");
+      }
     });
     return () => unSub();
   }, []);
+
 
   const uploadImage = (e) => {
     if (e.target.files[0]) {
@@ -142,95 +180,85 @@ export default function edit() {
     let freeUrl1 = "";
     let freeUrl2 = "";
 
+    //アップロード画像があれば
     if (profileImage) {
       //画像をストレージにアップロード
-      await storage.ref(`profileImages/${userId}`).put(profileImage);
+      await storage.ref(`profileImages/${profile.userId}`).put(profileImage);
       //画像がクラウド上のどこにあるかURLで取得
       profileUrl = await storage
         .ref("profileImages")
-        .child(userId)
+        .child(profile.userId)
         .getDownloadURL();
-    } else {
+    } else if(!profileImage && profileImageUrl) { 
+      //アップロード画像がない&&firestoreにデータがある
       profileUrl = profileImageUrl;
+    }else{
+      profileUrl ='';
     }
 
     if (freeImage0) {
-      await storage.ref(`freeImages/${userId}0`).put(freeImage0);
+      await storage.ref(`freeImages/${profile.userId}0`).put(freeImage0);
       freeUrl0 = await storage
         .ref("freeImages")
-        .child(`${userId}0`)
+        .child(`${profile.userId}0`)
         .getDownloadURL();
-    } else {
+    }else if(!freeImage0 && freeImageUrl0) { 
+      //アップロード画像がない&&firestoreにデータがある
       freeUrl0 = freeImageUrl0;
+    }else{
+      freeUrl0 = '';
     }
 
+
     if (freeImage1) {
-      await storage.ref(`freeImages/${userId}1`).put(freeImage1);
+      await storage.ref(`freeImages/${profile.userId}1`).put(freeImage1);
       freeUrl1 = await storage
         .ref("freeImages")
-        .child(`${userId}1`)
+        .child(`${profile.userId}1`)
         .getDownloadURL();
-    } else {
+    } else if(!freeImage1 && freeImageUrl1) { 
+      //アップロード画像がない&&firestoreにデータがある
       freeUrl1 = freeImageUrl1;
+    }else{
+      freeUrl1 = '';
     }
 
     if (freeImage2) {
-      await storage.ref(`freeImages/${userId}2`).put(freeImage2);
+      await storage.ref(`freeImages/${profile.userId}2`).put(freeImage2);
       freeUrl2 = await storage
         .ref("freeImages")
-        .child(`${userId}2`)
+        .child(`${profile.userId}2`)
         .getDownloadURL();
-    } else {
+    } else if(!freeImage2 && freeImageUrl2) { 
+      //アップロード画像がない&&firestoreにデータがある
       freeUrl2 = freeImageUrl2;
+    }else{
+      freeUrl2 = '';
     }
 
-    const profileInformation = {
+    const profileInfo = {
+      ...profile,
       profileImageUrl: profileUrl,
-      userName: userName,
       freeImageUrl0: freeUrl0,
       freeImageUrl1: freeUrl1,
       freeImageUrl2: freeUrl2,
-      connection: connection,
-      scout: scout,
-      jobTitle: jobTitle,
-      homeAddress: homeAddress,
-      dobYY: dobYY,
-      dobMM: dobMM,
-      dobDD: dobDD,
-      school: school,
-      birthPlace: birthPlace,
-      language: language,
-      comments: comments,
-      hobby: hobby,
-      dream: dream,
-      certification: certification,
-      strongArea: strongArea,
-      subjectArea: subjectArea,
-      experiences: experiences,
-      resumes: resumes,
     };
+    
 
-    /// 名前変更の処理 ///
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        user.updateProfile({
-          displayName: userName,
+      await db
+        .collection("userProfiles")
+        .doc(profile.userId)
+        .set(profileInfo)
+        .then(() => {
+          alert.success("プロフィールを変更しました");
+        })
+        .catch(() => {
+          alert.error("プロフィールを変更できませんでした");
         });
-      }
-    });
 
-    await db
-      .collection("userProfiles")
-      .doc(userId)
-      .set(profileInformation)
-      .then(() => {
-        alert.success("プロフィールを変更しました");
-      })
-      .catch(() => {
-        alert.error("プロフィールを変更できませんでした");
-      });
   };
 
+  
   /// 経験年数の各experienceの変更処理 ///
   const changeExperience = (e, index) => {
     const list = [...experiences];
@@ -238,7 +266,7 @@ export default function edit() {
       experience: e.target.value,
       years: list[index].years,
     };
-    setExperiences(list);
+    setProfile({ ...profile, experiences: list });
   };
 
   /// 経験年数の各yearsの変更処理 ///
@@ -248,21 +276,25 @@ export default function edit() {
       experience: list[index].experience,
       years: e.target.value,
     };
-    setExperiences(list);
+    setProfile({ ...profile, experiences: list });
   };
 
   /// 経験年数の欄追加処理 ///
   const addExperience = () => {
-    const list = [...experiences];
-    list.push({ experience: "", years: "" });
-    setExperiences(list);
+    if(experiences){
+      const list = [...experiences];
+      list.push({ experience: "", years: "" });
+      setProfile({ ...profile, experiences: list });
+    }else{
+      setProfile({ ...profile, experiences:[{experience: "", years: ""}] });
+    }
   };
 
   /// 経験年数の欄削除処理 ///
   const deleteExperience = (index) => {
     const list = [...experiences];
     list.splice(index, 1);
-    setExperiences(list);
+    setProfile({ ...profile, experiences: list });
   };
 
   const changeCompanyName = (e, index) => {
@@ -274,7 +306,7 @@ export default function edit() {
       workEnd: list[index].workEnd,
     };
 
-    setResumes(list);
+    setProfile({ ...profile, resumes: list });
   };
 
   const changeEmploymentStatus = (e, index) => {
@@ -286,7 +318,7 @@ export default function edit() {
       workEnd: list[index].workEnd,
     };
 
-    setResumes(list);
+    setProfile({ ...profile, resumes: list });
   };
 
   const changeWorkStart = (e, index) => {
@@ -298,7 +330,7 @@ export default function edit() {
       workEnd: list[index].workEnd,
     };
 
-    setResumes(list);
+    setProfile({ ...profile, resumes: list });
   };
 
   const changeWorkEnd = (e, index) => {
@@ -310,25 +342,31 @@ export default function edit() {
       workEnd: e.target.value,
     };
 
-    setResumes(list);
+    setProfile({ ...profile, resumes: list });
   };
 
   const addResume = () => {
-    const list = [...resumes];
-    list.push({
-      companyName: "",
+    if(resumes){
+      const list = [...resumes];
+      list.push({
+        companyName: "",
+        employmentStatus: "",
+        workStart: "",
+        workEnd: "",
+      });
+      setProfile({ ...profile, resumes: list });
+    }else{
+      setProfile({ ...profile, resumes:[{companyName: "",
       employmentStatus: "",
       workStart: "",
-      workEnd: "",
-    });
-    setResumes(list);
+      workEnd: "",}] });
+    }
   };
-  
-  
+
   const deleteResume = (index) => {
     const list = [...resumes];
     list.splice(index, 1);
-    setResumes(list);
+    setProfile({ ...profile, resumes: list });
   };
 
   /// google認識でログインか判別処理 ///
@@ -399,7 +437,7 @@ export default function edit() {
               user
                 .delete()
                 .then(() => {
-                  reset()
+                  // reset()
                   alert.success("アカウントを削除しました");
                   Router.push("/login");
                 })
@@ -442,7 +480,7 @@ export default function edit() {
           user
             .delete()
             .then(() => {
-              reset()
+              // reset()
               alert.success("アカウントを削除しました");
               Router.push("/login");
             })
@@ -487,7 +525,6 @@ export default function edit() {
   };
 
   const check1 = !userName || !homeAddress || !dobYY || !dobMM || !dobDD;
-
 
   ////////////////// JSXエリア //////////////////
   return (
@@ -545,7 +582,10 @@ export default function edit() {
                 className="bg-blue-100 rounded-full outline-none pl-3 py-1"
                 name="scout"
                 value={scout}
-                onChange={(e) => setScout(e.target.value)}
+                // onChange={(e) => setScout(e.target.value)}
+                onChange={(e) =>
+                  setProfile({ ...profile, scout: e.target.value })
+                }
               >
                 <option value="スカウトを受け取る">スカウトを受け取る</option>
                 <option value="スカウトを受け取らない">
@@ -676,10 +716,14 @@ export default function edit() {
           <div className="col-span-9">
             <div className="flex flex-row flex-wrap items-end my-10 gap-8">
               <label>
+
                 <input
                   type="text"
                   value={userName}
-                  onChange={(e) => setUserName(e.target.value.trim())}
+                  // onChange={(e) => setUserName(e.target.value.trim())}
+                  onChange={(e) =>
+                    setProfile({ ...profile, userName: e.target.value.trim() })
+                  }
                   placeholder="姓 名"
                   name="name"
                   maxLength="12"
@@ -691,7 +735,10 @@ export default function edit() {
               <input
                 type="text"
                 value={jobTitle}
-                onChange={(e) => setJobTitle(e.target.value.trim())}
+                // onChange={(e) => setJobTitle(e.target.value.trim())}
+                onChange={(e) =>
+                  setProfile({ ...profile, jobTitle: e.target.value.trim() })
+                }
                 placeholder="役職"
                 name="jobTitle"
                 maxLength="15"
@@ -701,7 +748,7 @@ export default function edit() {
 
             <div className="flex flex-row flex-wrap items-center my-3 gap-1 leading-none">
               <Emoji emoji="id" size={20} />
-              <p className="text-base">{userId}</p>
+              <p className="text-base">{profile.userId}</p>
             </div>
 
             <div className="flex flex-row flex-wrap my-5 gap-6 leading-none">
@@ -712,7 +759,10 @@ export default function edit() {
                     className="bg-blue-100 rounded-full outline-none pl-3 pr-2 py-1"
                     name="homeAddress"
                     value={homeAddress}
-                    onChange={(e) => setHomeAddress(e.target.value)}
+                    // onChange={(e) => setHomeAddress(e.target.value)}
+                    onChange={(e) =>
+                      setProfile({ ...profile, homeAddress: e.target.value })
+                    }
                   >
                     <option value="">住所</option>
                     <option value="北海道">北海道</option>
@@ -765,7 +815,6 @@ export default function edit() {
                   </select>
                   <span className="text-red-500 align-top">*</span>
                 </label>
-
               </div>
 
               <div className="flex flex-row flex-wrap gap-1 items-center">
@@ -775,7 +824,10 @@ export default function edit() {
                     className="bg-blue-100 rounded-full outline-none pl-3 pr-2 py-1"
                     name="dobYY"
                     value={dobYY}
-                    onChange={(e) => setDobYY(e.target.value)}
+                    // onChange={(e) => setDobYY(e.target.value)}
+                    onChange={(e) =>
+                      setProfile({ ...profile, dobYY: e.target.value })
+                    }
                   >
                     <option value="">生年</option>
                     <option value="1950">1950</option>
@@ -837,7 +889,10 @@ export default function edit() {
                     className="bg-blue-100 rounded-full outline-none pl-3 pr-2 py-1"
                     name="dobMM"
                     value={dobMM}
-                    onChange={(e) => setDobMM(e.target.value)}
+                    // onChange={(e) => setDobMM(e.target.value)}
+                    onChange={(e) =>
+                      setProfile({ ...profile, dobMM: e.target.value })
+                    }
                   >
                     <option value="">生月</option>
                     <option value="1">1</option>
@@ -861,7 +916,10 @@ export default function edit() {
                     className="bg-blue-100 rounded-full outline-none pl-3 pr-2 py-1"
                     name="dobDD"
                     value={dobDD}
-                    onChange={(e) => setDobDD(e.target.value)}
+                    // onChange={(e) => setDobDD(e.target.value)}
+                    onChange={(e) =>
+                      setProfile({ ...profile, dobDD: e.target.value })
+                    }
                   >
                     <option value="">生日</option>
                     <option value="1">1</option>
@@ -905,7 +963,10 @@ export default function edit() {
                 <input
                   type="text"
                   value={school}
-                  onChange={(e) => setSchool(e.target.value.trim())}
+                  // onChange={(e) => setSchool(e.target.value.trim())}
+                  onChange={(e) =>
+                    setProfile({ ...profile, school: e.target.value.trim() })
+                  }
                   placeholder="出身校"
                   name="school"
                   maxLength="10"
@@ -919,7 +980,13 @@ export default function edit() {
                 <input
                   type="text"
                   value={birthPlace}
-                  onChange={(e) => setBirthPlace(e.target.value.trim())}
+                  // onChange={(e) => setBirthPlace(e.target.value.trim())}
+                  onChange={(e) =>
+                    setProfile({
+                      ...profile,
+                      birthPlace: e.target.value.trim(),
+                    })
+                  }
                   placeholder="出身地"
                   name="birthPlace"
                   maxLength="10"
@@ -933,7 +1000,10 @@ export default function edit() {
                 <input
                   type="text"
                   value={language}
-                  onChange={(e) => setLanguage(e.target.value.trim())}
+                  // onChange={(e) => setLanguage(e.target.value.trim())}
+                  onChange={(e) =>
+                    setProfile({ ...profile, language: e.target.value.trim() })
+                  }
                   placeholder="話せる言語"
                   name="language"
                   maxLength="15"
@@ -946,10 +1016,13 @@ export default function edit() {
               <textarea
                 rows="5"
                 value={comments}
-                onChange={(e) => setComments(e.target.value)}
                 placeholder="自己紹介"
                 maxLength="200"
                 className="bg-blue-100 rounded-lg p-5 w-full outline-none"
+                // onChange={(e) => setComments(e.target.value)}
+                onChange={(e) =>
+                  setProfile({ ...profile, comments: e.target.value.trim() })
+                }
               />
             </div>
 
@@ -963,7 +1036,10 @@ export default function edit() {
                 type="text"
                 value={hobby}
                 name="hobby"
-                onChange={(e) => setHobby(e.target.value.trim())}
+                // onChange={(e) => setHobby(e.target.value.trim())}
+                onChange={(e) =>
+                  setProfile({ ...profile, hobby: e.target.value.trim() })
+                }
                 maxLength="30"
                 className="text-base bg-blue-100 placeholder-blue-300 text-left rounded-full py-1 pl-5 outline-none w-full"
               />
@@ -980,7 +1056,10 @@ export default function edit() {
                 value={dream}
                 name="dream"
                 maxLength="30"
-                onChange={(e) => setDream(e.target.value.trim())}
+                // onChange={(e) => setDream(e.target.value.trim())}
+                onChange={(e) =>
+                  setProfile({ ...profile, dream: e.target.value.trim() })
+                }
                 className="text-base bg-blue-100 placeholder-blue-300 text-left rounded-full py-1 pl-5 outline-none w-full"
               />
             </div>
@@ -995,7 +1074,13 @@ export default function edit() {
                 value={certification}
                 name="certification"
                 maxLength="30"
-                onChange={(e) => setCertification(e.target.value.trim())}
+                onChange={(e) =>
+                  setProfile({
+                    ...profile,
+                    certification: e.target.value.trim(),
+                  })
+                }
+                // onChange={(e) => setCertification(e.target.value.trim())}
                 className="text-base bg-blue-100 placeholder-blue-300 text-left rounded-full py-1 pl-5 outline-none w-full"
               />
             </div>
@@ -1010,7 +1095,10 @@ export default function edit() {
                 value={strongArea}
                 name="strongArea"
                 maxLength="30"
-                onChange={(e) => setStrongArea(e.target.value.trim())}
+                onChange={(e) =>
+                  setProfile({ ...profile, strongArea: e.target.value.trim() })
+                }
+                // onChange={(e) => setStrongArea(e.target.value.trim())}
                 className="text-base bg-blue-100 placeholder-blue-300 text-left rounded-full py-1 pl-5 outline-none w-full"
               />
             </div>
@@ -1025,7 +1113,10 @@ export default function edit() {
                 value={subjectArea}
                 name="subjectArea"
                 maxLength="30"
-                onChange={(e) => setSubjectArea(e.target.value.trim())}
+                onChange={(e) =>
+                  setProfile({ ...profile, subjectArea: e.target.value.trim() })
+                }
+                // onChange={(e) => setSubjectArea(e.target.value.trim())}
                 className="text-base bg-blue-100 placeholder-blue-300 text-left rounded-full py-1 pl-5 outline-none w-full"
               />
             </div>
@@ -1041,44 +1132,45 @@ export default function edit() {
                   欄を追加
                 </button>
               </div>
-              {experiences.map((ex, index) => (
-                <div
-                  key={index}
-                  className="grid grid-cols-12 gap-2 items-center"
-                >
-                  <div className="grid grid-cols-12 my-1 col-span-8 gap-1 items-center">
-                    <input
-                      type="text"
-                      value={ex.experience}
-                      name="experience"
-                      maxLength="15"
-                      placeholder="一般薬剤師/管理薬剤師など"
-                      onChange={(e) => changeExperience(e, index)}
-                      className="text-base bg-blue-100 placeholder-blue-300 text-left rounded-full py-1 pl-5 outline-none w-full col-span-10"
-                    />
-                    <p className="text-base col-span-2">経験</p>
+              {experiences &&
+                experiences.map((ex, index) => (
+                  <div
+                    key={index}
+                    className="grid grid-cols-12 gap-2 items-center"
+                  >
+                    <div className="grid grid-cols-12 my-1 col-span-8 gap-1 items-center">
+                      <input
+                        type="text"
+                        value={ex.experience}
+                        name="experience"
+                        maxLength="15"
+                        placeholder="一般薬剤師/管理薬剤師など"
+                        onChange={(e) => changeExperience(e, index)}
+                        className="text-base bg-blue-100 placeholder-blue-300 text-left rounded-full py-1 pl-5 outline-none w-full col-span-10"
+                      />
+                      <p className="text-base col-span-2">経験</p>
+                    </div>
+                    <div className="grid grid-cols-2 my-1 col-span-3 gap-1 items-center">
+                      <input
+                        type="text"
+                        value={ex.years}
+                        name="years"
+                        maxLength="15"
+                        onChange={(e) => changeYears(e, index)}
+                        className="text-base bg-blue-100 placeholder-blue-300 text-left rounded-full py-1 pl-5 outline-none"
+                      />
+                      <p className="text-base">年程度</p>
+                    </div>
+                    <div className="col-span-1">
+                      <button
+                        className="text-white bg-gray-400 transition duration-300 hover:bg-gray-300 py-1 px-2 rounded-full shadow-lg text-xs"
+                        onClick={() => deleteExperience(index)}
+                      >
+                        削除
+                      </button>
+                    </div>
                   </div>
-                  <div className="grid grid-cols-2 my-1 col-span-3 gap-1 items-center">
-                    <input
-                      type="text"
-                      value={ex.years}
-                      name="years"
-                      maxLength="15"
-                      onChange={(e) => changeYears(e, index)}
-                      className="text-base bg-blue-100 placeholder-blue-300 text-left rounded-full py-1 pl-5 outline-none"
-                    />
-                    <p className="text-base">年程度</p>
-                  </div>
-                  <div className="col-span-1">
-                    <button
-                      className="text-white bg-gray-400 transition duration-300 hover:bg-gray-300 py-1 px-2 rounded-full shadow-lg text-xs"
-                      onClick={() => deleteExperience(index)}
-                    >
-                      削除
-                    </button>
-                  </div>
-                </div>
-              ))}
+                ))}
             </div>
 
             <div className="my-10">
@@ -1092,63 +1184,64 @@ export default function edit() {
                   欄を追加
                 </button>
               </div>
-              {resumes.map((re, index) => (
-                <div
-                  key={index}
-                  className="grid grid-cols-12 gap-2 items-center"
-                >
-                  <input
-                    type="text"
-                    value={re.companyName}
-                    name="companyName"
-                    maxLength="15"
-                    placeholder="企業名"
-                    onChange={(e) => changeCompanyName(e, index)}
-                    className="text-base bg-blue-100 placeholder-blue-300 text-left rounded-full py-1 pl-5 outline-none w-full col-span-4 my-1"
-                  />
+              {resumes &&
+                resumes.map((re, index) => (
+                  <div
+                    key={index}
+                    className="grid grid-cols-12 gap-2 items-center"
+                  >
+                    <input
+                      type="text"
+                      value={re.companyName}
+                      name="companyName"
+                      maxLength="15"
+                      placeholder="企業名"
+                      onChange={(e) => changeCompanyName(e, index)}
+                      className="text-base bg-blue-100 placeholder-blue-300 text-left rounded-full py-1 pl-5 outline-none w-full col-span-4 my-1"
+                    />
 
-                  <input
-                    type="text"
-                    value={re.employmentStatus}
-                    name="employmentStatus"
-                    maxLength="10"
-                    placeholder="雇用形態"
-                    onChange={(e) => changeEmploymentStatus(e, index)}
-                    className="text-base bg-blue-100 placeholder-blue-300 text-left rounded-full py-1 pl-5 outline-none w-full col-span-2 my-1"
-                  />
+                    <input
+                      type="text"
+                      value={re.employmentStatus}
+                      name="employmentStatus"
+                      maxLength="10"
+                      placeholder="雇用形態"
+                      onChange={(e) => changeEmploymentStatus(e, index)}
+                      className="text-base bg-blue-100 placeholder-blue-300 text-left rounded-full py-1 pl-5 outline-none w-full col-span-2 my-1"
+                    />
 
-                  <input
-                    type="text"
-                    value={re.workStart}
-                    name="workStart"
-                    maxLength="10"
-                    placeholder="いつから"
-                    onChange={(e) => changeWorkStart(e, index)}
-                    className="text-base bg-blue-100 placeholder-blue-300 text-left rounded-full py-1 pl-5 outline-none w-full col-span-2 my-1"
-                  />
+                    <input
+                      type="text"
+                      value={re.workStart}
+                      name="workStart"
+                      maxLength="10"
+                      placeholder="いつから"
+                      onChange={(e) => changeWorkStart(e, index)}
+                      className="text-base bg-blue-100 placeholder-blue-300 text-left rounded-full py-1 pl-5 outline-none w-full col-span-2 my-1"
+                    />
 
-                  <p className="col-span-1 justify-self-center">~</p>
+                    <p className="col-span-1 justify-self-center">~</p>
 
-                  <input
-                    type="text"
-                    value={re.workEnd}
-                    name="workEnd"
-                    maxLength="10"
-                    placeholder="いつまで"
-                    onChange={(e) => changeWorkEnd(e, index)}
-                    className="text-base bg-blue-100 placeholder-blue-300 text-left rounded-full py-1 pl-5 outline-none w-full col-span-2 my-1"
-                  />
+                    <input
+                      type="text"
+                      value={re.workEnd}
+                      name="workEnd"
+                      maxLength="10"
+                      placeholder="いつまで"
+                      onChange={(e) => changeWorkEnd(e, index)}
+                      className="text-base bg-blue-100 placeholder-blue-300 text-left rounded-full py-1 pl-5 outline-none w-full col-span-2 my-1"
+                    />
 
-                  <div className="col-span-1">
-                    <button
-                      className="text-white bg-gray-400 transition duration-300 hover:bg-gray-300 py-1 px-2 rounded-full shadow-lg text-xs"
-                      onClick={() => deleteResume(index)}
-                    >
-                      削除
-                    </button>
+                    <div className="col-span-1">
+                      <button
+                        className="text-white bg-gray-400 transition duration-300 hover:bg-gray-300 py-1 px-2 rounded-full shadow-lg text-xs"
+                        onClick={() => deleteResume(index)}
+                      >
+                        削除
+                      </button>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
             </div>
           </div>
         </div>
