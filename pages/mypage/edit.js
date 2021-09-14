@@ -11,14 +11,34 @@ import { UserContext } from "../../UserContext";
 
 export default function edit() {
   ////////////////// ステートエリア //////////////////
-  const {
-    userId,
-    setUserId,
-    demoImg,
-    demoImgs,
-  } = useContext(UserContext);
+  const { userId, setUserId, demoImg, demoImgs } = useContext(UserContext);
 
-  const [profile, setProfile] = useState({birthPlace:'',certification:'',comments:'',dobDD:'',dobMM:'',dobYY:'',dream:'',freeImageUrl0:'',freeImageUrl1:'',freeImageUrl2:'',hobby:'',homeAddress:'',jobTitle:'',language:'',profileImageUrl:'',school:'',scout:'',strongArea:'',subjectArea:'',userName:'',experiences:[{experience:'',years:''}],resumes:[{companyName:'',employmentStatus:'',workEnd:'',workStart:''}]}); 
+  const [profile, setProfile] = useState({
+    birthPlace: "",
+    certification: "",
+    comments: "",
+    dobDD: "",
+    dobMM: "",
+    dobYY: "",
+    dream: "",
+    freeImageUrl0: "",
+    freeImageUrl1: "",
+    freeImageUrl2: "",
+    hobby: "",
+    homeAddress: "",
+    jobTitle: "",
+    language: "",
+    profileImageUrl: "",
+    school: "",
+    scout: "",
+    strongArea: "",
+    subjectArea: "",
+    userName: "",
+    experiences: [{ experience: "", years: "" }],
+    resumes: [
+      { companyName: "", employmentStatus: "", workEnd: "", workStart: "" },
+    ],
+  });
   const [userEmail, setUserEmail] = useState("");
   const [profileImage, setProfileImage] = useState("");
   const [freeImage0, setFreeImage0] = useState("");
@@ -34,6 +54,35 @@ export default function edit() {
   const [openEditPassword, setOpenEditPassword] = useState(false);
   const [openDeleteAccount, setOpenDeleteAccount] = useState(false);
   const [isGoogleLogin, setIsGoogleLogin] = useState(false);
+
+  ////////////////// 関数エリア //////////////////
+  const alert = useAlert();
+
+  useEffect(() => {
+    const unSub = auth.onAuthStateChanged((user) => {
+      if (user) {
+        setUserId(user.uid);
+        setUserEmail(user.email);
+
+        db.collection("userProfiles")
+          .doc(user.uid)
+          .onSnapshot((doc) => {
+            if (doc.data()) {
+              setProfile({ ...profile, ...doc.data() });
+            } else {
+              if (!profile.userName) {
+                setProfile({ ...profile, userName: user.displayName });
+              }
+            }
+          });
+
+      } else {
+        Router.push("/login");
+      }
+    });
+    return () => unSub();
+  }, []);
+
 
   const {
     birthPlace,
@@ -57,37 +106,8 @@ export default function edit() {
     scout,
     strongArea,
     subjectArea,
-    userName
+    userName,
   } = profile;
-
-  ////////////////// 関数エリア //////////////////
-  const alert = useAlert();
-
-  useEffect(() => {
-    const unSub = auth.onAuthStateChanged((user) => {
-      if (user) {
-        if(!profile.userName){
-          setProfile({...profile,userName:user.displayName});
-        }
-        setUserId(user.uid)
-        setUserEmail(user.email);
-
-      db
-        .collection("userProfiles")
-        .doc(user.uid)
-        .onSnapshot((doc) => {
-          if (doc.data()) {
-            setProfile({...profile,...doc.data()});
-          }
-        });       
-      } else {
-        setProfile({})
-        Router.push("/login");
-      }
-    });
-    return () => unSub();
-  }, []);
-
 
   const uploadImage = (e) => {
     if (e.target.files[0]) {
@@ -145,11 +165,11 @@ export default function edit() {
         .ref("profileImages")
         .child(userId)
         .getDownloadURL();
-    } else if(!profileImage && profileImageUrl) { 
+    } else if (!profileImage && profileImageUrl) {
       //アップロード画像がない&&firestoreにデータがある
       profileUrl = profileImageUrl;
-    }else{
-      profileUrl ='';
+    } else {
+      profileUrl = "";
     }
 
     if (freeImage0) {
@@ -158,13 +178,12 @@ export default function edit() {
         .ref("freeImages")
         .child(`${userId}0`)
         .getDownloadURL();
-    }else if(!freeImage0 && freeImageUrl0) { 
+    } else if (!freeImage0 && freeImageUrl0) {
       //アップロード画像がない&&firestoreにデータがある
       freeUrl0 = freeImageUrl0;
-    }else{
-      freeUrl0 = '';
+    } else {
+      freeUrl0 = "";
     }
-
 
     if (freeImage1) {
       await storage.ref(`freeImages/${userId}1`).put(freeImage1);
@@ -172,11 +191,11 @@ export default function edit() {
         .ref("freeImages")
         .child(`${userId}1`)
         .getDownloadURL();
-    } else if(!freeImage1 && freeImageUrl1) { 
+    } else if (!freeImage1 && freeImageUrl1) {
       //アップロード画像がない&&firestoreにデータがある
       freeUrl1 = freeImageUrl1;
-    }else{
-      freeUrl1 = '';
+    } else {
+      freeUrl1 = "";
     }
 
     if (freeImage2) {
@@ -185,11 +204,11 @@ export default function edit() {
         .ref("freeImages")
         .child(`${userId}2`)
         .getDownloadURL();
-    } else if(!freeImage2 && freeImageUrl2) { 
+    } else if (!freeImage2 && freeImageUrl2) {
       //アップロード画像がない&&firestoreにデータがある
       freeUrl2 = freeImageUrl2;
-    }else{
-      freeUrl2 = '';
+    } else {
+      freeUrl2 = "";
     }
 
     const profileInfo = {
@@ -199,22 +218,19 @@ export default function edit() {
       freeImageUrl1: freeUrl1,
       freeImageUrl2: freeUrl2,
     };
-    
 
-      await db
-        .collection("userProfiles")
-        .doc(userId)
-        .set(profileInfo)
-        .then(() => {
-          alert.success("プロフィールを変更しました");
-        })
-        .catch(() => {
-          alert.error("プロフィールを変更できませんでした");
-        });
-
+    await db
+      .collection("userProfiles")
+      .doc(userId)
+      .set(profileInfo)
+      .then(() => {
+        alert.success("プロフィールを変更しました");
+      })
+      .catch(() => {
+        alert.error("プロフィールを変更できませんでした");
+      });
   };
 
-  
   /// 経験年数の各experienceの変更処理 ///
   const changeExperience = (e, index) => {
     const list = [...experiences];
@@ -237,12 +253,12 @@ export default function edit() {
 
   /// 経験年数の欄追加処理 ///
   const addExperience = () => {
-    if(experiences){
+    if (experiences) {
       const list = [...experiences];
       list.push({ experience: "", years: "" });
       setProfile({ ...profile, experiences: list });
-    }else{
-      setProfile({ ...profile, experiences:[{experience: "", years: ""}] });
+    } else {
+      setProfile({ ...profile, experiences: [{ experience: "", years: "" }] });
     }
   };
 
@@ -302,7 +318,7 @@ export default function edit() {
   };
 
   const addResume = () => {
-    if(resumes){
+    if (resumes) {
       const list = [...resumes];
       list.push({
         companyName: "",
@@ -311,11 +327,13 @@ export default function edit() {
         workEnd: "",
       });
       setProfile({ ...profile, resumes: list });
-    }else{
-      setProfile({ ...profile, resumes:[{companyName: "",
-      employmentStatus: "",
-      workStart: "",
-      workEnd: "",}] });
+    } else {
+      setProfile({
+        ...profile,
+        resumes: [
+          { companyName: "", employmentStatus: "", workStart: "", workEnd: "" },
+        ],
+      });
     }
   };
 
@@ -339,7 +357,7 @@ export default function edit() {
 
   /// メールアドレス変更処理 ///
   const changeEmail = () => {
-    const unsub = auth.onAuthStateChanged((user) => {
+    const unSub = auth.onAuthStateChanged((user) => {
       if (user && resetEmailPassword) {
         const credential = firebase.auth.EmailAuthProvider.credential(
           user.email,
@@ -370,13 +388,13 @@ export default function edit() {
           });
       }
       // 登録解除
-      unsub();
+      return () => unSub();
     });
   };
 
   /// アカウント削除 ///
   const deleteAccount = () => {
-    const unsub = auth.onAuthStateChanged((user) => {
+    const unSub = auth.onAuthStateChanged((user) => {
       if (user && deleteAccountPassword) {
         const credential = firebase.auth.EmailAuthProvider.credential(
           user.email,
@@ -386,31 +404,31 @@ export default function edit() {
         // ログインしていれば通る
         user
           .reauthenticateWithCredential(credential)
-          .then(async() => {
+          .then(async () => {
             const result = confirm("本当にアカウントを削除しますか?");
 
             if (result) {
-            await  user
-                .delete()
-                .then(() => {
-                  alert.success("アカウントを削除しました");                  
-                })
-                .catch(() => {
-                  alert.error("アカウントを削除できませんでした");
-                });
-                
-                
+              await  user
+              .delete()
+              .then(() => {
+                alert.success("アカウントを削除しました");  
+                Router.push("/login");                
+              })
+              .catch(() => {
+                alert.error("アカウントを削除できませんでした");
+              });
+             
             } else {
               alert.error("アカウント削除をキャンセルしました");
             }
           })
           .catch((err) => {
-            alert.error("パスワードが異なっています");
+            alert.error("アカウントを削除できませんでした");
             console.log(err);
           });
       }
       // 登録解除
-      unsub();
+      unSub();
     });
   };
 
@@ -429,15 +447,16 @@ export default function edit() {
 
   //アカウント(google)削除
   const deleteGoogleAccount = () => {
-    const unsub = auth.onAuthStateChanged((user) => {
+    const unSub = auth.onAuthStateChanged((user) => {
       if (user) {
         const result = confirm("本当にアカウントを削除しますか?");
 
         if (result) {
-            user
+          user
             .delete()
             .then(() => {
               alert.success("アカウントを削除しました");
+              Router.push("/login");
             })
             .catch(() => {
               alert.error("アカウントを削除できませんでした");
@@ -447,7 +466,7 @@ export default function edit() {
         }
       }
       // 登録解除
-      unsub();
+      return () => unSub();
     });
   };
 
@@ -470,6 +489,7 @@ export default function edit() {
       try {
         await auth.signOut();
         alert.success("ログアウトしました");
+        Router.push("/login");
       } catch (error) {
         console.log(error);
         alert.error("ログアウトできませんでした");
@@ -477,7 +497,8 @@ export default function edit() {
     }
   };
 
-  const check1 = !userName || !scout || !homeAddress || !dobYY || !dobMM || !dobDD;
+  const check1 =
+    !userName || !scout || !homeAddress || !dobYY || !dobMM || !dobDD;
 
   ////////////////// JSXエリア //////////////////
   return (
@@ -531,22 +552,22 @@ export default function edit() {
             <div className="flex flex-row flex-wrap my-10 justify-center gap-1 items-center">
               <Emoji emoji="female-detective" size={20} />
               <label>
-              <select
-                className="bg-blue-100 rounded-full outline-none pl-3 py-1 w-11/12"
-                name="scout"
-                value={scout}
-                onChange={(e) =>
-                  setProfile({ ...profile, scout: e.target.value })
-                }
-              >
-                <option value="">スカウト設定</option>
-                <option value="スカウトを受け取る">スカウトを受け取る</option>
-                <option value="スカウトを受け取らない">
-                  スカウトを受け取らない
-                </option>
-              </select>
-              <span className="text-red-500 align-top">*</span>
-                </label>
+                <select
+                  className="bg-blue-100 rounded-full outline-none pl-3 py-1 w-11/12"
+                  name="scout"
+                  value={scout}
+                  onChange={(e) =>
+                    setProfile({ ...profile, scout: e.target.value })
+                  }
+                >
+                  <option value="">スカウト設定</option>
+                  <option value="スカウトを受け取る">スカウトを受け取る</option>
+                  <option value="スカウトを受け取らない">
+                    スカウトを受け取らない
+                  </option>
+                </select>
+                <span className="text-red-500 align-top">*</span>
+              </label>
             </div>
 
             {/* /// フリー画像アップロード0 /// */}
@@ -671,7 +692,6 @@ export default function edit() {
           <div className="col-span-9">
             <div className="flex flex-row flex-wrap items-end my-10 gap-8">
               <label>
-
                 <input
                   type="text"
                   value={userName}

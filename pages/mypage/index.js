@@ -25,16 +25,6 @@ export default function mypage() {
             }
             else{
               setDisplayName(user.displayName);
-              // db
-              // .collection("userProfiles")
-              // .doc(user.uid)
-              // .set({userName:user.displayName})
-              // .then(() => {
-              //   console.log("OK");
-              // })
-              // .catch(() => {
-              //   console.log('NG');
-              // });
             }
           });
       } else {
