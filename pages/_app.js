@@ -12,9 +12,12 @@ function MyApp({ Component, pageProps }) {
   const [defaultName, setDefaultName] = useState("");
   const [demoImg, setDemoImg] = useState("");
   const [demoImgs, setDemoImgs] = useState("");
+  const [companyDemoImg, setCompanyDemoImg] = useState("");
   const [nameTrigger, setNameTrigger] = useState("");
-  const [selectHomeAddress, setSelectHomeAddress] = useState("");
   const [selectProfile, setSelectProfile] = useState("");
+  const [selectHomeAddress, setSelectHomeAddress] = useState("");
+  const [selectCompany, setSelectCompany] = useState("");
+  const [selectCompanyAddress, setSelectCompanyAddress] = useState("");
 
   useEffect(() => {
     storage
@@ -31,6 +34,14 @@ function MyApp({ Component, pageProps }) {
       .getDownloadURL()
       .then(function (url) {
         setDemoImgs(url);
+      });
+
+    storage
+      .ref()
+      .child("company_demo_img.png")
+      .getDownloadURL()
+      .then(function (url) {
+        setCompanyDemoImg(url);
       });
   }, []);
 
@@ -51,15 +62,18 @@ function MyApp({ Component, pageProps }) {
         defaultName, 
         setDefaultName,
         demoImg,
-        setDemoImg,
         demoImgs,
-        setDemoImgs,
+        companyDemoImg,
         nameTrigger,
         setNameTrigger,
         selectHomeAddress,
         setSelectHomeAddress,
         selectProfile,
         setSelectProfile,
+        selectCompanyAddress, 
+        setSelectCompanyAddress,
+        selectCompany, 
+        setSelectCompany,
       }}
     >
       <AlertProvider template={AlertTemplate} {...options}>

@@ -1,27 +1,20 @@
 import algoliasearch from "algoliasearch/lite";
 import { Emoji } from "emoji-mart";
 import Image from "next/image";
-import { useContext, useEffect } from "react";
-import {
-  Configure,
-  Hits,
-  InstantSearch,
-  // PoweredBy,
-} from "react-instantsearch-dom";
+import { useContext } from "react";
+import { Configure, Hits, InstantSearch } from "react-instantsearch-dom";
 import { UserContext } from "../../UserContext";
 import { hitComponent } from "./HitComponent";
 import { CustomSearchBox } from "./SearchBox";
 
-export default function Search(props) {
-  
-    const searchClient = algoliasearch(
-        props.appId,
-        props.searchKey
-    )
+export default function Search() {
+  const searchClient = algoliasearch(
+    "0TMIYQ8E9N",
+    "58e6e394abd7a5cfcc6fcae0d7b51ac5"
+  );
 
-  
   const indexName = "pham";
-  
+
   const {
     selectHomeAddress,
     setSelectHomeAddress,
@@ -30,8 +23,6 @@ export default function Search(props) {
     demoImgs,
   } = useContext(UserContext);
 
-  console.log(selectProfile.experiences);
-
   return (
     <div className="min-h-screen">
       <div className="grid grid-cols-12 gap-10">
@@ -39,14 +30,14 @@ export default function Search(props) {
         <div className="col-span-3 border-r-2 border-blue-400 min-h-screen">
           <div className="text-center">
             <h4 className="text-white bg-blue-400 font-bold text-lg py-3">
-              {props.title}
+              薬剤師検索
             </h4>
           </div>
           <InstantSearch indexName={indexName} searchClient={searchClient}>
             <div className="border-b">
               <div className="mx-5 my-7">
                 <div className="my-5">
-                  <p>{props.name}</p>
+                  <p>名前</p>
                   <div>
                     <CustomSearchBox />
                   </div>
@@ -54,7 +45,7 @@ export default function Search(props) {
 
                 <div className="my-5">
                   <label>
-                    <p>{props.address}</p>
+                    <p>住所</p>
                     <select
                       className="bg-blue-100 rounded-full outline-none pl-3 w-full py-1"
                       name="selectHomeAddress"
@@ -115,7 +106,7 @@ export default function Search(props) {
               </div>
             </div>
 
-            <Hits hitComponent={hitComponent} />
+            <Hits hitComponent={hitComponent} num={"6"} />
             <Configure hitsPerPage={10} />
             <div className="mx-3 my-2">{/* <PoweredBy /> */}</div>
           </InstantSearch>
@@ -146,12 +137,12 @@ export default function Search(props) {
                   )
                 )}
 
-                {selectProfile.connection &&
-                <div className="flex flex-row flex-wrap my-5 justify-center gap-1 items-center">
-                  <Emoji emoji="handshake" size={20} />
-                  <p className="text-base">{`${selectProfile.connection}人`}</p>
-                </div>
-                }  
+                {selectProfile.connection && (
+                  <div className="flex flex-row flex-wrap my-5 justify-center gap-1 items-center">
+                    <Emoji emoji="handshake" size={20} />
+                    <p className="text-base">{`${selectProfile.connection}人`}</p>
+                  </div>
+                )}
 
                 <div className="my-10 text-center">
                   <button className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 disabled:bg-blue-200 py-2 w-full rounded-full shadow-lg font-bold">
@@ -248,12 +239,13 @@ export default function Search(props) {
                 </div>
 
                 <div className="flex flex-row flex-wrap my-5 gap-6 leading-none">
-      
+                  {selectProfile.homeAddress && (
                     <div className="flex flex-row flex-wrap gap-1 items-center">
                       <Emoji emoji="round_pushpin" size={20} />
                       <p className="text-base">{selectProfile.homeAddress}</p>
                     </div>
-     
+                  )}
+
                   {selectProfile.dobYY &&
                     selectProfile.dobMM &&
                     selectProfile.dobDD && (
@@ -365,36 +357,35 @@ export default function Search(props) {
                     </div>
                   )}
 
-                {selectProfile.resumes &&
-                  selectProfile.resumes[0].companyName && (
-                    <div className="my-10">
-                      <div className="flex flex-row flex-wrap gap-1 items-center">
-                        <Emoji emoji="page_facing_up" size={20} />
-                        <p className="text-base font-bold">経歴詳細</p>
-                      </div>
-                      {selectProfile.resumes.map((re, index) => (
-                        <div key={index} className="grid grid-cols-3">
-                          <div>
-                            <p className="text-base">{re.companyName}</p>
-                          </div>
-                          <div>
-                            <p className="text-base">{re.employmentStatus}</p>
-                          </div>
-                          {re.workStart && re.workEnd && (
-                            <div>
-                              <p className="text-base">
-                                {`${re.workStart} ~ ${re.workEnd}`}
-                              </p>
-                            </div>
-                          )}
-                        </div>
-                      ))}
+                {selectProfile.resumes && selectProfile.resumes[0].companyName && (
+                  <div className="my-10">
+                    <div className="flex flex-row flex-wrap gap-1 items-center">
+                      <Emoji emoji="page_facing_up" size={20} />
+                      <p className="text-base font-bold">経歴詳細</p>
                     </div>
-                  )}
+                    {selectProfile.resumes.map((re, index) => (
+                      <div key={index} className="grid grid-cols-3">
+                        <div>
+                          <p className="text-base">{re.companyName}</p>
+                        </div>
+                        <div>
+                          <p className="text-base">{re.employmentStatus}</p>
+                        </div>
+                        {re.workStart && re.workEnd && (
+                          <div>
+                            <p className="text-base">
+                              {`${re.workStart} ~ ${re.workEnd}`}
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
           </div>
-        ):(
+        ) : (
           <div className="col-span-9 justify-self-center self-center">
             <Image
               src="/pharmacists_search_img.png"
@@ -407,5 +398,4 @@ export default function Search(props) {
       </div>
     </div>
   );
-
 }

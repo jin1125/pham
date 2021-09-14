@@ -24,7 +24,7 @@ export default function Header() {
           </button>
         </Link>
 
-        <Link href="/companys/search">
+        <Link href="/companies/search">
           <button className="font-bold text-center text-blue-400 transition duration-300 hover:text-white bg-white hover:bg-blue-300 py-2 rounded-full w-full">
             企業検索
           </button>

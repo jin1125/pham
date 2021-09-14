@@ -6,18 +6,16 @@ import { UserContext } from "../../UserContext";
 
 export function hitComponent({ hit }) {
   const { demoImg, selectHomeAddress, setSelectProfile, selectProfile,userId,
-    setUserId, } =
+    setUserId } =
     useContext(UserContext);
 
     useEffect(() => {
       const unSub = auth.onAuthStateChanged((user) => {
         if (user) {
-          // setDefaultName(user.displayName);
           setUserId(user.uid)
         } else {
   
           Router.push("/login");
-          setProfile({})
         }
       });
       return () => unSub();
@@ -103,7 +101,3 @@ export function hitComponent({ hit }) {
     </>
   );
 }
-
-// export const hitComponent = ({ hit }) => (
-//   <HitComponent hit={hit} onClick={() => null} />
-// );

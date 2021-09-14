@@ -25,7 +25,7 @@ export default  function profiles() {
       </Head>
 
       <Layout>
-        <Search appId={'0TMIYQ8E9N'} searchKey={'58e6e394abd7a5cfcc6fcae0d7b51ac5'} title={'薬剤師検索'} name={"名前"} address={"住所"}/>
+        <Search/>
       </Layout>
     </div>
   );
