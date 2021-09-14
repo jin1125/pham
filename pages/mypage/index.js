@@ -2,7 +2,7 @@ import { Emoji } from "emoji-mart";
 import Head from "next/head";
 import Image from "next/image";
 import Router from "next/router";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import Layout from "../../components/layout/Layout";
 import { auth, db } from "../../firebase";
 import { UserContext } from "../../UserContext";

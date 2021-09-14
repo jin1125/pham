@@ -16,54 +16,8 @@ export default function edit() {
     setProfile,
     userId,
     setUserId,
-    // userName,
-    // setUserName,
     demoImg,
     demoImgs,
-    // profileImageUrl,
-    // setProfileImageUrl,
-    // freeImageUrl0,
-    // setFreeImageUrl0,
-    // freeImageUrl1,
-    // setFreeImageUrl1,
-    // freeImageUrl2,
-    // setFreeImageUrl2,
-    // jobTitle,
-    // setJobTitle,
-    // homeAddress,
-    // setHomeAddress,
-    // dobYY,
-    // setDobYY,
-    // dobMM,
-    // setDobMM,
-    // dobDD,
-    // setDobDD,
-    // school,
-    // setSchool,
-    // birthPlace,
-    // setBirthPlace,
-    // language,
-    // setLanguage,
-    // comments,
-    // setComments,
-    // hobby,
-    // setHobby,
-    // dream,
-    // setDream,
-    // certification,
-    // setCertification,
-    // strongArea,
-    // setStrongArea,
-    // subjectArea,
-    // setSubjectArea,
-    // connection,
-    // setConnection,
-    // scout,
-    // setScout,
-    // experiences,
-    // setExperiences,
-    // resumes,
-    // setResumes,
   } = useContext(UserContext);
 
   const {
@@ -128,7 +82,6 @@ export default function edit() {
         
       } else {
         setProfile({})
-        db.collection('userProfiles').doc(userId).delete();
         Router.push("/login");
       }
     });
@@ -433,11 +386,11 @@ export default function edit() {
         // ログインしていれば通る
         user
           .reauthenticateWithCredential(credential)
-          .then(() => {
+          .then(async() => {
             const result = confirm("本当にアカウントを削除しますか?");
 
             if (result) {
-              user
+            await  user
                 .delete()
                 .then(() => {
                   alert.success("アカウントを削除しました");                  
@@ -565,7 +518,6 @@ export default function edit() {
                   />
                 )
               )}
-              {/* <span className="text-red-500 align-top">*</span> */}
 
               <input
                 className="hidden"
@@ -583,7 +535,6 @@ export default function edit() {
                 className="bg-blue-100 rounded-full outline-none pl-3 py-1 w-11/12"
                 name="scout"
                 value={scout}
-                // onChange={(e) => setScout(e.target.value)}
                 onChange={(e) =>
                   setProfile({ ...profile, scout: e.target.value })
                 }
@@ -724,7 +675,6 @@ export default function edit() {
                 <input
                   type="text"
                   value={userName}
-                  // onChange={(e) => setUserName(e.target.value.trim())}
                   onChange={(e) =>
                     setProfile({ ...profile, userName: e.target.value.trim() })
                   }
@@ -739,7 +689,6 @@ export default function edit() {
               <input
                 type="text"
                 value={jobTitle}
-                // onChange={(e) => setJobTitle(e.target.value.trim())}
                 onChange={(e) =>
                   setProfile({ ...profile, jobTitle: e.target.value.trim() })
                 }
@@ -763,7 +712,6 @@ export default function edit() {
                     className="bg-blue-100 rounded-full outline-none pl-3 pr-2 py-1"
                     name="homeAddress"
                     value={homeAddress}
-                    // onChange={(e) => setHomeAddress(e.target.value)}
                     onChange={(e) =>
                       setProfile({ ...profile, homeAddress: e.target.value })
                     }
@@ -828,7 +776,6 @@ export default function edit() {
                     className="bg-blue-100 rounded-full outline-none pl-3 pr-2 py-1"
                     name="dobYY"
                     value={dobYY}
-                    // onChange={(e) => setDobYY(e.target.value)}
                     onChange={(e) =>
                       setProfile({ ...profile, dobYY: e.target.value })
                     }
@@ -893,7 +840,6 @@ export default function edit() {
                     className="bg-blue-100 rounded-full outline-none pl-3 pr-2 py-1"
                     name="dobMM"
                     value={dobMM}
-                    // onChange={(e) => setDobMM(e.target.value)}
                     onChange={(e) =>
                       setProfile({ ...profile, dobMM: e.target.value })
                     }
@@ -920,7 +866,6 @@ export default function edit() {
                     className="bg-blue-100 rounded-full outline-none pl-3 pr-2 py-1"
                     name="dobDD"
                     value={dobDD}
-                    // onChange={(e) => setDobDD(e.target.value)}
                     onChange={(e) =>
                       setProfile({ ...profile, dobDD: e.target.value })
                     }
@@ -967,7 +912,6 @@ export default function edit() {
                 <input
                   type="text"
                   value={school}
-                  // onChange={(e) => setSchool(e.target.value.trim())}
                   onChange={(e) =>
                     setProfile({ ...profile, school: e.target.value.trim() })
                   }
@@ -984,7 +928,6 @@ export default function edit() {
                 <input
                   type="text"
                   value={birthPlace}
-                  // onChange={(e) => setBirthPlace(e.target.value.trim())}
                   onChange={(e) =>
                     setProfile({
                       ...profile,
@@ -1004,7 +947,6 @@ export default function edit() {
                 <input
                   type="text"
                   value={language}
-                  // onChange={(e) => setLanguage(e.target.value.trim())}
                   onChange={(e) =>
                     setProfile({ ...profile, language: e.target.value.trim() })
                   }
@@ -1023,7 +965,6 @@ export default function edit() {
                 placeholder="自己紹介"
                 maxLength="200"
                 className="bg-blue-100 rounded-lg p-5 w-full outline-none"
-                // onChange={(e) => setComments(e.target.value)}
                 onChange={(e) =>
                   setProfile({ ...profile, comments: e.target.value.trim() })
                 }
@@ -1040,7 +981,6 @@ export default function edit() {
                 type="text"
                 value={hobby}
                 name="hobby"
-                // onChange={(e) => setHobby(e.target.value.trim())}
                 onChange={(e) =>
                   setProfile({ ...profile, hobby: e.target.value.trim() })
                 }
@@ -1060,7 +1000,6 @@ export default function edit() {
                 value={dream}
                 name="dream"
                 maxLength="30"
-                // onChange={(e) => setDream(e.target.value.trim())}
                 onChange={(e) =>
                   setProfile({ ...profile, dream: e.target.value.trim() })
                 }
@@ -1084,7 +1023,6 @@ export default function edit() {
                     certification: e.target.value.trim(),
                   })
                 }
-                // onChange={(e) => setCertification(e.target.value.trim())}
                 className="text-base bg-blue-100 placeholder-blue-300 text-left rounded-full py-1 pl-5 outline-none w-full"
               />
             </div>
@@ -1102,7 +1040,6 @@ export default function edit() {
                 onChange={(e) =>
                   setProfile({ ...profile, strongArea: e.target.value.trim() })
                 }
-                // onChange={(e) => setStrongArea(e.target.value.trim())}
                 className="text-base bg-blue-100 placeholder-blue-300 text-left rounded-full py-1 pl-5 outline-none w-full"
               />
             </div>
@@ -1120,7 +1057,6 @@ export default function edit() {
                 onChange={(e) =>
                   setProfile({ ...profile, subjectArea: e.target.value.trim() })
                 }
-                // onChange={(e) => setSubjectArea(e.target.value.trim())}
                 className="text-base bg-blue-100 placeholder-blue-300 text-left rounded-full py-1 pl-5 outline-none w-full"
               />
             </div>

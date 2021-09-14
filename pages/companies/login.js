@@ -10,15 +10,11 @@ import { UserContext } from "../../UserContext";
 export default function login() {
   const [companyEmail, setCompanyEmail] = useState("");
   const [companyPassword, setCompanyPassword] = useState("");
-  const {setUserId,setUserName} = useContext(UserContext);
 
   const alert = useAlert();
 
   const signIn = async () => {
     try {
-      setUserId('');
-      setUserName('');
-      await auth.signOut();
       await auth.signInWithEmailAndPassword(companyEmail, companyPassword);
       alert.success("ログインしました");
       Router.push("/companies/edit");

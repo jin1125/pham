@@ -2,10 +2,9 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import Router from "next/router";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useAlert } from "react-alert";
 import { auth, db, provider } from "../firebase";
-import { UserContext } from "../UserContext";
 
 export default function login() {
   const [name, setName] = useState("");
@@ -14,7 +13,6 @@ export default function login() {
   const [password, setPassword] = useState("");
   const [resetEmail, setResetEmail] = useState("");
   const [openReset, setOpenReset] = useState(false);
-  const { profile, setProfile } = useContext(UserContext);
 
   const alert = useAlert();
 
@@ -162,9 +160,6 @@ export default function login() {
                       onChange={(e) => setName(e.target.value)}
                     />
                   </label>
-                  <small className="text-gray-400">
-                    {/* <p>※あとで変更できません</p> */}
-                  </small>
                 </div>
               </>
             )}
