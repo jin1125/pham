@@ -30,6 +30,8 @@ export default function Search(props) {
     demoImgs,
   } = useContext(UserContext);
 
+  console.log(selectProfile.experiences);
+
   return (
     <div className="min-h-screen">
       <div className="grid grid-cols-12 gap-10">
@@ -339,7 +341,7 @@ export default function Search(props) {
                   </div>
                 )}
 
-                {selectProfile.experiences[0] &&
+                {selectProfile.experiences &&
                   selectProfile.experiences[0].experience && (
                     <div className="my-10">
                       <div className="flex flex-row flex-wrap gap-1 items-center">
@@ -363,7 +365,7 @@ export default function Search(props) {
                     </div>
                   )}
 
-                {selectProfile.resumes[0] &&
+                {selectProfile.resumes &&
                   selectProfile.resumes[0].companyName && (
                     <div className="my-10">
                       <div className="flex flex-row flex-wrap gap-1 items-center">

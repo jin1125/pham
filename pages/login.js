@@ -14,36 +14,18 @@ export default function login() {
   const [password, setPassword] = useState("");
   const [resetEmail, setResetEmail] = useState("");
   const [openReset, setOpenReset] = useState(false);
-  const { setNameTrigger,profile,setProfile } = useContext(UserContext);
+  const { profile, setProfile } = useContext(UserContext);
 
   const alert = useAlert();
 
- 
 
   //Google新規登録＆ログイン
   const signInGoogle = async () => {
     await auth
       .signInWithPopup(provider)
       .then(() => {
-        auth.onAuthStateChanged(async (user) => {
-          if (user) {
-              await db
-                .collection("userProfiles")
-                .doc(user.uid)
-                .set({userId: user.uid})
-                .then(() => {
-                  console.log("データ作成(Google)");
-                })
-                .catch(() => {
-                  console.log("データ作成失敗(Google)");
-                });
-  
-              alert.success("Googleで続行しました");
-              Router.push("/mypage");
-
-
-          }
-        })
+          alert.success("Googleで続行しました");
+          Router.push("/mypage");
       })
       .catch(() => alert.error("Googleで続行できませんでした"));
   };
@@ -51,8 +33,6 @@ export default function login() {
   //メールアドレスログイン
   const signIn = async () => {
     try {
-      // reset()
-      await auth.signOut();
       await auth.signInWithEmailAndPassword(email, password);
       alert.success("ログインしました");
       Router.push("/mypage");
@@ -61,26 +41,33 @@ export default function login() {
     }
   };
 
-   //メールアドレス新規登録
+  //メールアドレス新規登録
   const signUp = async () => {
     if (name) {
       try {
-        // reset()
         await auth.signOut();
-        const authUser = await auth.createUserWithEmailAndPassword(
+        await auth.createUserWithEmailAndPassword(
           email,
           password
         );
 
-        if (authUser) {
-          await authUser.user.updateProfile({
-            displayName: name,
-          });
-        }
+         auth.onAuthStateChanged((user) => {
+          if (user) {
+             db
+              .collection("userProfiles")
+              .doc(user.uid)
+              .set({userName:name})
+              .then(() => {
+                console.log("OK");
+                Router.push("/mypage");
+              })
+              .catch(() => {
+                console.log('NG');
+              });
+          }
+        });
 
-        setNameTrigger(name);
         alert.success("アカウントを作成できました");
-        Router.push("/mypage");
       } catch (error) {
         alert.error("アカウントを作成できませんでした");
       }
@@ -108,7 +95,6 @@ export default function login() {
   const switchSignUp = () => {
     setIsLogin(false);
   };
-
 
   ////////////////////////// JSXエリア //////////////////////////
   return (

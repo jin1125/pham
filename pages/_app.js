@@ -7,10 +7,9 @@ import "../styles/global.css";
 import { UserContext } from "../UserContext";
 
 function MyApp({ Component, pageProps }) {
-  const [profile, setProfile] = useState({});
-  const [user, setUser] = useState({});
-  // const [userId, setUserId] = useState("");
-  // const [userName, setUserName] = useState("");
+  const [profile, setProfile] = useState({}); 
+  const [userId, setUserId] = useState("");
+  const [defaultName, setDefaultName] = useState("");
   const [demoImg, setDemoImg] = useState("");
   const [demoImgs, setDemoImgs] = useState("");
   const [nameTrigger, setNameTrigger] = useState("");
@@ -225,15 +224,12 @@ function MyApp({ Component, pageProps }) {
   return (
     <UserContext.Provider
       value={{
-        user,
-        setUser,
         profile,
         setProfile,
-        // reset,
-        // userId,
-        // setUserId,
-        // userName,
-        // setUserName,
+        userId,
+        setUserId,
+        defaultName, 
+        setDefaultName,
         demoImg,
         setDemoImg,
         demoImgs,

@@ -14,6 +14,8 @@ export default function edit() {
   const {
     profile,
     setProfile,
+    userId,
+    setUserId,
     // userName,
     // setUserName,
     demoImg,
@@ -87,7 +89,7 @@ export default function edit() {
     scout,
     strongArea,
     subjectArea,
-    userName,
+    userName
   } = profile;
 
   const [userEmail, setUserEmail] = useState("");
@@ -105,7 +107,6 @@ export default function edit() {
   const [openEditPassword, setOpenEditPassword] = useState(false);
   const [openDeleteAccount, setOpenDeleteAccount] = useState(false);
   const [isGoogleLogin, setIsGoogleLogin] = useState(false);
-  const [name, setName] = useState("");
 
   ////////////////// 関数エリア //////////////////
   const alert = useAlert();
@@ -113,7 +114,8 @@ export default function edit() {
   useEffect(() => {
     const unSub = auth.onAuthStateChanged((user) => {
       if (user) {
-        setName(user.displayName);
+        setUserId(user.uid)
+        setUserEmail(user.email);
       db
         .collection("userProfiles")
         .doc(user.uid)
@@ -123,9 +125,10 @@ export default function edit() {
           }
         });
 
-        console.log(name);
         
       } else {
+        setProfile({})
+        db.collection('userProfiles').doc(userId).delete();
         Router.push("/login");
       }
     });
@@ -183,11 +186,11 @@ export default function edit() {
     //アップロード画像があれば
     if (profileImage) {
       //画像をストレージにアップロード
-      await storage.ref(`profileImages/${profile.userId}`).put(profileImage);
+      await storage.ref(`profileImages/${userId}`).put(profileImage);
       //画像がクラウド上のどこにあるかURLで取得
       profileUrl = await storage
         .ref("profileImages")
-        .child(profile.userId)
+        .child(userId)
         .getDownloadURL();
     } else if(!profileImage && profileImageUrl) { 
       //アップロード画像がない&&firestoreにデータがある
@@ -197,10 +200,10 @@ export default function edit() {
     }
 
     if (freeImage0) {
-      await storage.ref(`freeImages/${profile.userId}0`).put(freeImage0);
+      await storage.ref(`freeImages/${userId}0`).put(freeImage0);
       freeUrl0 = await storage
         .ref("freeImages")
-        .child(`${profile.userId}0`)
+        .child(`${userId}0`)
         .getDownloadURL();
     }else if(!freeImage0 && freeImageUrl0) { 
       //アップロード画像がない&&firestoreにデータがある
@@ -211,10 +214,10 @@ export default function edit() {
 
 
     if (freeImage1) {
-      await storage.ref(`freeImages/${profile.userId}1`).put(freeImage1);
+      await storage.ref(`freeImages/${userId}1`).put(freeImage1);
       freeUrl1 = await storage
         .ref("freeImages")
-        .child(`${profile.userId}1`)
+        .child(`${userId}1`)
         .getDownloadURL();
     } else if(!freeImage1 && freeImageUrl1) { 
       //アップロード画像がない&&firestoreにデータがある
@@ -224,10 +227,10 @@ export default function edit() {
     }
 
     if (freeImage2) {
-      await storage.ref(`freeImages/${profile.userId}2`).put(freeImage2);
+      await storage.ref(`freeImages/${userId}2`).put(freeImage2);
       freeUrl2 = await storage
         .ref("freeImages")
-        .child(`${profile.userId}2`)
+        .child(`${userId}2`)
         .getDownloadURL();
     } else if(!freeImage2 && freeImageUrl2) { 
       //アップロード画像がない&&firestoreにデータがある
@@ -247,7 +250,7 @@ export default function edit() {
 
       await db
         .collection("userProfiles")
-        .doc(profile.userId)
+        .doc(userId)
         .set(profileInfo)
         .then(() => {
           alert.success("プロフィールを変更しました");
@@ -437,19 +440,20 @@ export default function edit() {
               user
                 .delete()
                 .then(() => {
-                  // reset()
-                  alert.success("アカウントを削除しました");
-                  Router.push("/login");
+                  alert.success("アカウントを削除しました");                  
                 })
                 .catch(() => {
                   alert.error("アカウントを削除できませんでした");
                 });
+                
+                
             } else {
               alert.error("アカウント削除をキャンセルしました");
             }
           })
-          .catch(() => {
+          .catch((err) => {
             alert.error("パスワードが異なっています");
+            console.log(err);
           });
       }
       // 登録解除
@@ -477,12 +481,10 @@ export default function edit() {
         const result = confirm("本当にアカウントを削除しますか?");
 
         if (result) {
-          user
+            user
             .delete()
             .then(() => {
-              // reset()
               alert.success("アカウントを削除しました");
-              Router.push("/login");
             })
             .catch(() => {
               alert.error("アカウントを削除できませんでした");
@@ -513,10 +515,8 @@ export default function edit() {
     const result = confirm("ログアウトしますか？");
     if (result) {
       try {
-        // reset()
         await auth.signOut();
         alert.success("ログアウトしました");
-        Router.push("/login");
       } catch (error) {
         console.log(error);
         alert.error("ログアウトできませんでした");
@@ -524,7 +524,7 @@ export default function edit() {
     }
   };
 
-  const check1 = !userName || !homeAddress || !dobYY || !dobMM || !dobDD;
+  const check1 = !userName || !scout || !homeAddress || !dobYY || !dobMM || !dobDD;
 
   ////////////////// JSXエリア //////////////////
   return (
@@ -578,8 +578,9 @@ export default function edit() {
             {/* /// スカウト受信設定 /// */}
             <div className="flex flex-row flex-wrap my-10 justify-center gap-1 items-center">
               <Emoji emoji="female-detective" size={20} />
+              <label>
               <select
-                className="bg-blue-100 rounded-full outline-none pl-3 py-1"
+                className="bg-blue-100 rounded-full outline-none pl-3 py-1 w-11/12"
                 name="scout"
                 value={scout}
                 // onChange={(e) => setScout(e.target.value)}
@@ -587,11 +588,14 @@ export default function edit() {
                   setProfile({ ...profile, scout: e.target.value })
                 }
               >
+                <option value="">スカウト設定</option>
                 <option value="スカウトを受け取る">スカウトを受け取る</option>
                 <option value="スカウトを受け取らない">
                   スカウトを受け取らない
                 </option>
               </select>
+              <span className="text-red-500 align-top">*</span>
+                </label>
             </div>
 
             {/* /// フリー画像アップロード0 /// */}
@@ -748,7 +752,7 @@ export default function edit() {
 
             <div className="flex flex-row flex-wrap items-center my-3 gap-1 leading-none">
               <Emoji emoji="id" size={20} />
-              <p className="text-base">{profile.userId}</p>
+              <p className="text-base">{userId}</p>
             </div>
 
             <div className="flex flex-row flex-wrap my-5 gap-6 leading-none">

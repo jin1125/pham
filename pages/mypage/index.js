@@ -8,8 +8,7 @@ import { auth, db } from "../../firebase";
 import { UserContext } from "../../UserContext";
 
 export default function mypage() {
-  const { profile, setProfile,demoImg, demoImgs } = useContext(UserContext);
-  const [name, setName] = useState("");
+  const { profile, setProfile, demoImg, demoImgs,userId,setUserId } = useContext(UserContext);
 
   const {
     birthPlace,
@@ -37,27 +36,35 @@ export default function mypage() {
     userName,
   } = profile;
 
-
   useEffect(() => {
     const unSub = auth.onAuthStateChanged((user) => {
       if (user) {
-        setName(user.displayName);
-       db
-        .collection("userProfiles")
-        .doc(user.uid)
-        .onSnapshot((doc) => {
-          if (doc.data()) {
-            setProfile(doc.data());
-          }
-        });
         
+        setUserId(user.uid)
+        db.collection("userProfiles")
+          .doc(user.uid)
+          .onSnapshot((doc) => {
+            if (doc.data()) {
+              setProfile(doc.data());
+            }else{
+              db
+              .collection("userProfiles")
+              .doc(user.uid)
+              .set({userName:user.displayName})
+              .then(() => {
+                console.log("OK");
+              })
+              .catch(() => {
+                console.log('NG');
+              });
+            }
+          });
       } else {
         Router.push("/login");
       }
     });
     return () => unSub();
   }, []);
-
 
   ////////////////////////// JSXエリア //////////////////////////
   return (
@@ -178,11 +185,8 @@ export default function mypage() {
           <div className="col-span-9">
             <div className="flex flex-row flex-wrap items-end my-10 gap-8">
               <div>
-                {profile.userName ? (
-                  <h2 className="text-4xl font-bold">{profile.userName}</h2>
-                ) : (
-                  <h2 className="text-4xl font-bold">{name}</h2>
-                )}
+            
+                  <h2 className="text-4xl font-bold">{userName}</h2>
               </div>
 
               {jobTitle && (
@@ -194,7 +198,7 @@ export default function mypage() {
 
             <div className="flex flex-row flex-wrap items-center my-3 gap-1 leading-none">
               <Emoji emoji="id" size={20} />
-              <p className="text-base">{profile.userId}</p>
+              <p className="text-base">{userId}</p>
             </div>
 
             <div className="flex flex-row flex-wrap my-5 gap-6 leading-none">
