@@ -2,13 +2,47 @@ import { Emoji } from "emoji-mart";
 import Head from "next/head";
 import Image from "next/image";
 import Router from "next/router";
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Layout from "../../components/layout/Layout";
 import { auth, db } from "../../firebase";
 import { UserContext } from "../../UserContext";
 
 export default function mypage() {
-  const { profile, setProfile, demoImg, demoImgs,userId,setUserId } = useContext(UserContext);
+  const { demoImg, demoImgs,userId,setUserId } = useContext(UserContext);
+  const [profile, setProfile] = useState({}); 
+  const [displayName,setDisplayName] = useState(''); 
+
+  useEffect(() => {
+    const unSub = auth.onAuthStateChanged((user) => {
+      if (user) {
+        
+        setUserId(user.uid)
+        db.collection("userProfiles")
+          .doc(user.uid)
+          .onSnapshot((doc) => {
+            if (doc.data()) {
+              setProfile(doc.data());
+            }
+            else{
+              setDisplayName(user.displayName);
+              // db
+              // .collection("userProfiles")
+              // .doc(user.uid)
+              // .set({userName:user.displayName})
+              // .then(() => {
+              //   console.log("OK");
+              // })
+              // .catch(() => {
+              //   console.log('NG');
+              // });
+            }
+          });
+      } else {
+        Router.push("/login");
+      }
+    });
+    return () => unSub();
+  }, []);
 
   const {
     birthPlace,
@@ -36,35 +70,6 @@ export default function mypage() {
     userName,
   } = profile;
 
-  useEffect(() => {
-    const unSub = auth.onAuthStateChanged((user) => {
-      if (user) {
-        
-        setUserId(user.uid)
-        db.collection("userProfiles")
-          .doc(user.uid)
-          .onSnapshot((doc) => {
-            if (doc.data()) {
-              setProfile(doc.data());
-            }else{
-              db
-              .collection("userProfiles")
-              .doc(user.uid)
-              .set({userName:user.displayName})
-              .then(() => {
-                console.log("OK");
-              })
-              .catch(() => {
-                console.log('NG');
-              });
-            }
-          });
-      } else {
-        Router.push("/login");
-      }
-    });
-    return () => unSub();
-  }, []);
 
   ////////////////////////// JSXエリア //////////////////////////
   return (
@@ -185,8 +190,11 @@ export default function mypage() {
           <div className="col-span-9">
             <div className="flex flex-row flex-wrap items-end my-10 gap-8">
               <div>
-            
-                  <h2 className="text-4xl font-bold">{userName}</h2>
+                  {userName? (
+                    <h2 className="text-4xl font-bold">{userName}</h2>
+                  ):(
+                    <h2 className="text-4xl font-bold">{displayName}</h2>
+                  )}
               </div>
 
               {jobTitle && (

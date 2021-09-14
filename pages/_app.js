@@ -7,7 +7,7 @@ import "../styles/global.css";
 import { UserContext } from "../UserContext";
 
 function MyApp({ Component, pageProps }) {
-  const [profile, setProfile] = useState({}); 
+  // const [profile, setProfile] = useState({birthPlace:'',certification:'',comments:'',dobDD:'',dobMM:'',dobYY:'',dream:'',freeImageUrl0:'',freeImageUrl1:'',freeImageUrl2:'',hobby:'',homeAddress:'',jobTitle:'',language:'',profileImageUrl:'',school:'',scout:'',strongArea:'',subjectArea:'',userName:'',experiences:[{experience:'',years:''}],resumes:[{companyName:'',employmentStatus:'',workEnd:'',workStart:''}]}); 
   const [userId, setUserId] = useState("");
   const [defaultName, setDefaultName] = useState("");
   const [demoImg, setDemoImg] = useState("");
@@ -55,8 +55,8 @@ function MyApp({ Component, pageProps }) {
   return (
     <UserContext.Provider
       value={{
-        profile,
-        setProfile,
+        // profile,
+        // setProfile,
         userId,
         setUserId,
         defaultName, 

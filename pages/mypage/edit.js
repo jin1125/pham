@@ -12,19 +12,33 @@ import { UserContext } from "../../UserContext";
 export default function edit() {
   ////////////////// ステートエリア //////////////////
   const {
-    profile,
-    setProfile,
     userId,
     setUserId,
     demoImg,
     demoImgs,
   } = useContext(UserContext);
 
+  const [profile, setProfile] = useState({birthPlace:'',certification:'',comments:'',dobDD:'',dobMM:'',dobYY:'',dream:'',freeImageUrl0:'',freeImageUrl1:'',freeImageUrl2:'',hobby:'',homeAddress:'',jobTitle:'',language:'',profileImageUrl:'',school:'',scout:'',strongArea:'',subjectArea:'',userName:'',experiences:[{experience:'',years:''}],resumes:[{companyName:'',employmentStatus:'',workEnd:'',workStart:''}]}); 
+  const [userEmail, setUserEmail] = useState("");
+  const [profileImage, setProfileImage] = useState("");
+  const [freeImage0, setFreeImage0] = useState("");
+  const [freeImage1, setFreeImage1] = useState("");
+  const [freeImage2, setFreeImage2] = useState("");
+  const [fileUrl, setFileUrl] = useState("");
+  const [fileUrls0, setFileUrls0] = useState("");
+  const [fileUrls1, setFileUrls1] = useState("");
+  const [fileUrls2, setFileUrls2] = useState("");
+  const [resetEmailPassword, setResetEmailPassword] = useState("");
+  const [deleteAccountPassword, setDeleteAccountPassword] = useState("");
+  const [openEditEmail, setOpenEditEmail] = useState(false);
+  const [openEditPassword, setOpenEditPassword] = useState(false);
+  const [openDeleteAccount, setOpenDeleteAccount] = useState(false);
+  const [isGoogleLogin, setIsGoogleLogin] = useState(false);
+
   const {
     birthPlace,
     certification,
     comments,
-    connection,
     dobDD,
     dobMM,
     dobYY,
@@ -46,40 +60,26 @@ export default function edit() {
     userName
   } = profile;
 
-  const [userEmail, setUserEmail] = useState("");
-  const [profileImage, setProfileImage] = useState("");
-  const [freeImage0, setFreeImage0] = useState("");
-  const [freeImage1, setFreeImage1] = useState("");
-  const [freeImage2, setFreeImage2] = useState("");
-  const [fileUrl, setFileUrl] = useState("");
-  const [fileUrls0, setFileUrls0] = useState("");
-  const [fileUrls1, setFileUrls1] = useState("");
-  const [fileUrls2, setFileUrls2] = useState("");
-  const [resetEmailPassword, setResetEmailPassword] = useState("");
-  const [deleteAccountPassword, setDeleteAccountPassword] = useState("");
-  const [openEditEmail, setOpenEditEmail] = useState(false);
-  const [openEditPassword, setOpenEditPassword] = useState(false);
-  const [openDeleteAccount, setOpenDeleteAccount] = useState(false);
-  const [isGoogleLogin, setIsGoogleLogin] = useState(false);
-
   ////////////////// 関数エリア //////////////////
   const alert = useAlert();
 
   useEffect(() => {
     const unSub = auth.onAuthStateChanged((user) => {
       if (user) {
+        if(!profile.userName){
+          setProfile({...profile,userName:user.displayName});
+        }
         setUserId(user.uid)
         setUserEmail(user.email);
+
       db
         .collection("userProfiles")
         .doc(user.uid)
         .onSnapshot((doc) => {
           if (doc.data()) {
-            setProfile(doc.data());
+            setProfile({...profile,...doc.data()});
           }
-        });
-
-        
+        });       
       } else {
         setProfile({})
         Router.push("/login");
