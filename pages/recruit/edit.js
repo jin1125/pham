@@ -1,9 +1,9 @@
 import React from 'react'
 
-export default function companypage() {
+export default function edit() {
   return (
     <div>
-      companypage
+     company edit
     </div>
   )
 }

@@ -2,10 +2,9 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import Router from "next/router";
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { useAlert } from "react-alert";
 import { auth } from "../../firebase";
-import { UserContext } from "../../UserContext";
 
 export default function login() {
   const [companyEmail, setCompanyEmail] = useState("");
@@ -17,7 +16,7 @@ export default function login() {
     try {
       await auth.signInWithEmailAndPassword(companyEmail, companyPassword);
       alert.success("ログインしました");
-      Router.push("/companies/edit");
+      Router.push("/recruit/edit");
     } catch (error) {
       alert.error("ログインできませんでした");
     }

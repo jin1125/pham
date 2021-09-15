@@ -8,25 +8,26 @@ import { auth, db } from "../../firebase";
 import { UserContext } from "../../UserContext";
 
 export default function mypage() {
-  const { demoImg, demoImgs,userId,setUserId } = useContext(UserContext);
-  const [profile, setProfile] = useState({}); 
-  const [displayName,setDisplayName] = useState(''); 
+  const { demoImg, demoImgs, userId, setUserId } = useContext(UserContext);
+  const [profile, setProfile] = useState({});
+  const [displayName, setDisplayName] = useState("");
+
 
   useEffect(() => {
     const unSub = auth.onAuthStateChanged((user) => {
       if (user) {
-        
-        setUserId(user.uid)
-        db.collection("userProfiles")
+        setUserId(user.uid);
+        const un = db
+          .collection("userProfiles")
           .doc(user.uid)
           .onSnapshot((doc) => {
             if (doc.data()) {
               setProfile(doc.data());
-            }
-            else{
+            } else {
               setDisplayName(user.displayName);
             }
           });
+          return () => un();
       } else {
         Router.push("/login");
       }
@@ -60,6 +61,7 @@ export default function mypage() {
     userName,
   } = profile;
 
+  console.log(userName);
 
   ////////////////////////// JSXエリア //////////////////////////
   return (
@@ -180,11 +182,11 @@ export default function mypage() {
           <div className="col-span-9">
             <div className="flex flex-row flex-wrap items-end my-10 gap-8">
               <div>
-                  {userName? (
-                    <h2 className="text-4xl font-bold">{userName}</h2>
-                  ):(
-                    <h2 className="text-4xl font-bold">{displayName}</h2>
-                  )}
+                {userName ? (
+                  <h2 className="text-4xl font-bold">{userName}</h2>
+                ) : (
+                  <h2 className="text-4xl font-bold">{displayName}</h2>
+                )}
               </div>
 
               {jobTitle && (

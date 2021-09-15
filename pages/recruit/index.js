@@ -24,21 +24,23 @@ export default function recruit() {
       datetime: firebase.firestore.Timestamp.now(),
     };
 
-    await db
+    const un = await db
       .collection("inquirys")
       .add(inquiry)
-      .then((docRef) => {
+      .then(() => {
         alert.success("お問い合わせしました");
         setIsContactUs(true);
       })
-      .catch((error) => {
-        alert("お問い合わせに失敗しました");
+      .catch(() => {
+        alert.error("お問い合わせに失敗しました");
       });
-
+      
     setCompanyName("");
     setClientName("");
     setEmail("");
     setTel("");
+
+    return () => un();
   };
 
   ////////////////////////// JSXエリア //////////////////////////
