@@ -59,12 +59,14 @@ export default function edit() {
   const alert = useAlert();
 
   useEffect(() => {
+    let un;
+
     const unSub = auth.onAuthStateChanged((user) => {
       if (user) {
         setUserId(user.uid);
         setUserEmail(user.email);
 
-        const un = db.collection("userProfiles")
+         un = db.collection("userProfiles")
           .doc(user.uid)
           .onSnapshot((doc) => {
             if (doc.data()) {
@@ -76,13 +78,15 @@ export default function edit() {
             }
           });
 
-          return () => un();
-
       } else {
         Router.push("/login");
       }
     });
-    return () => unSub();
+    
+    return () => {
+      unSub();
+      un();
+    };
   }, []);
 
 
@@ -221,7 +225,7 @@ export default function edit() {
       freeImageUrl2: freeUrl2,
     };
 
-    const un = await db
+    await db
       .collection("userProfiles")
       .doc(userId)
       .set(profileInfo)
@@ -232,7 +236,6 @@ export default function edit() {
         alert.error("プロフィールを変更できませんでした");
       });
 
-    return () => un();
   };
 
   /// 経験年数の各experienceの変更処理 ///

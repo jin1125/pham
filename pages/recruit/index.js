@@ -24,7 +24,7 @@ export default function recruit() {
       datetime: firebase.firestore.Timestamp.now(),
     };
 
-    const un = await db
+    await db
       .collection("inquirys")
       .add(inquiry)
       .then(() => {
@@ -34,13 +34,11 @@ export default function recruit() {
       .catch(() => {
         alert.error("お問い合わせに失敗しました");
       });
-      
+
     setCompanyName("");
     setClientName("");
     setEmail("");
     setTel("");
-
-    return () => un();
   };
 
   ////////////////////////// JSXエリア //////////////////////////
@@ -77,9 +75,14 @@ export default function recruit() {
 
           <div className="text-left ml-20 mt-5">
             {isContactUs ? (
-              <p className="text-sm">
-                お問い合わせ頂き、誠にありがとうございます。弊社スタッフより3営業日以内に、折返しヒアリングのご連絡をさせて頂きます。今しばらくお待ち下さいませ。
+              <>
+              <p className="text-sm  my-3">
+                お問い合わせ頂き、誠にありがとうございます。弊社スタッフより3営業日以内に、折返しヒアリングのご連絡をさせて頂きますので、今しばらくお待ち下さいませ。
               </p>
+              <p className="text-sm my-3">
+              また、記載頂きましたメールアドレス宛に到着確認のメールを送付させて頂きました。無事メールが届いておりますかご確認くださいませ。
+            </p>
+            </>
             ) : (
               <p className="text-sm">
                 この度は、Phamにご興味をお持ち頂き、誠にありがとうございます。求人掲載をご検討の採用担当様は、下記フォームよりお問い合わせくださいませ。弊社スタッフより、折返しヒアリングのご連絡をさせて頂きます。

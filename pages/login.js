@@ -51,7 +51,7 @@ export default function login() {
 
          auth.onAuthStateChanged((user) => {
           if (user) {
-            const un = db
+            db
               .collection("userProfiles")
               .doc(user.uid)
               .set({userName:name})
@@ -62,7 +62,6 @@ export default function login() {
               .catch(() => {
                 console.log('NG');
               });
-              return () => un();
           }
         });
 

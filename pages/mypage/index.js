@@ -12,12 +12,14 @@ export default function mypage() {
   const [profile, setProfile] = useState({});
   const [displayName, setDisplayName] = useState("");
 
-
   useEffect(() => {
+    let un;
+
     const unSub = auth.onAuthStateChanged((user) => {
       if (user) {
         setUserId(user.uid);
-        const un = db
+
+        un = db
           .collection("userProfiles")
           .doc(user.uid)
           .onSnapshot((doc) => {
@@ -27,12 +29,15 @@ export default function mypage() {
               setDisplayName(user.displayName);
             }
           });
-          return () => un();
       } else {
         Router.push("/login");
       }
     });
-    return () => unSub();
+
+    return () => {
+      unSub();
+      un();
+    };
   }, []);
 
   const {
@@ -60,8 +65,6 @@ export default function mypage() {
     subjectArea,
     userName,
   } = profile;
-
-  console.log(userName);
 
   ////////////////////////// JSXエリア //////////////////////////
   return (
