@@ -4,16 +4,34 @@ import Image from "next/image";
 import Router from "next/router";
 import React, { useContext, useEffect, useState } from "react";
 import Layout from "../../components/layout/Layout";
-import { auth, db } from "../../firebase";
+import { auth, db, storage } from "../../firebase";
 import { UserContext } from "../../UserContext";
 
 export default function mypage() {
-  const { demoImg, demoImgs, userId, setUserId } = useContext(UserContext);
+  const { userId, setUserId } = useContext(UserContext);
   const [profile, setProfile] = useState({});
   const [displayName, setDisplayName] = useState("");
+  const [demoImg, setDemoImg] = useState("");
+  const [demoImgs, setDemoImgs] = useState("");
 
   useEffect(() => {
     let un;
+
+     storage
+      .ref()
+      .child("demo_img.png")
+      .getDownloadURL()
+      .then(function (url) {
+        setDemoImg(url);
+      });
+
+    storage
+      .ref()
+      .child("demo_imgs.jpeg")
+      .getDownloadURL()
+      .then(function (url) {
+        setDemoImgs(url);
+      });
 
     const unSub = auth.onAuthStateChanged((user) => {
       if (user) {
@@ -208,7 +226,7 @@ export default function mypage() {
               {homeAddress ? (
                 <div className="flex flex-row flex-wrap gap-1 items-center">
                   <Emoji emoji="round_pushpin" size={20} />
-                  <p className="text-base">{homeAddress}</p>
+                  <p className="text-base">{homeAddress.slice(3)}</p>
                 </div>
               ) : (
                 <div className="flex flex-row flex-wrap gap-1 items-center">

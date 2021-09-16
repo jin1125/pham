@@ -1,21 +1,32 @@
 import Image from "next/image";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Highlight } from "react-instantsearch-dom";
-import { auth } from "../../firebase";
+import { storage } from "../../firebase";
 import { UserContext } from "../../UserContext";
 
 export function hitComponentCo({ hit }) {
+  const [companyDemoImg, setCompanyDemoImg] = useState("");
   const {
-    companyDemoImg,
     selectCompanyAddress,
     selectCompany,
     setSelectCompany,
   } = useContext(UserContext);
 
+  useEffect(() => {
+    storage
+      .ref()
+      .child("company_demo_img.png")
+      .getDownloadURL()
+      .then(function (url) {
+        setCompanyDemoImg(url);
+      });      
+  }, []);
+
   const click = () => {
     setSelectCompany(hit);
   };
 
+   ////////////////////////// JSXエリア //////////////////////////
   return (
     <>
       <div

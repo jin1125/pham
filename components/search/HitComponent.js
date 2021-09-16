@@ -1,33 +1,52 @@
 import Image from "next/image";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Highlight } from "react-instantsearch-dom";
-import { auth } from "../../firebase";
+import { auth, storage } from "../../firebase";
 import { UserContext } from "../../UserContext";
 
 export function hitComponent({ hit }) {
-  const { demoImg, selectHomeAddress, setSelectProfile, selectProfile,userId,
-    setUserId } =
-    useContext(UserContext);
+  const {
+    selectHomeAddress,
+    setSelectProfile,
+    selectProfile,
+    userId,
+    setUserId,
+  } = useContext(UserContext);
+  const [demoImg, setDemoImg] = useState("");
 
-    useEffect(() => {
-      const unSub = auth.onAuthStateChanged((user) => {
-        if (user) {
-          setUserId(user.uid)
-        } else {
-  
-          Router.push("/login");
-        }
-      });
-      return () => unSub();
-    }, []);
+  useEffect(() => {
+    const unSub = auth.onAuthStateChanged((user) => {
+      if (user) {
+        setUserId(user.uid);
+
+        storage
+          .ref()
+          .child("demo_img.png")
+          .getDownloadURL()
+          .then(function (url) {
+            setDemoImg(url);
+          });
+      } else {
+        Router.push("/login");
+      }
+    });
+    return () => unSub();
+  }, []);
 
   const click = () => {
     setSelectProfile(hit);
   };
-    
+
   return (
     <>
-      <div onClick={click} className={selectProfile.objectID === hit.objectID ? 'bg-blue-100 cursor-pointer':'cursor-pointer hover:bg-blue-100'}>
+      <div
+        onClick={click}
+        className={
+          selectProfile.objectID === hit.objectID
+            ? "bg-blue-100 cursor-pointer"
+            : "cursor-pointer hover:bg-blue-100"
+        }
+      >
         {selectHomeAddress === "" && hit.objectID !== userId ? (
           <div className="grid grid-cols-12 px-3 py-2 border-b items-center">
             <div className="col-span-4 flex items-center">
@@ -62,39 +81,40 @@ export function hitComponent({ hit }) {
             </div>
           </div>
         ) : (
-          hit.homeAddress === selectHomeAddress && hit.objectID !== userId  && (
+          hit.homeAddress === selectHomeAddress &&
+          hit.objectID !== userId && (
             <div className="grid grid-cols-12 px-3 py-2 border-b items-center">
-            <div className="col-span-4 flex items-center">
-              {hit.profileImageUrl ? (
-                <Image
-                  className="inline object-cover rounded-full"
-                  width={50}
-                  height={50}
-                  src={hit.profileImageUrl}
-                  alt="Profile image"
-                />
-              ) : (
-                demoImg && (
+              <div className="col-span-4 flex items-center">
+                {hit.profileImageUrl ? (
                   <Image
                     className="inline object-cover rounded-full"
                     width={50}
                     height={50}
-                    src={demoImg}
+                    src={hit.profileImageUrl}
                     alt="Profile image"
                   />
-                )
-              )}
-            </div>
+                ) : (
+                  demoImg && (
+                    <Image
+                      className="inline object-cover rounded-full"
+                      width={50}
+                      height={50}
+                      src={demoImg}
+                      alt="Profile image"
+                    />
+                  )
+                )}
+              </div>
 
-            <div className="col-span-8 break-words">
-              <div>
-                <Highlight attribute="userName" tagName="mark" hit={hit} />
-              </div>
-              <div className="text-xs text-blue-300 ">
-                <Highlight attribute="homeAddress" tagName="mark" hit={hit} />
+              <div className="col-span-8 break-words">
+                <div>
+                  <Highlight attribute="userName" tagName="mark" hit={hit} />
+                </div>
+                <div className="text-xs text-blue-300 ">
+                  <Highlight attribute="homeAddress" tagName="mark" hit={hit} />
+                </div>
               </div>
             </div>
-          </div>
           )
         )}
       </div>
