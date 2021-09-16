@@ -17,14 +17,13 @@ export default function SearchPh() {
 
   const indexName = "pham_pharmacies";
   
-  const router = useRouter();
+  // const router = useRouter();
   const {
     selectPharmacy,
     selectPharmacyAddress,
     setSelectPharmacyAddress,
   } = useContext(UserContext);
 
-  console.log(router.query.input);
 
   return (
     <div className="min-h-screen">
@@ -306,7 +305,7 @@ export default function SearchPh() {
 
             <div className='text-center my-20 mr-10' id="btn">
                 <button className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 py-2 w-3/5 rounded-full shadow-lg font-bold">
-                募集一覧
+                募集内容
                 </button>
               </div>
           </div>

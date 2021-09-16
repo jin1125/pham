@@ -8,6 +8,7 @@ import { storage } from "../../firebase";
 import { UserContext } from "../../UserContext";
 import { hitComponentCo } from "./HitComponentCo";
 import { CustomSearchBox } from "./SearchBox";
+import Link from "next/link";
 
 export default function SearchCo() {
   const searchClient = algoliasearch(
@@ -18,8 +19,8 @@ export default function SearchCo() {
   const indexName = "pham_companies";
 
   const [companyDemoImg, setCompanyDemoImg] = useState("");
-  const router = useRouter();
-  const { selectCompanyAddress, setSelectCompanyAddress, selectCompany } =
+  // const router = useRouter();
+  const { selectCompanyAddress, setSelectCompanyAddress, selectCompany, setCompanyId ,setSelectPharmacy,} =
     useContext(UserContext);
 
   useEffect(() => {
@@ -230,17 +231,21 @@ export default function SearchCo() {
 
             <div className="grid grid-cols-2 gap-10 my-20 mr-10">
               <div className="text-center">
-                {/* <Link href="/pharmacies/search"> */}
+                <Link href="/pharmacies/search">
                 <button
                   className="text-blue-400 border-2 border-blue-400 bg-white transition duration-300 hover:bg-blue-100 py-2 w-3/5 rounded-full shadow-lg font-bold"
-                  onClick={()=>router.push({
-                    pathname: "/pharmacies/search", //URL
-                    query: { input: selectCompany.objectID }, //検索クエリ
-                  })}
+                  // onClick={()=>router.push({
+                  //   pathname: "/pharmacies/search", //URL
+                  //   query: { input: selectCompany.objectID }, //検索クエリ
+                  // })}
+                  onClick={()=>{
+                    setCompanyId(selectCompany.objectID)
+                    setSelectPharmacy('')
+                  }}
                 >
                   薬局一覧
                 </button>
-                {/* </Link> */}
+                </Link>
               </div>
 
               <div className="text-center">

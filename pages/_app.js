@@ -15,6 +15,7 @@ function MyApp({ Component, pageProps }) {
   const [selectCompanyAddress, setSelectCompanyAddress] = useState("");
   const [selectPharmacy, setSelectPharmacy] = useState("");
   const [selectPharmacyAddress, setSelectPharmacyAddress] = useState("");
+  const [companyId,setCompanyId] = useState('');
 
   /// アラート設定 ///
   const options = {
@@ -43,7 +44,9 @@ function MyApp({ Component, pageProps }) {
         selectPharmacy,
         setSelectPharmacy,
         selectPharmacyAddress,
-        setSelectPharmacyAddress
+        setSelectPharmacyAddress,
+        companyId,
+        setCompanyId
       }}
     >
       <AlertProvider template={AlertTemplate} {...options}>
