@@ -1,13 +1,13 @@
 import algoliasearch from "algoliasearch/lite";
 import { Emoji } from "emoji-mart";
 import Image from "next/image";
-import { useEffect,useContext, useState } from "react";
+import { useRouter } from "next/router";
+import { useContext, useEffect, useState } from "react";
 import { Configure, Hits, InstantSearch } from "react-instantsearch-dom";
+import { storage } from "../../firebase";
 import { UserContext } from "../../UserContext";
 import { hitComponentCo } from "./HitComponentCo";
 import { CustomSearchBox } from "./SearchBox";
-import { storage } from "../../firebase";
-import Link from "next/link";
 
 export default function SearchCo() {
   const searchClient = algoliasearch(
@@ -18,14 +18,9 @@ export default function SearchCo() {
   const indexName = "pham_companies";
 
   const [companyDemoImg, setCompanyDemoImg] = useState("");
-
-  const {
-    selectCompanyAddress,
-    setSelectCompanyAddress,
-    selectCompany,
-  } = useContext(UserContext);
-
-  
+  const router = useRouter();
+  const { selectCompanyAddress, setSelectCompanyAddress, selectCompany } =
+    useContext(UserContext);
 
   useEffect(() => {
     storage
@@ -34,7 +29,7 @@ export default function SearchCo() {
       .getDownloadURL()
       .then(function (url) {
         setCompanyDemoImg(url);
-      });      
+      });
   }, []);
 
   return (
@@ -165,7 +160,9 @@ export default function SearchCo() {
                   {selectCompany.companyPrefecture && (
                     <div className="flex flex-row flex-wrap gap-1 items-center">
                       <Emoji emoji="round_pushpin" size={20} />
-                      <p className="text-base">{`${selectCompany.companyPrefecture.slice(3)}${selectCompany.companyAddress}`}</p>
+                      <p className="text-base">{`${selectCompany.companyPrefecture.slice(
+                        3
+                      )}${selectCompany.companyAddress}`}</p>
                     </div>
                   )}
 
@@ -232,21 +229,25 @@ export default function SearchCo() {
             </div>
 
             <div className="grid grid-cols-2 gap-10 my-20 mr-10">
-            
-              <div className='text-center'>
-              <Link href="/pharmacies/search">
-                <button className="text-blue-400 border-2 border-blue-400 bg-white transition duration-300 hover:bg-blue-100 py-2 w-3/5 rounded-full shadow-lg font-bold">
-                薬局一覧
+              <div className="text-center">
+                {/* <Link href="/pharmacies/search"> */}
+                <button
+                  className="text-blue-400 border-2 border-blue-400 bg-white transition duration-300 hover:bg-blue-100 py-2 w-3/5 rounded-full shadow-lg font-bold"
+                  onClick={()=>router.push({
+                    pathname: "/pharmacies/search", //URL
+                    query: { input: selectCompany.objectID }, //検索クエリ
+                  })}
+                >
+                  薬局一覧
                 </button>
-              </Link>
+                {/* </Link> */}
               </div>
 
-              <div className='text-center'>
+              <div className="text-center">
                 <button className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 py-2 w-3/5 rounded-full shadow-lg font-bold">
-                求人一覧
+                  求人一覧
                 </button>
               </div>
-              
             </div>
           </div>
         ) : (

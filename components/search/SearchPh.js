@@ -7,6 +7,7 @@ import { UserContext } from "../../UserContext";
 import { hitComponentPh } from "./HitComponentPh";
 import { CustomSearchBox } from "./SearchBox";
 import AnchorLink from "react-anchor-link-smooth-scroll";
+import { useRouter } from 'next/router';
 
 export default function SearchPh() {
   const searchClient = algoliasearch(
@@ -15,12 +16,15 @@ export default function SearchPh() {
   );
 
   const indexName = "pham_pharmacies";
-
+  
+  const router = useRouter();
   const {
     selectPharmacy,
     selectPharmacyAddress,
     setSelectPharmacyAddress,
   } = useContext(UserContext);
+
+  console.log(router.query.input);
 
   return (
     <div className="min-h-screen">
