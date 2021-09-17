@@ -38,9 +38,6 @@ export default function SearchJob() {
     })();
   }, []);
 
-  // console.log(selectJob);
-
-
   return (
     <div className="min-h-screen">
       <div className="grid grid-cols-12 gap-10">

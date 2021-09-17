@@ -3,20 +3,19 @@ import React, { useEffect, useState } from "react";
 import { Highlight } from "react-instantsearch-dom";
 import { storage } from "../../firebase";
 
-export default function HitJob({ hit }) {
-  const [jobDemoImg, setJobDemoImg] = useState("");
+export default function HitCo({ hit }) {
+  const [companyDemoImg, setCompanyDemoImg] = useState("");
 
   useEffect(() => {
     let isMounted = true;
-
     (async () => {
       const url = await storage
         .ref()
-        .child("job_demo_img.png")
+        .child("company_demo_img.png")
         .getDownloadURL();
 
       if (isMounted) {
-        setJobDemoImg(url);
+        setCompanyDemoImg(url);
       }
     })();
 
@@ -28,26 +27,33 @@ export default function HitJob({ hit }) {
   return (
     <div className="grid grid-cols-12 px-3 py-2 border-b items-center">
       <div className="col-span-4 flex items-center">
-        {jobDemoImg && (
+        {hit.companyImageUrl ? (
           <Image
             className="inline object-cover rounded-full"
             width={50}
             height={50}
-            src={jobDemoImg}
+            src={hit.companyImageUrl}
             alt="Company Image"
           />
+        ) : (
+          companyDemoImg && (
+            <Image
+              className="inline object-cover rounded-full"
+              width={50}
+              height={50}
+              src={companyDemoImg}
+              alt="Company Image"
+            />
+          )
         )}
       </div>
 
       <div className="col-span-8 break-words">
         <div>
-          <Highlight attribute="pharmacyName" tagName="mark" hit={hit} />
+          <Highlight attribute="companyName" tagName="mark" hit={hit} />
         </div>
         <div className="text-xs text-blue-300 ">
-          <Highlight attribute="employmentStatus" tagName="mark" hit={hit} />
-        </div>
-        <div className="text-xs text-blue-300 ">
-          <Highlight attribute="jobPrefecture" tagName="mark" hit={hit} />
+          <Highlight attribute="companyPrefecture" tagName="mark" hit={hit} />
         </div>
       </div>
     </div>

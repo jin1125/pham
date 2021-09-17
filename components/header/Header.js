@@ -10,8 +10,8 @@ export default function Header() {
     useContext(UserContext);
 
   useEffect(() => {
+    
     let un;
-
     const unSub = auth.onAuthStateChanged((user) => {
       if (user) {
         un = db

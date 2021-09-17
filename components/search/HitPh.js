@@ -9,13 +9,21 @@ export default function HitPh({hit}) {
 const [pharmacyDemoImg, setPharmacyDemoImg] = useState("");
 
 useEffect(() => {
+  let isMounted = true;
   (async () => {
     const url = await storage
       .ref()
       .child("pharmacy_demo_img.png")
       .getDownloadURL()
-        setPharmacyDemoImg(url);
+        
+        if (isMounted) {
+          setPharmacyDemoImg(url);
+        }
   })();
+
+  return () => {
+    isMounted = false;
+  };
 }, []);
 
   

@@ -9,15 +9,12 @@ export function hitComponentJob({ hit }) {
     selectJobAddress,
     selectJobEmploymentStatus,
     pharmacyId,
-    companyId
+    companyId,
   } = useContext(UserContext);
 
   const click = () => {
     setSelectJob(hit);
   };
-
-  console.log(companyId);
-  console.log(pharmacyId);
 
   ////////////////////////// JSXエリア //////////////////////////
   return (
@@ -30,104 +27,85 @@ export function hitComponentJob({ hit }) {
             : "cursor-pointer hover:bg-blue-100"
         }
       >
+        {selectJobAddress === hit.jobPrefecture &&
+          selectJobEmploymentStatus === hit.employmentStatus &&
+          pharmacyId === hit.phId &&
+          companyId === hit.coId && <HitJob hit={hit} />}
 
-        {/* {selectJobAddress === "" &&
+        {selectJobAddress === hit.jobPrefecture &&
+          selectJobEmploymentStatus === hit.employmentStatus &&
+          pharmacyId === hit.phId &&
+          companyId === "" && <HitJob hit={hit} />}
+
+        {selectJobAddress === hit.jobPrefecture &&
+          selectJobEmploymentStatus === hit.employmentStatus &&
+          pharmacyId === "" &&
+          companyId === hit.coId && <HitJob hit={hit} />}
+
+        {selectJobAddress === hit.jobPrefecture &&
+          selectJobEmploymentStatus === hit.employmentStatus &&
+          pharmacyId === "" &&
+          companyId === "" && <HitJob hit={hit} />}
+
+        {selectJobAddress === hit.jobPrefecture &&
           selectJobEmploymentStatus === "" &&
-          pharmacyId === "" && <HitJob hit={hit} />}
+          pharmacyId === hit.phId &&
+          companyId === hit.coId && <HitJob hit={hit} />}
 
-          {selectJobAddress === "" &&
+        {selectJobAddress === hit.jobPrefecture &&
           selectJobEmploymentStatus === "" &&
-          pharmacyId === hit.phId && <HitJob hit={hit} />}
+          pharmacyId === hit.phId &&
+          companyId === "" && <HitJob hit={hit} />}
 
-         {selectJobAddress === "" &&
-          selectJobEmploymentStatus === hit.employmentStatus &&
-          pharmacyId === hit.phId && <HitJob hit={hit} />}
-
-         {selectJobAddress === hit.jobPrefecture &&
-          selectJobEmploymentStatus === hit.employmentStatus &&
-          pharmacyId === hit.phId && <HitJob hit={hit} />}
-
-          {selectJobAddress === hit.jobPrefecture &&
+        {selectJobAddress === hit.jobPrefecture &&
           selectJobEmploymentStatus === "" &&
-          pharmacyId === "" && <HitJob hit={hit} />}
+          pharmacyId === "" &&
+          companyId === hit.coId && <HitJob hit={hit} />}
 
-          {selectJobAddress === hit.jobPrefecture &&
-          selectJobEmploymentStatus === hit.employmentStatus &&
-          pharmacyId === "" && <HitJob hit={hit} />}
-
-          {selectJobAddress === hit.jobPrefecture &&
+        {selectJobAddress === hit.jobPrefecture &&
           selectJobEmploymentStatus === "" &&
-          pharmacyId === hit.phId && <HitJob hit={hit} />}
+          pharmacyId === "" &&
+          companyId === "" && <HitJob hit={hit} />}
 
-          {selectJobAddress === "" &&
+        {selectJobAddress === "" &&
           selectJobEmploymentStatus === hit.employmentStatus &&
-          pharmacyId === "" && <HitJob hit={hit} />} */}
+          pharmacyId === hit.phId &&
+          companyId === hit.coId && <HitJob hit={hit} />}
 
-          {selectJobAddress === hit.jobPrefecture &&
+        {selectJobAddress === "" &&
           selectJobEmploymentStatus === hit.employmentStatus &&
-          pharmacyId === hit.phId && companyId === hit.coId && <HitJob hit={hit} />}
+          pharmacyId === hit.phId &&
+          companyId === "" && <HitJob hit={hit} />}
 
-          {selectJobAddress === hit.jobPrefecture &&
+        {selectJobAddress === "" &&
           selectJobEmploymentStatus === hit.employmentStatus &&
-          pharmacyId === hit.phId && companyId === '' && <HitJob hit={hit} />}
+          pharmacyId === "" &&
+          companyId === hit.coId && <HitJob hit={hit} />}
 
-          {selectJobAddress === hit.jobPrefecture &&
+        {selectJobAddress === "" &&
           selectJobEmploymentStatus === hit.employmentStatus &&
-          pharmacyId === '' && companyId === hit.coId && <HitJob hit={hit} />}
+          pharmacyId === "" &&
+          companyId === "" && <HitJob hit={hit} />}
 
-          {selectJobAddress === hit.jobPrefecture &&
-          selectJobEmploymentStatus === hit.employmentStatus &&
-          pharmacyId === '' && companyId === '' && <HitJob hit={hit} />}
+        {selectJobAddress === "" &&
+          selectJobEmploymentStatus === "" &&
+          pharmacyId === hit.phId &&
+          companyId === hit.coId && <HitJob hit={hit} />}
 
-          {selectJobAddress === hit.jobPrefecture &&
-          selectJobEmploymentStatus === '' &&
-          pharmacyId === hit.phId && companyId === hit.coId && <HitJob hit={hit} />}
+        {selectJobAddress === "" &&
+          selectJobEmploymentStatus === "" &&
+          pharmacyId === hit.phId &&
+          companyId === "" && <HitJob hit={hit} />}
 
-          {selectJobAddress === hit.jobPrefecture &&
-          selectJobEmploymentStatus === '' &&
-          pharmacyId === hit.phId && companyId === '' && <HitJob hit={hit} />}
+        {selectJobAddress === "" &&
+          selectJobEmploymentStatus === "" &&
+          pharmacyId === "" &&
+          companyId === hit.coId && <HitJob hit={hit} />}
 
-          {selectJobAddress === hit.jobPrefecture &&
-          selectJobEmploymentStatus === '' &&
-          pharmacyId === '' && companyId === hit.coId && <HitJob hit={hit} />}
-
-          {selectJobAddress === hit.jobPrefecture &&
-          selectJobEmploymentStatus === '' &&
-          pharmacyId === '' && companyId === '' && <HitJob hit={hit} />}
-
-          {selectJobAddress === '' &&
-          selectJobEmploymentStatus === hit.employmentStatus &&
-          pharmacyId === hit.phId && companyId === hit.coId && <HitJob hit={hit} />}
-
-          {selectJobAddress === '' &&
-          selectJobEmploymentStatus === hit.employmentStatus &&
-          pharmacyId === hit.phId && companyId === '' && <HitJob hit={hit} />}
-
-          {selectJobAddress === '' &&
-          selectJobEmploymentStatus === hit.employmentStatus &&
-          pharmacyId === '' && companyId === hit.coId && <HitJob hit={hit} />}
-
-          {selectJobAddress === '' &&
-          selectJobEmploymentStatus === hit.employmentStatus &&
-          pharmacyId === '' && companyId === '' && <HitJob hit={hit} />}
-
-          {selectJobAddress === '' &&
-          selectJobEmploymentStatus === '' &&
-          pharmacyId === hit.phId && companyId === hit.coId && <HitJob hit={hit} />}
-
-          {selectJobAddress === '' &&
-          selectJobEmploymentStatus === '' &&
-          pharmacyId === hit.phId && companyId === '' && <HitJob hit={hit} />}
-
-          {selectJobAddress === '' &&
-          selectJobEmploymentStatus === '' &&
-          pharmacyId === '' && companyId === hit.coId && <HitJob hit={hit} />}
-
-          {selectJobAddress === '' &&
-          selectJobEmploymentStatus === '' &&
-          pharmacyId === '' && companyId === '' && <HitJob hit={hit} />}
-
-
+        {selectJobAddress === "" &&
+          selectJobEmploymentStatus === "" &&
+          pharmacyId === "" &&
+          companyId === "" && <HitJob hit={hit} />}
       </div>
     </>
   );
