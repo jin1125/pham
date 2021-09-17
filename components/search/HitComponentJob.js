@@ -4,25 +4,29 @@ import { Highlight } from "react-instantsearch-dom";
 import { storage } from "../../firebase";
 import { UserContext } from "../../UserContext";
 
-export function hitComponentCo({ hit }) {
-  const [companyDemoImg, setCompanyDemoImg] = useState("");
-  const { selectCompanyAddress, selectCompany, setSelectCompany } =
-    useContext(UserContext);
+export function hitComponentJob({ hit }) {
+  const [jobDemoImg, setJobDemoImg] = useState("");
+  const {
+    selectJob,
+    setSelectJob,
+    selectJobAddress,
+    setSelectJobAddress,
+    companyId,
+  } = useContext(UserContext);
 
   useEffect(() => {
     (async () => {
-     
       const url = await storage
         .ref()
-        .child("company_demo_img.png")
-        .getDownloadURL()
+        .child("job_demo_img.png")
+        .getDownloadURL();
 
-          setCompanyDemoImg(url);
+      setJobDemoImg(url);
     })();
   }, []);
 
   const click = () => {
-    setSelectCompany(hit);
+    setSelectJob(hit);
   };
 
   ////////////////////////// JSXエリア //////////////////////////
@@ -31,42 +35,32 @@ export function hitComponentCo({ hit }) {
       <div
         onClick={click}
         className={
-          selectCompany.objectID === hit.objectID
+          selectJob.objectID === hit.objectID
             ? "bg-blue-100 cursor-pointer"
             : "cursor-pointer hover:bg-blue-100"
         }
       >
-        {selectCompanyAddress === "" ? (
+        {selectJobAddress === "" ? (
           <div className="grid grid-cols-12 px-3 py-2 border-b items-center">
             <div className="col-span-4 flex items-center">
-              {hit.companyImageUrl ? (
+              {jobDemoImg && (
                 <Image
                   className="inline object-cover rounded-full"
                   width={50}
                   height={50}
-                  src={hit.companyImageUrl}
+                  src={jobDemoImg}
                   alt="Company Image"
                 />
-              ) : (
-                companyDemoImg && (
-                  <Image
-                    className="inline object-cover rounded-full"
-                    width={50}
-                    height={50}
-                    src={companyDemoImg}
-                    alt="Company Image"
-                  />
-                )
               )}
             </div>
 
             <div className="col-span-8 break-words">
               <div>
-                <Highlight attribute="companyName" tagName="mark" hit={hit} />
+                <Highlight attribute="pharmacyName" tagName="mark" hit={hit} />
               </div>
               <div className="text-xs text-blue-300 ">
                 <Highlight
-                  attribute="companyPrefecture"
+                  attribute="pharmacyPrefecture"
                   tagName="mark"
                   hit={hit}
                 />
@@ -74,37 +68,31 @@ export function hitComponentCo({ hit }) {
             </div>
           </div>
         ) : (
-          hit.companyPrefecture === selectCompanyAddress && (
+          hit.pharmacyPrefecture === selectJobAddress && (
             <div className="grid grid-cols-12 px-3 py-2 border-b items-center">
               <div className="col-span-4 flex items-center">
-                {hit.companyImageUrl ? (
+                {pharmacyDemoImg && (
                   <Image
                     className="inline object-cover rounded-full"
                     width={50}
                     height={50}
-                    src={hit.companyImageUrl}
+                    src={pharmacyDemoImg}
                     alt="Company Image"
                   />
-                ) : (
-                  companyDemoImg && (
-                    <Image
-                      className="inline object-cover rounded-full"
-                      width={50}
-                      height={50}
-                      src={companyDemoImg}
-                      alt="Company Image"
-                    />
-                  )
                 )}
               </div>
 
               <div className="col-span-8 break-words">
                 <div>
-                  <Highlight attribute="companyName" tagName="mark" hit={hit} />
-                </div>
-                <div className="text-xs text-blue-300 ">
                   <Highlight
-                    attribute="companyPrefecture"
+                    attribute="pharmacyName"
+                    tagName="mark"
+                    hit={hit}
+                  />
+                </div>
+                <div className="text-xs text-blue-300">
+                  <Highlight
+                    attribute="pharmacyPrefecture"
                     tagName="mark"
                     hit={hit}
                   />

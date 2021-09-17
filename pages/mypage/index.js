@@ -17,21 +17,12 @@ export default function mypage() {
   useEffect(() => {
     let un;
 
-     storage
-      .ref()
-      .child("demo_img.png")
-      .getDownloadURL()
-      .then(function (url) {
-        setDemoImg(url);
-      });
-
-    storage
-      .ref()
-      .child("demo_imgs.jpeg")
-      .getDownloadURL()
-      .then(function (url) {
-        setDemoImgs(url);
-      });
+    (async () => {
+      const url = await storage.ref().child("demo_img.png").getDownloadURL();
+      setDemoImg(url);
+      const Url = await storage.ref().child("demo_imgs.jpeg").getDownloadURL();
+      setDemoImgs(Url);
+    })();
 
     const unSub = auth.onAuthStateChanged((user) => {
       if (user) {

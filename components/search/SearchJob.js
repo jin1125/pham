@@ -2,26 +2,29 @@ import algoliasearch from "algoliasearch/lite";
 import { Emoji } from "emoji-mart";
 import Image from "next/image";
 import { useContext } from "react";
+import AnchorLink from "react-anchor-link-smooth-scroll";
 import { Configure, Hits, InstantSearch } from "react-instantsearch-dom";
 import { UserContext } from "../../UserContext";
-import { hitComponentPh } from "./HitComponentPh";
+import { hitComponentJob } from "./HitComponentJob";
 import { CustomSearchBox } from "./SearchBox";
-import AnchorLink from "react-anchor-link-smooth-scroll";
 
-export default function SearchPh() {
+export default function SearchJob() {
   const searchClient = algoliasearch(
     "0TMIYQ8E9N",
     "58e6e394abd7a5cfcc6fcae0d7b51ac5"
   );
 
-  const indexName = "pham_pharmacies";
-  
+  const indexName = "pham_jobs";
+
   const {
     selectPharmacy,
     selectPharmacyAddress,
     setSelectPharmacyAddress,
+    selectJob,
+    setSelectJob,
+    selectJobAddress,
+    setSelectJobAddress,
   } = useContext(UserContext);
-
 
   return (
     <div className="min-h-screen">
@@ -30,7 +33,7 @@ export default function SearchPh() {
         <div className="col-span-3 border-r-2 border-blue-400 min-h-screen">
           <div className="text-center">
             <h4 className="text-white bg-blue-400 font-bold text-lg py-3">
-              薬局検索
+              求人検索
             </h4>
           </div>
           <InstantSearch indexName={indexName} searchClient={searchClient}>
@@ -45,7 +48,7 @@ export default function SearchPh() {
 
                 <div className="my-5">
                   <label>
-                    <p>所在地</p>
+                    <p>勤務エリア</p>
                     <select
                       className="bg-blue-100 rounded-full outline-none pl-3 w-full py-1"
                       name="selectCompanyAddress"
@@ -106,7 +109,7 @@ export default function SearchPh() {
               </div>
             </div>
 
-            <Hits hitComponent={hitComponentPh} />
+            <Hits hitComponent={hitComponentJob} />
             <Configure hitsPerPage={10} />
             <div className="mx-3 my-2">{/* <PoweredBy /> */}</div>
           </InstantSearch>
@@ -115,14 +118,13 @@ export default function SearchPh() {
         {/* ////// 薬局検索描画(ページ右) ////// */}
         {selectPharmacy ? (
           <div className="col-span-9">
-            <div className='text-right mx-10 my-5'>
-               <AnchorLink href="#btn">
+            <div className="text-right mx-10 my-5">
+              <AnchorLink href="#btn">
                 <button className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 py-2 px-5 rounded-full shadow-lg font-bold">
-                募集中
+                 薬局詳細
                 </button>
               </AnchorLink>
-             
-              </div>
+            </div>
 
             <div className="flex flex-row flex-wrap items-end my-10 gap-8">
               <div>
@@ -136,7 +138,9 @@ export default function SearchPh() {
               {selectPharmacy.pharmacyPrefecture && (
                 <div className="flex flex-row flex-wrap gap-1 items-center">
                   <Emoji emoji="round_pushpin" size={20} />
-                  <p className="text-base">{`${selectPharmacy.pharmacyPrefecture.slice(3)}${selectPharmacy.pharmacyAddress}`}</p>
+                  <p className="text-base">{`${selectPharmacy.pharmacyPrefecture.slice(
+                    3
+                  )}${selectPharmacy.pharmacyAddress}`}</p>
                 </div>
               )}
 
@@ -225,7 +229,7 @@ export default function SearchPh() {
                   <p className="text-base">{selectPharmacy.ageRange}</p>
                 </div>
               )}
-              
+
               {selectPharmacy.drugHistory && (
                 <div className="my-10">
                   <div className="flex flex-row flex-wrap gap-1 items-center">
@@ -266,46 +270,42 @@ export default function SearchPh() {
                 </div>
               )}
 
-              {selectPharmacy.staff &&
-                  selectPharmacy.staff[0].comment && (
-                    <div className="my-10">
-                      <div className="flex flex-row flex-wrap gap-1 items-center">
-                        <Emoji emoji="woman-raising-hand" size={20} />
-                        <p className="text-base font-bold">スタッフ紹介</p>
-                      </div>
-                      {selectPharmacy.staff.map((st, index) => (
-                        <div key={index} className='my-5'>
-                          <div className='flex flex-row flex-wrap gap-5 items-center'>
-                          {st.age && (
-                            <div>
-                              <p className="text-base font-bold">{`${st.age}代`}</p>
-                            </div>
-                          )}
-                          {st.sex && (
-                            <div>
-                              <p className="text-base font-bold">{st.sex}</p>
-                            </div>
-                          )}
-
+              {selectPharmacy.staff && selectPharmacy.staff[0].comment && (
+                <div className="my-10">
+                  <div className="flex flex-row flex-wrap gap-1 items-center">
+                    <Emoji emoji="woman-raising-hand" size={20} />
+                    <p className="text-base font-bold">スタッフ紹介</p>
+                  </div>
+                  {selectPharmacy.staff.map((st, index) => (
+                    <div key={index} className="my-5">
+                      <div className="flex flex-row flex-wrap gap-5 items-center">
+                        {st.age && (
+                          <div>
+                            <p className="text-base font-bold">{`${st.age}代`}</p>
                           </div>
-                          {st.comment && (
-                            <div className='col-span-8'>
-                              <p className="text-base">{st.comment}</p>
-                            </div>
-                          )}
+                        )}
+                        {st.sex && (
+                          <div>
+                            <p className="text-base font-bold">{st.sex}</p>
+                          </div>
+                        )}
+                      </div>
+                      {st.comment && (
+                        <div className="col-span-8">
+                          <p className="text-base">{st.comment}</p>
                         </div>
-                      ))}
-                        </div>
-                  )}
-
-            
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
 
-            <div className='text-center my-20 mr-10' id="btn">
-                <button className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 py-2 w-3/5 rounded-full shadow-lg font-bold">
+            <div className="text-center my-20 mr-10" id="btn">
+              <button className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 py-2 w-3/5 rounded-full shadow-lg font-bold">
                 募集内容
-                </button>
-              </div>
+              </button>
+            </div>
           </div>
         ) : (
           <div className="col-span-9 justify-self-center self-center">

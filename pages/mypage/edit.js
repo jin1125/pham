@@ -11,7 +11,7 @@ import { UserContext } from "../../UserContext";
 
 export default function edit() {
   ////////////////// ステートエリア //////////////////
-  const { userId, setUserId} = useContext(UserContext);
+  const { userId, setUserId } = useContext(UserContext);
 
   const [profile, setProfile] = useState({
     birthPlace: "",
@@ -63,28 +63,27 @@ export default function edit() {
   useEffect(() => {
     let un;
 
-    storage
-      .ref()
-      .child("demo_img.png")
-      .getDownloadURL()
-      .then(function (url) {
+    (async () => {
+      const url = await storage
+        .ref()
+        .child("demo_img.png")
+        .getDownloadURL()
         setDemoImg(url);
-      });
 
-    storage
-      .ref()
-      .child("demo_imgs.jpeg")
-      .getDownloadURL()
-      .then(function (url) {
-        setDemoImgs(url);
-      });
+        const Url = await storage
+        .ref()
+        .child("demo_imgs.jpeg")
+        .getDownloadURL()
+        setDemoImgs(Url);
+    })();
 
     const unSub = auth.onAuthStateChanged((user) => {
       if (user) {
         setUserId(user.uid);
         setUserEmail(user.email);
 
-         un = db.collection("userProfiles")
+        un = db
+          .collection("userProfiles")
           .doc(user.uid)
           .onSnapshot((doc) => {
             if (doc.data()) {
@@ -95,18 +94,16 @@ export default function edit() {
               }
             }
           });
-
       } else {
         Router.push("/login");
       }
     });
-    
+
     return () => {
       unSub();
       un();
     };
   }, []);
-
 
   const {
     birthPlace,
@@ -253,7 +250,6 @@ export default function edit() {
       .catch(() => {
         alert.error("プロフィールを変更できませんでした");
       });
-
   };
 
   /// 経験年数の各experienceの変更処理 ///
@@ -433,16 +429,15 @@ export default function edit() {
             const result = confirm("本当にアカウントを削除しますか?");
 
             if (result) {
-              await  user
-              .delete()
-              .then(() => {
-                alert.success("アカウントを削除しました");  
-                Router.push("/login");                
-              })
-              .catch(() => {
-                alert.error("アカウントを削除できませんでした");
-              });
-             
+              await user
+                .delete()
+                .then(() => {
+                  alert.success("アカウントを削除しました");
+                  Router.push("/login");
+                })
+                .catch(() => {
+                  alert.error("アカウントを削除できませんでした");
+                });
             } else {
               alert.error("アカウント削除をキャンセルしました");
             }

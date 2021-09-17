@@ -13,7 +13,6 @@ export default function Header() {
     const unSub = auth.onAuthStateChanged((user) => {
       if (user) {
 
-
         un = db
           .collection("userProfiles")
           .doc(user.uid)

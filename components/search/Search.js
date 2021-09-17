@@ -19,29 +19,24 @@ export default function Search() {
   const [demoImg, setDemoImg] = useState("");
   const [demoImgs, setDemoImgs] = useState("");
 
-  const {
-    selectHomeAddress,
-    setSelectHomeAddress,
-    selectProfile,
-  } = useContext(UserContext);
-
+  const { selectHomeAddress, setSelectHomeAddress, selectProfile } =
+    useContext(UserContext);
 
   useEffect(() => {
-     storage
-      .ref()
-      .child("demo_img.png")
-      .getDownloadURL()
-      .then(function (url) {
+    (async () => {
+      const url = await storage
+        .ref()
+        .child("demo_img.png")
+        .getDownloadURL()
         setDemoImg(url);
-      });
 
-    storage
-      .ref()
-      .child("demo_imgs.jpeg")
-      .getDownloadURL()
-      .then(function (url) {
-        setDemoImgs(url);
-      });
+        const Url = await storage
+        .ref()
+        .child("demo_imgs.jpeg")
+        .getDownloadURL()
+        setDemoImgs(Url);
+
+    })();
   }, []);
 
   return (

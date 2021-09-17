@@ -20,7 +20,7 @@ export default  function profiles() {
   return (
     <div className="min-h-screen">
       <Head>
-        <title>Pham 薬剤師検索結果</title>
+        <title>Pham 薬剤師検索</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 

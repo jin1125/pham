@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import Layout from "../../../components/layout/Layout";
 import { auth } from "../../../firebase";
 import Router from "next/router";
-import SearchCo from "../../../components/search/SearchCo";
+import SearchJob from "../../../components/search/SearchJob";
 
 export default function search() {
   useEffect(() => {
@@ -19,12 +19,12 @@ export default function search() {
   return (
     <div className="min-h-screen">
       <Head>
-        <title>Pham 求人検索結果</title>
+        <title>Pham 求人検索</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <Layout>
-        {/* <SearchCo/> */}
+        <SearchJob/>
       </Layout>
     </div>
   )

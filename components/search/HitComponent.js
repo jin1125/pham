@@ -15,17 +15,18 @@ export function hitComponent({ hit }) {
   const [demoImg, setDemoImg] = useState("");
 
   useEffect(() => {
+    (async () => {
+     const url = await storage
+        .ref()
+        .child("demo_img.png")
+        .getDownloadURL()
+
+        setDemoImg(url);        
+    })();
+
     const unSub = auth.onAuthStateChanged((user) => {
       if (user) {
         setUserId(user.uid);
-
-        storage
-          .ref()
-          .child("demo_img.png")
-          .getDownloadURL()
-          .then(function (url) {
-            setDemoImg(url);
-          });
       } else {
         Router.push("/login");
       }

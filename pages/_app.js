@@ -15,7 +15,9 @@ function MyApp({ Component, pageProps }) {
   const [selectCompanyAddress, setSelectCompanyAddress] = useState("");
   const [selectPharmacy, setSelectPharmacy] = useState("");
   const [selectPharmacyAddress, setSelectPharmacyAddress] = useState("");
-  const [companyId,setCompanyId] = useState('');
+  const [selectJob, setSelectJob] = useState("");
+  const [selectJobAddress, setSelectJobAddress] = useState("");
+  const [companyId, setCompanyId] = useState("");
 
   /// アラート設定 ///
   const options = {
@@ -29,7 +31,7 @@ function MyApp({ Component, pageProps }) {
       value={{
         userId,
         setUserId,
-        defaultName, 
+        defaultName,
         setDefaultName,
         nameTrigger,
         setNameTrigger,
@@ -37,16 +39,20 @@ function MyApp({ Component, pageProps }) {
         setSelectHomeAddress,
         selectProfile,
         setSelectProfile,
-        selectCompanyAddress, 
+        selectCompanyAddress,
         setSelectCompanyAddress,
-        selectCompany, 
+        selectCompany,
         setSelectCompany,
         selectPharmacy,
         setSelectPharmacy,
         selectPharmacyAddress,
         setSelectPharmacyAddress,
+        selectJob,
+        setSelectJob,
+        selectJobAddress,
+        setSelectJobAddress,
         companyId,
-        setCompanyId
+        setCompanyId,
       }}
     >
       <AlertProvider template={AlertTemplate} {...options}>
