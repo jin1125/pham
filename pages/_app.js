@@ -58,7 +58,7 @@ function MyApp({ Component, pageProps }) {
         pharmacyId,
         setPharmacyId,
         pharmId,
-        setPharmId
+        setPharmId,
       }}
     >
       <AlertProvider template={AlertTemplate} {...options}>

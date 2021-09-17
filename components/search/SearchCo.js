@@ -25,7 +25,7 @@ export default function SearchCo() {
     setCompanyId,
     setSelectPharmacy,
     setPharmId,
-    setPharmacyId
+    setPharmacyId,
   } = useContext(UserContext);
 
   useEffect(() => {

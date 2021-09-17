@@ -1,13 +1,14 @@
 import algoliasearch from "algoliasearch/lite";
 import { Emoji } from "emoji-mart";
 import Image from "next/image";
-import { useContext } from "react";
+import Link from "next/link";
+import { useContext, useEffect,useState } from "react";
+import AnchorLink from "react-anchor-link-smooth-scroll";
 import { Configure, Hits, InstantSearch } from "react-instantsearch-dom";
+import { db } from "../../firebase";
 import { UserContext } from "../../UserContext";
 import { hitComponentPh } from "./HitComponentPh";
 import { CustomSearchBox } from "./SearchBox";
-import AnchorLink from "react-anchor-link-smooth-scroll";
-import Link from "next/link";
 
 export default function SearchPh() {
   const searchClient = algoliasearch(
@@ -16,7 +17,9 @@ export default function SearchPh() {
   );
 
   const indexName = "pham_pharmacies";
-  
+
+  const [isApply, setIsApply] = useState(false);
+
   const {
     selectPharmacy,
     selectPharmacyAddress,
@@ -25,6 +28,18 @@ export default function SearchPh() {
     setSelectJob,
   } = useContext(UserContext);
 
+  useEffect(() => {
+    const unSub = db
+      .collection("jobs")
+      .get()
+      .then((data) => {
+        const id = data.docs.map((d) => {
+          return d.data().phId;
+        });
+        setIsApply(id.includes(selectPharmacy.objectID));
+      });
+
+  }, [selectPharmacy.objectID]);
 
   return (
     <div className="min-h-screen">
@@ -118,14 +133,15 @@ export default function SearchPh() {
         {/* ////// 薬局検索描画(ページ右) ////// */}
         {selectPharmacy ? (
           <div className="col-span-9">
-            <div className='text-right mx-10 my-5'>
-               <AnchorLink href="#btn">
-                <button className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 py-2 px-5 rounded-full shadow-lg font-bold">
-                募集中
-                </button>
-              </AnchorLink>
-             
+            {isApply && (
+              <div className="text-right mx-10 my-5">
+                <AnchorLink href="#btn">
+                  <button className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 py-2 px-5 rounded-full shadow-lg font-bold">
+                     募集中
+                  </button>
+                </AnchorLink>
               </div>
+            )}
 
             <div className="flex flex-row flex-wrap items-end my-10 gap-8">
               <div>
@@ -139,7 +155,9 @@ export default function SearchPh() {
               {selectPharmacy.pharmacyPrefecture && (
                 <div className="flex flex-row flex-wrap gap-1 items-center">
                   <Emoji emoji="round_pushpin" size={20} />
-                  <p className="text-base">{`${selectPharmacy.pharmacyPrefecture.slice(3)}${selectPharmacy.pharmacyAddress}`}</p>
+                  <p className="text-base">{`${selectPharmacy.pharmacyPrefecture.slice(
+                    3
+                  )}${selectPharmacy.pharmacyAddress}`}</p>
                 </div>
               )}
 
@@ -228,7 +246,7 @@ export default function SearchPh() {
                   <p className="text-base">{selectPharmacy.ageRange}</p>
                 </div>
               )}
-              
+
               {selectPharmacy.drugHistory && (
                 <div className="my-10">
                   <div className="flex flex-row flex-wrap gap-1 items-center">
@@ -269,51 +287,52 @@ export default function SearchPh() {
                 </div>
               )}
 
-              {selectPharmacy.staff &&
-                  selectPharmacy.staff[0].comment && (
-                    <div className="my-10">
-                      <div className="flex flex-row flex-wrap gap-1 items-center">
-                        <Emoji emoji="woman-raising-hand" size={20} />
-                        <p className="text-base font-bold">スタッフ紹介</p>
-                      </div>
-                      {selectPharmacy.staff.map((st, index) => (
-                        <div key={index} className='my-5'>
-                          <div className='flex flex-row flex-wrap gap-5 items-center'>
-                          {st.age && (
-                            <div>
-                              <p className="text-base font-bold">{`${st.age}代`}</p>
-                            </div>
-                          )}
-                          {st.sex && (
-                            <div>
-                              <p className="text-base font-bold">{st.sex}</p>
-                            </div>
-                          )}
-
+              {selectPharmacy.staff && selectPharmacy.staff[0].comment && (
+                <div className="my-10">
+                  <div className="flex flex-row flex-wrap gap-1 items-center">
+                    <Emoji emoji="woman-raising-hand" size={20} />
+                    <p className="text-base font-bold">スタッフ紹介</p>
+                  </div>
+                  {selectPharmacy.staff.map((st, index) => (
+                    <div key={index} className="my-5">
+                      <div className="flex flex-row flex-wrap gap-5 items-center">
+                        {st.age && (
+                          <div>
+                            <p className="text-base font-bold">{`${st.age}代`}</p>
                           </div>
-                          {st.comment && (
-                            <div className='col-span-8'>
-                              <p className="text-base">{st.comment}</p>
-                            </div>
-                          )}
+                        )}
+                        {st.sex && (
+                          <div>
+                            <p className="text-base font-bold">{st.sex}</p>
+                          </div>
+                        )}
+                      </div>
+                      {st.comment && (
+                        <div className="col-span-8">
+                          <p className="text-base">{st.comment}</p>
                         </div>
-                      ))}
-                        </div>
-                  )}
-
-            
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
 
-            <div className='text-center my-20 mr-10' id="btn">
-            < Link href="/jobs/search">
-                <button className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 py-2 w-3/5 rounded-full shadow-lg font-bold" onClick={()=>{
-                  setPharmacyId(selectPharmacy.objectID)
-                  setSelectJob('')
-                  }}>
-                募集内容
-                </button>
+            {isApply && (
+              <div className="text-center my-20 mr-10" id="btn">
+                <Link href="/jobs/search">
+                  <button
+                    className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 py-2 w-3/5 rounded-full shadow-lg font-bold"
+                    onClick={() => {
+                      setPharmacyId(selectPharmacy.objectID);
+                      setSelectJob("");
+                    }}
+                  >
+                    募集内容
+                  </button>
                 </Link>
               </div>
+            )}
           </div>
         ) : (
           <div className="col-span-9 justify-self-center self-center">

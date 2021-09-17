@@ -8,6 +8,7 @@ import { UserContext } from "../../UserContext";
 import { hitComponentJob } from "./HitComponentJob";
 import { CustomSearchBox } from "./SearchBox";
 import Link from "next/link";
+import { useAlert } from "react-alert";
 
 export default function SearchJob() {
   const searchClient = algoliasearch(
@@ -18,6 +19,7 @@ export default function SearchJob() {
   const indexName = "pham_jobs";
   
   const [demoImgs, setDemoImgs] = useState("");
+  const alert = useAlert();
   const {
     selectJob,
     selectJobAddress,
@@ -37,6 +39,16 @@ export default function SearchJob() {
         setDemoImgs(url);
     })();
   }, []);
+
+  const apply =()=>{
+    const result = confirm("応募しますか?");
+    if (result) {
+      alert.success("応募を完了しました");
+    } else {
+      alert.error("応募をキャンセルしました");
+    }
+
+  }
 
   return (
     <div className="min-h-screen">
@@ -433,7 +445,9 @@ export default function SearchJob() {
             </div>
 
             <div className="text-center my-20 mr-10">
-              <button className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 py-2 w-3/5 rounded-full shadow-lg font-bold">
+              <button className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 py-2 w-3/5 rounded-full shadow-lg font-bold"
+              onClick={apply}
+              >
               応募！
               </button>
               <p className='text-xs text-gray-400 my-3'>
