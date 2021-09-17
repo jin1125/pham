@@ -8,7 +8,6 @@ import { UserContext } from "../UserContext";
 function MyApp({ Component, pageProps }) {
   const [userId, setUserId] = useState("");
   const [defaultName, setDefaultName] = useState("");
-  const [nameTrigger, setNameTrigger] = useState("");
   const [selectProfile, setSelectProfile] = useState("");
   const [selectHomeAddress, setSelectHomeAddress] = useState("");
   const [selectCompany, setSelectCompany] = useState("");
@@ -17,7 +16,10 @@ function MyApp({ Component, pageProps }) {
   const [selectPharmacyAddress, setSelectPharmacyAddress] = useState("");
   const [selectJob, setSelectJob] = useState("");
   const [selectJobAddress, setSelectJobAddress] = useState("");
+  const [selectJobEmploymentStatus, setSelectJobEmploymentStatus] = useState("");
   const [companyId, setCompanyId] = useState("");
+  const [pharmacyId, setPharmacyId] = useState("");
+  const [pharmId, setPharmId] = useState("");
 
   /// アラート設定 ///
   const options = {
@@ -33,8 +35,6 @@ function MyApp({ Component, pageProps }) {
         setUserId,
         defaultName,
         setDefaultName,
-        nameTrigger,
-        setNameTrigger,
         selectHomeAddress,
         setSelectHomeAddress,
         selectProfile,
@@ -53,6 +53,12 @@ function MyApp({ Component, pageProps }) {
         setSelectJobAddress,
         companyId,
         setCompanyId,
+        selectJobEmploymentStatus,
+        setSelectJobEmploymentStatus,
+        pharmacyId,
+        setPharmacyId,
+        pharmId,
+        setPharmId
       }}
     >
       <AlertProvider template={AlertTemplate} {...options}>

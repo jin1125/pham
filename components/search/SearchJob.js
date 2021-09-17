@@ -1,12 +1,13 @@
 import algoliasearch from "algoliasearch/lite";
 import { Emoji } from "emoji-mart";
 import Image from "next/image";
-import { useContext } from "react";
-import AnchorLink from "react-anchor-link-smooth-scroll";
+import { useContext, useEffect, useState } from "react";
 import { Configure, Hits, InstantSearch } from "react-instantsearch-dom";
+import { storage } from "../../firebase";
 import { UserContext } from "../../UserContext";
 import { hitComponentJob } from "./HitComponentJob";
 import { CustomSearchBox } from "./SearchBox";
+import Link from "next/link";
 
 export default function SearchJob() {
   const searchClient = algoliasearch(
@@ -15,16 +16,30 @@ export default function SearchJob() {
   );
 
   const indexName = "pham_jobs";
-
+  
+  const [demoImgs, setDemoImgs] = useState("");
   const {
-    selectPharmacy,
-    selectPharmacyAddress,
-    setSelectPharmacyAddress,
     selectJob,
-    setSelectJob,
     selectJobAddress,
     setSelectJobAddress,
+    selectJobEmploymentStatus,
+    setSelectJobEmploymentStatus,
+    setPharmId,
+    setCompanyId,
   } = useContext(UserContext);
+
+  useEffect(() => {
+    (async () => {
+        const url = await storage
+        .ref()
+        .child("demo_imgs.jpeg")
+        .getDownloadURL()
+        setDemoImgs(url);
+    })();
+  }, []);
+
+  // console.log(selectJob);
+
 
   return (
     <div className="min-h-screen">
@@ -48,12 +63,31 @@ export default function SearchJob() {
 
                 <div className="my-5">
                   <label>
+                    <p>雇用形態</p>
+                    <select
+                      className="bg-blue-100 rounded-full outline-none pl-3 w-full py-1"
+                      name="selectJobEmploymentStatus"
+                      value={selectJobEmploymentStatus}
+                      onChange={(e) =>
+                        setSelectJobEmploymentStatus(e.target.value)
+                      }
+                    >
+                      <option value="">指定しない</option>
+                      <option value="正社員">正社員</option>
+                      <option value="パート">パート</option>
+                      <option value="契約社員">契約社員</option>
+                    </select>
+                  </label>
+                </div>
+
+                <div className="my-5">
+                  <label>
                     <p>勤務エリア</p>
                     <select
                       className="bg-blue-100 rounded-full outline-none pl-3 w-full py-1"
-                      name="selectCompanyAddress"
-                      value={selectPharmacyAddress}
-                      onChange={(e) => setSelectPharmacyAddress(e.target.value)}
+                      name="selectJobAddress"
+                      value={selectJobAddress}
+                      onChange={(e) => setSelectJobAddress(e.target.value)}
                     >
                       <option value="">指定しない</option>
                       <option value="01_北海道">北海道</option>
@@ -108,212 +142,315 @@ export default function SearchJob() {
                 </div>
               </div>
             </div>
-
             <Hits hitComponent={hitComponentJob} />
             <Configure hitsPerPage={10} />
             <div className="mx-3 my-2">{/* <PoweredBy /> */}</div>
           </InstantSearch>
         </div>
 
+   
+
         {/* ////// 薬局検索描画(ページ右) ////// */}
-        {selectPharmacy ? (
+        {selectJob ? (
           <div className="col-span-9">
             <div className="text-right mx-10 my-5">
-              <AnchorLink href="#btn">
-                <button className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 py-2 px-5 rounded-full shadow-lg font-bold">
+            < Link href="/pharmacies/search">
+              <button className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 py-2 px-5 rounded-full shadow-lg font-bold"
+              onClick={()=>{
+                setPharmId(selectJob.phId)
+                setCompanyId('')
+              }}
+              >
                  薬局詳細
-                </button>
-              </AnchorLink>
+              </button>
+            </Link>
             </div>
 
             <div className="flex flex-row flex-wrap items-end my-10 gap-8">
               <div>
-                <h2 className="text-4xl font-bold">
-                  {selectPharmacy.pharmacyName}
-                </h2>
+                <h2 className="text-4xl font-bold">{selectJob.pharmacyName}</h2>
+              </div>
+
+              <div>
+                <p className="text-xl font-bold text-blue-400">
+                  {selectJob.employmentStatus}
+                </p>
               </div>
             </div>
 
             <div className="flex flex-row flex-wrap my-5 gap-6 leading-none">
-              {selectPharmacy.pharmacyPrefecture && (
-                <div className="flex flex-row flex-wrap gap-1 items-center">
-                  <Emoji emoji="round_pushpin" size={20} />
-                  <p className="text-base">{`${selectPharmacy.pharmacyPrefecture.slice(
-                    3
-                  )}${selectPharmacy.pharmacyAddress}`}</p>
-                </div>
-              )}
 
-              {selectPharmacy.access && (
-                <div className="flex flex-row flex-wrap gap-1 items-center">
-                  <Emoji emoji="railway_car" size={20} />
-                  <p className="text-base">{selectPharmacy.access}</p>
-                </div>
-              )}
-
-              {selectPharmacy.openingDate && (
-                <div className="flex flex-row flex-wrap gap-1 items-center">
-                  <Emoji emoji="birthday" size={20} />
-                  <p className="text-base">{selectPharmacy.openingDate}</p>
-                </div>
-              )}
-
-              {selectPharmacy.openingHours && (
-                <div className="flex flex-row flex-wrap gap-1 items-center">
-                  <Emoji emoji="alarm_clock" size={20} />
-                  <p className="text-base">{selectPharmacy.openingHours}</p>
-                </div>
-              )}
-
-              {selectPharmacy.regularHoliday && (
-                <div className="flex flex-row flex-wrap gap-1 items-center">
-                  <Emoji emoji="zzz" size={20} />
-                  <p className="text-base">{selectPharmacy.regularHoliday}</p>
-                </div>
-              )}
+            <div className="flex flex-row flex-wrap items-center my-3 gap-1 leading-none">
+              <Emoji emoji="id" size={20} />
+              <p className="text-base">{selectJob.objectID}</p>
             </div>
 
-            <div className="my-10 mr-10">
-              {selectPharmacy.comments && (
-                <div className="my-12 whitespace-pre-wrap">
-                  <p className="text-base">{selectPharmacy.comments}</p>
+              {selectJob.jobPrefecture && (
+                <div className="flex flex-row flex-wrap gap-1 items-center">
+                  <Emoji emoji="round_pushpin" size={20} />
+                  <p className="text-base">{`${selectJob.jobPrefecture.slice(
+                    3
+                  )}${selectJob.jobAddress}`}</p>
                 </div>
               )}
 
-              {selectPharmacy.unique && (
+              {selectJob.access && (
+                <div className="flex flex-row flex-wrap gap-1 items-center">
+                  <Emoji emoji="railway_car" size={20} />
+                  <p className="text-base">{selectJob.access}</p>
+                </div>
+              )}
+
+            </div>
+
+              
+            <div className="flex flex-row flex-wrap my-5 gap-8 justify-center">
+            {selectJob.freeImageUrl0 ? (
+                  <div className="my-5">
+                    <Image
+                      className="inline object-cover transform  hover:scale-150 transition duration-300"
+                      width={200}
+                      height={200}
+                      src={selectJob.freeImageUrl0}
+                      alt="Free image0"
+                    />
+                  </div>
+                ) : (
+                  demoImgs && (
+                    <div className="my-5">
+                      <Image
+                        className="inline object-cover"
+                        width={200}
+                        height={200}
+                        src={demoImgs}
+                        alt="Free image0"
+                      />
+                    </div>
+                  )
+                )}
+                {selectJob.freeImageUrl1 ? (
+                  <div className="my-5">
+                    <Image
+                      className="inline object-cover transform hover:scale-150 transition duration-300"
+                      width={200}
+                      height={200}
+                      src={selectJob.freeImageUrl1}
+                      alt="Free image1"
+                    />
+                  </div>
+                ) : (
+                  demoImgs && (
+                    <div className="my-5">
+                      <Image
+                        className="inline object-cover"
+                        width={200}
+                        height={200}
+                        src={demoImgs}
+                        alt="Free image1"
+                      />
+                    </div>
+                  )
+                )}
+                {selectJob.freeImageUrl2 ? (
+                  <div className="my-5">
+                    <Image
+                      className="inline object-cover transform hover:scale-150 transition duration-300"
+                      width={200}
+                      height={200}
+                      src={selectJob.freeImageUrl2}
+                      alt="Free image2"
+                    />
+                  </div>
+                ) : (
+                  demoImgs && (
+                    <div className="my-5">
+                      <Image
+                        className="inline object-cover"
+                        width={200}
+                        height={200}
+                        src={demoImgs}
+                        alt="Free image2"
+                      />
+                    </div>
+                  )
+                )}
+                </div>
+
+            <div className="my-10 mr-10">
+              {selectJob.comments && (
+                <div className="my-12 whitespace-pre-wrap">
+                  <p className="text-base">{selectJob.comments}</p>
+                </div>
+              )}
+
+              {selectJob.unique && (
                 <div className="my-10">
                   <div className="flex flex-row flex-wrap gap-1 items-center">
                     <Emoji emoji="point_up" size={20} />
-                    <p className="text-base font-bold">薬局の特徴</p>
+                    <p className="text-base font-bold">求人の特徴</p>
                   </div>
-                  <p className="text-base">{selectPharmacy.unique}</p>
+                  <p className="text-base">{selectJob.unique}</p>
                 </div>
               )}
 
-              {selectPharmacy.mainPrescription && (
+              {selectJob.recommend && (
                 <div className="my-10">
                   <div className="flex flex-row flex-wrap gap-1 items-center">
-                    <Emoji emoji="pill" size={20} />
-                    <p className="text-base font-bold">主な処方科目</p>
+                    <Emoji emoji="man-gesturing-ok" size={20} />
+                    <p className="text-base font-bold">こんな薬剤師におすすめ！</p>
                   </div>
-                  <p className="text-base">{selectPharmacy.mainPrescription}</p>
+                  <p className="text-base">{selectJob.recommend}</p>
                 </div>
               )}
 
-              {selectPharmacy.numberOfPrescription && (
+              {selectJob.pay && (
                 <div className="my-10">
                   <div className="flex flex-row flex-wrap gap-1 items-center">
-                    <Emoji emoji="page_with_curl" size={20} />
-                    <p className="text-base font-bold">平均処方箋枚数</p>
+                    <Emoji emoji="money_mouth_face" size={20} />
+                    <p className="text-base font-bold">給与</p>
                   </div>
-                  <p className="text-base">{`${selectPharmacy.numberOfPrescription}枚/日`}</p>
+                  <p className="text-base">{selectJob.pay}</p>
                 </div>
               )}
 
-              {selectPharmacy.structure && (
+              {selectJob.businessHours && (
                 <div className="my-10">
                   <div className="flex flex-row flex-wrap gap-1 items-center">
-                    <Emoji emoji="busts_in_silhouette" size={20} />
-                    <p className="text-base font-bold">営業体制人数</p>
+                    <Emoji emoji="runner" size={20} />
+                    <p className="text-base font-bold">勤務時間</p>
                   </div>
-                  <p className="text-base">{`${selectPharmacy.structure}/日`}</p>
+                  <p className="text-base">{selectJob.businessHours}</p>
                 </div>
               )}
 
-              {selectPharmacy.ageRange && (
+              {selectJob.holiday && (
                 <div className="my-10">
                   <div className="flex flex-row flex-wrap gap-1 items-center">
-                    <Emoji emoji="man-woman-girl-boy" size={20} />
-                    <p className="text-base font-bold">スタッフ年齢層</p>
+                    <Emoji emoji="beers" size={20} />
+                    <p className="text-base font-bold">休日</p>
                   </div>
-                  <p className="text-base">{selectPharmacy.ageRange}</p>
+                  <p className="text-base">{selectJob.holiday}</p>
                 </div>
               )}
 
-              {selectPharmacy.drugHistory && (
+              {selectJob.jobDescription && (
                 <div className="my-10">
                   <div className="flex flex-row flex-wrap gap-1 items-center">
-                    <Emoji emoji="desktop_computer" size={20} />
-                    <p className="text-base font-bold">薬歴</p>
+                    <Emoji emoji="clipboard" size={20} />
+                    <p className="text-base font-bold">主な業務内容</p>
                   </div>
-                  <p className="text-base">{selectPharmacy.drugHistory}</p>
+                  <p className="text-base">{selectJob.jobDescription}</p>
                 </div>
               )}
 
-              {selectPharmacy.otherEquipment && (
+              {selectJob.bonus && (
                 <div className="my-10">
                   <div className="flex flex-row flex-wrap gap-1 items-center">
-                    <Emoji emoji="battery" size={20} />
-                    <p className="text-base font-bold">その他設備</p>
+                    <Emoji emoji="dancer" size={20} />
+                    <p className="text-base font-bold">賞与</p>
                   </div>
-                  <p className="text-base">{selectPharmacy.otherEquipment}</p>
+                  <p className="text-base">{selectJob.bonus}</p>
                 </div>
               )}
 
-              {selectPharmacy.nearClinic && (
+              {selectJob.raise && (
                 <div className="my-10">
                   <div className="flex flex-row flex-wrap gap-1 items-center">
-                    <Emoji emoji="hospital" size={20} />
-                    <p className="text-base font-bold">門前</p>
+                    <Emoji emoji="chart_with_upwards_trend" size={20} />
+                    <p className="text-base font-bold">昇給</p>
                   </div>
-                  <p className="text-base">{selectPharmacy.nearClinic}</p>
+                  <p className="text-base">{selectJob.raise}</p>
                 </div>
               )}
 
-              {selectPharmacy.homeMedical && (
+              {selectJob.allowance && (
                 <div className="my-10">
                   <div className="flex flex-row flex-wrap gap-1 items-center">
-                    <Emoji emoji="car" size={20} />
-                    <p className="text-base font-bold">在宅対応</p>
+                    <Emoji emoji="moneybag" size={20} />
+                    <p className="text-base font-bold">諸手当</p>
                   </div>
-                  <p className="text-base">{selectPharmacy.homeMedical}</p>
+                  <p className="text-base">{selectJob.allowance}</p>
                 </div>
               )}
 
-              {selectPharmacy.staff && selectPharmacy.staff[0].comment && (
+              {selectJob.employeeBenefits && (
                 <div className="my-10">
                   <div className="flex flex-row flex-wrap gap-1 items-center">
-                    <Emoji emoji="woman-raising-hand" size={20} />
-                    <p className="text-base font-bold">スタッフ紹介</p>
+                    <Emoji emoji="weight_lifter" size={20} />
+                    <p className="text-base font-bold">福利厚生</p>
                   </div>
-                  {selectPharmacy.staff.map((st, index) => (
-                    <div key={index} className="my-5">
-                      <div className="flex flex-row flex-wrap gap-5 items-center">
-                        {st.age && (
-                          <div>
-                            <p className="text-base font-bold">{`${st.age}代`}</p>
-                          </div>
-                        )}
-                        {st.sex && (
-                          <div>
-                            <p className="text-base font-bold">{st.sex}</p>
-                          </div>
-                        )}
-                      </div>
-                      {st.comment && (
-                        <div className="col-span-8">
-                          <p className="text-base">{st.comment}</p>
-                        </div>
-                      )}
-                    </div>
-                  ))}
+                  <p className="text-base">{selectJob.employeeBenefits}</p>
                 </div>
               )}
+
+              {selectJob.training && (
+                <div className="my-10">
+                  <div className="flex flex-row flex-wrap gap-1 items-center">
+                    <Emoji emoji="closed_book" size={20} />
+                    <p className="text-base font-bold">研修</p>
+                  </div>
+                  <p className="text-base">{selectJob.training}</p>
+                </div>
+              )}
+
+              {selectJob.transport && (
+                <div className="my-10">
+                  <div className="flex flex-row flex-wrap gap-1 items-center">
+                    <Emoji emoji="parachute" size={20} />
+                    <p className="text-base font-bold">通勤手段</p>
+                  </div>
+                  <p className="text-base">{selectJob.transport}</p>
+                </div>
+              )}
+
+              {selectJob.clothes && (
+                <div className="my-10">
+                  <div className="flex flex-row flex-wrap gap-1 items-center">
+                    <Emoji emoji="shirt" size={20} />
+                    <p className="text-base font-bold">服装</p>
+                  </div>
+                  <p className="text-base">{selectJob.clothes}</p>
+                </div>
+              )}
+
+              {selectJob.selection && (
+                <div className="my-10">
+                  <div className="flex flex-row flex-wrap gap-1 items-center">
+                    <Emoji emoji="white_check_mark" size={20} />
+                    <p className="text-base font-bold">選考方法</p>
+                  </div>
+                  <p className="text-base">{selectJob.selection}</p>
+                </div>
+              )}
+
+              {selectJob.notes && (
+                <div className="my-10">
+                  <div className="flex flex-row flex-wrap gap-1 items-center">
+                    <Emoji emoji="bulb" size={20} />
+                    <p className="text-base font-bold">備考</p>
+                  </div>
+                  <p className="text-base">{selectJob.notes}</p>
+                </div>
+              )}
+             
             </div>
 
-            <div className="text-center my-20 mr-10" id="btn">
+            <div className="text-center my-20 mr-10">
               <button className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 py-2 w-3/5 rounded-full shadow-lg font-bold">
-                募集内容
+              応募！
               </button>
+              <p className='text-xs text-gray-400 my-3'>
+                応募すると採用担当者へあなたのプロフィール情報が伝えられます
+              </p>
             </div>
           </div>
         ) : (
           <div className="col-span-9 justify-self-center self-center">
             <Image
-              src="/pharmacy_search_img.png"
+              src="/job_search_img.png"
               alt="login_img"
               width={400}
-              height={400}
+              height={300}
             />
           </div>
         )}

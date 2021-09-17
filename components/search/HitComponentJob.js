@@ -1,33 +1,23 @@
-import Image from "next/image";
-import { useContext, useEffect, useState } from "react";
-import { Highlight } from "react-instantsearch-dom";
-import { storage } from "../../firebase";
+import { useContext } from "react";
 import { UserContext } from "../../UserContext";
+import HitJob from "./HitJob";
 
 export function hitComponentJob({ hit }) {
-  const [jobDemoImg, setJobDemoImg] = useState("");
   const {
     selectJob,
     setSelectJob,
     selectJobAddress,
-    setSelectJobAddress,
-    companyId,
+    selectJobEmploymentStatus,
+    pharmacyId,
+    companyId
   } = useContext(UserContext);
-
-  useEffect(() => {
-    (async () => {
-      const url = await storage
-        .ref()
-        .child("job_demo_img.png")
-        .getDownloadURL();
-
-      setJobDemoImg(url);
-    })();
-  }, []);
 
   const click = () => {
     setSelectJob(hit);
   };
+
+  console.log(companyId);
+  console.log(pharmacyId);
 
   ////////////////////////// JSXエリア //////////////////////////
   return (
@@ -40,67 +30,104 @@ export function hitComponentJob({ hit }) {
             : "cursor-pointer hover:bg-blue-100"
         }
       >
-        {selectJobAddress === "" ? (
-          <div className="grid grid-cols-12 px-3 py-2 border-b items-center">
-            <div className="col-span-4 flex items-center">
-              {jobDemoImg && (
-                <Image
-                  className="inline object-cover rounded-full"
-                  width={50}
-                  height={50}
-                  src={jobDemoImg}
-                  alt="Company Image"
-                />
-              )}
-            </div>
 
-            <div className="col-span-8 break-words">
-              <div>
-                <Highlight attribute="pharmacyName" tagName="mark" hit={hit} />
-              </div>
-              <div className="text-xs text-blue-300 ">
-                <Highlight
-                  attribute="pharmacyPrefecture"
-                  tagName="mark"
-                  hit={hit}
-                />
-              </div>
-            </div>
-          </div>
-        ) : (
-          hit.pharmacyPrefecture === selectJobAddress && (
-            <div className="grid grid-cols-12 px-3 py-2 border-b items-center">
-              <div className="col-span-4 flex items-center">
-                {pharmacyDemoImg && (
-                  <Image
-                    className="inline object-cover rounded-full"
-                    width={50}
-                    height={50}
-                    src={pharmacyDemoImg}
-                    alt="Company Image"
-                  />
-                )}
-              </div>
+        {/* {selectJobAddress === "" &&
+          selectJobEmploymentStatus === "" &&
+          pharmacyId === "" && <HitJob hit={hit} />}
 
-              <div className="col-span-8 break-words">
-                <div>
-                  <Highlight
-                    attribute="pharmacyName"
-                    tagName="mark"
-                    hit={hit}
-                  />
-                </div>
-                <div className="text-xs text-blue-300">
-                  <Highlight
-                    attribute="pharmacyPrefecture"
-                    tagName="mark"
-                    hit={hit}
-                  />
-                </div>
-              </div>
-            </div>
-          )
-        )}
+          {selectJobAddress === "" &&
+          selectJobEmploymentStatus === "" &&
+          pharmacyId === hit.phId && <HitJob hit={hit} />}
+
+         {selectJobAddress === "" &&
+          selectJobEmploymentStatus === hit.employmentStatus &&
+          pharmacyId === hit.phId && <HitJob hit={hit} />}
+
+         {selectJobAddress === hit.jobPrefecture &&
+          selectJobEmploymentStatus === hit.employmentStatus &&
+          pharmacyId === hit.phId && <HitJob hit={hit} />}
+
+          {selectJobAddress === hit.jobPrefecture &&
+          selectJobEmploymentStatus === "" &&
+          pharmacyId === "" && <HitJob hit={hit} />}
+
+          {selectJobAddress === hit.jobPrefecture &&
+          selectJobEmploymentStatus === hit.employmentStatus &&
+          pharmacyId === "" && <HitJob hit={hit} />}
+
+          {selectJobAddress === hit.jobPrefecture &&
+          selectJobEmploymentStatus === "" &&
+          pharmacyId === hit.phId && <HitJob hit={hit} />}
+
+          {selectJobAddress === "" &&
+          selectJobEmploymentStatus === hit.employmentStatus &&
+          pharmacyId === "" && <HitJob hit={hit} />} */}
+
+          {selectJobAddress === hit.jobPrefecture &&
+          selectJobEmploymentStatus === hit.employmentStatus &&
+          pharmacyId === hit.phId && companyId === hit.coId && <HitJob hit={hit} />}
+
+          {selectJobAddress === hit.jobPrefecture &&
+          selectJobEmploymentStatus === hit.employmentStatus &&
+          pharmacyId === hit.phId && companyId === '' && <HitJob hit={hit} />}
+
+          {selectJobAddress === hit.jobPrefecture &&
+          selectJobEmploymentStatus === hit.employmentStatus &&
+          pharmacyId === '' && companyId === hit.coId && <HitJob hit={hit} />}
+
+          {selectJobAddress === hit.jobPrefecture &&
+          selectJobEmploymentStatus === hit.employmentStatus &&
+          pharmacyId === '' && companyId === '' && <HitJob hit={hit} />}
+
+          {selectJobAddress === hit.jobPrefecture &&
+          selectJobEmploymentStatus === '' &&
+          pharmacyId === hit.phId && companyId === hit.coId && <HitJob hit={hit} />}
+
+          {selectJobAddress === hit.jobPrefecture &&
+          selectJobEmploymentStatus === '' &&
+          pharmacyId === hit.phId && companyId === '' && <HitJob hit={hit} />}
+
+          {selectJobAddress === hit.jobPrefecture &&
+          selectJobEmploymentStatus === '' &&
+          pharmacyId === '' && companyId === hit.coId && <HitJob hit={hit} />}
+
+          {selectJobAddress === hit.jobPrefecture &&
+          selectJobEmploymentStatus === '' &&
+          pharmacyId === '' && companyId === '' && <HitJob hit={hit} />}
+
+          {selectJobAddress === '' &&
+          selectJobEmploymentStatus === hit.employmentStatus &&
+          pharmacyId === hit.phId && companyId === hit.coId && <HitJob hit={hit} />}
+
+          {selectJobAddress === '' &&
+          selectJobEmploymentStatus === hit.employmentStatus &&
+          pharmacyId === hit.phId && companyId === '' && <HitJob hit={hit} />}
+
+          {selectJobAddress === '' &&
+          selectJobEmploymentStatus === hit.employmentStatus &&
+          pharmacyId === '' && companyId === hit.coId && <HitJob hit={hit} />}
+
+          {selectJobAddress === '' &&
+          selectJobEmploymentStatus === hit.employmentStatus &&
+          pharmacyId === '' && companyId === '' && <HitJob hit={hit} />}
+
+          {selectJobAddress === '' &&
+          selectJobEmploymentStatus === '' &&
+          pharmacyId === hit.phId && companyId === hit.coId && <HitJob hit={hit} />}
+
+          {selectJobAddress === '' &&
+          selectJobEmploymentStatus === '' &&
+          pharmacyId === hit.phId && companyId === '' && <HitJob hit={hit} />}
+
+          {selectJobAddress === '' &&
+          selectJobEmploymentStatus === '' &&
+          pharmacyId === '' && companyId === hit.coId && <HitJob hit={hit} />}
+
+          {selectJobAddress === '' &&
+          selectJobEmploymentStatus === '' &&
+          pharmacyId === '' && companyId === '' && <HitJob hit={hit} />}
+
+
       </div>
     </>
   );

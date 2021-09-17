@@ -98,7 +98,7 @@ export default function login() {
 
         <div className="text-center">
           <Image
-            src="/recruit_login_img.jpeg"
+            src="/recruit_login_img.png"
             alt="login_img"
             width={350}
             height={350}

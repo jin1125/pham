@@ -5,6 +5,7 @@ import { useContext, useEffect, useState } from "react";
 import { Configure, Hits, InstantSearch } from "react-instantsearch-dom";
 import { storage } from "../../firebase";
 import { UserContext } from "../../UserContext";
+import hitCom from "./HitCom";
 import { hitComponent } from "./HitComponent";
 import { CustomSearchBox } from "./SearchBox";
 
@@ -122,7 +123,7 @@ export default function Search() {
               </div>
             </div>
 
-            <Hits hitComponent={hitComponent} num={"6"} />
+            <Hits hitComponent={hitComponent}/>
             <Configure hitsPerPage={10} />
             <div className="mx-3 my-2">{/* <PoweredBy /> */}</div>
           </InstantSearch>

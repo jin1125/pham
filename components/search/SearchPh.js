@@ -7,6 +7,7 @@ import { UserContext } from "../../UserContext";
 import { hitComponentPh } from "./HitComponentPh";
 import { CustomSearchBox } from "./SearchBox";
 import AnchorLink from "react-anchor-link-smooth-scroll";
+import Link from "next/link";
 
 export default function SearchPh() {
   const searchClient = algoliasearch(
@@ -20,6 +21,8 @@ export default function SearchPh() {
     selectPharmacy,
     selectPharmacyAddress,
     setSelectPharmacyAddress,
+    setPharmacyId,
+    setSelectJob,
   } = useContext(UserContext);
 
 
@@ -48,7 +51,7 @@ export default function SearchPh() {
                     <p>所在地</p>
                     <select
                       className="bg-blue-100 rounded-full outline-none pl-3 w-full py-1"
-                      name="selectCompanyAddress"
+                      name="selectPharmacyAddress"
                       value={selectPharmacyAddress}
                       onChange={(e) => setSelectPharmacyAddress(e.target.value)}
                     >
@@ -302,9 +305,14 @@ export default function SearchPh() {
             </div>
 
             <div className='text-center my-20 mr-10' id="btn">
-                <button className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 py-2 w-3/5 rounded-full shadow-lg font-bold">
+            < Link href="/jobs/search">
+                <button className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 py-2 w-3/5 rounded-full shadow-lg font-bold" onClick={()=>{
+                  setPharmacyId(selectPharmacy.objectID)
+                  setSelectJob('')
+                  }}>
                 募集内容
                 </button>
+                </Link>
               </div>
           </div>
         ) : (
@@ -312,8 +320,8 @@ export default function SearchPh() {
             <Image
               src="/pharmacy_search_img.png"
               alt="login_img"
-              width={400}
-              height={400}
+              width={300}
+              height={300}
             />
           </div>
         )}

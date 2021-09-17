@@ -24,6 +24,8 @@ export default function SearchCo() {
     selectCompany,
     setCompanyId,
     setSelectPharmacy,
+    setPharmId,
+    setPharmacyId
   } = useContext(UserContext);
 
   useEffect(() => {
@@ -31,8 +33,8 @@ export default function SearchCo() {
       const url = await storage
         .ref()
         .child("company_demo_img.png")
-        .getDownloadURL()
-        setCompanyDemoImg(url);
+        .getDownloadURL();
+      setCompanyDemoImg(url);
     })();
   }, []);
 
@@ -240,6 +242,7 @@ export default function SearchCo() {
                     onClick={() => {
                       setCompanyId(selectCompany.objectID);
                       setSelectPharmacy("");
+                      setPharmId("");
                     }}
                   >
                     薬局一覧
@@ -248,9 +251,19 @@ export default function SearchCo() {
               </div>
 
               <div className="text-center">
-                <button className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 py-2 w-3/5 rounded-full shadow-lg font-bold">
-                  求人一覧
-                </button>
+                <Link href="/jobs/search">
+                  <button
+                    className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 py-2 w-3/5 rounded-full shadow-lg font-bold"
+                    onClick={() => {
+                      setCompanyId(selectCompany.objectID);
+                      setSelectPharmacy("");
+                      setPharmacyId('');
+                      setPharmId("");
+                    }}
+                  >
+                    求人一覧
+                  </button>
+                </Link>
               </div>
             </div>
           </div>
