@@ -29,13 +29,21 @@ export default function SearchCo() {
   } = useContext(UserContext);
 
   useEffect(() => {
+    let isMounted = true;
     (async () => {
       const url = await storage
         .ref()
         .child("company_demo_img.png")
         .getDownloadURL();
-      setCompanyDemoImg(url);
+
+      if (isMounted) {
+        setCompanyDemoImg(url);
+      }
     })();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   return (

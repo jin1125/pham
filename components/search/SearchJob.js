@@ -31,13 +31,21 @@ export default function SearchJob() {
   } = useContext(UserContext);
 
   useEffect(() => {
+    let isMounted = true;
     (async () => {
         const url = await storage
         .ref()
         .child("demo_imgs.jpeg")
         .getDownloadURL()
-        setDemoImgs(url);
+
+        if (isMounted) {
+          setDemoImgs(url);
+        }
     })();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   const apply =()=>{

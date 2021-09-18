@@ -5,7 +5,6 @@ import { useContext, useEffect, useState } from "react";
 import { Configure, Hits, InstantSearch } from "react-instantsearch-dom";
 import { storage } from "../../firebase";
 import { UserContext } from "../../UserContext";
-import hitCom from "./HitCom";
 import { hitComponent } from "./HitComponent";
 import { CustomSearchBox } from "./SearchBox";
 
@@ -24,20 +23,27 @@ export default function Search() {
     useContext(UserContext);
 
   useEffect(() => {
+    let isMounted = true;
     (async () => {
       const url = await storage
         .ref()
         .child("demo_img.png")
         .getDownloadURL()
-        setDemoImg(url);
 
         const Url = await storage
         .ref()
         .child("demo_imgs.jpeg")
         .getDownloadURL()
-        setDemoImgs(Url);
 
+        if (isMounted) {
+          setDemoImg(url);
+          setDemoImgs(Url);
+        }
     })();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   return (
