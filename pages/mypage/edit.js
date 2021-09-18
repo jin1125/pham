@@ -58,6 +58,7 @@ export default function edit() {
   const [demoImgs, setDemoImgs] = useState("");
 
   ////////////////// 関数エリア //////////////////
+
   const alert = useAlert();
 
   useEffect(() => {
@@ -104,6 +105,8 @@ export default function edit() {
       un();
     };
   }, []);
+
+  
 
   const {
     birthPlace,
@@ -186,8 +189,8 @@ export default function edit() {
         .ref("profileImages")
         .child(userId)
         .getDownloadURL();
+        //アップロード画像がない && firestoreにデータがある
     } else if (!profileImage && profileImageUrl) {
-      //アップロード画像がない&&firestoreにデータがある
       profileUrl = profileImageUrl;
     } else {
       profileUrl = "";
@@ -1080,7 +1083,7 @@ export default function edit() {
                 onChange={(e) =>
                   setProfile({ ...profile, strongArea: e.target.value.trim() })
                 }
-                className="text-base bg-blue-100 placeholder-blue-300 text-left rounded-full py-1 pl-5 outline-none w-full"
+                className="text-base bg-blue-100 placeholder-blue-300 text-left rounded-full py-1 pl-5 outline-none "
               />
             </div>
 
