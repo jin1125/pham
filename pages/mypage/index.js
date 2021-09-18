@@ -15,6 +15,7 @@ export default function mypage() {
   const [demoImgs, setDemoImgs] = useState("");
 
   useEffect(() => {
+    let isMounted = true;
     let un;
 
     (async () => {
@@ -33,9 +34,13 @@ export default function mypage() {
           .doc(user.uid)
           .onSnapshot((doc) => {
             if (doc.data()) {
-              setProfile(doc.data());
+              if (isMounted) {
+                setProfile(doc.data());
+              }
             } else {
-              setDisplayName(user.displayName);
+              if (isMounted) {
+                setDisplayName(user.displayName);
+              }
             }
           });
       } else {
@@ -46,6 +51,7 @@ export default function mypage() {
     return () => {
       unSub();
       un();
+      isMounted = false;
     };
   }, []);
 

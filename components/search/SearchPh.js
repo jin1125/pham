@@ -39,6 +39,10 @@ export default function SearchPh() {
         setIsApply(id.includes(selectPharmacy.objectID));
       });
 
+      // return () => {
+      //   unSub();
+      // };
+
   }, [selectPharmacy.objectID]);
 
   return (

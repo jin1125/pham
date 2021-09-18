@@ -16,7 +16,7 @@ export default function login() {
     try {
       await auth.signInWithEmailAndPassword(companyEmail, companyPassword);
       alert.success("ログインしました");
-      Router.push("/recruit/edit");
+      Router.push("/");
     } catch (error) {
       alert.error("ログインできませんでした");
     }

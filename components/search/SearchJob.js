@@ -3,12 +3,13 @@ import { Emoji } from "emoji-mart";
 import Image from "next/image";
 import { useContext, useEffect, useState } from "react";
 import { Configure, Hits, InstantSearch } from "react-instantsearch-dom";
-import { storage } from "../../firebase";
+import { auth, db, storage } from "../../firebase";
 import { UserContext } from "../../UserContext";
 import { hitComponentJob } from "./HitComponentJob";
 import { CustomSearchBox } from "./SearchBox";
 import Link from "next/link";
 import { useAlert } from "react-alert";
+import ApplyModal from "../organisms/modal/applyModal";
 
 export default function SearchJob() {
   const searchClient = algoliasearch(
@@ -19,6 +20,9 @@ export default function SearchJob() {
   const indexName = "pham_jobs";
   
   const [demoImgs, setDemoImgs] = useState("");
+  const [applyData, setApplyData] = useState({jobId:'',userId:'',userName:'',companyId:'',pharmacyId:'',pharmacyName:''});
+  const [isOpen, setIsOpen] = useState(false)
+
   const alert = useAlert();
   const {
     selectJob,
@@ -29,6 +33,7 @@ export default function SearchJob() {
     setPharmId,
     setCompanyId,
   } = useContext(UserContext);
+
 
   useEffect(() => {
     let isMounted = true;
@@ -48,14 +53,49 @@ export default function SearchJob() {
     };
   }, []);
 
-  const apply =()=>{
+
+  useEffect(()=>{
+    let un;
+
+    const unSub = auth.onAuthStateChanged((user) => {
+      if (user) {
+        un = db
+          .collection("userProfiles")
+          .doc(user.uid)
+          .onSnapshot((doc) => {
+            if (doc.data()) {
+              setApplyData({...applyData,jobId:selectJob.objectID,userId:user.uid,userName:doc.data().userName,companyId:selectJob.coId,pharmacyId:selectJob.phId,pharmacyName:selectJob.pharmacyName})
+            } 
+          });
+      }
+    });
+
+    return () => {
+      unSub();
+      // un();
+    };
+
+  },[selectJob])
+
+  console.log(isOpen);
+
+
+  const apply = async()=>{
     const result = confirm("応募しますか?");
     if (result) {
-      alert.success("応募を完了しました");
+      await db
+      .collection("applies")
+      .add(applyData)
+      .then(() => {
+        setIsOpen(true)
+      })
+      .catch(() => {
+        alert.error("応募ができませんでした");
+      });
+     
     } else {
       alert.error("応募をキャンセルしました");
     }
-
   }
 
   return (
@@ -451,6 +491,8 @@ export default function SearchJob() {
               )}
              
             </div>
+
+            <ApplyModal isOpen={isOpen} setIsOpen={setIsOpen}/>
 
             <div className="text-center my-20 mr-10">
               <button className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 py-2 w-3/5 rounded-full shadow-lg font-bold"
