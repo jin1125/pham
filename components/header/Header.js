@@ -6,37 +6,41 @@ import { UserContext } from "../../UserContext";
 
 export default function Header() {
   const [check, setCheck] = useState(false);
-  const { setSelectJob, setCompanyId, setPharmacyId, setPharmId } =
-    useContext(UserContext);
+  const {
+    setSelectJob,
+    setCompanyId,
+    setPharmacyId,
+    setPharmId,
+    userId,
+    setUserId,
+  } = useContext(UserContext);
 
   useEffect(() => {
-    
-    let un;
-    
     const unSub = auth.onAuthStateChanged((user) => {
       if (user) {
-        un = db
-          .collection("userProfiles")
-          .doc(user.uid)
-          .onSnapshot((doc) => {
-            if (doc.data().homeAddress) {
-              setCheck(false);
-            } else {
-              setCheck(true);
-            }
-          });
+        setUserId(user.uid);
       }
     });
 
-    return () => {
-      unSub();
-      un();
-    };
+    return () => unSub();
   }, []);
 
-  const a =()=>{
-   return  a() , b()
-  }
+  useEffect(() => {
+    if(userId){
+      let unSub = db
+        .collection("userProfiles")
+        .doc(userId)
+        .onSnapshot((doc) => {
+          if (doc.data().homeAddress) {
+            setCheck(false);
+          } else {
+            setCheck(true);
+          }
+        });
+  
+      return () => unSub();
+    }
+  }, [userId]);
 
   return (
     <header>
@@ -47,7 +51,7 @@ export default function Header() {
           </button>
         </Link>
 
-        <Link href="/mypage/message">
+        <Link href="/message">
           <button
             className="font-bold text-center text-blue-400 transition duration-300 hover:text-white bg-white hover:bg-blue-300 disabled:bg-blue-300 disabled:hover:text-blue-400 py-2 rounded-full w-full"
             disabled={check}

@@ -17,6 +17,7 @@ function MyApp({ Component, pageProps }) {
   const [selectJob, setSelectJob] = useState("");
   const [selectJobAddress, setSelectJobAddress] = useState("");
   const [selectJobEmploymentStatus, setSelectJobEmploymentStatus] = useState("");
+  const [selectMsg, setSelectMsg] = useState("");
   const [companyId, setCompanyId] = useState("");
   const [pharmacyId, setPharmacyId] = useState("");
   const [pharmId, setPharmId] = useState("");
@@ -51,6 +52,8 @@ function MyApp({ Component, pageProps }) {
         setSelectJob,
         selectJobAddress,
         setSelectJobAddress,
+        selectMsg, 
+        setSelectMsg,
         companyId,
         setCompanyId,
         selectJobEmploymentStatus,

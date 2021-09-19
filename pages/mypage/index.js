@@ -16,44 +16,47 @@ export default function mypage() {
 
   useEffect(() => {
     let isMounted = true;
-    let un;
 
     (async () => {
       const url = await storage.ref().child("demo_img.png").getDownloadURL();
-      setDemoImg(url);
       const Url = await storage.ref().child("demo_imgs.jpeg").getDownloadURL();
-      setDemoImgs(Url);
+      if (isMounted) {
+        setDemoImg(url);
+        setDemoImgs(Url);
+      }
     })();
 
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  useEffect(() => {
     const unSub = auth.onAuthStateChanged((user) => {
       if (user) {
         setUserId(user.uid);
-
-        un = db
-          .collection("userProfiles")
-          .doc(user.uid)
-          .onSnapshot((doc) => {
-            if (doc.data()) {
-              if (isMounted) {
-                setProfile(doc.data());
-              }
-            } else {
-              if (isMounted) {
-                setDisplayName(user.displayName);
-              }
-            }
-          });
+        setDisplayName(user.displayName);
       } else {
         Router.push("/login");
       }
     });
 
-    return () => {
-      unSub();
-      un();
-      isMounted = false;
-    };
+    return () => unSub();
   }, []);
+
+  useEffect(() => {
+    if (userId) {
+      const unSub = db
+        .collection("userProfiles")
+        .doc(userId)
+        .onSnapshot((doc) => {
+          if (doc.data()) {
+            setProfile(doc.data());
+          }
+        });
+      return () => unSub();
+    }
+  }, [userId]);
 
   const {
     birthPlace,

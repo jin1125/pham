@@ -1,3 +1,4 @@
+import firebase from "firebase/app";
 import algoliasearch from "algoliasearch/lite";
 import { Emoji } from "emoji-mart";
 import Image from "next/image";
@@ -20,7 +21,7 @@ export default function SearchJob() {
   const indexName = "pham_jobs";
   
   const [demoImgs, setDemoImgs] = useState("");
-  const [applyData, setApplyData] = useState({jobId:'',userId:'',userName:'',companyId:'',pharmacyId:'',pharmacyName:''});
+  const [applyData, setApplyData] = useState({jobId:'',userId:'',userName:'',companyId:'',pharmacyId:'',pharmacyName:'',datetime:''});
   const [isOpen, setIsOpen] = useState(false)
 
   const alert = useAlert();
@@ -32,11 +33,14 @@ export default function SearchJob() {
     setSelectJobEmploymentStatus,
     setPharmId,
     setCompanyId,
+    userId,
+    setUserId,
   } = useContext(UserContext);
 
 
   useEffect(() => {
     let isMounted = true;
+
     (async () => {
         const url = await storage
         .ref()
@@ -55,29 +59,29 @@ export default function SearchJob() {
 
 
   useEffect(()=>{
-    let un;
-
     const unSub = auth.onAuthStateChanged((user) => {
       if (user) {
-        un = db
-          .collection("userProfiles")
-          .doc(user.uid)
-          .onSnapshot((doc) => {
-            if (doc.data()) {
-              setApplyData({...applyData,jobId:selectJob.objectID,userId:user.uid,userName:doc.data().userName,companyId:selectJob.coId,pharmacyId:selectJob.phId,pharmacyName:selectJob.pharmacyName})
-            } 
-          });
+        setUserId(user.uid);
       }
     });
 
-    return () => {
-      unSub();
-      // un();
-    };
+    return () => unSub();
+  },[])
 
-  },[selectJob])
 
-  console.log(isOpen);
+  useEffect(()=>{
+    if (userId && selectJob) {
+      let unSub = db
+          .collection("userProfiles")
+          .doc(userId)
+          .onSnapshot((doc) => {
+            if (doc.data()) {
+              setApplyData({...applyData,jobId:selectJob.objectID,userId:userId,userName:doc.data().userName,companyId:selectJob.coId,pharmacyId:selectJob.phId,pharmacyName:selectJob.pharmacyName,datetime:firebase.firestore.Timestamp.now()})
+            } 
+          });
+          return () => unSub();
+      }
+  },[selectJob,userId])
 
 
   const apply = async()=>{
