@@ -3,6 +3,7 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { useAlert } from "react-alert";
 import { auth, db, storage } from "../../../../firebase";
+
 export default function edit() {
   const alert = useAlert();
   const [companyDemoImg, setCompanyDemoImg] = useState("");
@@ -122,8 +123,6 @@ export default function edit() {
         alert.error("企業情報を追加できませんでした");
       });
   };
-
-  console.log(companyData);
 
   return (
     <div className="mx-20">
@@ -264,7 +263,7 @@ export default function edit() {
                 }
                 placeholder="その他住所"
                 name="companyAddress"
-                maxLength="20"
+                maxLength="30"
                 className="text-base bg-blue-100 placeholder-blue-300 text-center rounded-full py-1 outline-none"
               />
             </div>

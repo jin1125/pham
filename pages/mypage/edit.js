@@ -40,6 +40,7 @@ export default function edit() {
     ],
   });
   const [userEmail, setUserEmail] = useState("");
+  const [displayName, setDisplayName] = useState("");
   const [profileImage, setProfileImage] = useState("");
   const [freeImage0, setFreeImage0] = useState("");
   const [freeImage1, setFreeImage1] = useState("");
@@ -62,8 +63,40 @@ export default function edit() {
   const alert = useAlert();
 
   useEffect(() => {
-    let un;
+  const unSub = auth.onAuthStateChanged((user) => {
+      if (user) {
+        setUserId(user.uid);
+        setUserEmail(user.email);
+        setDisplayName(user.displayName)
+      } else {
+        Router.push("/login");
+      }
+    });
 
+    return () => unSub();
+  }, []);
+  
+
+  useEffect(() => {
+    if(userId && displayName){
+      let unSub = db
+            .collection("userProfiles")
+            .doc(userId)
+            .onSnapshot((doc) => {
+              if (doc.data()) {
+                setProfile({ ...profile, ...doc.data() });
+              } else {
+                if (!profile.userName) {
+                  setProfile({ ...profile, userName: user.displayName });
+                }
+              }
+            });
+      return () => unSub();
+    }
+  }, [userId,displayName]);
+
+
+  useEffect(() => {
     (async () => {
       const url = await storage
         .ref()
@@ -77,35 +110,7 @@ export default function edit() {
         .getDownloadURL()
         setDemoImgs(Url);
     })();
-
-    const unSub = auth.onAuthStateChanged((user) => {
-      if (user) {
-        setUserId(user.uid);
-        setUserEmail(user.email);
-
-        un = db
-          .collection("userProfiles")
-          .doc(user.uid)
-          .onSnapshot((doc) => {
-            if (doc.data()) {
-              setProfile({ ...profile, ...doc.data() });
-            } else {
-              if (!profile.userName) {
-                setProfile({ ...profile, userName: user.displayName });
-              }
-            }
-          });
-      } else {
-        Router.push("/login");
-      }
-    });
-
-    return () => {
-      unSub();
-      un();
-    };
   }, []);
-
   
 
   const {

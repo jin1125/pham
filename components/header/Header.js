@@ -12,6 +12,7 @@ export default function Header() {
   useEffect(() => {
     
     let un;
+    
     const unSub = auth.onAuthStateChanged((user) => {
       if (user) {
         un = db

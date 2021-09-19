@@ -29,7 +29,8 @@ export default function SearchPh() {
   } = useContext(UserContext);
 
   useEffect(() => {
-    const unSub = db
+      (async () => {
+       await db
       .collection("jobs")
       .get()
       .then((data) => {
@@ -38,11 +39,7 @@ export default function SearchPh() {
         });
         setIsApply(id.includes(selectPharmacy.objectID));
       });
-
-      // return () => {
-      //   unSub();
-      // };
-
+      })();
   }, [selectPharmacy.objectID]);
 
   return (
@@ -165,161 +162,161 @@ export default function SearchPh() {
                 </div>
               )}
 
-              {selectPharmacy.access && (
-                <div className="flex flex-row flex-wrap gap-1 items-center">
-                  <Emoji emoji="railway_car" size={20} />
-                  <p className="text-base">{selectPharmacy.access}</p>
-                </div>
-              )}
-
-              {selectPharmacy.openingDate && (
-                <div className="flex flex-row flex-wrap gap-1 items-center">
-                  <Emoji emoji="birthday" size={20} />
-                  <p className="text-base">{selectPharmacy.openingDate}</p>
-                </div>
-              )}
-
-              {selectPharmacy.openingHours && (
-                <div className="flex flex-row flex-wrap gap-1 items-center">
-                  <Emoji emoji="alarm_clock" size={20} />
-                  <p className="text-base">{selectPharmacy.openingHours}</p>
-                </div>
-              )}
-
-              {selectPharmacy.regularHoliday && (
-                <div className="flex flex-row flex-wrap gap-1 items-center">
-                  <Emoji emoji="zzz" size={20} />
-                  <p className="text-base">{selectPharmacy.regularHoliday}</p>
-                </div>
-              )}
-            </div>
-
-            <div className="my-10 mr-10">
-              {selectPharmacy.comments && (
-                <div className="my-12 whitespace-pre-wrap">
-                  <p className="text-base">{selectPharmacy.comments}</p>
-                </div>
-              )}
-
-              {selectPharmacy.unique && (
-                <div className="my-10">
+                {selectPharmacy.access && (
                   <div className="flex flex-row flex-wrap gap-1 items-center">
-                    <Emoji emoji="point_up" size={20} />
-                    <p className="text-base font-bold">薬局の特徴</p>
+                    <Emoji emoji="railway_car" size={20} />
+                    <p className="text-base">{selectPharmacy.access}</p>
                   </div>
-                  <p className="text-base">{selectPharmacy.unique}</p>
-                </div>
-              )}
+                )}
 
-              {selectPharmacy.mainPrescription && (
-                <div className="my-10">
+                {selectPharmacy.openingDate && (
                   <div className="flex flex-row flex-wrap gap-1 items-center">
-                    <Emoji emoji="pill" size={20} />
-                    <p className="text-base font-bold">主な処方科目</p>
+                    <Emoji emoji="birthday" size={20} />
+                    <p className="text-base">{selectPharmacy.openingDate}</p>
                   </div>
-                  <p className="text-base">{selectPharmacy.mainPrescription}</p>
-                </div>
-              )}
+                )}
 
-              {selectPharmacy.numberOfPrescription && (
-                <div className="my-10">
+                {selectPharmacy.openingHours && (
                   <div className="flex flex-row flex-wrap gap-1 items-center">
-                    <Emoji emoji="page_with_curl" size={20} />
-                    <p className="text-base font-bold">平均処方箋枚数</p>
+                    <Emoji emoji="alarm_clock" size={20} />
+                    <p className="text-base">{selectPharmacy.openingHours}</p>
                   </div>
-                  <p className="text-base">{`${selectPharmacy.numberOfPrescription}枚/日`}</p>
-                </div>
-              )}
+                )}
 
-              {selectPharmacy.structure && (
-                <div className="my-10">
+                {selectPharmacy.regularHoliday && (
                   <div className="flex flex-row flex-wrap gap-1 items-center">
-                    <Emoji emoji="busts_in_silhouette" size={20} />
-                    <p className="text-base font-bold">営業体制人数</p>
+                    <Emoji emoji="zzz" size={20} />
+                    <p className="text-base">{selectPharmacy.regularHoliday}</p>
                   </div>
-                  <p className="text-base">{`${selectPharmacy.structure}/日`}</p>
-                </div>
-              )}
+                )}
+              </div>
 
-              {selectPharmacy.ageRange && (
-                <div className="my-10">
-                  <div className="flex flex-row flex-wrap gap-1 items-center">
-                    <Emoji emoji="man-woman-girl-boy" size={20} />
-                    <p className="text-base font-bold">スタッフ年齢層</p>
+              <div className="my-10 mr-10">
+                {selectPharmacy.comments && (
+                  <div className="my-12 whitespace-pre-wrap">
+                    <p className="text-base">{selectPharmacy.comments}</p>
                   </div>
-                  <p className="text-base">{selectPharmacy.ageRange}</p>
-                </div>
-              )}
+                )}
 
-              {selectPharmacy.drugHistory && (
-                <div className="my-10">
-                  <div className="flex flex-row flex-wrap gap-1 items-center">
-                    <Emoji emoji="desktop_computer" size={20} />
-                    <p className="text-base font-bold">薬歴</p>
+                {selectPharmacy.unique && (
+                  <div className="my-10">
+                    <div className="flex flex-row flex-wrap gap-1 items-center">
+                      <Emoji emoji="point_up" size={20} />
+                      <p className="text-base font-bold">薬局の特徴</p>
+                    </div>
+                    <p className="text-base">{selectPharmacy.unique}</p>
                   </div>
-                  <p className="text-base">{selectPharmacy.drugHistory}</p>
-                </div>
-              )}
+                )}
 
-              {selectPharmacy.otherEquipment && (
-                <div className="my-10">
-                  <div className="flex flex-row flex-wrap gap-1 items-center">
-                    <Emoji emoji="battery" size={20} />
-                    <p className="text-base font-bold">その他設備</p>
+                {selectPharmacy.mainPrescription && (
+                  <div className="my-10">
+                    <div className="flex flex-row flex-wrap gap-1 items-center">
+                      <Emoji emoji="pill" size={20} />
+                      <p className="text-base font-bold">主な処方科目</p>
+                    </div>
+                    <p className="text-base">{selectPharmacy.mainPrescription}</p>
                   </div>
-                  <p className="text-base">{selectPharmacy.otherEquipment}</p>
-                </div>
-              )}
+                )}
 
-              {selectPharmacy.nearClinic && (
-                <div className="my-10">
-                  <div className="flex flex-row flex-wrap gap-1 items-center">
-                    <Emoji emoji="hospital" size={20} />
-                    <p className="text-base font-bold">門前</p>
+                {selectPharmacy.numberOfPrescription && (
+                  <div className="my-10">
+                    <div className="flex flex-row flex-wrap gap-1 items-center">
+                      <Emoji emoji="page_with_curl" size={20} />
+                      <p className="text-base font-bold">平均処方箋枚数</p>
+                    </div>
+                    <p className="text-base">{`${selectPharmacy.numberOfPrescription}枚/日`}</p>
                   </div>
-                  <p className="text-base">{selectPharmacy.nearClinic}</p>
-                </div>
-              )}
+                )}
 
-              {selectPharmacy.homeMedical && (
-                <div className="my-10">
-                  <div className="flex flex-row flex-wrap gap-1 items-center">
-                    <Emoji emoji="car" size={20} />
-                    <p className="text-base font-bold">在宅対応</p>
+                {selectPharmacy.structure && (
+                  <div className="my-10">
+                    <div className="flex flex-row flex-wrap gap-1 items-center">
+                      <Emoji emoji="busts_in_silhouette" size={20} />
+                      <p className="text-base font-bold">営業体制人数</p>
+                    </div>
+                    <p className="text-base">{`${selectPharmacy.structure}/日`}</p>
                   </div>
-                  <p className="text-base">{selectPharmacy.homeMedical}</p>
-                </div>
-              )}
+                )}
 
-              {selectPharmacy.staff && selectPharmacy.staff[0].comment && (
-                <div className="my-10">
-                  <div className="flex flex-row flex-wrap gap-1 items-center">
-                    <Emoji emoji="woman-raising-hand" size={20} />
-                    <p className="text-base font-bold">スタッフ紹介</p>
+                {selectPharmacy.ageRange && (
+                  <div className="my-10">
+                    <div className="flex flex-row flex-wrap gap-1 items-center">
+                      <Emoji emoji="man-woman-girl-boy" size={20} />
+                      <p className="text-base font-bold">スタッフ年齢層</p>
+                    </div>
+                    <p className="text-base">{selectPharmacy.ageRange}</p>
                   </div>
-                  {selectPharmacy.staff.map((st, index) => (
-                    <div key={index} className="my-5">
-                      <div className="flex flex-row flex-wrap gap-5 items-center">
-                        {st.age && (
-                          <div>
-                            <p className="text-base font-bold">{`${st.age}代`}</p>
-                          </div>
-                        )}
-                        {st.sex && (
-                          <div>
-                            <p className="text-base font-bold">{st.sex}</p>
+                )}
+
+                {selectPharmacy.drugHistory && (
+                  <div className="my-10">
+                    <div className="flex flex-row flex-wrap gap-1 items-center">
+                      <Emoji emoji="desktop_computer" size={20} />
+                      <p className="text-base font-bold">薬歴</p>
+                    </div>
+                    <p className="text-base">{selectPharmacy.drugHistory}</p>
+                  </div>
+                )}
+
+                {selectPharmacy.otherEquipment && (
+                  <div className="my-10">
+                    <div className="flex flex-row flex-wrap gap-1 items-center">
+                      <Emoji emoji="battery" size={20} />
+                      <p className="text-base font-bold">その他設備</p>
+                    </div>
+                    <p className="text-base">{selectPharmacy.otherEquipment}</p>
+                  </div>
+                )}
+
+                {selectPharmacy.nearClinic && (
+                  <div className="my-10">
+                    <div className="flex flex-row flex-wrap gap-1 items-center">
+                      <Emoji emoji="hospital" size={20} />
+                      <p className="text-base font-bold">門前</p>
+                    </div>
+                    <p className="text-base">{selectPharmacy.nearClinic}</p>
+                  </div>
+                )}
+
+                {selectPharmacy.homeMedical && (
+                  <div className="my-10">
+                    <div className="flex flex-row flex-wrap gap-1 items-center">
+                      <Emoji emoji="car" size={20} />
+                      <p className="text-base font-bold">在宅対応</p>
+                    </div>
+                    <p className="text-base">{selectPharmacy.homeMedical}</p>
+                  </div>
+                )}
+
+                {selectPharmacy.staff && selectPharmacy.staff[0].comment && (
+                  <div className="my-10">
+                    <div className="flex flex-row flex-wrap gap-1 items-center">
+                      <Emoji emoji="woman-raising-hand" size={20} />
+                      <p className="text-base font-bold">スタッフ紹介</p>
+                    </div>
+                    {selectPharmacy.staff.map((st, index) => (
+                      <div key={index} className="my-5">
+                        <div className="flex flex-row flex-wrap gap-5 items-center">
+                          {st.age && (
+                            <div>
+                              <p className="text-base font-bold">{`${st.age}代`}</p>
+                            </div>
+                          )}
+                          {st.sex && (
+                            <div>
+                              <p className="text-base font-bold">{st.sex}</p>
+                            </div>
+                          )}
+                        </div>
+                        {st.comment && (
+                          <div className="col-span-8">
+                            <p className="text-base">{st.comment}</p>
                           </div>
                         )}
                       </div>
-                      {st.comment && (
-                        <div className="col-span-8">
-                          <p className="text-base">{st.comment}</p>
-                        </div>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              )}
+                    ))}
+                  </div>
+                )}
             </div>
 
             {isApply && (

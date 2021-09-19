@@ -334,12 +334,6 @@ export default function SearchJob() {
                 </div>
 
             <div className="my-10 mr-10">
-              {selectJob.comments && (
-                <div className="my-12 whitespace-pre-wrap">
-                  <p className="text-base">{selectJob.comments}</p>
-                </div>
-              )}
-
               {selectJob.unique && (
                 <div className="my-10">
                   <div className="flex flex-row flex-wrap gap-1 items-center">
