@@ -78,7 +78,7 @@ export default function edit() {
   
 
   useEffect(() => {
-    if(userId && displayName){
+    if(userId){
       let unSub = db
             .collection("userProfiles")
             .doc(userId)
@@ -93,7 +93,7 @@ export default function edit() {
             });
       return () => unSub();
     }
-  }, [userId,displayName]);
+  }, [userId]);
 
 
   useEffect(() => {

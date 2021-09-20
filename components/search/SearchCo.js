@@ -4,10 +4,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
 import { Configure, Hits, InstantSearch } from "react-instantsearch-dom";
-import { storage } from "../../firebase";
+import { auth, storage } from "../../firebase";
 import { UserContext } from "../../UserContext";
 import { hitComponentCo } from "./HitComponentCo";
 import { CustomSearchBox } from "./SearchBox";
+import Router from "next/router";
 
 export default function SearchCo() {
   const searchClient = algoliasearch(
@@ -44,6 +45,16 @@ export default function SearchCo() {
     return () => {
       isMounted = false;
     };
+  }, []);
+
+  useEffect(() => {
+    const unSub = auth.onAuthStateChanged((user) => {
+      if (!user) {
+        Router.push("/login");
+      }
+    });
+
+    return () => unSub();
   }, []);
 
   return (
@@ -129,7 +140,8 @@ export default function SearchCo() {
               </div>
             </div>
 
-            <Hits hitComponent={hitComponentCo} />
+            <Hits hitComponent={hitComponentCo}/>
+
             <Configure hitsPerPage={10} />
             <div className="mx-3 my-2">{/* <PoweredBy /> */}</div>
           </InstantSearch>

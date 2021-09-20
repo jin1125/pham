@@ -11,6 +11,7 @@ import { CustomSearchBox } from "./SearchBox";
 import Link from "next/link";
 import { useAlert } from "react-alert";
 import ApplyModal from "../organisms/modal/applyModal";
+import Router from "next/router";
 
 export default function SearchJob() {
   const searchClient = algoliasearch(
@@ -58,15 +59,17 @@ export default function SearchJob() {
   }, []);
 
 
-  useEffect(()=>{
+  useEffect(() => {
     const unSub = auth.onAuthStateChanged((user) => {
       if (user) {
         setUserId(user.uid);
+      } else {
+        Router.push("/login");
       }
     });
 
     return () => unSub();
-  },[])
+  }, []);
 
 
   useEffect(()=>{

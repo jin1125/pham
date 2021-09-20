@@ -5,10 +5,11 @@ import Link from "next/link";
 import { useContext, useEffect,useState } from "react";
 import AnchorLink from "react-anchor-link-smooth-scroll";
 import { Configure, Hits, InstantSearch } from "react-instantsearch-dom";
-import { db } from "../../firebase";
+import { auth, db } from "../../firebase";
 import { UserContext } from "../../UserContext";
 import { hitComponentPh } from "./HitComponentPh";
 import { CustomSearchBox } from "./SearchBox";
+import Router from "next/router";
 
 export default function SearchPh() {
   const searchClient = algoliasearch(
@@ -41,6 +42,16 @@ export default function SearchPh() {
       });
       })();
   }, [selectPharmacy.objectID]);
+
+  useEffect(() => {
+    const unSub = auth.onAuthStateChanged((user) => {
+      if (!user) {
+        Router.push("/login");
+      }
+    });
+
+    return () => unSub();
+  }, []);
 
   return (
     <div className="min-h-screen">

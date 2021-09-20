@@ -1,9 +1,11 @@
 import algoliasearch from "algoliasearch/lite";
 import { Emoji } from "emoji-mart";
 import Image from "next/image";
+import Router from "next/router";
 import { useContext, useEffect, useState } from "react";
+import { useAlert } from "react-alert";
 import { Configure, Hits, InstantSearch } from "react-instantsearch-dom";
-import { storage } from "../../firebase";
+import { auth, db, storage } from "../../firebase";
 import { UserContext } from "../../UserContext";
 import { hitComponent } from "./HitComponent";
 import { CustomSearchBox } from "./SearchBox";
@@ -16,35 +18,188 @@ export default function Search() {
 
   const indexName = "pham";
 
+  const alert = useAlert();
+  const [disabledState, setDisabledState] = useState("");
+  const [passId, setPassId] = useState("");
+  const [passData, setPassData] = useState("");
+  const [receiveId, setReceiveId] = useState("");
+  const [receiveData, setReceiveData] = useState("");
   const [demoImg, setDemoImg] = useState("");
   const [demoImgs, setDemoImgs] = useState("");
+  const [phMatch, setPhMatch] = useState([
+    {
+      pharmacistA: "",
+      pharmacistB: "",
+      requestA: "",
+      requestB: "",
+    },
+  ]);
 
-  const { selectHomeAddress, setSelectHomeAddress, selectProfile } =
-    useContext(UserContext);
+  const {
+    selectHomeAddress,
+    setSelectHomeAddress,
+    selectProfile,
+    userId,
+    setUserId,
+  } = useContext(UserContext);
 
   useEffect(() => {
     let isMounted = true;
     (async () => {
-      const url = await storage
-        .ref()
-        .child("demo_img.png")
-        .getDownloadURL()
+      const url = await storage.ref().child("demo_img.png").getDownloadURL();
 
-        const Url = await storage
-        .ref()
-        .child("demo_imgs.jpeg")
-        .getDownloadURL()
+      const Url = await storage.ref().child("demo_imgs.jpeg").getDownloadURL();
 
-        if (isMounted) {
-          setDemoImg(url);
-          setDemoImgs(Url);
-        }
+      if (isMounted) {
+        setDemoImg(url);
+        setDemoImgs(Url);
+      }
     })();
 
     return () => {
       isMounted = false;
     };
   }, []);
+
+  useEffect(() => {
+    const unSub = auth.onAuthStateChanged((user) => {
+      if (user) {
+        setUserId(user.uid);
+      } else {
+        Router.push("/login");
+      }
+    });
+
+    return () => unSub();
+  }, []);
+
+  useEffect(() => {
+      if (userId && selectProfile.objectID) {
+        let unSub = db
+          .collection("phMatch")
+          .where("pharmacistA", "==", selectProfile.objectID)
+          .where("pharmacistB", "==", userId)
+          .onSnapshot((docs) => {
+            docs.forEach((doc)=>{
+              setReceiveId(doc.id)
+              setReceiveData(doc.data())
+            })
+          });
+
+          return () => unSub();
+
+        // await db
+        //   .collection("phMatch")
+        //   .where("pharmacistA", "==", selectProfile.objectID)
+        //   .where("pharmacistB", "==", userId)
+        //   .get()
+        //   .then((snapshot) => {
+        //     snapshot.forEach((doc) => {
+        //       setReceiveId(doc.id);
+        //       setReceiveData(doc.data());
+        //     });
+        //   })
+        //   .catch((error) => {
+        //     console.log(error);
+        //   });
+      }
+  }, [userId, selectProfile.objectID]);
+
+
+  useEffect(() => {
+    if (userId && selectProfile.objectID) {
+      let unSub = db
+        .collection("phMatch")
+        .where("pharmacistA", "==", userId)
+        .where("pharmacistB", "==", selectProfile.objectID)
+        .onSnapshot((docs) => {
+          docs.forEach((doc)=>{
+            setPassId(doc.id);
+            setPassData(doc.data());
+          })
+        });
+
+        return () => unSub();
+      }
+
+    // (async () => {
+    //   if (userId && selectProfile.objectID) {
+    //     await db
+    //       .collection("phMatch")
+    //       .where("pharmacistA", "==", userId)
+    //       .where("pharmacistB", "==", selectProfile.objectID)
+    //       .get()
+    //       .then((snapshot) => {
+    //         snapshot.forEach((doc) => {
+    //           setPassId(doc.id);
+    //           setPassData(doc.data());
+    //         });
+    //       })
+    //       .catch((error) => {
+    //         console.log(error);
+    //       });
+    //   }
+    // })();
+  }, [userId, selectProfile.objectID]);
+
+  const request = async () => {
+    if (receiveId) {
+      await db
+        .collection("phMatch")
+        .doc(receiveId)
+        .update({ requestB: true })
+        .then(() => {
+          console.log("OK");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      if (passId) {
+        return;
+      }
+      await db
+        .collection("phMatch")
+        .add({
+          pharmacistA: userId,
+          pharmacistB: selectProfile.objectID,
+          requestA: true,
+          requestB: false,
+        })
+        .then(() => {
+          alert.success("つながり申請しました");
+        })
+        .catch(() => {
+          alert.error("つながり申請できませんでした");
+        });
+    }
+  };
+
+  useEffect(() => {
+    if (passId) {
+      setDisabledState("passed");
+    }
+
+    if (passData.requestB) {
+      setDisabledState("match");
+    }
+  }, [passId,passData]);
+
+  useEffect(() => {
+    if (receiveId) {
+      setDisabledState("received");
+    }
+
+    if (receiveData.requestB) {
+      setDisabledState("match");
+    }
+  }, [receiveId,receiveData]);
+
+  console.log(receiveId);
+  console.log(receiveData);
+  console.log(passId);
+  console.log(passData);
+  console.log(disabledState);
 
   return (
     <div className="min-h-screen">
@@ -129,7 +284,7 @@ export default function Search() {
               </div>
             </div>
 
-            <Hits hitComponent={hitComponent}/>
+            <Hits hitComponent={hitComponent} />
             <Configure hitsPerPage={10} />
             <div className="mx-3 my-2">{/* <PoweredBy /> */}</div>
           </InstantSearch>
@@ -168,7 +323,11 @@ export default function Search() {
                 )}
 
                 <div className="my-10 text-center">
-                  <button className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 disabled:bg-blue-200 py-2 w-full rounded-full shadow-lg font-bold">
+                  <button
+                    className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 disabled:bg-blue-200 py-2 w-full rounded-full shadow-lg font-bold"
+                    onClick={request}
+                  >
+                    {/* {reqed ? '申請済み' : 'つながる'}  */}
                     つながる
                   </button>
                 </div>
