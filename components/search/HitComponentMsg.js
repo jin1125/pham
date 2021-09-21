@@ -10,7 +10,7 @@ export function hitComponentMsg({ hit }) {
     userId,
     setUserId,
   } = useContext(UserContext);
-  const [phMatch,setPhMatch] = useState('');
+  const [phMatch,setPhMatch] = useState([]);
 
   useEffect(() => {
     const unSub = auth.onAuthStateChanged((user) => {
@@ -27,24 +27,24 @@ export function hitComponentMsg({ hit }) {
     setSelectMsg(hit);
   };
 
-  useEffect(() => {
-    if (userId) {
-      let unSub = db
-        .collection("phMatch")
-        .where("pharmacistA", "==", userId)
-        .where("requestB", "==", true)
-        .onSnapshot((docs) => { 
-          docs.forEach((doc)=>{
-            setPhMatch(doc.data().pharmacistB)
-          })
-        });
+//   useEffect(() => {
+//     if (userId) {
+//       let unSub = db
+//         .collection("phMatch")
+//         .where("pharmacistA", "==", userId)
+//         .where("requestB", "==", true)
+//         .onSnapshot((docs) => { 
+//           docs.forEach((doc)=>{
+//             setPhMatch([...phMatch,doc.data().pharmacistB])
+//           })
+//         });
 
-        return () => unSub();
-    }
-}, [userId]);
+//         return () => unSub();
+//     }
+// }, [userId]);
 
-  // console. log(hit);
-  console.log(phMatch);
+  // console.log(hit);
+  // console.log(phMatch);
 
   return (
     <>

@@ -125,10 +125,10 @@ export default function Search() {
         .doc(receiveId)
         .update({ requestB: true })
         .then(() => {
-          console.log("OK");
+          alert.success("つながりました");
         })
         .catch((error) => {
-          console.log(error);
+          alert.error("つながれませんでした");
         });
     } else {
       if (passId) {
