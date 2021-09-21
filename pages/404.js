@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function Custom404() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen overflow-hidden">
       <Head>
         <title>Pham 404</title>
         <link rel="icon" href="/favicon.ico" />

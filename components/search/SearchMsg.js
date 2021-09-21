@@ -130,33 +130,38 @@ export default function SearchMsg() {
         .getDownloadURL()
         .then(async (url) => {
           await db
-        .collection("msgs")
-        .doc(userId)
-        .collection(selectMsg.objectID)
-        .add({
-          id: userId,
-          msgId: selectMsg.objectID,
-          name: name,
-          avatarImage: avatarImage,
-          text: msg,
-          image: url,
-          datetime: firebase.firestore.Timestamp.now(),
+            .collection("msgs")
+            .doc(userId)
+            .collection(selectMsg.objectID)
+            .add({
+              id: userId,
+              msgId: selectMsg.objectID,
+              name: name,
+              avatarImage: avatarImage,
+              text: msg,
+              image: url,
+              datetime: firebase.firestore.Timestamp.now(),
+            });
+
+          await db
+            .collection("msgs")
+            .doc(selectMsg.objectID)
+            .collection(userId)
+            .add({
+              id: userId,
+              msgId: selectMsg.objectID,
+              name: name,
+              avatarImage: avatarImage,
+              text: msg,
+              image: url,
+              datetime: firebase.firestore.Timestamp.now(),
+            });
         });
 
-        await db
-        .collection("msgs")
-        .doc(selectMsg.objectID)
-        .collection(userId)
-        .add({
-          id: userId,
-          msgId: selectMsg.objectID,
-          name: name,
-          avatarImage: avatarImage,
-          text: msg,
-          image: url,
-          datetime: firebase.firestore.Timestamp.now(),
-        });
-        });
+      setMsg("");
+      setFileUrl("");
+      setMsgImage("");
+      console.log("send!");
     } else {
       await db
         .collection("msgs")
@@ -187,16 +192,20 @@ export default function SearchMsg() {
         });
 
       setMsg("");
+      setFileUrl("");
       setMsgImage("");
       console.log("send!");
     }
   };
 
+  console.log(selectMsg);
+
   return (
-    <div className="min-h-screen">
+    <div>
       <div className="grid grid-cols-12 gap-10">
         {/* ////// プロフィール検索(ページ左) ////// */}
-        <div className="col-span-3 border-r-2 border-blue-400 min-h-screen">
+        <div className="col-span-3 border-r-2 border-blue-400 relative ">
+          <div className="absolute h-full flex flex-col w-full">
           <div className="text-center">
             <h4 className="text-white bg-blue-400 font-bold text-lg py-3">
               メッセージ検索
@@ -214,92 +223,82 @@ export default function SearchMsg() {
               </div>
             </div>
 
+            <div className="overflow-y-auto pb-24">
             <Hits hitComponent={hitComponentMsg} />
-            <Configure hitsPerPage={10} />
-            <div className="mx-3 my-2">{/* <PoweredBy /> */}</div>
+            </div>
           </InstantSearch>
+        </div>
         </div>
 
         {/* ////// プロフィール描画(ページ右) ////// */}
         {selectMsg ? (
-          <div className="col-span-9">
-            <div className="grid grid-cols-12 gap-10 my-10 mr-10">
-              <div className="col-span-3 justify-self-center">
-                {selectMsg.profileImageUrl ? (
-                  <Image
-                    className="inline object-cover mr-2 rounded-full"
-                    width={200}
-                    height={200}
-                    src={selectMsg.profileImageUrl}
-                    alt="Profile image"
-                  />
-                ) : (
-                  demoImg && (
-                    <Image
-                      className="inline object-cover mr-2 rounded-full"
-                      width={200}
-                      height={200}
-                      src={demoImg}
-                      alt="Profile image"
-                    />
-                  )
-                )}
-              </div>
-
-              <div className="col-span-9">
-                <div className="flex flex-row flex-wrap items-end my-10 gap-8">
-                  <div>
-                    <h2 className="text-4xl font-bold">{selectMsg.userName}</h2>
+            <div className='col-span-9'>
+              <div className="overflow-auto h-screen pt-10 pb-24">
+                {feeds.map((feed, index) => (
+                  <div key={index}>
+                    {feed.id === userId && avatarImage ? (
+                      <Image
+                        className="inline object-cover mr-2 rounded-full"
+                        width={50}
+                        height={50}
+                        src={avatarImage}
+                        alt="avatarImage"
+                      />
+                    ) : feed.id === selectMsg.objectID &&
+                      selectMsg.profileImageUrl ? (
+                      <Image
+                        className="inline object-cover mr-2 rounded-full"
+                        width={50}
+                        height={50}
+                        src={selectMsg.profileImageUrl}
+                        alt="avatarImage"
+                      />
+                    ) : (
+                      demoImg && (
+                        <Image
+                          className="inline object-cover mr-2 rounded-full"
+                          width={50}
+                          height={50}
+                          src={demoImg}
+                          alt="avatarImage"
+                        />
+                      )
+                    )}
+                    <p>{feed.name}</p>
+                    <p>{feed.text}</p>
                   </div>
-
-                  {selectMsg.jobTitle && (
-                    <div>
-                      <p className="text-xl font-bold text-blue-400">
-                        {selectMsg.jobTitle}
-                      </p>
-                    </div>
-                  )}
-                </div>
+                ))}
               </div>
-            </div>
 
-            <div>
-              {feeds.map((feed, index) => (
-                <div key={index}>
-                  <p>{feed.name}</p>
-                  <p>{feed.text}</p>
-                </div>
-              ))}
-            </div>
+              <div className="grid grid-cols-12 gap-2 justify-items-center items-center leading-none fixed right-0 bottom-0 w-full py-5 bg-white border-t-2">
+                <label className="col-span-1 cursor-pointer">
+                  <Emoji emoji="camera_with_flash" size={25} />
+                  <input
+                    className="hidden"
+                    accept="image/*"
+                    type="file"
+                    onChange={uploadImage}
+                  />
+                </label>
 
-            <div className="grid grid-cols-12 gap-2 mr-10 justify-items-center items-center leading-none">
-              <label className="col-span-1 cursor-pointer">
-                <Emoji emoji="camera_with_flash" size={25} />
-                <input
-                  className="hidden"
-                  accept="image/*"
-                  type="file"
-                  onChange={uploadImage}
+                <textarea
+                  rows="1"
+                  autoFocus
+                  value={msg}
+                  name="msg"
+                  maxLength="200"
+                  className="bg-blue-100 rounded-lg p-2 w-full outline-none col-span-10"
+                  onChange={(e) => setMsg(e.target.value.trim())}
                 />
-              </label>
 
-              <textarea
-                rows="1"
-                autoFocus
-                value={msg}
-                name="msg"
-                maxLength="200"
-                className="bg-blue-100 rounded-lg p-2 w-full outline-none col-span-10"
-                onChange={(e) => setMsg(e.target.value.trim())}
-              />
-
-              <button className="col-span-1" onClick={sendMsg}>
-                <Emoji emoji="rocket" size={35} />
-              </button>
+                <button className="col-span-1" onClick={sendMsg}>
+                  <Emoji emoji="rocket" size={35} />
+                </button>
+              </div>
+              
             </div>
-          </div>
         ) : (
-          <div className="col-span-9 justify-self-center self-center">
+          <div className="h-screen col-span-9 justify-self-center self-center pt-24">
             <Image
               src="/message_img.png"
               alt="login_img"

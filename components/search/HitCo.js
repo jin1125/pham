@@ -25,7 +25,7 @@ export default function HitCo({ hit }) {
   }, []);
 
   return (
-    <div className="grid grid-cols-12 px-3 py-2 border-b items-center">
+    <div className="grid grid-cols-12 gap-3 px-3 py-2 border-b items-center">
       <div className="col-span-4 flex items-center">
         {hit.companyImageUrl ? (
           <Image

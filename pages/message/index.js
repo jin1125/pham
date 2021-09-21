@@ -7,7 +7,7 @@ export default function message() {
 
   ////////////////////////// JSXエリア //////////////////////////
   return (
-    <div className="min-h-screen">
+    <div className='min-h-screen'>
       <Head>
         <title>Pham メッセージ</title>
         <link rel="icon" href="/favicon.ico" />

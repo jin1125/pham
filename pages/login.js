@@ -16,14 +16,14 @@ export default function login() {
 
   const alert = useAlert();
 
-
   //Google新規登録＆ログイン
   const signInGoogle = async () => {
     await auth
       .signInWithPopup(provider)
       .then(() => {
-          alert.success("Googleで続行しました");
-          Router.push("/mypage");
+        console.log("google");
+        alert.success("Googleで続行しました");
+        Router.push("/mypage");
       })
       .catch(() => alert.error("Googleで続行できませんでした"));
   };
@@ -44,26 +44,18 @@ export default function login() {
     if (name) {
       try {
         await auth.signOut();
-        await auth.createUserWithEmailAndPassword(
-          email,
-          password
-        );
-
-         auth.onAuthStateChanged((user) => {
-          if (user) {
-            db
-              .collection("userProfiles")
-              .doc(user.uid)
-              .set({userName:name})
-              .then(() => {
-                console.log("OK");
-                Router.push("/mypage");
-              })
-              .catch(() => {
-                console.log('NG');
-              });
-          }
-        });
+        const user = await auth.createUserWithEmailAndPassword(email, password);
+        
+        await db.collection("userProfiles")
+          .doc(user.user.uid)
+          .set({ userName: name })
+          .then(() => {
+            console.log("OK");
+            Router.push("/mypage");
+          })
+          .catch(() => {
+            console.log("NG");
+          });
 
         alert.success("アカウントを作成できました");
       } catch (error) {
@@ -93,6 +85,8 @@ export default function login() {
   const switchSignUp = () => {
     setIsLogin(false);
   };
+
+  console.log(name);
 
   ////////////////////////// JSXエリア //////////////////////////
   return (

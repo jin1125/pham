@@ -106,10 +106,11 @@ export default function SearchJob() {
   }
 
   return (
-    <div className="min-h-screen">
+    <div>
       <div className="grid grid-cols-12 gap-10">
         {/* ////// 薬局検索(ページ左) ////// */}
-        <div className="col-span-3 border-r-2 border-blue-400 min-h-screen">
+        <div className="col-span-3 border-r-2 border-blue-400 relative">
+          <div className="absolute h-full flex flex-col w-full">
           <div className="text-center">
             <h4 className="text-white bg-blue-400 font-bold text-lg py-3">
               求人検索
@@ -206,17 +207,18 @@ export default function SearchJob() {
                 </div>
               </div>
             </div>
+            <div className="overflow-y-auto">
             <Hits hitComponent={hitComponentJob} />
-            <Configure hitsPerPage={10} />
-            <div className="mx-3 my-2">{/* <PoweredBy /> */}</div>
+            </div>
           </InstantSearch>
+        </div>
         </div>
 
    
 
         {/* ////// 薬局検索描画(ページ右) ////// */}
         {selectJob ? (
-          <div className="col-span-9">
+          <div className="col-span-9 min-h-screen">
             <div className="text-right mx-10 my-5">
             < Link href="/pharmacies/search">
               <button className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 py-2 px-5 rounded-full shadow-lg font-bold"
@@ -507,7 +509,7 @@ export default function SearchJob() {
             </div>
           </div>
         ) : (
-          <div className="col-span-9 justify-self-center self-center">
+          <div className="h-screen col-span-9 justify-self-center self-center pt-24">
             <Image
               src="/job_search_img.png"
               alt="login_img"
