@@ -19,21 +19,21 @@ export default function Search() {
   const indexName = "pham";
 
   const alert = useAlert();
-  const [disabledState, setDisabledState] = useState("");
-  const [passId, setPassId] = useState("");
-  const [passData, setPassData] = useState("");
-  const [receiveId, setReceiveId] = useState("");
-  const [receiveData, setReceiveData] = useState("");
+  // const [disabledState, setDisabledState] = useState("");
+  // const [passId, setPassId] = useState("");
+  // const [passData, setPassData] = useState("");
+  // const [receiveId, setReceiveId] = useState("");
+  // const [receiveData, setReceiveData] = useState("");
   const [demoImg, setDemoImg] = useState("");
   const [demoImgs, setDemoImgs] = useState("");
-  const [phMatch, setPhMatch] = useState([
-    {
-      pharmacistA: "",
-      pharmacistB: "",
-      requestA: "",
-      requestB: "",
-    },
-  ]);
+  // const [phMatch, setPhMatch] = useState([
+  //   {
+  //     pharmacistA: "",
+  //     pharmacistB: "",
+  //     requestA: "",
+  //     requestB: "",
+  //   },
+  // ]);
 
   const {
     selectHomeAddress,
@@ -41,6 +41,16 @@ export default function Search() {
     selectProfile,
     userId,
     setUserId,
+    disabledState,
+    setDisabledState,
+    passId,
+    setPassId,
+    passData,
+    setPassData,
+    receiveId,
+    setReceiveId,
+    receiveData,
+    setReceiveData,
   } = useContext(UserContext);
 
   useEffect(() => {
@@ -79,7 +89,7 @@ export default function Search() {
           .collection("phMatch")
           .where("pharmacistA", "==", selectProfile.objectID)
           .where("pharmacistB", "==", userId)
-          .onSnapshot((docs) => {
+          .onSnapshot((docs) => { 
             docs.forEach((doc)=>{
               setReceiveId(doc.id)
               setReceiveData(doc.data())
@@ -87,21 +97,6 @@ export default function Search() {
           });
 
           return () => unSub();
-
-        // await db
-        //   .collection("phMatch")
-        //   .where("pharmacistA", "==", selectProfile.objectID)
-        //   .where("pharmacistB", "==", userId)
-        //   .get()
-        //   .then((snapshot) => {
-        //     snapshot.forEach((doc) => {
-        //       setReceiveId(doc.id);
-        //       setReceiveData(doc.data());
-        //     });
-        //   })
-        //   .catch((error) => {
-        //     console.log(error);
-        //   });
       }
   }, [userId, selectProfile.objectID]);
 
@@ -121,28 +116,9 @@ export default function Search() {
 
         return () => unSub();
       }
-
-    // (async () => {
-    //   if (userId && selectProfile.objectID) {
-    //     await db
-    //       .collection("phMatch")
-    //       .where("pharmacistA", "==", userId)
-    //       .where("pharmacistB", "==", selectProfile.objectID)
-    //       .get()
-    //       .then((snapshot) => {
-    //         snapshot.forEach((doc) => {
-    //           setPassId(doc.id);
-    //           setPassData(doc.data());
-    //         });
-    //       })
-    //       .catch((error) => {
-    //         console.log(error);
-    //       });
-    //   }
-    // })();
   }, [userId, selectProfile.objectID]);
 
-  const request = async () => {
+  const connectBtn = async () => {
     if (receiveId) {
       await db
         .collection("phMatch")
@@ -323,13 +299,34 @@ export default function Search() {
                 )}
 
                 <div className="my-10 text-center">
+                  
+                {disabledState !== 'received' && disabledState !== 'match' &&
                   <button
                     className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 disabled:bg-blue-200 py-2 w-full rounded-full shadow-lg font-bold"
-                    onClick={request}
+                    onClick={connectBtn}
+                    disabled={disabledState === 'passed'}
                   >
-                    {/* {reqed ? '申請済み' : 'つながる'}  */}
-                    つながる
+                    {disabledState === 'passed'? '申請中' : 'つながる'}
                   </button>
+                }
+
+                  {disabledState === 'received' &&
+                  <button
+                    className="text-white bg-blue-500 transition duration-300 hover:bg-blue-400 disabled:bg-blue-200 py-2 w-full rounded-full shadow-lg font-bold"
+                    onClick={connectBtn}
+                  >
+                   申請あり
+                  </button>
+                  }
+
+                {disabledState === 'match' &&
+                  <button
+                    className="text-blue-400 bg-white border-2 border-blue-400 transition duration-300 hover:bg-blue-100 disabled:bg-blue-200 py-2 w-full rounded-full shadow-lg font-bold"
+                    onClick={()=>console.log('メッセージへ')}
+                  >
+                   メッセージ
+                  </button>
+                  }
                 </div>
 
                 {selectProfile.freeImageUrl0 ? (

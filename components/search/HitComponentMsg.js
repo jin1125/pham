@@ -1,5 +1,5 @@
-import { useContext, useEffect } from "react";
-import { auth } from "../../firebase";
+import { useContext, useEffect, useState } from "react";
+import { auth, db } from "../../firebase";
 import { UserContext } from "../../UserContext";
 import Hit from "./Hit";
 
@@ -10,6 +10,7 @@ export function hitComponentMsg({ hit }) {
     userId,
     setUserId,
   } = useContext(UserContext);
+  const [phMatch,setPhMatch] = useState('');
 
   useEffect(() => {
     const unSub = auth.onAuthStateChanged((user) => {
@@ -25,6 +26,25 @@ export function hitComponentMsg({ hit }) {
   const click = () => {
     setSelectMsg(hit);
   };
+
+  useEffect(() => {
+    if (userId) {
+      let unSub = db
+        .collection("phMatch")
+        .where("pharmacistA", "==", userId)
+        .where("requestB", "==", true)
+        .onSnapshot((docs) => { 
+          docs.forEach((doc)=>{
+            setPhMatch(doc.data().pharmacistB)
+          })
+        });
+
+        return () => unSub();
+    }
+}, [userId]);
+
+  // console. log(hit);
+  console.log(phMatch);
 
   return (
     <>

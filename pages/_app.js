@@ -16,11 +16,17 @@ function MyApp({ Component, pageProps }) {
   const [selectPharmacyAddress, setSelectPharmacyAddress] = useState("");
   const [selectJob, setSelectJob] = useState("");
   const [selectJobAddress, setSelectJobAddress] = useState("");
-  const [selectJobEmploymentStatus, setSelectJobEmploymentStatus] = useState("");
+  const [selectJobEmploymentStatus, setSelectJobEmploymentStatus] =
+    useState("");
   const [selectMsg, setSelectMsg] = useState("");
   const [companyId, setCompanyId] = useState("");
   const [pharmacyId, setPharmacyId] = useState("");
   const [pharmId, setPharmId] = useState("");
+  const [disabledState, setDisabledState] = useState("");
+  const [passId, setPassId] = useState("");
+  const [passData, setPassData] = useState("");
+  const [receiveId, setReceiveId] = useState("");
+  const [receiveData, setReceiveData] = useState("");
 
   /// アラート設定 ///
   const options = {
@@ -52,7 +58,7 @@ function MyApp({ Component, pageProps }) {
         setSelectJob,
         selectJobAddress,
         setSelectJobAddress,
-        selectMsg, 
+        selectMsg,
         setSelectMsg,
         companyId,
         setCompanyId,
@@ -62,6 +68,16 @@ function MyApp({ Component, pageProps }) {
         setPharmacyId,
         pharmId,
         setPharmId,
+        disabledState,
+        setDisabledState,
+        passId,
+        setPassId,
+        passData,
+        setPassData,
+        receiveId,
+        setReceiveId,
+        receiveData,
+        setReceiveData,
       }}
     >
       <AlertProvider template={AlertTemplate} {...options}>

@@ -10,6 +10,11 @@ export function hitComponent({ hit }) {
     selectProfile,
     userId,
     setUserId,
+    setDisabledState,
+    setPassId,
+    setPassData,
+    setReceiveId,
+    setReceiveData,
   } = useContext(UserContext);
 
   useEffect(() => {
@@ -24,6 +29,11 @@ export function hitComponent({ hit }) {
   }, []);
 
   const click = () => {
+    setDisabledState("")
+    setPassId("")
+    setPassData("")
+    setReceiveId("")
+    setReceiveData("")
     setSelectProfile(hit);
   };
 
