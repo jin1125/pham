@@ -116,6 +116,47 @@ export default function SearchMsg() {
 
   const sendMsg = async () => {
     if (msgImage) {
+      const S =
+        "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+      const N = 16;
+      const randomChar = Array.from(crypto.getRandomValues(new Uint32Array(N)))
+        .map((n) => S[n % S.length])
+        .join("");
+      const fileName = randomChar + "_" + msgImage.name;
+      await storage.ref(`msgImages/${fileName}`).put(msgImage);
+      await storage
+        .ref("msgImages")
+        .child(fileName)
+        .getDownloadURL()
+        .then(async (url) => {
+          await db
+        .collection("msgs")
+        .doc(userId)
+        .collection(selectMsg.objectID)
+        .add({
+          id: userId,
+          msgId: selectMsg.objectID,
+          name: name,
+          avatarImage: avatarImage,
+          text: msg,
+          image: url,
+          datetime: firebase.firestore.Timestamp.now(),
+        });
+
+        await db
+        .collection("msgs")
+        .doc(selectMsg.objectID)
+        .collection(userId)
+        .add({
+          id: userId,
+          msgId: selectMsg.objectID,
+          name: name,
+          avatarImage: avatarImage,
+          text: msg,
+          image: url,
+          datetime: firebase.firestore.Timestamp.now(),
+        });
+        });
     } else {
       await db
         .collection("msgs")
@@ -232,9 +273,8 @@ export default function SearchMsg() {
             </div>
 
             <div className="grid grid-cols-12 gap-2 mr-10 justify-items-center items-center leading-none">
-
               <label className="col-span-1 cursor-pointer">
-              <Emoji emoji="camera_with_flash" size={25} />
+                <Emoji emoji="camera_with_flash" size={25} />
                 <input
                   className="hidden"
                   accept="image/*"
@@ -250,21 +290,21 @@ export default function SearchMsg() {
                 name="msg"
                 maxLength="200"
                 className="bg-blue-100 rounded-lg p-2 w-full outline-none col-span-10"
-                onChange={(e) => setMsg(e.target.value)}
+                onChange={(e) => setMsg(e.target.value.trim())}
               />
 
-                <button className='col-span-1' onClick={sendMsg}>
+              <button className="col-span-1" onClick={sendMsg}>
                 <Emoji emoji="rocket" size={35} />
-                </button>
+              </button>
             </div>
           </div>
         ) : (
           <div className="col-span-9 justify-self-center self-center">
             <Image
-              src="/pharmacists_search_img.png"
+              src="/message_img.png"
               alt="login_img"
               width={400}
-              height={400}
+              height={350}
             />
           </div>
         )}

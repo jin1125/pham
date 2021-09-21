@@ -9,6 +9,7 @@ import { auth, db, storage } from "../../firebase";
 import { UserContext } from "../../UserContext";
 import { hitComponent } from "./HitComponent";
 import { CustomSearchBox } from "./SearchBox";
+import Link from "next/link";
 
 export default function Search() {
   const searchClient = algoliasearch(
@@ -19,21 +20,11 @@ export default function Search() {
   const indexName = "pham";
 
   const alert = useAlert();
-  // const [disabledState, setDisabledState] = useState("");
-  // const [passId, setPassId] = useState("");
-  // const [passData, setPassData] = useState("");
-  // const [receiveId, setReceiveId] = useState("");
-  // const [receiveData, setReceiveData] = useState("");
   const [demoImg, setDemoImg] = useState("");
   const [demoImgs, setDemoImgs] = useState("");
-  // const [phMatch, setPhMatch] = useState([
-  //   {
-  //     pharmacistA: "",
-  //     pharmacistB: "",
-  //     requestA: "",
-  //     requestB: "",
-  //   },
-  // ]);
+  const [phMatch, setPhMatch] = useState([]);
+  const [phMatchA, setPhMatchA] = useState([]);
+  const [phMatchB, setPhMatchB] = useState([]);
 
   const {
     selectHomeAddress,
@@ -51,6 +42,7 @@ export default function Search() {
     setReceiveId,
     receiveData,
     setReceiveData,
+    setSelectMsg
   } = useContext(UserContext);
 
   useEffect(() => {
@@ -171,11 +163,49 @@ export default function Search() {
     }
   }, [receiveId,receiveData]);
 
-  console.log(receiveId);
-  console.log(receiveData);
-  console.log(passId);
-  console.log(passData);
-  console.log(disabledState);
+  // console.log(receiveId);
+  // console.log(receiveData);
+  // console.log(passId);
+  // console.log(passData);
+  // console.log(disabledState);
+
+
+  useEffect(() => {
+    if (selectProfile) {
+      let unSub = db
+        .collection("phMatch")
+        .where("pharmacistA", "==", selectProfile.objectID)
+        .where("requestB", "==", true)
+        .onSnapshot((snapshot) => {
+          const user = snapshot.docs.map((doc) => doc.data().pharmacistB);
+          setPhMatchA([...user]);
+        });
+
+      return () => unSub();
+    }
+  }, [selectProfile]);
+
+  useEffect(() => {
+    if (selectProfile) {
+      let unSub = db
+        .collection("phMatch")
+        .where("pharmacistB", "==", selectProfile.objectID)
+        .where("requestB", "==", true)
+        .onSnapshot((snapshot) => {
+          const user = snapshot.docs.map((doc) => doc.data().pharmacistA);
+          setPhMatchB([...user]);
+        });
+
+      return () => unSub();
+    }
+  }, [selectProfile]);
+
+  useEffect(() => {
+    if (phMatchA && phMatchB) {
+      setPhMatch([...phMatchA, ...phMatchB]);
+    }
+  }, [phMatchA, phMatchB]);
+
 
   return (
     <div className="min-h-screen">
@@ -291,12 +321,10 @@ export default function Search() {
                   )
                 )}
 
-                {selectProfile.connection && (
                   <div className="flex flex-row flex-wrap my-5 justify-center gap-1 items-center">
                     <Emoji emoji="handshake" size={20} />
-                    <p className="text-base">{`${selectProfile.connection}人`}</p>
+                    <p className="text-base">{`${phMatch.length}人`}</p>
                   </div>
-                )}
 
                 <div className="my-10 text-center">
                   
@@ -320,12 +348,14 @@ export default function Search() {
                   }
 
                 {disabledState === 'match' &&
+                <Link href='/message'>
                   <button
                     className="text-blue-400 bg-white border-2 border-blue-400 transition duration-300 hover:bg-blue-100 disabled:bg-blue-200 py-2 w-full rounded-full shadow-lg font-bold"
-                    onClick={()=>console.log('メッセージへ')}
+                    onClick={()=>{setSelectMsg(selectProfile)}}
                   >
                    メッセージ
                   </button>
+                </Link>
                   }
                 </div>
 

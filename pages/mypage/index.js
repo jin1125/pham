@@ -13,6 +13,9 @@ export default function mypage() {
   const [displayName, setDisplayName] = useState("");
   const [demoImg, setDemoImg] = useState("");
   const [demoImgs, setDemoImgs] = useState("");
+  const [phMatch, setPhMatch] = useState([]);
+  const [phMatchA, setPhMatchA] = useState([]);
+  const [phMatchB, setPhMatchB] = useState([]);
 
   useEffect(() => {
     let isMounted = true;
@@ -58,11 +61,47 @@ export default function mypage() {
     }
   }, [userId]);
 
+
+  useEffect(() => {
+    if (userId) {
+      let unSub = db
+        .collection("phMatch")
+        .where("pharmacistA", "==", userId)
+        .where("requestB", "==", true)
+        .onSnapshot((snapshot) => {
+          const user = snapshot.docs.map((doc) => doc.data().pharmacistB);
+          setPhMatchA([...user]);
+        });
+
+      return () => unSub();
+    }
+  }, [userId]);
+
+  useEffect(() => {
+    if (userId) {
+      let unSub = db
+        .collection("phMatch")
+        .where("pharmacistB", "==", userId)
+        .where("requestB", "==", true)
+        .onSnapshot((snapshot) => {
+          const user = snapshot.docs.map((doc) => doc.data().pharmacistA);
+          setPhMatchB([...user]);
+        });
+
+      return () => unSub();
+    }
+  }, [userId]);
+
+  useEffect(() => {
+    if (phMatchA && phMatchB) {
+      setPhMatch([...phMatchA, ...phMatchB]);
+    }
+  }, [phMatchA, phMatchB]);
+
   const {
     birthPlace,
     certification,
     comments,
-    connection,
     dobDD,
     dobMM,
     dobYY,
@@ -115,12 +154,10 @@ export default function mypage() {
               )
             )}
 
-            {connection && (
               <div className="flex flex-row flex-wrap my-5 justify-center gap-1 items-center">
                 <Emoji emoji="handshake" size={20} />
-                <p className="text-base">{`${connection}人`}</p>
+                <p className="text-base">{`${phMatch.length}人`}</p>
               </div>
-            )}
 
             {scout && (
               <div className="flex flex-row flex-wrap mt-5 mb-10 justify-center gap-1 items-center">

@@ -4,13 +4,11 @@ import { UserContext } from "../../UserContext";
 import Hit from "./Hit";
 
 export function hitComponentMsg({ hit }) {
-  const {
-    selectMsg, 
-    setSelectMsg,
-    userId,
-    setUserId,
-  } = useContext(UserContext);
-  const [phMatch,setPhMatch] = useState([]);
+  const { selectMsg, setSelectMsg, userId, setUserId } =
+    useContext(UserContext);
+  const [phMatch, setPhMatch] = useState([]);
+  const [phMatchA, setPhMatchA] = useState([]);
+  const [phMatchB, setPhMatchB] = useState([]);
 
   useEffect(() => {
     const unSub = auth.onAuthStateChanged((user) => {
@@ -27,23 +25,44 @@ export function hitComponentMsg({ hit }) {
     setSelectMsg(hit);
   };
 
-//   useEffect(() => {
-//     if (userId) {
-//       let unSub = db
-//         .collection("phMatch")
-//         .where("pharmacistA", "==", userId)
-//         .where("requestB", "==", true)
-//         .onSnapshot((docs) => { 
-//           docs.forEach((doc)=>{
-//             setPhMatch([...phMatch,doc.data().pharmacistB])
-//           })
-//         });
+  useEffect(() => {
+    if (userId) {
+      let unSub = db
+        .collection("phMatch")
+        .where("pharmacistA", "==", userId)
+        .where("requestB", "==", true)
+        .onSnapshot((snapshot) => {
+          const user = snapshot.docs.map((doc) => doc.data().pharmacistB);
+          setPhMatchA([...user]);
+        });
 
-//         return () => unSub();
-//     }
-// }, [userId]);
+      return () => unSub();
+    }
+  }, [userId]);
 
-  // console.log(hit);
+  useEffect(() => {
+    if (userId) {
+      let unSub = db
+        .collection("phMatch")
+        .where("pharmacistB", "==", userId)
+        .where("requestB", "==", true)
+        .onSnapshot((snapshot) => {
+          const user = snapshot.docs.map((doc) => doc.data().pharmacistA);
+          setPhMatchB([...user]);
+        });
+
+      return () => unSub();
+    }
+  }, [userId]);
+
+  useEffect(() => {
+    if (phMatchA && phMatchB) {
+      setPhMatch([...phMatchA, ...phMatchB]);
+    }
+  }, [phMatchA, phMatchB]);
+
+  // console.log(phMatchA);
+  // console.log(phMatchB);
   // console.log(phMatch);
 
   return (
@@ -56,9 +75,14 @@ export function hitComponentMsg({ hit }) {
             : "cursor-pointer hover:bg-blue-100"
         }
       >
-        {hit.objectID !== userId && (
-          <Hit hit={hit} />
-        ) }
+        {phMatch.map(
+          (ph, index) =>
+            ph === hit.objectID && (
+              <div key={index}>
+                <Hit hit={hit} />
+              </div>
+            )
+        )}
       </div>
     </>
   );
