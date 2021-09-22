@@ -22,11 +22,6 @@ export default function App({ Component, pageProps }) {
   const [companyId, setCompanyId] = useState("");
   const [pharmacyId, setPharmacyId] = useState("");
   const [pharmId, setPharmId] = useState("");
-  const [disabledState, setDisabledState] = useState("");
-  const [passId, setPassId] = useState("");
-  const [passData, setPassData] = useState("");
-  const [receiveId, setReceiveId] = useState("");
-  const [receiveData, setReceiveData] = useState("");
 
   /// アラート設定 ///
   const options = {
@@ -68,16 +63,6 @@ export default function App({ Component, pageProps }) {
         setPharmacyId,
         pharmId,
         setPharmId,
-        disabledState,
-        setDisabledState,
-        passId,
-        setPassId,
-        passData,
-        setPassData,
-        receiveId,
-        setReceiveId,
-        receiveData,
-        setReceiveData,
       }}
     >
       <AlertProvider template={AlertTemplate} {...options}>

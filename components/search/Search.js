@@ -25,6 +25,11 @@ export default function Search() {
   const [phMatch, setPhMatch] = useState([]);
   const [phMatchA, setPhMatchA] = useState([]);
   const [phMatchB, setPhMatchB] = useState([]);
+  const [disabledState, setDisabledState] = useState("");
+  const [passId, setPassId] = useState("");
+  const [passData, setPassData] = useState("");
+  const [receiveId, setReceiveId] = useState("");
+  const [receiveData, setReceiveData] = useState("");
 
   const {
     selectHomeAddress,
@@ -32,16 +37,6 @@ export default function Search() {
     selectProfile,
     userId,
     setUserId,
-    disabledState,
-    setDisabledState,
-    passId,
-    setPassId,
-    passData,
-    setPassData,
-    receiveId,
-    setReceiveId,
-    receiveData,
-    setReceiveData,
     setSelectMsg,
   } = useContext(UserContext);
 
@@ -162,12 +157,6 @@ export default function Search() {
     }
   }, [receiveId, receiveData]);
 
-  // console.log(receiveId);
-  // console.log(receiveData);
-  // console.log(passId);
-  // console.log(passData);
-  // console.log(disabledState);
-
   useEffect(() => {
     if (selectProfile) {
       let unSub = db
@@ -287,7 +276,13 @@ export default function Search() {
                   </div>
                 </div>
               </div>
-              <div className="overflow-y-auto">
+              <div className="overflow-y-auto" onClick={()=>{
+                setDisabledState("")
+                setPassId("")
+                setPassData("")
+                setReceiveId("")
+                setReceiveData("")
+              }}>
                 <Hits hitComponent={hitComponent} />
               </div>
             </InstantSearch>
