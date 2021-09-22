@@ -3,7 +3,7 @@ import { Emoji } from "emoji-mart";
 import Image from "next/image";
 import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
-import { Configure, Hits, InstantSearch } from "react-instantsearch-dom";
+import { Hits, InstantSearch } from "react-instantsearch-dom";
 import { auth, storage } from "../../firebase";
 import { UserContext } from "../../UserContext";
 import { hitComponentCo } from "./HitComponentCo";

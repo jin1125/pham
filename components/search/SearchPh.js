@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useContext, useEffect,useState } from "react";
 import AnchorLink from "react-anchor-link-smooth-scroll";
-import { Configure, Hits, InstantSearch } from "react-instantsearch-dom";
+import { Hits, InstantSearch } from "react-instantsearch-dom";
 import { auth, db } from "../../firebase";
 import { UserContext } from "../../UserContext";
 import { hitComponentPh } from "./HitComponentPh";

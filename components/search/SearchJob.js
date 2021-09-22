@@ -3,7 +3,7 @@ import algoliasearch from "algoliasearch/lite";
 import { Emoji } from "emoji-mart";
 import Image from "next/image";
 import { useContext, useEffect, useState } from "react";
-import { Configure, Hits, InstantSearch } from "react-instantsearch-dom";
+import { Hits, InstantSearch } from "react-instantsearch-dom";
 import { auth, db, storage } from "../../firebase";
 import { UserContext } from "../../UserContext";
 import { hitComponentJob } from "./HitComponentJob";
