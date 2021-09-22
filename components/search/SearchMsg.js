@@ -17,6 +17,7 @@ export const SearchMsg=()=> {
   );
 
   const indexName = "pham";
+  const indexName2 = "pham_companies";
 
   const [demoImg, setDemoImg] = useState("");
   const [msgImage, setMsgImage] = useState("");
@@ -254,6 +255,38 @@ export const SearchMsg=()=> {
                 <Hits hitComponent={hitComponentMsg} />
               </div>
             </InstantSearch>
+            {/* <InstantSearch indexName={indexName2} searchClient={searchClient}>
+              <div className="border-b">
+                <div className="mx-5 my-7">
+                  <div className="my-5">
+                    <p>企業名</p>
+                    <div>
+                      <CustomSearchBox />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                className="overflow-y-auto pb-24"
+                onClick={() =>
+                  setFeeds([
+                    {
+                      avatarImage: "",
+                      datetime: "",
+                      id: "",
+                      image: "",
+                      msgId: "",
+                      name: "",
+                      text: "",
+                    },
+                  ])
+                }
+              >
+                <Hits hitComponent={hitComponentMsg} />
+              </div>
+            </InstantSearch> */}
+            
           </div>
         </div>
 

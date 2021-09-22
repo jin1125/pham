@@ -6,6 +6,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Layout } from "../../components/layout/Layout";
 import { auth, db, storage } from "../../firebase";
 import { UserContext } from "../../UserContext";
+import Link from "next/link";
 
 export default function mypage() {
   const { userId, setUserId } = useContext(UserContext);
@@ -156,6 +157,13 @@ export default function mypage() {
             <div className="flex flex-row flex-wrap my-5 justify-center gap-1 items-center">
               <Emoji emoji="handshake" size={20} />
               <p className="text-base">{`${phMatch.length}人`}</p>
+              <Link href='/connect'>
+              <button
+                  className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 py-1 px-2 mx-2 rounded-full shadow-lg text-xs"
+                >
+                  リクエスト
+                </button>
+              </Link>
             </div>
 
             {scout && (

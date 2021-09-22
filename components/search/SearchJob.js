@@ -106,7 +106,7 @@ export const SearchJob = () => {
     if (userId && selectJob.objectID) {
       let unSub = db
         .collection("coMatch")
-        .where("pharmacist", "==", selectJob.objectID)
+        .where("pharmacist", "==", selectJob.coId)
         .where("company", "==", userId)
         .onSnapshot((docs) => {
           docs.forEach((doc) => {
@@ -117,14 +117,14 @@ export const SearchJob = () => {
 
       return () => unSub();
     }
-  }, [userId, selectJob.objectID]);
+  }, [userId, selectJob.coId]);
 
   useEffect(() => {
     if (userId && selectJob.objectID) {
       let unSub = db
         .collection("coMatch")
         .where("pharmacist", "==", userId)
-        .where("company", "==", selectJob.objectID)
+        .where("company", "==", selectJob.coId)
         .onSnapshot((docs) => {
           docs.forEach((doc) => {
             setCoPassId(doc.id);
@@ -134,7 +134,7 @@ export const SearchJob = () => {
 
       return () => unSub();
     }
-  }, [userId, selectJob.objectID]);
+  }, [userId, selectJob.coId]);
 
   const apply = async () => {
     const result = confirm("応募しますか?");
@@ -156,7 +156,7 @@ export const SearchJob = () => {
         }
         await db.collection("coMatch").add({
           pharmacist: userId,
-          company: selectJob.objectID,
+          company: selectJob.coId,
           requestPh: true,
           requestCo: false,
         });
