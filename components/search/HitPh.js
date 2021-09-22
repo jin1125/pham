@@ -4,7 +4,7 @@ import { storage } from '../../firebase';
 import { Highlight } from 'react-instantsearch-dom';
 
 
-export default function HitPh({hit}) {
+export const HitPh =({hit})=> {
 
 const [pharmacyDemoImg, setPharmacyDemoImg] = useState("");
 

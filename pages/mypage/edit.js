@@ -5,7 +5,7 @@ import Image from "next/image";
 import Router from "next/router";
 import React, { useContext, useEffect, useState } from "react";
 import { useAlert } from "react-alert";
-import Layout from "../../components/layout/Layout";
+import { Layout } from "../../components/layout/Layout";
 import { auth, db, provider, storage } from "../../firebase";
 import { UserContext } from "../../UserContext";
 

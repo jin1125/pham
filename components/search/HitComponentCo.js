@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { UserContext } from "../../UserContext";
-import HitCo from "./HitCo";
+import {HitCo} from "./HitCo";
 
 export function hitComponentCo({ hit }) {
   const { selectCompanyAddress, selectCompany, setSelectCompany } =

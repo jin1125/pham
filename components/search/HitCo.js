@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Highlight } from "react-instantsearch-dom";
 import { storage } from "../../firebase";
 
-export default function HitCo({ hit }) {
+export  const HitCo=({ hit })=> {
   const [companyDemoImg, setCompanyDemoImg] = useState("");
 
   useEffect(() => {

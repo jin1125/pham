@@ -1,10 +1,8 @@
 import { Dialog, Transition } from "@headlessui/react";
+import Image from "next/image";
 import { Fragment } from "react";
-import Image from 'next/image'
 
 export default function ApplyModal({ isOpen, setIsOpen }) {
-  // let [isOpen, setIsOpen] = useState(true)
-
   function closeModal() {
     setIsOpen(false);
   }

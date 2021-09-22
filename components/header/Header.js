@@ -4,7 +4,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { auth, db } from "../../firebase";
 import { UserContext } from "../../UserContext";
 
-export default function Header() {
+export const Header = () => {
   const [check, setCheck] = useState(false);
   const {
     setSelectJob,
@@ -13,7 +13,7 @@ export default function Header() {
     setPharmId,
     userId,
     setUserId,
-    setSelectProfile
+    setSelectProfile,
   } = useContext(UserContext);
 
   useEffect(() => {
@@ -27,7 +27,7 @@ export default function Header() {
   }, []);
 
   useEffect(() => {
-    if(userId){
+    if (userId) {
       let unSub = db
         .collection("userProfiles")
         .doc(userId)
@@ -38,7 +38,7 @@ export default function Header() {
             setCheck(true);
           }
         });
-  
+
       return () => unSub();
     }
   }, [userId]);
@@ -65,7 +65,7 @@ export default function Header() {
           <button
             className="font-bold text-center text-blue-400 transition duration-300 hover:text-white disabled:bg-blue-300 bg-white hover:bg-blue-300 disabled:hover:text-blue-400 py-2 rounded-full w-full"
             disabled={check}
-            onClick={()=>setSelectProfile('')}
+            onClick={() => setSelectProfile("")}
           >
             薬剤師検索
           </button>
@@ -109,4 +109,4 @@ export default function Header() {
       </div>
     </header>
   );
-}
+};

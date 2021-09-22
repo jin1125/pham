@@ -3,7 +3,7 @@ import Head from "next/head";
 import Image from "next/image";
 import Router from "next/router";
 import React, { useContext, useEffect, useState } from "react";
-import Layout from "../../components/layout/Layout";
+import { Layout } from "../../components/layout/Layout";
 import { auth, db, storage } from "../../firebase";
 import { UserContext } from "../../UserContext";
 
@@ -60,7 +60,6 @@ export default function mypage() {
       return () => unSub();
     }
   }, [userId]);
-
 
   useEffect(() => {
     if (userId) {
@@ -154,10 +153,10 @@ export default function mypage() {
               )
             )}
 
-              <div className="flex flex-row flex-wrap my-5 justify-center gap-1 items-center">
-                <Emoji emoji="handshake" size={20} />
-                <p className="text-base">{`${phMatch.length}人`}</p>
-              </div>
+            <div className="flex flex-row flex-wrap my-5 justify-center gap-1 items-center">
+              <Emoji emoji="handshake" size={20} />
+              <p className="text-base">{`${phMatch.length}人`}</p>
+            </div>
 
             {scout && (
               <div className="flex flex-row flex-wrap mt-5 mb-10 justify-center gap-1 items-center">

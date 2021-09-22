@@ -1,6 +1,6 @@
 import { useContext, useEffect } from "react";
 import { UserContext } from "../../UserContext";
-import HitPh from "./HitPh";
+import {HitPh} from "./HitPh";
 
 export function hitComponentPh({ hit }) {
   const {

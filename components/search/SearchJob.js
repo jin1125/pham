@@ -13,7 +13,7 @@ import ApplyModal from "../organisms/modal/applyModal";
 import { hitComponentJob } from "./HitComponentJob";
 import { CustomSearchBox } from "./SearchBox";
 
-export default function SearchJob() {
+export const SearchJob = () => {
   const searchClient = algoliasearch(
     "0TMIYQ8E9N",
     "58e6e394abd7a5cfcc6fcae0d7b51ac5"
@@ -154,16 +154,13 @@ export default function SearchJob() {
         if (coPassId) {
           return;
         }
-        await db
-          .collection("coMatch")
-          .add({
-            pharmacist: userId,
-            company: selectJob.objectID,
-            requestPh: true,
-            requestCo: false,
-          })
+        await db.collection("coMatch").add({
+          pharmacist: userId,
+          company: selectJob.objectID,
+          requestPh: true,
+          requestCo: false,
+        });
       }
-
 
       await db
         .collection("applies")
@@ -580,10 +577,10 @@ export default function SearchJob() {
             <div className="text-center my-20 mr-10">
               <button
                 className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 disabled:bg-blue-200 py-2 w-3/5 rounded-full shadow-lg font-bold"
-                onClick={apply} disabled={coPassId}
+                onClick={apply}
+                disabled={coPassId}
               >
-                {coPassId ? "応募済み":"応募！"}
-                
+                {coPassId ? "応募済み" : "応募！"}
               </button>
               <p className="text-xs text-gray-400 my-3">
                 応募すると採用担当者へあなたのプロフィール情報が伝えられます
@@ -603,4 +600,4 @@ export default function SearchJob() {
       </div>
     </div>
   );
-}
+};

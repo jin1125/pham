@@ -11,7 +11,7 @@ import { hitComponentPh } from "./HitComponentPh";
 import { CustomSearchBox } from "./SearchBox";
 import Router from "next/router";
 
-export default function SearchPh() {
+export const SearchPh =()=> {
   const searchClient = algoliasearch(
     "0TMIYQ8E9N",
     "58e6e394abd7a5cfcc6fcae0d7b51ac5"

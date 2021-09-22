@@ -11,7 +11,7 @@ import { UserContext } from "../../UserContext";
 import { hitComponent } from "./HitComponent";
 import { CustomSearchBox } from "./SearchBox";
 
-export default function Search() {
+export const Search =()=> {
   const searchClient = algoliasearch(
     "0TMIYQ8E9N",
     "58e6e394abd7a5cfcc6fcae0d7b51ac5"

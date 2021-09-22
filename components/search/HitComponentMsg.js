@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { auth, db } from "../../firebase";
 import { UserContext } from "../../UserContext";
-import Hit from "./Hit";
+import {Hit} from "./Hit";
 
 export function hitComponentMsg({ hit }) {
   const { selectMsg, setSelectMsg, userId, setUserId } =

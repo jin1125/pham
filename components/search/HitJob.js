@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Highlight } from "react-instantsearch-dom";
 import { storage } from "../../firebase";
 
-export default function HitJob({ hit }) {
+export const HitJob=({ hit })=> {
   const [jobDemoImg, setJobDemoImg] = useState("");
 
   useEffect(() => {

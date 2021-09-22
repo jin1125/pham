@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Highlight } from "react-instantsearch-dom";
 import { storage } from "../../firebase";
 
-export default function Hit({ hit }) {
+export const Hit = ({ hit }) => {
   const [demoImg, setDemoImg] = useState("");
 
   useEffect(() => {
@@ -55,4 +55,4 @@ export default function Hit({ hit }) {
       </div>
     </div>
   );
-}
+};

@@ -1,7 +1,7 @@
 import { useContext, useEffect } from "react";
 import { auth } from "../../firebase";
 import { UserContext } from "../../UserContext";
-import Hit from "./Hit";
+import {Hit} from "./Hit";
 
 export function hitComponent({ hit }) {
   const {

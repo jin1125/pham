@@ -1,10 +1,9 @@
 import Head from "next/head";
-import React, { useEffect } from "react";
-import Layout from "../../../components/layout/Layout";
-import { auth } from "../../../firebase";
 import Router from "next/router";
-import SearchPh from "../../../components/search/SearchPh";
-
+import React, { useEffect } from "react";
+import { Layout } from "../../../components/layout/Layout";
+import {SearchPh} from "../../../components/search/SearchPh";
+import { auth } from "../../../firebase";
 
 export default function search() {
   useEffect(() => {
@@ -25,8 +24,8 @@ export default function search() {
       </Head>
 
       <Layout>
-        <SearchPh/>
+        <SearchPh />
       </Layout>
     </div>
-  )
+  );
 }
