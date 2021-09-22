@@ -5,7 +5,7 @@ import "tailwindcss/tailwind.css";
 import "../styles/global.css";
 import { UserContext } from "../UserContext";
 
-function MyApp({ Component, pageProps }) {
+export default function App({ Component, pageProps }) {
   const [userId, setUserId] = useState("");
   const [defaultName, setDefaultName] = useState("");
   const [selectProfile, setSelectProfile] = useState("");
@@ -86,5 +86,3 @@ function MyApp({ Component, pageProps }) {
     </UserContext.Provider>
   );
 }
-
-export default MyApp;
