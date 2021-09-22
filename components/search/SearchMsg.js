@@ -3,8 +3,8 @@ import { Emoji } from "emoji-mart";
 import firebase from "firebase/app";
 import Image from "next/image";
 import Router from "next/router";
-import { useContext, useEffect, useState } from "react";
-import { Configure, Hits, InstantSearch } from "react-instantsearch-dom";
+import { useContext, useEffect, useRef, useState } from "react";
+import { Hits, InstantSearch } from "react-instantsearch-dom";
 import { auth, db, storage } from "../../firebase";
 import { UserContext } from "../../UserContext";
 import { hitComponentMsg } from "./HitComponentMsg";
@@ -37,6 +37,7 @@ export default function SearchMsg() {
   ]);
 
   const { selectMsg, userId, setUserId } = useContext(UserContext);
+  const ref = useRef(null);
 
   useEffect(() => {
     let isMounted = true;
@@ -78,7 +79,7 @@ export default function SearchMsg() {
         });
       return () => unSub();
     }
-  }, [userId]);
+  }, [userId, feeds]);
 
   useEffect(() => {
     if (userId && selectMsg.objectID) {
@@ -91,7 +92,11 @@ export default function SearchMsg() {
           setFeeds(
             snapshot.docs.map((doc) => ({
               avatarImage: doc.data().avatarImage,
-              datetime: doc.data().datetime,
+              yyyy: doc.data().datetime.toDate().getFullYear(),
+              MM: doc.data().datetime.toDate().getMonth() + 1,
+              dd: doc.data().datetime.toDate().getDate(),
+              HH: doc.data().datetime.toDate().getHours(),
+              mm: doc.data().datetime.toDate().getMinutes(),
               id: doc.data().id,
               image: doc.data().image,
               msgId: doc.data().msgId,
@@ -198,7 +203,14 @@ export default function SearchMsg() {
     }
   };
 
-  console.log(selectMsg);
+  const length = feeds.length;
+  let isLastItem = false;
+
+  useEffect(() => {
+    if (isLastItem && ref.current) {
+      ref.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [isLastItem, ref.current, feeds]);
 
   return (
     <div>
@@ -206,97 +218,156 @@ export default function SearchMsg() {
         {/* ////// プロフィール検索(ページ左) ////// */}
         <div className="col-span-3 border-r-2 border-blue-400 relative ">
           <div className="absolute h-full flex flex-col w-full">
-          <div className="text-center">
-            <h4 className="text-white bg-blue-400 font-bold text-lg py-3">
-              メッセージ検索
-            </h4>
-          </div>
-          <InstantSearch indexName={indexName} searchClient={searchClient}>
-            <div className="border-b">
-              <div className="mx-5 my-7">
-                <div className="my-5">
-                  <p>名前</p>
-                  <div>
-                    <CustomSearchBox />
+            <div className="text-center">
+              <h4 className="text-white bg-blue-400 font-bold text-lg py-3">
+                メッセージ検索
+              </h4>
+            </div>
+            <InstantSearch indexName={indexName} searchClient={searchClient}>
+              <div className="border-b">
+                <div className="mx-5 my-7">
+                  <div className="my-5">
+                    <p>名前</p>
+                    <div>
+                      <CustomSearchBox />
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <div className="overflow-y-auto pb-24">
-            <Hits hitComponent={hitComponentMsg} />
-            </div>
-          </InstantSearch>
-        </div>
+              <div
+                className="overflow-y-auto pb-24"
+                onClick={() =>
+                  setFeeds([
+                    {
+                      avatarImage: "",
+                      datetime: "",
+                      id: "",
+                      image: "",
+                      msgId: "",
+                      name: "",
+                      text: "",
+                    },
+                  ])
+                }
+              >
+                <Hits hitComponent={hitComponentMsg} />
+              </div>
+            </InstantSearch>
+          </div>
         </div>
 
         {/* ////// プロフィール描画(ページ右) ////// */}
         {selectMsg ? (
-            <div className='col-span-9'>
-              <div className="overflow-auto h-screen pt-10 pb-24">
-                {feeds.map((feed, index) => (
-                  <div key={index}>
-                    {feed.id === userId && avatarImage ? (
-                      <Image
-                        className="inline object-cover mr-2 rounded-full"
-                        width={50}
-                        height={50}
-                        src={avatarImage}
-                        alt="avatarImage"
-                      />
-                    ) : feed.id === selectMsg.objectID &&
-                      selectMsg.profileImageUrl ? (
-                      <Image
-                        className="inline object-cover mr-2 rounded-full"
-                        width={50}
-                        height={50}
-                        src={selectMsg.profileImageUrl}
-                        alt="avatarImage"
-                      />
-                    ) : (
-                      demoImg && (
+          <div className="col-span-9">
+            <div className="overflow-auto h-screen pb-20">
+              {feeds.map((feed, index) => {
+                isLastItem = length === index + 1;
+                return (
+                  <div
+                    key={index}
+                    className="grid grid-cols-12 gap-5 my-12"
+                    ref={ref}
+                  >
+                    <div className="col-span-1">
+                      {feed.id === userId && avatarImage ? (
                         <Image
                           className="inline object-cover mr-2 rounded-full"
                           width={50}
                           height={50}
-                          src={demoImg}
+                          src={avatarImage}
                           alt="avatarImage"
                         />
-                      )
-                    )}
-                    <p>{feed.name}</p>
-                    <p>{feed.text}</p>
+                      ) : feed.id === selectMsg.objectID &&
+                        selectMsg.profileImageUrl ? (
+                        <Image
+                          className="inline object-cover mr-2 rounded-full"
+                          width={50}
+                          height={50}
+                          src={selectMsg.profileImageUrl}
+                          alt="avatarImage"
+                        />
+                      ) : (
+                        demoImg && (
+                          <Image
+                            className="inline object-cover mr-2 rounded-full"
+                            width={50}
+                            height={50}
+                            src={demoImg}
+                            alt="avatarImage"
+                          />
+                        )
+                      )}
+                    </div>
+
+                    <div className="col-span-11">
+                      <div className="flex flex-row flex-wrap gap-3 items-end mb-1">
+                        {feed.id === userId && 
+                        <p className="font-bold">{name}</p>
+                        }
+                        {feed.id === selectMsg.objectID && 
+                        <p className="font-bold">{selectMsg.userName}</p>
+                        }
+                        {feed.yyyy && (
+                          <p className="text-xs text-blue-300">{`${feed.yyyy}/${feed.MM}/${feed.dd} ${feed.HH}:${feed.mm}`}</p>
+                        )}
+                      </div>
+                      <p>{feed.text}</p>
+                      {feed.image && (
+                        <Image
+                          className="inline object-cover mr-2 rounded-lg"
+                          width={200}
+                          height={200}
+                          src={feed.image}
+                          alt="uploadImg"
+                        />
+                      )}
+                    </div>
                   </div>
-                ))}
-              </div>
-
-              <div className="grid grid-cols-12 gap-2 justify-items-center items-center leading-none fixed right-0 bottom-0 w-full py-5 bg-white border-t-2">
-                <label className="col-span-1 cursor-pointer">
-                  <Emoji emoji="camera_with_flash" size={25} />
-                  <input
-                    className="hidden"
-                    accept="image/*"
-                    type="file"
-                    onChange={uploadImage}
-                  />
-                </label>
-
-                <textarea
-                  rows="1"
-                  autoFocus
-                  value={msg}
-                  name="msg"
-                  maxLength="200"
-                  className="bg-blue-100 rounded-lg p-2 w-full outline-none col-span-10"
-                  onChange={(e) => setMsg(e.target.value.trim())}
-                />
-
-                <button className="col-span-1" onClick={sendMsg}>
-                  <Emoji emoji="rocket" size={35} />
-                </button>
-              </div>
-              
+                );
+              })}
             </div>
+
+            <div className="grid grid-cols-12 gap-2 justify-items-center items-center leading-none fixed right-0 bottom-0 w-full py-4 bg-white border-t-2">
+              <label className="col-span-1 cursor-pointer hover:opacity-60">
+                {fileUrl ? (
+                  <Image
+                    className="inline object-cover mr-2 rounded-lg"
+                    width={50}
+                    height={50}
+                    src={fileUrl}
+                    alt="uploadImg"
+                  />
+                ) : (
+                  <Emoji emoji="camera_with_flash" size={25} />
+                )}
+                <input
+                  className="hidden"
+                  accept="image/*"
+                  type="file"
+                  onChange={uploadImage}
+                />
+              </label>
+
+              <textarea
+                rows="1"
+                autoFocus
+                value={msg}
+                name="msg"
+                maxLength="200"
+                className="bg-blue-100 rounded-lg p-2 w-full outline-none col-span-10"
+                onChange={(e) => setMsg(e.target.value.trim())}
+              />
+
+              <button
+                className="col-span-1 transform  duration-500 hover:scale-150 hover:-rotate-45 hover:-translate-y-6 disabled:opacity-60 disabled:hover:scale-100 disabled:hover:rotate-0 disabled:hover:-translate-y-0"
+                onClick={sendMsg}
+                disabled={!msg && !fileUrl}
+              >
+                <Emoji emoji="rocket" size={35} />
+              </button>
+            </div>
+          </div>
         ) : (
           <div className="h-screen col-span-9 justify-self-center self-center pt-24">
             <Image
