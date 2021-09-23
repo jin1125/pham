@@ -7,29 +7,23 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { Hits, InstantSearch } from "react-instantsearch-dom";
 import { auth, db, storage } from "../../firebase";
 import { UserContext } from "../../UserContext";
-import { hitComponentCoMsg } from "./hitComponentCoMsg";
 import { hitComponentMsg } from "./HitComponentMsg";
 import { CustomSearchBox } from "./SearchBox";
 
-export const SearchMsg = () => {
+export const SearchCoMsg=({setChangeMsg})=> {
   const searchClient = algoliasearch(
     "0TMIYQ8E9N",
     "58e6e394abd7a5cfcc6fcae0d7b51ac5"
   );
 
-  const indexName = "pham";
-  const indexCoName = "pham_companies";
+  const indexName = "pham_companies";
 
   const [demoImg, setDemoImg] = useState("");
-  const [companyDemoImg, setCompanyDemoImg] = useState("");
   const [msgImage, setMsgImage] = useState("");
   const [msg, setMsg] = useState("");
   const [fileUrl, setFileUrl] = useState("");
   const [name, setName] = useState("");
   const [avatarImage, setAvatarImage] = useState("");
-  const [coName, setCoName] = useState("");
-  const [coAvatarImage, setCoAvatarImage] = useState("");
-  const [changeMsg, setChangeMsg] = useState(true);
   const [feeds, setFeeds] = useState([
     {
       avatarImage: "",
@@ -42,8 +36,7 @@ export const SearchMsg = () => {
     },
   ]);
 
-  const { selectMsg, setSelectMsg, userId, setUserId } =
-    useContext(UserContext);
+  const { selectMsg, userId, setUserId } = useContext(UserContext);
   const ref = useRef(null);
 
   useEffect(() => {
@@ -53,24 +46,6 @@ export const SearchMsg = () => {
 
       if (isMounted) {
         setDemoImg(url);
-      }
-    })();
-
-    return () => {
-      isMounted = false;
-    };
-  }, []);
-
-  useEffect(() => {
-    let isMounted = true;
-    (async () => {
-      const url = await storage
-        .ref()
-        .child("company_demo_img.png")
-        .getDownloadURL();
-
-      if (isMounted) {
-        setCompanyDemoImg(url);
       }
     })();
 
@@ -100,21 +75,6 @@ export const SearchMsg = () => {
           if (doc.data()) {
             setName(doc.data().userName);
             setAvatarImage(doc.data().profileImageUrl);
-          }
-        });
-      return () => unSub();
-    }
-  }, [userId, feeds]);
-
-  useEffect(() => {
-    if (userId) {
-      const unSub = db
-        .collection("companies")
-        .doc(userId)
-        .onSnapshot((doc) => {
-          if (doc.data()) {
-            setCoName(doc.data().companyName);
-            setCoAvatarImage(doc.data().companyImageUrl);
           }
         });
       return () => unSub();
@@ -206,7 +166,6 @@ export const SearchMsg = () => {
       setMsg("");
       setFileUrl("");
       setMsgImage("");
-      console.log("send!");
     } else {
       await db
         .collection("msgs")
@@ -239,7 +198,6 @@ export const SearchMsg = () => {
       setMsg("");
       setFileUrl("");
       setMsgImage("");
-      console.log("send!");
     }
   };
 
@@ -258,12 +216,29 @@ export const SearchMsg = () => {
         {/* ////// プロフィール検索(ページ左) ////// */}
         <div className="col-span-3 border-r-2 border-blue-400 relative ">
           <div className="absolute h-full flex flex-col w-full">
-            <div className="flex flex-row  flex-wrap bg-blue-400 text-lg py-3 leading-none justify-center items-center gap-3">
-              <button
-                className=""
-                onClick={() => {
-                  setChangeMsg(!changeMsg);
-                  setSelectMsg("");
+
+              <div className="flex flex-row  flex-wrap bg-blue-400 text-lg py-3 leading-none justify-center items-center gap-3">
+              <button className='' onClick={()=>setChangeMsg('ph')}>
+              <Emoji emoji="repeat" size={25} />
+              </button>
+                <h4 className='font-bold text-white'>メッセージ(企業)</h4>
+              </div>
+
+            <InstantSearch indexName={indexName} searchClient={searchClient}>
+              <div className="border-b">
+                <div className="mx-5 my-7">
+                  <div className="my-5">
+                    <p>名前</p>
+                    <div>
+                      <CustomSearchBox />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                className="overflow-y-auto pb-24"
+                onClick={() =>
                   setFeeds([
                     {
                       avatarImage: "",
@@ -274,58 +249,18 @@ export const SearchMsg = () => {
                       name: "",
                       text: "",
                     },
-                  ]);
-                }}
+                  ])
+                }
               >
-                <Emoji emoji="repeat" size={25} />
-              </button>
-              <h4 className="font-bold text-white">
-                {changeMsg ? " メッセージ(薬剤師)" : " メッセージ(企業)"}
-              </h4>
-            </div>
-
-            <InstantSearch
-              indexName={changeMsg ? indexName : indexCoName}
-              searchClient={searchClient}
-            >
-              <div className="border-b">
-                <div className="mx-5 my-7">
-                  <div className="my-5">
-                    <p>{changeMsg ? "名前" : "企業名"}</p>
-                    <div>
-                      <CustomSearchBox />
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div
-                className="overflow-y-auto pb-24"
-                // onClick={() =>
-                //   setFeeds([
-                //     {
-                //       avatarImage: "",
-                //       datetime: "",
-                //       id: "",
-                //       image: "",
-                //       msgId: "",
-                //       name: "",
-                //       text: "",
-                //     },
-                //   ])
-                // }
-              >
-                <Hits
-                  hitComponent={changeMsg ? hitComponentMsg : hitComponentCoMsg}
-                />
+                <Hits hitComponent={hitComponentMsg} />
               </div>
             </InstantSearch>
+            
           </div>
         </div>
 
-
         {/* ////// プロフィール描画(ページ右) ////// */}
-        {changeMsg && selectMsg ? (
+        {selectMsg ? (
           <div className="col-span-9">
             <div className="overflow-auto h-screen pb-20">
               {feeds.map((feed, index) => {
@@ -369,183 +304,12 @@ export const SearchMsg = () => {
 
                     <div className="col-span-11">
                       <div className="flex flex-row flex-wrap gap-3 items-end mb-1">
-                        {feed.id === userId && (
-                          <p className="font-bold">{name}</p>
-                        )}
-                        {feed.id === selectMsg.objectID && (
-                          <p className="font-bold">{selectMsg.userName}</p>
-                        )}
-                        {feed.yyyy && (
-                          <p className="text-xs text-blue-300">{`${feed.yyyy}/${feed.MM}/${feed.dd} ${feed.HH}:${feed.mm}`}</p>
-                        )}
-                      </div>
-                      <p>{feed.text}</p>
-                      {feed.image && (
-                        <Image
-                          className="inline object-cover mr-2 rounded-lg"
-                          width={200}
-                          height={200}
-                          src={feed.image}
-                          alt="uploadImg"
-                        />
-                      )}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-
-            <div className="grid grid-cols-12 gap-2 justify-items-center items-center leading-none fixed right-0 bottom-0 w-full py-4 bg-white border-t-2">
-              <label className="col-span-1 cursor-pointer hover:opacity-60">
-                {fileUrl ? (
-                  <Image
-                    className="inline object-cover mr-2 rounded-lg"
-                    width={50}
-                    height={50}
-                    src={fileUrl}
-                    alt="uploadImg"
-                  />
-                ) : (
-                  <Emoji emoji="camera_with_flash" size={25} />
-                )}
-                <input
-                  className="hidden"
-                  accept="image/*"
-                  type="file"
-                  onChange={uploadImage}
-                />
-              </label>
-
-              <textarea
-                rows="1"
-                autoFocus
-                value={msg}
-                name="msg"
-                maxLength="200"
-                className="bg-blue-100 rounded-lg p-2 w-full outline-none col-span-10"
-                onChange={(e) => setMsg(e.target.value.trim())}
-              />
-
-              <button
-                className="col-span-1 transform  duration-500 hover:scale-150 hover:-rotate-45 hover:-translate-y-6 disabled:opacity-60 disabled:hover:scale-100 disabled:hover:rotate-0 disabled:hover:-translate-y-0"
-                onClick={sendMsg}
-                disabled={!msg && !fileUrl}
-              >
-                <Emoji emoji="rocket" size={35} />
-              </button>
-            </div>
-          </div>
-        ) : !changeMsg && selectMsg ? (
-          <div className="col-span-9">
-            <div className="overflow-auto h-screen pb-20">
-              {feeds.map((feed, index) => {
-                isLastItem = length === index + 1;
-                return (
-                  <div
-                    key={index}
-                    className="grid grid-cols-12 gap-5 my-12"
-                    ref={ref}
-                  >
-                    <div className="col-span-1">
-                      {feed.id === userId && avatarImage ? (
-                        <Image
-                          className="inline object-cover mr-2 rounded-full"
-                          width={50}
-                          height={50}
-                          src={avatarImage}
-                          alt="avatarImage"
-                        />
-                      ) : (
-                        feed.id === selectMsg.objectID &&
-                        selectMsg.profileImageUrl ? (
-                          <Image
-                            className="inline object-cover mr-2 rounded-full"
-                            width={50}
-                            height={50}
-                            src={selectMsg.profileImageUrl}
-                            alt="avatarImage"
-                          />
-                        ):(feed.id === userId && avatarImage && demoImg ? (
-                          <Image
-                            className="inline object-cover mr-2 rounded-full"
-                            width={50}
-                            height={50}
-                            src={demoImg}
-                            alt="avatarImage"
-                          />
-                        ):(feed.id === selectMsg.objectID &&
-                          selectMsg.profileImageUrl && demoImg &&
-                          <Image
-                            className="inline object-cover mr-2 rounded-full"
-                            width={50}
-                            height={50}
-                            src={demoImg}
-                            alt="avatarImage"
-                          />
-                        )
-                        )
-                      )}
-
-
-                      {feed.id === userId && coAvatarImage ? (
-                        <Image
-                          className="inline object-cover mr-2 rounded-full"
-                          width={50}
-                          height={50}
-                          src={coAvatarImage}
-                          alt="coAvatarImage"
-                        />
-                      ) : feed.id === selectMsg.objectID &&
-                        selectMsg.companyImageUrl ? (
-                        <Image
-                          className="inline object-cover mr-2 rounded-full"
-                          width={50}
-                          height={50}
-                          src={selectMsg.companyImageUrl}
-                          alt="coAvatarImage"
-                        />
-                      ) : feed.id === userId &&
-                        coAvatarImage &&
-                        companyDemoImg ? (
-                        <Image
-                          className="inline object-cover mr-2 rounded-full"
-                          width={50}
-                          height={50}
-                          src={companyDemoImg}
-                          alt="coAvatarImage"
-                        />
-                      ) : (
-                        feed.id === selectMsg.objectID &&
-                        selectMsg.companyImageUrl &&
-                        companyDemoImg && (
-                          <Image
-                            className="inline object-cover mr-2 rounded-full"
-                            width={50}
-                            height={50}
-                            src={companyDemoImg}
-                            alt="coAvatarImage"
-                          />
-                        )
-                      )}
-                    </div>
-
-                    <div className="col-span-11">
-                      <div className="flex flex-row flex-wrap gap-3 items-end mb-1">
-                        {feed.id === userId && name && (
-                          <p className="font-bold">{name}</p>
-                        )}
-                        {feed.id === userId && coName && (
-                          <p className="font-bold">{coName}</p>
-                        )}
-                        {feed.id === selectMsg.objectID &&
-                          selectMsg.userName && (
-                            <p className="font-bold">{selectMsg.userName}</p>
-                          )}
-                        {feed.id === selectMsg.objectID &&
-                          selectMsg.companyName && (
-                            <p className="font-bold">{selectMsg.companyName}</p>
-                          )}
-
+                        {feed.id === userId && 
+                        <p className="font-bold">{name}</p>
+                        }
+                        {feed.id === selectMsg.objectID && 
+                        <p className="font-bold">{selectMsg.userName}</p>
+                        }
                         {feed.yyyy && (
                           <p className="text-xs text-blue-300">{`${feed.yyyy}/${feed.MM}/${feed.dd} ${feed.HH}:${feed.mm}`}</p>
                         )}
@@ -619,4 +383,4 @@ export const SearchMsg = () => {
       </div>
     </div>
   );
-};
+}

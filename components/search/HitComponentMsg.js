@@ -9,9 +9,6 @@ export function hitComponentMsg({ hit }) {
   const [phMatch, setPhMatch] = useState([]);
   const [phMatchA, setPhMatchA] = useState([]);
   const [phMatchB, setPhMatchB] = useState([]);
-  const [coMatch, setCoMatch] = useState([]);
-  const [coMatchA, setCoMatchA] = useState([]);
-  const [coMatchB, setCoMatchB] = useState([]);
 
   useEffect(() => {
     const unSub = auth.onAuthStateChanged((user) => {
@@ -52,21 +49,6 @@ export function hitComponentMsg({ hit }) {
         .onSnapshot((snapshot) => {
           const user = snapshot.docs.map((doc) => doc.data().pharmacistA);
           setPhMatchB([...user]);
-        });
-
-      return () => unSub();
-    }
-  }, [userId]);
-
-  useEffect(() => {
-    if (userId) {
-      let unSub = db
-        .collection("coMatch")
-        .where("pharmacist", "==", userId)
-        .where("requestCo", "==", true)
-        .onSnapshot((snapshot) => {
-          const user = snapshot.docs.map((doc) => doc.data().company);
-          setCoMatch([...user]);
         });
 
       return () => unSub();

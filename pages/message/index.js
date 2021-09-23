@@ -1,9 +1,11 @@
 import Head from "next/head";
-import React from "react";
+import React, { useState } from "react";
 import { Layout } from "../../components/layout/Layout";
-import {SearchMsg} from "../../components/search/SearchMsg";
+import { SearchCoMsg } from "../../components/search/SearchCoMsg";
+import { SearchMsg } from "../../components/search/SearchMsg";
 
 export default function message() {
+  // const [changeMsg, setChangeMsg] = useState("ph");
   ////////////////////////// JSXエリア //////////////////////////
   return (
     <div className="min-h-screen">
@@ -13,7 +15,10 @@ export default function message() {
       </Head>
 
       <Layout>
-        <SearchMsg />
+        {/* {changeMsg === "ph" && <SearchMsg setChangeMsg={setChangeMsg} />}
+
+        {changeMsg === "co" && <SearchCoMsg setChangeMsg={setChangeMsg} />} */}
+        <SearchMsg/>
       </Layout>
     </div>
   );

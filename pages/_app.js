@@ -19,6 +19,7 @@ export default function App({ Component, pageProps }) {
   const [selectJobEmploymentStatus, setSelectJobEmploymentStatus] =
     useState("");
   const [selectMsg, setSelectMsg] = useState("");
+  const [selectCoMsg, setSelectCoMsg] = useState("");
   const [companyId, setCompanyId] = useState("");
   const [pharmacyId, setPharmacyId] = useState("");
   const [pharmId, setPharmId] = useState("");
@@ -55,6 +56,8 @@ export default function App({ Component, pageProps }) {
         setSelectJobAddress,
         selectMsg,
         setSelectMsg,
+        selectCoMsg,
+        setSelectCoMsg,
         companyId,
         setCompanyId,
         selectJobEmploymentStatus,
