@@ -23,6 +23,7 @@ export default function App({ Component, pageProps }) {
   const [companyId, setCompanyId] = useState("");
   const [pharmacyId, setPharmacyId] = useState("");
   const [pharmId, setPharmId] = useState("");
+  const [comId, setComId] = useState("");
 
   /// アラート設定 ///
   const options = {
@@ -66,6 +67,8 @@ export default function App({ Component, pageProps }) {
         setPharmacyId,
         pharmId,
         setPharmId,
+        comId,
+        setComId,
       }}
     >
       <AlertProvider template={AlertTemplate} {...options}>

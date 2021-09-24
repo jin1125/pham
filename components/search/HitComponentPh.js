@@ -9,7 +9,6 @@ export function hitComponentPh({ hit }) {
     selectPharmacyAddress,
     companyId,
     pharmId,
-    setPharmId
   } = useContext(UserContext);
 
   const click = () => {

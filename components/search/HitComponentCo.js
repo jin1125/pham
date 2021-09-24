@@ -1,14 +1,20 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { UserContext } from "../../UserContext";
 import {HitCo} from "./HitCo";
 
 export function hitComponentCo({ hit }) {
-  const { selectCompanyAddress, selectCompany, setSelectCompany } =
+  const { selectCompanyAddress, selectCompany, setSelectCompany,comId } =
     useContext(UserContext);
 
   const click = () => {
     setSelectCompany(hit);
   };
+
+  useEffect(()=>{
+    if(comId && comId === hit.objectID){
+      setSelectCompany(hit);
+    }
+   },[comId])
 
   ////////////////////////// JSXエリア //////////////////////////
   return (
