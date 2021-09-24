@@ -9,7 +9,7 @@ import { useAlert } from "react-alert";
 import { Hits, InstantSearch } from "react-instantsearch-dom";
 import { auth, db, storage } from "../../firebase";
 import { UserContext } from "../../UserContext";
-import ApplyModal from "../organisms/modal/applyModal";
+import ApplyModal from "../organisms/modal/ApplyModal";
 import { hitComponentJob } from "./HitComponentJob";
 import { CustomSearchBox } from "./SearchBox";
 
