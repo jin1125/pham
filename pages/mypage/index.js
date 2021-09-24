@@ -3,10 +3,11 @@ import Head from "next/head";
 import Image from "next/image";
 import Router from "next/router";
 import React, { useContext, useEffect, useState } from "react";
+import Loader from "react-loader-spinner";
 import { Layout } from "../../components/layout/Layout";
+import ConnectModal from "../../components/organisms/modal/ConnectModal";
 import { auth, db, storage } from "../../firebase";
 import { UserContext } from "../../UserContext";
-import ConnectModal from "../../components/organisms/modal/ConnectModal";
 
 export default function mypage() {
   const { userId, setUserId } = useContext(UserContext);
@@ -124,9 +125,9 @@ export default function mypage() {
     userName,
   } = profile;
 
-  const connect =()=>{
-    setIsOpen(true)
-  }
+  const connect = () => {
+    setIsOpen(true);
+  };
 
   ////////////////////////// JSXエリア //////////////////////////
   return (
@@ -165,11 +166,11 @@ export default function mypage() {
               <Emoji emoji="handshake" size={20} />
               <p className="text-base">{`${phMatch.length}人`}</p>
               <button
-                  className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 py-1 px-2 mx-2 rounded-full shadow-lg text-xs"
-                  onClick={connect}
-                >
-                  リクエスト
-                </button>
+                className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 py-1 px-2 mx-2 rounded-full shadow-lg text-xs"
+                onClick={connect}
+              >
+                リクエスト
+              </button>
             </div>
 
             {scout && (

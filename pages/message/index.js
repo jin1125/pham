@@ -15,9 +15,6 @@ export default function message() {
       </Head>
 
       <Layout>
-        {/* {changeMsg === "ph" && <SearchMsg setChangeMsg={setChangeMsg} />}
-
-        {changeMsg === "co" && <SearchCoMsg setChangeMsg={setChangeMsg} />} */}
         <SearchMsg/>
       </Layout>
     </div>

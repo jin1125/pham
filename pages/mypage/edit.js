@@ -57,6 +57,7 @@ export default function edit() {
   const [isGoogleLogin, setIsGoogleLogin] = useState(false);
   const [demoImg, setDemoImg] = useState("");
   const [demoImgs, setDemoImgs] = useState("");
+  const [loading, setLoading] = useState(false);
 
   ////////////////// 関数エリア //////////////////
 
@@ -87,13 +88,13 @@ export default function edit() {
                 setProfile({ ...profile, ...doc.data() });
               } else {
                 if (!profile.userName) {
-                  setProfile({ ...profile, userName: user.displayName });
+                  setProfile({ ...profile, userName: displayName });
                 }
               }
             });
       return () => unSub();
     }
-  }, [userId]);
+  }, [userId,displayName]);
 
 
   useEffect(() => {

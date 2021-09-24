@@ -32,7 +32,7 @@ export const Header = () => {
         .collection("userProfiles")
         .doc(userId)
         .onSnapshot((doc) => {
-          if (doc.data().homeAddress) {
+          if (doc.data() && doc.data().homeAddress) {
             setCheck(false);
           } else {
             setCheck(true);

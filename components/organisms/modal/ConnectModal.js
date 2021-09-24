@@ -168,9 +168,6 @@ export default function ConnectModal({ isOpen, setIsOpen }) {
     }
   }, [passesA, passesB]);
 
-  console.log(passes);
-  // console.log(passesB);
-
   const allow = async (receive) => {
     if (receive) {
       await db
