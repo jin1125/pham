@@ -113,7 +113,7 @@ export const Search =()=> {
         .then(() => {
           alert.success("つながりました");
         })
-        .catch((error) => {
+        .catch(() => {
           alert.error("つながれませんでした");
         });
     } else {

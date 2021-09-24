@@ -78,16 +78,6 @@ export default function login() {
       });
   };
 
-  const switchSignIn = () => {
-    setIsLogin(true);
-  };
-
-  const switchSignUp = () => {
-    setIsLogin(false);
-  };
-
-  console.log(name);
-
   ////////////////////////// JSXエリア //////////////////////////
   return (
     <div className="min-h-screen">
@@ -118,7 +108,7 @@ export default function login() {
             <div className="grid grid-cols-2">
               <div>
                 <button
-                  onClick={switchSignIn}
+                  onClick={()=>setIsLogin(true)}
                   className="font-bold my-5 hover:text-gray-500 transition duration-300"
                 >
                   <p className={isLogin ? "border-b-4 border-blue-400" : ""}>
@@ -128,7 +118,7 @@ export default function login() {
               </div>
               <div>
                 <button
-                  onClick={switchSignUp}
+                  onClick={()=>setIsLogin(false)}
                   className="font-bold my-5 hover:text-gray-500 transition duration-300"
                 >
                   <p className={isLogin ? "" : "border-b-4 border-blue-400"}>

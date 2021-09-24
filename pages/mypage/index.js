@@ -6,7 +6,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Layout } from "../../components/layout/Layout";
 import { auth, db, storage } from "../../firebase";
 import { UserContext } from "../../UserContext";
-import Link from "next/link";
+import ConnectModal from "../../components/organisms/modal/ConnectModal";
 
 export default function mypage() {
   const { userId, setUserId } = useContext(UserContext);
@@ -17,6 +17,7 @@ export default function mypage() {
   const [phMatch, setPhMatch] = useState([]);
   const [phMatchA, setPhMatchA] = useState([]);
   const [phMatchB, setPhMatchB] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     let isMounted = true;
@@ -123,6 +124,10 @@ export default function mypage() {
     userName,
   } = profile;
 
+  const connect =()=>{
+    setIsOpen(true)
+  }
+
   ////////////////////////// JSXエリア //////////////////////////
   return (
     <div className="min-h-screen">
@@ -130,6 +135,8 @@ export default function mypage() {
         <title>Pham マイページ</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
+      <ConnectModal isOpen={isOpen} setIsOpen={setIsOpen} />
 
       <Layout>
         <div className="grid grid-cols-12 gap-10 m-10">
@@ -157,13 +164,12 @@ export default function mypage() {
             <div className="flex flex-row flex-wrap my-5 justify-center gap-1 items-center">
               <Emoji emoji="handshake" size={20} />
               <p className="text-base">{`${phMatch.length}人`}</p>
-              <Link href='/connect'>
               <button
                   className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 py-1 px-2 mx-2 rounded-full shadow-lg text-xs"
+                  onClick={connect}
                 >
                   リクエスト
                 </button>
-              </Link>
             </div>
 
             {scout && (

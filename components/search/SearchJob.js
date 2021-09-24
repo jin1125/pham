@@ -154,11 +154,18 @@ export const SearchJob = () => {
         if (coPassId) {
           return;
         }
+
         await db.collection("coMatch").add({
           pharmacist: userId,
           company: selectJob.coId,
           requestPh: true,
           requestCo: false,
+        })
+        .then(()=>{
+          console.log('add');
+        })
+        .catch((error) => {
+          console.log(error);
         });
       }
 

@@ -9,6 +9,7 @@ export function hitComponentPh({ hit }) {
     selectPharmacyAddress,
     companyId,
     pharmId,
+    setPharmId
   } = useContext(UserContext);
 
   const click = () => {
@@ -18,6 +19,7 @@ export function hitComponentPh({ hit }) {
  useEffect(()=>{
   if(pharmId && pharmId === hit.objectID){
     setSelectPharmacy(hit);
+    
   }
  },[pharmId])
 

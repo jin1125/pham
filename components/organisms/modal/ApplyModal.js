@@ -28,7 +28,6 @@ export default function ApplyModal({ isOpen, setIsOpen }) {
               <Dialog.Overlay className="fixed inset-0" />
             </Transition.Child>
 
-            {/* This element is to trick the browser into centering the modal contents. */}
             <span
               className="inline-block h-screen align-middle"
               aria-hidden="true"
@@ -47,7 +46,7 @@ export default function ApplyModal({ isOpen, setIsOpen }) {
               <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-center align-middle transition-all transform bg-white shadow-xl rounded-2xl">
                 <Dialog.Title
                   as="h3"
-                  className="text-2xl font-bold leading-6 text-blue-400"
+                  className="text-2xl font-bold leading-6 text-blue-400 my-5"
                 >
                   応募完了
                 </Dialog.Title>
