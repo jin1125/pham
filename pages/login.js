@@ -25,7 +25,10 @@ export default function login() {
         alert.success("Googleで続行しました");
         Router.push("/mypage");
       })
-      .catch(() => alert.error("Googleで続行できませんでした"));
+      .catch((error) => {
+        console.log(error);
+        alert.error("Googleで続行できませんでした")
+      });
   };
 
   //メールアドレスログイン
