@@ -3,7 +3,6 @@ import Head from "next/head";
 import Image from "next/image";
 import Router from "next/router";
 import React, { useContext, useEffect, useState } from "react";
-import Loader from "react-loader-spinner";
 import { Layout } from "../../components/layout/Layout";
 import ConnectModal from "../../components/organisms/modal/ConnectModal";
 import { auth, db, storage } from "../../firebase";

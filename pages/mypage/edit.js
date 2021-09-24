@@ -8,6 +8,7 @@ import { useAlert } from "react-alert";
 import { Layout } from "../../components/layout/Layout";
 import { auth, db, provider, storage } from "../../firebase";
 import { UserContext } from "../../UserContext";
+import Loader from "react-loader-spinner";
 
 export default function edit() {
   ////////////////// ステートエリア //////////////////
@@ -181,6 +182,7 @@ export default function edit() {
 
   /// 変更を保存ボタン処理 ///
   const editHandler = async () => {
+    setLoading(true)
     let profileUrl = "";
     let freeUrl0 = "";
     let freeUrl1 = "";
@@ -258,7 +260,8 @@ export default function edit() {
       })
       .catch(() => {
         alert.error("プロフィールを変更できませんでした");
-      });
+      })
+      .finally(()=> setLoading(false))
   };
 
   /// 経験年数の各experienceの変更処理 ///
@@ -1243,7 +1246,17 @@ export default function edit() {
               onClick={editHandler}
               disabled={check1}
             >
-              変更を保存
+              {loading?(
+                <div className='flex justify-center'>
+                  <Loader
+                  type="Watch"
+                  color="#FFFFFF"
+                  height={30}
+                  width={30}
+                />
+                </div>
+              ):("変更を保存")}
+             
             </button>
             {check1 && (
               <p className="text-red-500 text-xs mt-2">

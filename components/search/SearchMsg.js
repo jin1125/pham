@@ -5,6 +5,7 @@ import Image from "next/image";
 import Router from "next/router";
 import { useContext, useEffect, useRef, useState } from "react";
 import { Hits, InstantSearch } from "react-instantsearch-dom";
+import Loader from "react-loader-spinner";
 import { auth, db, storage } from "../../firebase";
 import { UserContext } from "../../UserContext";
 import { hitComponentCoMsg } from "./hitComponentCoMsg";
@@ -30,6 +31,7 @@ export const SearchMsg = () => {
   const [coName, setCoName] = useState("");
   const [coAvatarImage, setCoAvatarImage] = useState("");
   const [changeMsg, setChangeMsg] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [feeds, setFeeds] = useState([
     {
       avatarImage: "",
@@ -160,6 +162,7 @@ export const SearchMsg = () => {
   };
 
   const sendMsg = async () => {
+    setLoading(true);
     if (msgImage) {
       const S =
         "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -201,12 +204,13 @@ export const SearchMsg = () => {
               image: url,
               datetime: firebase.firestore.Timestamp.now(),
             });
+        })
+        .finally(() => {
+          setLoading(false);
+          setMsg("");
+          setFileUrl("");
+          setMsgImage("");
         });
-
-      setMsg("");
-      setFileUrl("");
-      setMsgImage("");
-      console.log("send!");
     } else {
       await db
         .collection("msgs")
@@ -234,12 +238,13 @@ export const SearchMsg = () => {
           text: msg,
           image: "",
           datetime: firebase.firestore.Timestamp.now(),
+        })
+        .finally(() => {
+          setLoading(false);
+          setMsg("");
+          setFileUrl("");
+          setMsgImage("");
         });
-
-      setMsg("");
-      setFileUrl("");
-      setMsgImage("");
-      console.log("send!");
     }
   };
 
@@ -260,7 +265,6 @@ export const SearchMsg = () => {
           <div className="absolute h-full flex flex-col w-full">
             <div className="flex flex-row  flex-wrap bg-blue-400 text-lg py-3 leading-none justify-center items-center gap-3">
               <button
-                className=""
                 onClick={() => {
                   setChangeMsg(!changeMsg);
                   setSelectMsg("");
@@ -322,7 +326,6 @@ export const SearchMsg = () => {
             </InstantSearch>
           </div>
         </div>
-
 
         {/* ////// プロフィール描画(ページ右) ////// */}
         {changeMsg && selectMsg ? (
@@ -426,13 +429,19 @@ export const SearchMsg = () => {
                 onChange={(e) => setMsg(e.target.value.trim())}
               />
 
-              <button
-                className="col-span-1 transform  duration-500 hover:scale-150 hover:-rotate-45 hover:-translate-y-6 disabled:opacity-60 disabled:hover:scale-100 disabled:hover:rotate-0 disabled:hover:-translate-y-0"
-                onClick={sendMsg}
-                disabled={!msg && !fileUrl}
-              >
-                <Emoji emoji="rocket" size={35} />
-              </button>
+              {loading ? (
+                <div className="flex justify-center">
+                  <Loader type="Watch" color="#93C5FD" height={30} width={30} />
+                </div>
+              ) : (
+                <button
+                  className="col-span-1 transform  duration-500 hover:scale-150 hover:-rotate-45 hover:-translate-y-6 disabled:opacity-60 disabled:hover:scale-100 disabled:hover:rotate-0 disabled:hover:-translate-y-0"
+                  onClick={sendMsg}
+                  disabled={!msg && !fileUrl}
+                >
+                  <Emoji emoji="rocket" size={35} />
+                </button>
+              )}
             </div>
           </div>
         ) : !changeMsg && selectMsg ? (
@@ -455,17 +464,27 @@ export const SearchMsg = () => {
                           src={avatarImage}
                           alt="avatarImage"
                         />
+                      ) : feed.id === selectMsg.objectID &&
+                        selectMsg.profileImageUrl ? (
+                        <Image
+                          className="inline object-cover mr-2 rounded-full"
+                          width={50}
+                          height={50}
+                          src={selectMsg.profileImageUrl}
+                          alt="avatarImage"
+                        />
+                      ) : feed.id === userId && avatarImage && demoImg ? (
+                        <Image
+                          className="inline object-cover mr-2 rounded-full"
+                          width={50}
+                          height={50}
+                          src={demoImg}
+                          alt="avatarImage"
+                        />
                       ) : (
                         feed.id === selectMsg.objectID &&
-                        selectMsg.profileImageUrl ? (
-                          <Image
-                            className="inline object-cover mr-2 rounded-full"
-                            width={50}
-                            height={50}
-                            src={selectMsg.profileImageUrl}
-                            alt="avatarImage"
-                          />
-                        ):(feed.id === userId && avatarImage && demoImg ? (
+                        selectMsg.profileImageUrl &&
+                        demoImg && (
                           <Image
                             className="inline object-cover mr-2 rounded-full"
                             width={50}
@@ -473,19 +492,8 @@ export const SearchMsg = () => {
                             src={demoImg}
                             alt="avatarImage"
                           />
-                        ):(feed.id === selectMsg.objectID &&
-                          selectMsg.profileImageUrl && demoImg &&
-                          <Image
-                            className="inline object-cover mr-2 rounded-full"
-                            width={50}
-                            height={50}
-                            src={demoImg}
-                            alt="avatarImage"
-                          />
-                        )
                         )
                       )}
-
 
                       {feed.id === userId && coAvatarImage ? (
                         <Image
@@ -597,13 +605,19 @@ export const SearchMsg = () => {
                 onChange={(e) => setMsg(e.target.value.trim())}
               />
 
-              <button
-                className="col-span-1 transform  duration-500 hover:scale-150 hover:-rotate-45 hover:-translate-y-6 disabled:opacity-60 disabled:hover:scale-100 disabled:hover:rotate-0 disabled:hover:-translate-y-0"
-                onClick={sendMsg}
-                disabled={!msg && !fileUrl}
-              >
-                <Emoji emoji="rocket" size={35} />
-              </button>
+              {loading ? (
+                <div className="flex justify-center">
+                  <Loader type="Watch" color="#93C5FD" height={30} width={30} />
+                </div>
+              ) : (
+                <button
+                  className="col-span-1 transform  duration-500 hover:scale-150 hover:-rotate-45 hover:-translate-y-6 disabled:opacity-60 disabled:hover:scale-100 disabled:hover:rotate-0 disabled:hover:-translate-y-0"
+                  onClick={sendMsg}
+                  disabled={!msg && !fileUrl}
+                >
+                  <Emoji emoji="rocket" size={35} />
+                </button>
+              )}
             </div>
           </div>
         ) : (
