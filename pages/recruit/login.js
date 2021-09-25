@@ -39,15 +39,24 @@ export default function login() {
         </div>
       </header>
 
-      <div className="grid grid-cols-2 h-screen items-center -mt-20">
-        <div className="text-center">
+      <div className="grid lg:grid-cols-2 min-h-screen md:-mt-20 justify-items-center items-center">
+        <div className="text-center md:w-3/4 w-11/12 mb-5">
           <div>
-            <h1 className="text-2xl ml-20 text-blue-400 font-bold">
+            <h1 className="text-2xl text-blue-400 font-bold">
               企業ログイン
             </h1>
           </div>
 
-          <div className="border my-7 ml-20 shadow-lg">
+          <div className="text-center block lg:hidden my-5">
+          <Image
+            src="/recruit_login_img.png"
+            alt="login_img"
+            width={200}
+            height={200}
+          />
+        </div>
+
+          <div className="border my-7 shadow-lg">
             <div className="my-7">
               <label>
                 <p>メールアドレス</p>
@@ -96,7 +105,7 @@ export default function login() {
           </div>
         </div>
 
-        <div className="text-center">
+        <div className="text-center hidden lg:block">
           <Image
             src="/recruit_login_img.png"
             alt="login_img"
