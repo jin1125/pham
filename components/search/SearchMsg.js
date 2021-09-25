@@ -259,10 +259,10 @@ export const SearchMsg = () => {
 
   return (
     <div>
-      <div className="grid grid-cols-12 gap-10">
+      <div className="grid grid-cols-12">
         {/* ////// プロフィール検索(ページ左) ////// */}
-        <div className="col-span-3 border-r-2 border-blue-400 relative ">
-          <div className="absolute h-full flex flex-col w-full">
+        <div className="md:col-span-3 col-span-12 border-r-2 border-blue-400 relative ">
+          <div className="md:absolute h-full flex flex-col w-full">
             <div className="flex flex-row  flex-wrap bg-blue-400 text-lg py-3 leading-none justify-center items-center gap-3">
               <button
                 onClick={() => {
@@ -304,7 +304,7 @@ export const SearchMsg = () => {
               </div>
 
               <div
-                className="overflow-y-auto pb-24"
+                className="overflow-y-auto md:max-h-screen max-h-60 lg:pb-20 pb-12"
                 // onClick={() =>
                 //   setFeeds([
                 //     {
@@ -329,8 +329,8 @@ export const SearchMsg = () => {
 
         {/* ////// プロフィール描画(ページ右) ////// */}
         {changeMsg && selectMsg ? (
-          <div className="col-span-9">
-            <div className="overflow-auto h-screen pb-20">
+          <div className="md:col-span-9 col-span-12">
+            <div className="overflow-auto h-screen lg:pb-16 pb-12 md:px-10 px-5">
               {feeds.map((feed, index) => {
                 isLastItem = length === index + 1;
                 return (
@@ -339,10 +339,10 @@ export const SearchMsg = () => {
                     className="grid grid-cols-12 gap-5 my-12"
                     ref={ref}
                   >
-                    <div className="col-span-1">
+                    <div className="md:col-span-1 col-span-2">
                       {feed.id === userId && avatarImage ? (
                         <Image
-                          className="inline object-cover mr-2 rounded-full"
+                          className="inline object-cover  rounded-full"
                           width={50}
                           height={50}
                           src={avatarImage}
@@ -351,7 +351,7 @@ export const SearchMsg = () => {
                       ) : feed.id === selectMsg.objectID &&
                         selectMsg.profileImageUrl ? (
                         <Image
-                          className="inline object-cover mr-2 rounded-full"
+                          className="inline object-cover  rounded-full"
                           width={50}
                           height={50}
                           src={selectMsg.profileImageUrl}
@@ -360,7 +360,7 @@ export const SearchMsg = () => {
                       ) : (
                         demoImg && (
                           <Image
-                            className="inline object-cover mr-2 rounded-full"
+                            className="inline object-cover  rounded-full"
                             width={50}
                             height={50}
                             src={demoImg}
@@ -370,7 +370,7 @@ export const SearchMsg = () => {
                       )}
                     </div>
 
-                    <div className="col-span-11">
+                    <div className="md:col-span-11 col-span-10">
                       <div className="flex flex-row flex-wrap gap-3 items-end mb-1">
                         {feed.id === userId && (
                           <p className="font-bold">{name}</p>
@@ -385,7 +385,7 @@ export const SearchMsg = () => {
                       <p>{feed.text}</p>
                       {feed.image && (
                         <Image
-                          className="inline object-cover mr-2 rounded-lg"
+                          className="inline object-cover  rounded-lg"
                           width={200}
                           height={200}
                           src={feed.image}
@@ -398,11 +398,11 @@ export const SearchMsg = () => {
               })}
             </div>
 
-            <div className="grid grid-cols-12 gap-2 justify-items-center items-center leading-none fixed right-0 bottom-0 w-full py-4 bg-white border-t-2">
+            <div className="grid grid-cols-12 gap-2 justify-items-center items-center leading-none fixed right-0 bottom-0 w-full p-4 bg-white border-t-2">
               <label className="col-span-1 cursor-pointer hover:opacity-60">
                 {fileUrl ? (
                   <Image
-                    className="inline object-cover mr-2 rounded-lg"
+                    className="inline object-cover  rounded-lg"
                     width={50}
                     height={50}
                     src={fileUrl}
@@ -445,8 +445,8 @@ export const SearchMsg = () => {
             </div>
           </div>
         ) : !changeMsg && selectMsg ? (
-          <div className="col-span-9">
-            <div className="overflow-auto h-screen pb-20">
+          <div className="md:col-span-9 col-span-12">
+            <div className="overflow-auto h-screen lg:pb-16 pb-12 md:px-10 px-5">
               {feeds.map((feed, index) => {
                 isLastItem = length === index + 1;
                 return (
@@ -455,10 +455,10 @@ export const SearchMsg = () => {
                     className="grid grid-cols-12 gap-5 my-12"
                     ref={ref}
                   >
-                    <div className="col-span-1">
+                    <div className="md:col-span-1 col-span-2">
                       {feed.id === userId && avatarImage ? (
                         <Image
-                          className="inline object-cover mr-2 rounded-full"
+                          className="inline object-cover  rounded-full"
                           width={50}
                           height={50}
                           src={avatarImage}
@@ -467,7 +467,7 @@ export const SearchMsg = () => {
                       ) : feed.id === selectMsg.objectID &&
                         selectMsg.profileImageUrl ? (
                         <Image
-                          className="inline object-cover mr-2 rounded-full"
+                          className="inline object-cover  rounded-full"
                           width={50}
                           height={50}
                           src={selectMsg.profileImageUrl}
@@ -475,7 +475,7 @@ export const SearchMsg = () => {
                         />
                       ) : feed.id === userId && avatarImage && demoImg ? (
                         <Image
-                          className="inline object-cover mr-2 rounded-full"
+                          className="inline object-cover  rounded-full"
                           width={50}
                           height={50}
                           src={demoImg}
@@ -486,7 +486,7 @@ export const SearchMsg = () => {
                         selectMsg.profileImageUrl &&
                         demoImg && (
                           <Image
-                            className="inline object-cover mr-2 rounded-full"
+                            className="inline object-cover  rounded-full"
                             width={50}
                             height={50}
                             src={demoImg}
@@ -497,7 +497,7 @@ export const SearchMsg = () => {
 
                       {feed.id === userId && coAvatarImage ? (
                         <Image
-                          className="inline object-cover mr-2 rounded-full"
+                          className="inline object-cover  rounded-full"
                           width={50}
                           height={50}
                           src={coAvatarImage}
@@ -506,7 +506,7 @@ export const SearchMsg = () => {
                       ) : feed.id === selectMsg.objectID &&
                         selectMsg.companyImageUrl ? (
                         <Image
-                          className="inline object-cover mr-2 rounded-full"
+                          className="inline object-cover  rounded-full"
                           width={50}
                           height={50}
                           src={selectMsg.companyImageUrl}
@@ -516,7 +516,7 @@ export const SearchMsg = () => {
                         coAvatarImage &&
                         companyDemoImg ? (
                         <Image
-                          className="inline object-cover mr-2 rounded-full"
+                          className="inline object-cover  rounded-full"
                           width={50}
                           height={50}
                           src={companyDemoImg}
@@ -527,7 +527,7 @@ export const SearchMsg = () => {
                         selectMsg.companyImageUrl &&
                         companyDemoImg && (
                           <Image
-                            className="inline object-cover mr-2 rounded-full"
+                            className="inline object-cover  rounded-full"
                             width={50}
                             height={50}
                             src={companyDemoImg}
@@ -537,7 +537,7 @@ export const SearchMsg = () => {
                       )}
                     </div>
 
-                    <div className="col-span-11">
+                    <div className="md:col-span-11 col-span-10">
                       <div className="flex flex-row flex-wrap gap-3 items-end mb-1">
                         {feed.id === userId && name && (
                           <p className="font-bold">{name}</p>
@@ -561,7 +561,7 @@ export const SearchMsg = () => {
                       <p>{feed.text}</p>
                       {feed.image && (
                         <Image
-                          className="inline object-cover mr-2 rounded-lg"
+                          className="inline object-cover  rounded-lg"
                           width={200}
                           height={200}
                           src={feed.image}
@@ -574,11 +574,11 @@ export const SearchMsg = () => {
               })}
             </div>
 
-            <div className="grid grid-cols-12 gap-2 justify-items-center items-center leading-none fixed right-0 bottom-0 w-full py-4 bg-white border-t-2">
+            <div className="grid grid-cols-12 gap-2 justify-items-center items-center leading-none fixed right-0 bottom-0 w-full p-4 bg-white border-t-2">
               <label className="col-span-1 cursor-pointer hover:opacity-60">
                 {fileUrl ? (
                   <Image
-                    className="inline object-cover mr-2 rounded-lg"
+                    className="inline object-cover  rounded-lg"
                     width={50}
                     height={50}
                     src={fileUrl}
@@ -621,7 +621,7 @@ export const SearchMsg = () => {
             </div>
           </div>
         ) : (
-          <div className="h-screen col-span-9 justify-self-center self-center pt-24">
+          <div className="h-screen md:col-span-9 col-span-12 justify-self-center self-center md:pt-24">
             <Image
               src="/message_img.png"
               alt="login_img"

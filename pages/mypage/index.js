@@ -163,7 +163,7 @@ export default function mypage() {
             )}
 
           <div className='lg:hidden block'>
-            <div className="flex flex-row flex-wrap justify-center items-end my-10 gap-8 text-center">
+            <div className="flex flex-row flex-wrap justify-center items-end my-5 gap-8 text-center">
               <div>
                 {userName ? (
                   <h2 className="text-4xl font-bold">{userName}</h2>

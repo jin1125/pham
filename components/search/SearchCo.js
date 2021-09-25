@@ -59,11 +59,11 @@ export const SearchCo = () => {
 
   return (
     <div>
-      <div className="grid grid-cols-12 gap-10">
+      <div className="grid grid-cols-12">
         {/* ////// 企業検索(ページ左) ////// */}
 
-        <div className="col-span-3 border-r-2 border-blue-400 relative">
-          <div className="absolute h-full flex flex-col w-full">
+        <div className="md:col-span-3 col-span-12 border-r-2 border-blue-400 relative">
+          <div className="md:absolute h-full flex flex-col w-full">
             <div className="text-center">
               <h4 className="text-white bg-blue-400 font-bold text-lg py-3">
                 企業検索
@@ -144,7 +144,7 @@ export const SearchCo = () => {
                 </div>
               </div>
 
-              <div className="overflow-y-auto">
+              <div className="overflow-y-auto md:max-h-screen max-h-60">
                 <Hits hitComponent={hitComponentCo} />
               </div>
             </InstantSearch>
@@ -153,8 +153,8 @@ export const SearchCo = () => {
 
         {/* ////// 企業検索描画(ページ右) ////// */}
         {selectCompany ? (
-          <div className="col-span-9 min-h-screen">
-            <div className="grid grid-cols-12 gap-10 my-10 mr-10">
+          <div className="md:col-span-9 col-span-12 min-h-screen md:px-10 px-5">
+            <div className="grid grid-cols-12 my-10 mr-10">
               <div className="col-span-3 justify-self-center">
                 {selectCompany.companyImageUrl ? (
                   <Image
@@ -292,7 +292,7 @@ export const SearchCo = () => {
             </div>
           </div>
         ) : (
-          <div className="h-screen col-span-9 justify-self-center self-center pt-24">
+          <div className="h-screen md:col-span-9 col-span-12 justify-self-center self-center md:pt-24">
             <Image
               src="/companies_search_img.png"
               alt="login_img"

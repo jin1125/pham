@@ -11,7 +11,7 @@ import { UserContext } from "../../UserContext";
 import { hitComponent } from "./HitComponent";
 import { CustomSearchBox } from "./SearchBox";
 
-export const Search =()=> {
+export const Search = () => {
   const searchClient = algoliasearch(
     "0TMIYQ8E9N",
     "58e6e394abd7a5cfcc6fcae0d7b51ac5"
@@ -195,10 +195,10 @@ export const Search =()=> {
 
   return (
     <div>
-      <div className="grid grid-cols-12 gap-10">
+      <div className="grid grid-cols-12">
         {/* ////// プロフィール検索(ページ左) ////// */}
-        <div className="col-span-3 border-r-2 border-blue-400 relative">
-          <div className="absolute h-full flex flex-col w-full">
+        <div className="md:col-span-3 col-span-12 border-r-2 border-blue-400 relative">
+          <div className="md:absolute h-full flex flex-col w-full">
             <div className="text-center">
               <h4 className="text-white bg-blue-400 font-bold text-lg py-3">
                 薬剤師検索
@@ -276,13 +276,16 @@ export const Search =()=> {
                   </div>
                 </div>
               </div>
-              <div className="overflow-y-auto" onClick={()=>{
-                setDisabledState("")
-                setPassId("")
-                setPassData("")
-                setReceiveId("")
-                setReceiveData("")
-              }}>
+              <div
+                className="overflow-y-auto md:max-h-screen  max-h-60"
+                onClick={() => {
+                  setDisabledState("");
+                  setPassId("");
+                  setPassData("");
+                  setReceiveId("");
+                  setReceiveData("");
+                }}
+              >
                 <Hits hitComponent={hitComponent} />
               </div>
             </InstantSearch>
@@ -291,12 +294,12 @@ export const Search =()=> {
 
         {/* ////// プロフィール描画(ページ右) ////// */}
         {selectProfile ? (
-          <div className="col-span-9 min-h-screen">
-            <div className="grid grid-cols-12 gap-10 my-10 mr-10">
-              <div className="col-span-3 justify-self-center">
+          <div className="md:col-span-9 col-span-12 min-h-screen px-5">
+            <div className="grid grid-cols-12 my-10">
+              <div className="lg:col-span-3 col-span-12 justify-self-center text-center">
                 {selectProfile.profileImageUrl ? (
                   <Image
-                    className="inline object-cover mr-2 rounded-full"
+                    className="inline object-cover rounded-full"
                     width={200}
                     height={200}
                     src={selectProfile.profileImageUrl}
@@ -305,7 +308,7 @@ export const Search =()=> {
                 ) : (
                   demoImg && (
                     <Image
-                      className="inline object-cover mr-2 rounded-full"
+                      className="inline object-cover rounded-full"
                       width={200}
                       height={200}
                       src={demoImg}
@@ -314,9 +317,76 @@ export const Search =()=> {
                   )
                 )}
 
+                <div className="lg:hidden block">
+                  <div className="flex flex-row flex-wrap items-end my-5 gap-8 justify-center">
+                    <div>
+                      <h2 className="text-4xl font-bold">
+                        {selectProfile.userName}
+                      </h2>
+                    </div>
+
+                    {selectProfile.jobTitle && (
+                      <div>
+                        <p className="text-xl font-bold text-blue-400">
+                          {selectProfile.jobTitle}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
                 <div className="flex flex-row flex-wrap my-5 justify-center gap-1 items-center">
                   <Emoji emoji="handshake" size={20} />
                   <p className="text-base">{`${phMatch.length}人`}</p>
+                </div>
+
+                <div className="lg:hidden block">
+                  <div className="flex flex-row flex-wrap my-5 gap-6 leading-none">
+                    {selectProfile.homeAddress && (
+                      <div className="flex flex-row flex-wrap gap-1 items-center">
+                        <Emoji emoji="round_pushpin" size={20} />
+                        <p className="text-base">
+                          {selectProfile.homeAddress.slice(3)}
+                        </p>
+                      </div>
+                    )}
+
+                    {selectProfile.dobYY &&
+                      selectProfile.dobMM &&
+                      selectProfile.dobDD && (
+                        <div className="flex flex-row flex-wrap gap-1 items-center">
+                          <Emoji emoji="birthday" size={20} />
+                          <p className="text-base">{`${selectProfile.dobYY}/${selectProfile.dobMM}/${selectProfile.dobDD}`}</p>
+                        </div>
+                      )}
+
+                    {selectProfile.school && (
+                      <div className="flex flex-row flex-wrap gap-1 items-center">
+                        <Emoji emoji="school" size={20} />
+                        <p className="text-base">{`${selectProfile.school} 卒業`}</p>
+                      </div>
+                    )}
+
+                    {selectProfile.birthPlace && (
+                      <div className="flex flex-row flex-wrap gap-1 items-center">
+                        <Emoji emoji="baby" size={20} />
+                        <p className="text-base">{`${selectProfile.birthPlace} 出身`}</p>
+                      </div>
+                    )}
+
+                    {selectProfile.language && (
+                      <div className="flex flex-row flex-wrap gap-1 items-center">
+                        <Emoji emoji="speaking_head_in_silhouette" size={20} />
+                        <p className="text-base">{selectProfile.language}</p>
+                      </div>
+                    )}
+                  </div>
+
+                  {selectProfile.comments && (
+                    <div className="my-12 whitespace-pre-wrap">
+                      <p className="text-base">{selectProfile.comments}</p>
+                    </div>
+                  )}
                 </div>
 
                 <div className="my-10 text-center">
@@ -353,140 +423,144 @@ export const Search =()=> {
                   )}
                 </div>
 
-                {selectProfile.freeImageUrl0 ? (
-                  <div className="mr-2 my-5">
-                    <Image
-                      className="inline object-cover transform  hover:scale-150 transition duration-300"
-                      width={200}
-                      height={200}
-                      src={selectProfile.freeImageUrl0}
-                      alt="Free image0"
-                    />
-                  </div>
-                ) : (
-                  demoImgs && (
-                    <div className="mr-2 my-5">
+                <div className="flex lg:flex-col flex-row md:gap-5">
+                  {selectProfile.freeImageUrl0 ? (
+                    <div>
                       <Image
-                        className="inline object-cover"
+                        className="inline object-cover transform  hover:scale-150 transition duration-300"
                         width={200}
                         height={200}
-                        src={demoImgs}
+                        src={selectProfile.freeImageUrl0}
                         alt="Free image0"
                       />
                     </div>
-                  )
-                )}
-                {selectProfile.freeImageUrl1 ? (
-                  <div className="mr-2 my-5">
-                    <Image
-                      className="inline object-cover transform hover:scale-150 transition duration-300"
-                      width={200}
-                      height={200}
-                      src={selectProfile.freeImageUrl1}
-                      alt="Free image1"
-                    />
-                  </div>
-                ) : (
-                  demoImgs && (
-                    <div className="mr-2 my-5">
+                  ) : (
+                    demoImgs && (
+                      <div>
+                        <Image
+                          className="inline object-cover"
+                          width={200}
+                          height={200}
+                          src={demoImgs}
+                          alt="Free image0"
+                        />
+                      </div>
+                    )
+                  )}
+                  {selectProfile.freeImageUrl1 ? (
+                    <div>
                       <Image
-                        className="inline object-cover"
+                        className="inline object-cover transform hover:scale-150 transition duration-300"
                         width={200}
                         height={200}
-                        src={demoImgs}
+                        src={selectProfile.freeImageUrl1}
                         alt="Free image1"
                       />
                     </div>
-                  )
-                )}
-                {selectProfile.freeImageUrl2 ? (
-                  <div className="mr-2 my-5">
-                    <Image
-                      className="inline object-cover transform hover:scale-150 transition duration-300"
-                      width={200}
-                      height={200}
-                      src={selectProfile.freeImageUrl2}
-                      alt="Free image2"
-                    />
-                  </div>
-                ) : (
-                  demoImgs && (
-                    <div className="mr-2 my-5">
+                  ) : (
+                    demoImgs && (
+                      <div>
+                        <Image
+                          className="inline object-cover"
+                          width={200}
+                          height={200}
+                          src={demoImgs}
+                          alt="Free image1"
+                        />
+                      </div>
+                    )
+                  )}
+                  {selectProfile.freeImageUrl2 ? (
+                    <div>
                       <Image
-                        className="inline object-cover"
+                        className="inline object-cover transform hover:scale-150 transition duration-300"
                         width={200}
                         height={200}
-                        src={demoImgs}
+                        src={selectProfile.freeImageUrl2}
                         alt="Free image2"
                       />
                     </div>
-                  )
-                )}
-              </div>
-
-              <div className="col-span-9">
-                <div className="flex flex-row flex-wrap items-end my-10 gap-8">
-                  <div>
-                    <h2 className="text-4xl font-bold">
-                      {selectProfile.userName}
-                    </h2>
-                  </div>
-
-                  {selectProfile.jobTitle && (
-                    <div>
-                      <p className="text-xl font-bold text-blue-400">
-                        {selectProfile.jobTitle}
-                      </p>
-                    </div>
+                  ) : (
+                    demoImgs && (
+                      <div>
+                        <Image
+                          className="inline object-cover"
+                          width={200}
+                          height={200}
+                          src={demoImgs}
+                          alt="Free image2"
+                        />
+                      </div>
+                    )
                   )}
                 </div>
+              </div>
 
-                <div className="flex flex-row flex-wrap my-5 gap-6 leading-none">
-                  {selectProfile.homeAddress && (
-                    <div className="flex flex-row flex-wrap gap-1 items-center">
-                      <Emoji emoji="round_pushpin" size={20} />
-                      <p className="text-base">
-                        {selectProfile.homeAddress.slice(3)}
-                      </p>
+              <div className="lg:col-span-9 col-span-12 lg:px-10 px-5">
+                <div className="lg:block hidden">
+                  <div className="flex flex-row flex-wrap items-end my-10 gap-8">
+                    <div>
+                      <h2 className="text-4xl font-bold">
+                        {selectProfile.userName}
+                      </h2>
                     </div>
-                  )}
 
-                  {selectProfile.dobYY &&
-                    selectProfile.dobMM &&
-                    selectProfile.dobDD && (
+                    {selectProfile.jobTitle && (
+                      <div>
+                        <p className="text-xl font-bold text-blue-400">
+                          {selectProfile.jobTitle}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="flex flex-row flex-wrap my-5 gap-6 leading-none">
+                    {selectProfile.homeAddress && (
                       <div className="flex flex-row flex-wrap gap-1 items-center">
-                        <Emoji emoji="birthday" size={20} />
-                        <p className="text-base">{`${selectProfile.dobYY}/${selectProfile.dobMM}/${selectProfile.dobDD}`}</p>
+                        <Emoji emoji="round_pushpin" size={20} />
+                        <p className="text-base">
+                          {selectProfile.homeAddress.slice(3)}
+                        </p>
                       </div>
                     )}
 
-                  {selectProfile.school && (
-                    <div className="flex flex-row flex-wrap gap-1 items-center">
-                      <Emoji emoji="school" size={20} />
-                      <p className="text-base">{`${selectProfile.school} 卒業`}</p>
-                    </div>
-                  )}
+                    {selectProfile.dobYY &&
+                      selectProfile.dobMM &&
+                      selectProfile.dobDD && (
+                        <div className="flex flex-row flex-wrap gap-1 items-center">
+                          <Emoji emoji="birthday" size={20} />
+                          <p className="text-base">{`${selectProfile.dobYY}/${selectProfile.dobMM}/${selectProfile.dobDD}`}</p>
+                        </div>
+                      )}
 
-                  {selectProfile.birthPlace && (
-                    <div className="flex flex-row flex-wrap gap-1 items-center">
-                      <Emoji emoji="baby" size={20} />
-                      <p className="text-base">{`${selectProfile.birthPlace} 出身`}</p>
-                    </div>
-                  )}
+                    {selectProfile.school && (
+                      <div className="flex flex-row flex-wrap gap-1 items-center">
+                        <Emoji emoji="school" size={20} />
+                        <p className="text-base">{`${selectProfile.school} 卒業`}</p>
+                      </div>
+                    )}
 
-                  {selectProfile.language && (
-                    <div className="flex flex-row flex-wrap gap-1 items-center">
-                      <Emoji emoji="speaking_head_in_silhouette" size={20} />
-                      <p className="text-base">{selectProfile.language}</p>
+                    {selectProfile.birthPlace && (
+                      <div className="flex flex-row flex-wrap gap-1 items-center">
+                        <Emoji emoji="baby" size={20} />
+                        <p className="text-base">{`${selectProfile.birthPlace} 出身`}</p>
+                      </div>
+                    )}
+
+                    {selectProfile.language && (
+                      <div className="flex flex-row flex-wrap gap-1 items-center">
+                        <Emoji emoji="speaking_head_in_silhouette" size={20} />
+                        <p className="text-base">{selectProfile.language}</p>
+                      </div>
+                    )}
+                  </div>
+
+                  {selectProfile.comments && (
+                    <div className="my-12 whitespace-pre-wrap">
+                      <p className="text-base">{selectProfile.comments}</p>
                     </div>
                   )}
                 </div>
-
-                {selectProfile.comments && (
-                  <div className="my-12 whitespace-pre-wrap">
-                    <p className="text-base">{selectProfile.comments}</p>
-                  </div>
-                )}
 
                 {selectProfile.hobby && (
                   <div className="my-10">
@@ -591,7 +665,7 @@ export const Search =()=> {
             </div>
           </div>
         ) : (
-          <div className="h-screen col-span-9 justify-self-center self-center pt-24">
+          <div className="h-screen md:col-span-9 col-span-12 justify-self-center self-center md:pt-24">
             <Image
               src="/pharmacists_search_img.png"
               alt="login_img"
@@ -603,4 +677,4 @@ export const Search =()=> {
       </div>
     </div>
   );
-}
+};

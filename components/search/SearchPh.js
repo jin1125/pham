@@ -56,10 +56,10 @@ export const SearchPh = () => {
 
   return (
     <div>
-      <div className="grid grid-cols-12 gap-10">
+      <div className="grid grid-cols-12">
         {/* ////// 薬局検索(ページ左) ////// */}
-        <div className="col-span-3 border-r-2 border-blue-400 relative">
-          <div className="absolute h-full flex flex-col w-full">
+        <div className="md:col-span-3 col-span-12 border-r-2 border-blue-400 relative">
+          <div className="md:absolute h-full flex flex-col w-full">
             <div className="text-center">
               <h4 className="text-white bg-blue-400 font-bold text-lg py-3">
                 薬局検索
@@ -139,7 +139,7 @@ export const SearchPh = () => {
                   </div>
                 </div>
               </div>
-              <div className="overflow-y-auto">
+              <div className="overflow-y-auto md:max-h-screen max-h-60">
                 <Hits hitComponent={hitComponentPh} />
               </div>
             </InstantSearch>
@@ -148,8 +148,8 @@ export const SearchPh = () => {
 
         {/* ////// 薬局検索描画(ページ右) ////// */}
         {selectPharmacy ? (
-          <div className="col-span-9 min-h-screen">
-            <div className="flex justify-between mr-10 my-5">
+          <div className="md:col-span-9 col-span-12 min-h-screen md:px-10 px-5">
+            <div className="flex justify-between my-5">
               <div>
                 {isApply && (
                   <AnchorLink href="#btn">
@@ -217,7 +217,7 @@ export const SearchPh = () => {
               )}
             </div>
 
-            <div className="my-10 mr-10">
+            <div className="my-10">
               {selectPharmacy.comments && (
                 <div className="my-12 whitespace-pre-wrap">
                   <p className="text-base">{selectPharmacy.comments}</p>
@@ -346,7 +346,7 @@ export const SearchPh = () => {
             </div>
 
             {isApply && (
-              <div className="text-center my-20 mr-10" id="btn">
+              <div className="text-center my-20" id="btn">
                 <Link href="/jobs/search">
                   <button
                     className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 py-2 w-3/5 rounded-full shadow-lg font-bold"
@@ -362,7 +362,7 @@ export const SearchPh = () => {
             )}
           </div>
         ) : (
-          <div className="h-screen col-span-9 justify-self-center self-center pt-24">
+          <div className="h-screen md:col-span-9 col-span-12 justify-self-center self-center md:pt-24">
             <Image
               src="/pharmacy_search_img.png"
               alt="login_img"

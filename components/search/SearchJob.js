@@ -32,11 +32,8 @@ export const SearchJob = () => {
     datetime: "",
   });
   const [isOpen, setIsOpen] = useState(false);
-  const [coDisabledState, setCoDisabledState] = useState("");
   const [coPassId, setCoPassId] = useState("");
-  const [coPassData, setCoPassData] = useState("");
   const [coReceiveId, setCoReceiveId] = useState("");
-  const [coReceiveData, setCoReceiveData] = useState("");
 
   const alert = useAlert();
   const {
@@ -111,7 +108,6 @@ export const SearchJob = () => {
         .onSnapshot((docs) => {
           docs.forEach((doc) => {
             setCoReceiveId(doc.id);
-            setCoReceiveData(doc.data());
           });
         });
 
@@ -128,7 +124,6 @@ export const SearchJob = () => {
         .onSnapshot((docs) => {
           docs.forEach((doc) => {
             setCoPassId(doc.id);
-            setCoPassData(doc.data());
           });
         });
 
@@ -185,10 +180,10 @@ export const SearchJob = () => {
 
   return (
     <div>
-      <div className="grid grid-cols-12 gap-10">
+      <div className="grid grid-cols-12">
         {/* ////// 薬局検索(ページ左) ////// */}
-        <div className="col-span-3 border-r-2 border-blue-400 relative">
-          <div className="absolute h-full flex flex-col w-full">
+        <div className="md:col-span-3 col-span-12 border-r-2 border-blue-400 relative">
+          <div className="md:absolute h-full flex flex-col w-full">
             <div className="text-center">
               <h4 className="text-white bg-blue-400 font-bold text-lg py-3">
                 求人検索
@@ -196,7 +191,7 @@ export const SearchJob = () => {
             </div>
             <InstantSearch indexName={indexName} searchClient={searchClient}>
               <div className="border-b">
-                <div className="mx-5 my-7">
+                <div className="mx-5">
                   <div className="my-5">
                     <p>薬局名</p>
                     <div>
@@ -286,13 +281,10 @@ export const SearchJob = () => {
                 </div>
               </div>
               <div
-                className="overflow-y-auto"
+                className="overflow-y-auto md:max-h-screen max-h-60"
                 onClick={() => {
-                  setCoDisabledState("");
                   setCoPassId("");
-                  setCoPassData("");
                   setCoReceiveId("");
-                  setCoReceiveData("");
                 }}
               >
                 <Hits hitComponent={hitComponentJob} />
@@ -303,8 +295,8 @@ export const SearchJob = () => {
 
         {/* ////// 薬局検索描画(ページ右) ////// */}
         {selectJob ? (
-          <div className="col-span-9 min-h-screen">
-            <div className="text-right mx-10 my-5">
+          <div className="md:col-span-9 col-span-12 min-h-screen md:px-10 px-5">
+            <div className="text-right my-5">
               <Link href="/pharmacies/search">
                 <button
                   className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 py-2 px-5 rounded-full shadow-lg font-bold"
@@ -353,7 +345,7 @@ export const SearchJob = () => {
               )}
             </div>
 
-            <div className="flex flex-row flex-wrap my-5 gap-8 justify-center">
+            <div className="grid grid-cols-3 my-5 md:gap-8 gap-2 justify-center">
               {selectJob.freeImageUrl0 ? (
                 <div className="my-5">
                   <Image
@@ -425,7 +417,7 @@ export const SearchJob = () => {
               )}
             </div>
 
-            <div className="my-10 mr-10">
+            <div className="my-10">
               {selectJob.unique && (
                 <div className="my-10">
                   <div className="flex flex-row flex-wrap gap-1 items-center">
@@ -581,7 +573,7 @@ export const SearchJob = () => {
 
             <ApplyModal isOpen={isOpen} setIsOpen={setIsOpen} />
 
-            <div className="text-center my-20 mr-10">
+            <div className="text-center my-20">
               <button
                 className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 disabled:bg-blue-200 py-2 w-3/5 rounded-full shadow-lg font-bold"
                 onClick={apply}
@@ -595,7 +587,7 @@ export const SearchJob = () => {
             </div>
           </div>
         ) : (
-          <div className="h-screen col-span-9 justify-self-center self-center pt-24">
+          <div className="h-screen md:col-span-9 col-span-12 justify-self-center self-center md:pt-24">
             <Image
               src="/job_search_img.png"
               alt="login_img"
