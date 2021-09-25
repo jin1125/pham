@@ -140,7 +140,7 @@ export default function mypage() {
       <ConnectModal isOpen={isOpen} setIsOpen={setIsOpen} />
 
       <Layout>
-        <div className="grid lg:grid-cols-12 grid-cols-12 my-10">
+        <div className="grid grid-cols-12 my-10">
           <div className="lg:col-span-3 col-span-12 text-center justify-self-center ">
             {profileImageUrl ? (
               <Image
@@ -259,9 +259,9 @@ export default function mypage() {
             </div>
 
 
-            <div className="flex lg:flex-col flex-row">
+            <div className="flex lg:flex-col flex-row md:gap-5">
               {freeImageUrl0 ? (
-                <div className="mr-2 my-5">
+                <div>
                   <Image
                     className="inline object-cover transform hover:scale-150 transition duration-300"
                     width={200}
@@ -272,7 +272,7 @@ export default function mypage() {
                 </div>
               ) : (
                 demoImgs && (
-                  <div className="mr-2 my-5">
+                  <div>
                     <Image
                       className="inline object-cover"
                       width={200}
@@ -284,7 +284,7 @@ export default function mypage() {
                 )
               )}
               {freeImageUrl1 ? (
-                <div className="mr-2 my-5">
+                <div>
                   <Image
                     className="inline object-cover transform hover:scale-150 transition duration-300"
                     width={200}
@@ -295,7 +295,7 @@ export default function mypage() {
                 </div>
               ) : (
                 demoImgs && (
-                  <div className="mr-2 my-5">
+                  <div>
                     <Image
                       className="inline object-cover"
                       width={200}
@@ -307,7 +307,7 @@ export default function mypage() {
                 )
               )}
               {freeImageUrl2 ? (
-                <div className="mr-2 my-5">
+                <div>
                   <Image
                     className="inline object-cover transform hover:scale-150 transition duration-300"
                     width={200}
@@ -318,7 +318,7 @@ export default function mypage() {
                 </div>
               ) : (
                 demoImgs && (
-                  <div className="mr-2 my-5">
+                  <div>
                     <Image
                       className="inline object-cover"
                       width={200}
@@ -333,6 +333,7 @@ export default function mypage() {
           </div>
 
           <div className="lg:col-span-9 col-span-12 px-10 md:px-20 lg:px-0">
+            
           <div className='lg:block hidden'>
             <div className="flex flex-row flex-wrap items-end my-10 gap-8">
               <div>
