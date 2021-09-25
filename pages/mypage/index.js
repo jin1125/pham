@@ -134,13 +134,14 @@ export default function mypage() {
       <Head>
         <title>Pham マイページ</title>
         <link rel="icon" href="/favicon.ico" />
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
 
       <ConnectModal isOpen={isOpen} setIsOpen={setIsOpen} />
 
       <Layout>
-        <div className="grid grid-cols-12 gap-10 m-10">
-          <div className="col-span-3 justify-self-center">
+        <div className="grid lg:grid-cols-12 grid-cols-12 my-10">
+          <div className="lg:col-span-3 col-span-12 text-center justify-self-center ">
             {profileImageUrl ? (
               <Image
                 className="inline object-cover mr-2 rounded-full"
@@ -161,6 +162,24 @@ export default function mypage() {
               )
             )}
 
+          <div className='lg:hidden block'>
+            <div className="flex flex-row flex-wrap justify-center items-end my-10 gap-8 text-center">
+              <div>
+                {userName ? (
+                  <h2 className="text-4xl font-bold">{userName}</h2>
+                ) : (
+                  <h2 className="text-4xl font-bold">{displayName}</h2>
+                )}
+              </div>
+
+              {jobTitle && (
+                <div>
+                  <p className="text-xl font-bold text-blue-400">{jobTitle}</p>
+                </div>
+              )}
+            </div>
+            </div>
+
             <div className="flex flex-row flex-wrap my-5 justify-center gap-1 items-center">
               <Emoji emoji="handshake" size={20} />
               <p className="text-base">{`${phMatch.length}人`}</p>
@@ -179,78 +198,142 @@ export default function mypage() {
               </div>
             )}
 
-            {freeImageUrl0 ? (
-              <div className="mr-2 my-5">
-                <Image
-                  className="inline object-cover transform hover:scale-150 transition duration-300"
-                  width={200}
-                  height={200}
-                  src={freeImageUrl0}
-                  alt="Free image0"
-                />
+          <div className='lg:hidden block px-5'>
+            <div className="flex flex-row flex-wrap justify-center items-center my-3 gap-1 leading-none">
+              <Emoji emoji="id" size={20} />
+              <p className="text-base">{userId}</p>
+            </div>
+
+            <div className="flex flex-row flex-wrap justify-center my-5 gap-6 leading-none">
+              {homeAddress ? (
+                <div className="flex flex-row flex-wrap gap-1 items-center">
+                  <Emoji emoji="round_pushpin" size={20} />
+                  <p className="text-base">{homeAddress.slice(3)}</p>
+                </div>
+              ) : (
+                <div className="flex flex-row flex-wrap gap-1 items-center">
+                  <p className="text-xl font-bold text-blue-400">
+                    まずは、画面上部の <Emoji emoji="gear" size={30} />{" "}
+                    から<br/>プロフィール情報を入力
+                    <Emoji emoji="male_mage" size={40} />
+                  </p>
+                </div>
+              )}
+
+              {dobYY && dobMM && dobDD && (
+                <div className="flex flex-row flex-wrap gap-1 items-center">
+                  <Emoji emoji="birthday" size={20} />
+                  <p className="text-base">{`${dobYY}/${dobMM}/${dobDD}`}</p>
+                </div>
+              )}
+
+              {school && (
+                <div className="flex flex-row flex-wrap gap-1 items-center">
+                  <Emoji emoji="school" size={20} />
+                  <p className="text-base">{`${school} 卒業`}</p>
+                </div>
+              )}
+
+              {birthPlace && (
+                <div className="flex flex-row flex-wrap gap-1 items-center">
+                  <Emoji emoji="baby" size={20} />
+                  <p className="text-base">{`${birthPlace} 出身`}</p>
+                </div>
+              )}
+
+              {language && (
+                <div className="flex flex-row flex-wrap gap-1 items-center">
+                  <Emoji emoji="speaking_head_in_silhouette" size={20} />
+                  <p className="text-base">{language}</p>
+                </div>
+              )}
+            </div>
+
+            {comments && (
+              <div className="my-12 whitespace-pre-wrap">
+                <p className="text-base">{comments}</p>
               </div>
-            ) : (
-              demoImgs && (
+            )}
+
+
+            </div>
+
+
+            <div className="flex lg:flex-col flex-row">
+              {freeImageUrl0 ? (
                 <div className="mr-2 my-5">
                   <Image
-                    className="inline object-cover"
+                    className="inline object-cover transform hover:scale-150 transition duration-300"
                     width={200}
                     height={200}
-                    src={demoImgs}
+                    src={freeImageUrl0}
                     alt="Free image0"
                   />
                 </div>
-              )
-            )}
-            {freeImageUrl1 ? (
-              <div className="mr-2 my-5">
-                <Image
-                  className="inline object-cover transform hover:scale-150 transition duration-300"
-                  width={200}
-                  height={200}
-                  src={freeImageUrl1}
-                  alt="Free image1"
-                />
-              </div>
-            ) : (
-              demoImgs && (
+              ) : (
+                demoImgs && (
+                  <div className="mr-2 my-5">
+                    <Image
+                      className="inline object-cover"
+                      width={200}
+                      height={200}
+                      src={demoImgs}
+                      alt="Free image0"
+                    />
+                  </div>
+                )
+              )}
+              {freeImageUrl1 ? (
                 <div className="mr-2 my-5">
                   <Image
-                    className="inline object-cover"
+                    className="inline object-cover transform hover:scale-150 transition duration-300"
                     width={200}
                     height={200}
-                    src={demoImgs}
+                    src={freeImageUrl1}
                     alt="Free image1"
                   />
                 </div>
-              )
-            )}
-            {freeImageUrl2 ? (
-              <div className="mr-2 my-5">
-                <Image
-                  className="inline object-cover transform hover:scale-150 transition duration-300"
-                  width={200}
-                  height={200}
-                  src={freeImageUrl2}
-                  alt="Free image2"
-                />
-              </div>
-            ) : (
-              demoImgs && (
+              ) : (
+                demoImgs && (
+                  <div className="mr-2 my-5">
+                    <Image
+                      className="inline object-cover"
+                      width={200}
+                      height={200}
+                      src={demoImgs}
+                      alt="Free image1"
+                    />
+                  </div>
+                )
+              )}
+              {freeImageUrl2 ? (
                 <div className="mr-2 my-5">
                   <Image
-                    className="inline object-cover"
+                    className="inline object-cover transform hover:scale-150 transition duration-300"
                     width={200}
                     height={200}
-                    src={demoImgs}
+                    src={freeImageUrl2}
                     alt="Free image2"
                   />
                 </div>
-              )
-            )}
+              ) : (
+                demoImgs && (
+                  <div className="mr-2 my-5">
+                    <Image
+                      className="inline object-cover"
+                      width={200}
+                      height={200}
+                      src={demoImgs}
+                      alt="Free image2"
+                    />
+                  </div>
+                )
+              )}
+            </div>
           </div>
 
-          <div className="col-span-9">
+          <div className="lg:col-span-9 col-span-12 px-10 md:px-20 lg:px-0">
+          <div className='lg:block hidden'>
             <div className="flex flex-row flex-wrap items-end my-10 gap-8">
               <div>
                 {userName ? (
@@ -323,6 +406,8 @@ export default function mypage() {
               </div>
             )}
 
+          </div>
+
             {hobby && (
               <div className="my-10">
                 <div className="flex flex-row flex-wrap gap-1 items-center">
@@ -380,14 +465,14 @@ export default function mypage() {
                   <p className="text-base font-bold">経験年数</p>
                 </div>
                 {experiences.map((ex, index) => (
-                  <div key={index} className="grid grid-cols-2">
+                  <div key={index} className="grid grid-cols-12 my-3">
                     {ex.experience && (
-                      <div>
+                      <div className='col-span-8 md:col-span-6 lg:col-span-5 2xl:col-span-3'>
                         <p className="text-base">{`${ex.experience}経験`}</p>
                       </div>
                     )}
                     {ex.years && (
-                      <div>
+                      <div  className='col-span-4 md:col-span-6 lg:col-span-5 2xl:col-span-3'>
                         <p className="text-base">{`${ex.years}年程度`}</p>
                       </div>
                     )}
@@ -403,15 +488,15 @@ export default function mypage() {
                   <p className="text-base font-bold">経歴詳細</p>
                 </div>
                 {resumes.map((re, index) => (
-                  <div key={index} className="grid grid-cols-3">
-                    <div>
+                  <div key={index} className="grid grid-cols-12 my-3">
+                    <div className='col-span-8 md:col-span-6 lg:col-span-5 2xl:col-span-4'>
                       <p className="text-base">{re.companyName}</p>
                     </div>
-                    <div>
+                    <div className='col-span-4 md:col-span-6 lg:col-span-2 2xl:col-span-1'>
                       <p className="text-base">{re.employmentStatus}</p>
                     </div>
                     {re.workStart && re.workEnd && (
-                      <div>
+                      <div className='col-span-12 lg:col-span-5 2xl:col-span-3'>
                         <p className="text-base">
                           {`${re.workStart} ~ ${re.workEnd}`}
                         </p>

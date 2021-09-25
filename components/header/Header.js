@@ -45,10 +45,10 @@ export const Header = () => {
 
   return (
     <header>
-      <div className="grid grid-cols-6 gap-3 bg-blue-300 py-4 justify-items-center items-center leading-none">
+      <div className="grid grid-cols-6 gap-3 bg-blue-300 py-4 justify-items-center items-center leading-none px-1">
         <Link href="/mypage">
           <button>
-            <h2 className="text-2xl text-white font-bold">Pham</h2>
+            <h2 className="md:text-2xl text-lg text-white font-bold">Pham</h2>
           </button>
         </Link>
 
@@ -57,7 +57,10 @@ export const Header = () => {
             className="font-bold text-center text-blue-400 transition duration-300 hover:text-white bg-white hover:bg-blue-300 disabled:bg-blue-300 disabled:hover:text-blue-400 py-2 rounded-full w-full"
             disabled={check}
           >
-            メッセージ
+            <div className="hidden md:block">メッセージ</div>
+            <div className="md:hidden block">
+              <Emoji emoji="envelope_with_arrow" size={30} />
+            </div>
           </button>
         </Link>
 
@@ -67,7 +70,11 @@ export const Header = () => {
             disabled={check}
             onClick={() => setSelectProfile("")}
           >
-            薬剤師検索
+            
+            <div className="hidden md:block">薬剤師検索</div>
+            <div className="md:hidden block">
+              <Emoji emoji="pill" size={30} />
+            </div>
           </button>
         </Link>
 
@@ -82,7 +89,11 @@ export const Header = () => {
               setPharmId("");
             }}
           >
-            企業検索
+            
+            <div className="hidden md:block">企業検索</div>
+            <div className="md:hidden block">
+              <Emoji emoji="office" size={30} />
+            </div>
           </button>
         </Link>
 
@@ -97,7 +108,10 @@ export const Header = () => {
               setPharmId("");
             }}
           >
-            求人検索
+            <div className="hidden md:block">求人検索</div>
+            <div className="md:hidden block">
+              <Emoji emoji="ledger" size={30} />
+            </div>
           </button>
         </Link>
 
