@@ -59,21 +59,39 @@ export default function recruit() {
         </div>
       </header>
 
-      <div className="grid grid-cols-2 items-center">
-        <div className="text-center">
+      <div className="grid lg:grid-cols-2 min-h-screen xl:-mt-20 justify-items-center items-center">
+        <div className="text-center md:w-3/4 w-11/12">
           <div>
             {isContactUs ? (
-              <h1 className="text-2xl ml-20 text-blue-400 font-bold">
+              <h1 className="text-2xl  text-blue-400 font-bold">
                 お問い合わせ完了！
               </h1>
             ) : (
-              <h1 className="text-2xl ml-20 text-blue-400 font-bold">
+              <h1 className="text-2xl  text-blue-400 font-bold">
                 Phamへようこそ！
               </h1>
             )}
           </div>
 
-          <div className="text-left ml-20 mt-5">
+          <div className="text-center my-5 block lg:hidden">
+          {isContactUs ? (
+            <Image
+              src="/contactus_img.png"
+              alt="contactus_img"
+              width={200}
+              height={200}
+            />
+          ) : (
+            <Image
+              src="/recruit_img.png"
+              alt="recruit_img"
+              width={420}
+              height={280}
+            />
+          )}
+        </div>
+
+          <div className="mt-5 text-left">
             {isContactUs ? (
               <>
               <p className="text-sm  my-3">
@@ -91,13 +109,13 @@ export default function recruit() {
           </div>
 
           {isContactUs ? (
-            <div className='mt-10 ml-20'>
+            <div className='my-10'>
             <Link href="/">
                <button className='text-white bg-blue-400 transition duration-300 hover:bg-blue-300 py-3 px-14 rounded-full shadow-lg font-bold'>トップページへ</button>
              </Link>
            </div>
           ) : (
-            <div className="border my-7 ml-20 shadow-lg">
+            <div className="border my-7 shadow-lg">
               <div className="my-7">
                 <label>
                   <p>会社名</p>
@@ -186,7 +204,7 @@ export default function recruit() {
           )}
         </div>
 
-        <div className="text-center">
+        <div className="text-center hidden lg:block">
           {isContactUs ? (
             <Image
               src="/contactus_img.png"

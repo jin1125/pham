@@ -26,9 +26,11 @@ export default function Lp() {
       </header>
 
       <main>
-        <div className="text-center">
+        <div className="min-h-screen grid justify-items-center items-center content-center md:-mt-20 -mt-10">
           <div>
-            <h1 className='text-2xl text-blue-400 font-bold'>自分の中身を見つめ直す。薬局の中身を見つめ直す。</h1>
+            <h1 className='text-2xl text-blue-400 font-bold'>自分の中身を見つめ直す。
+            <br className='md:hidden'/>
+            薬局の中身を見つめ直す。</h1>
           </div>
           
             <Image
