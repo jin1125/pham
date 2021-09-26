@@ -1,7 +1,6 @@
 import Head from "next/head";
-import React, { useState } from "react";
+import React from "react";
 import { Layout } from "../../components/layout/Layout";
-import { SearchCoMsg } from "../../components/search/SearchCoMsg";
 import { SearchMsg } from "../../components/search/SearchMsg";
 
 export default function message() {

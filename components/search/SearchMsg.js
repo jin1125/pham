@@ -1,25 +1,14 @@
-import algoliasearch from "algoliasearch/lite";
 import { Emoji } from "emoji-mart";
 import firebase from "firebase/app";
 import Image from "next/image";
 import Router from "next/router";
 import { useContext, useEffect, useRef, useState } from "react";
-import { Hits, InstantSearch } from "react-instantsearch-dom";
 import Loader from "react-loader-spinner";
 import { auth, db, storage } from "../../firebase";
 import { UserContext } from "../../UserContext";
-import { hitComponentCoMsg } from "./hitComponentCoMsg";
-import { hitComponentMsg } from "./HitComponentMsg";
-import { CustomSearchBox } from "./SearchBox";
+import { SearchMsg_L } from "./SearchMsg_L";
 
 export const SearchMsg = () => {
-  const searchClient = algoliasearch(
-    "0TMIYQ8E9N",
-    "58e6e394abd7a5cfcc6fcae0d7b51ac5"
-  );
-
-  const indexName = "pham";
-  const indexCoName = "pham_companies";
 
   const [demoImg, setDemoImg] = useState("");
   const [companyDemoImg, setCompanyDemoImg] = useState("");
@@ -44,7 +33,7 @@ export const SearchMsg = () => {
     },
   ]);
 
-  const { selectMsg, setSelectMsg, userId, setUserId } =
+  const { selectMsg, userId, setUserId } =
     useContext(UserContext);
   const ref = useRef(null);
 
@@ -261,71 +250,7 @@ export const SearchMsg = () => {
     <div>
       <div className="grid grid-cols-12">
         {/* ////// プロフィール検索(ページ左) ////// */}
-        <div className="md:col-span-3 col-span-12 border-r-2 border-blue-400 relative ">
-          <div className="md:absolute h-full flex flex-col w-full">
-            <div className="flex flex-row  flex-wrap bg-blue-400 text-lg py-3 leading-none justify-center items-center gap-3">
-              <button
-                onClick={() => {
-                  setChangeMsg(!changeMsg);
-                  setSelectMsg("");
-                  setFeeds([
-                    {
-                      avatarImage: "",
-                      datetime: "",
-                      id: "",
-                      image: "",
-                      msgId: "",
-                      name: "",
-                      text: "",
-                    },
-                  ]);
-                }}
-              >
-                <Emoji emoji="repeat" size={25} />
-              </button>
-              <h4 className="font-bold text-white">
-                {changeMsg ? " メッセージ(薬剤師)" : " メッセージ(企業)"}
-              </h4>
-            </div>
-
-            <InstantSearch
-              indexName={changeMsg ? indexName : indexCoName}
-              searchClient={searchClient}
-            >
-              <div className="border-b">
-                <div className="mx-5 my-7">
-                  <div className="my-5">
-                    <p>{changeMsg ? "名前" : "企業名"}</p>
-                    <div>
-                      <CustomSearchBox />
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div
-                className="overflow-y-auto md:max-h-screen max-h-60 lg:pb-20 pb-12"
-                // onClick={() =>
-                //   setFeeds([
-                //     {
-                //       avatarImage: "",
-                //       datetime: "",
-                //       id: "",
-                //       image: "",
-                //       msgId: "",
-                //       name: "",
-                //       text: "",
-                //     },
-                //   ])
-                // }
-              >
-                <Hits
-                  hitComponent={changeMsg ? hitComponentMsg : hitComponentCoMsg}
-                />
-              </div>
-            </InstantSearch>
-          </div>
-        </div>
+        <SearchMsg_L changeMsg={changeMsg} setChangeMsg={setChangeMsg} setFeeds={setFeeds}/>
 
         {/* ////// プロフィール描画(ページ右) ////// */}
         {changeMsg && selectMsg ? (
