@@ -1,6 +1,8 @@
 import Head from "next/head";
 import Link from "next/link";
 import Image from 'next/image'
+import { FirstHeader } from "../components/header/FirstHeader";
+import { FirstPage } from "../components/organisms/main/FirstPage";
 
 export default function Lp() {
   
@@ -12,46 +14,9 @@ export default function Lp() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <header>
-        <div className="flex justify-between">
-          <div className='m-5'>
-            <h2 className='text-2xl text-blue-400 font-bold'>Pham</h2>
-          </div>
-          <div className='m-7'>
-            <Link href="/recruit">
-              <button className='text-blue-400 hover:text-blue-300 transition duration-300'>採用担当者様はこちら</button>
-            </Link>
-          </div>
-        </div>
-      </header>
+      <FirstHeader/>
 
-      <main>
-        <div className="min-h-screen grid justify-items-center items-center content-center md:-mt-20 -mt-10">
-          <div>
-            <h1 className='text-2xl text-blue-400 font-bold'>自分の中身を見つめ直す。
-            <br className='md:hidden'/>
-            薬局の中身を見つめ直す。</h1>
-          </div>
-          
-            <Image
-            src="/lp_img.png"
-            alt="lp_img"
-            width={380}
-            height={380}
-            />
-
-          <div>
-            <h3 className='text-xl font-bold'>薬局薬剤師さんのお仕事SNS</h3>
-          </div>
-
-          <div className='mt-10'>
-           <Link href="/login">
-              <button className='text-white bg-blue-400 hover:bg-blue-300  transition duration-300 py-3 px-14 rounded-full shadow-lg font-bold'>ログイン / 新規登録</button>
-            </Link>
-          </div>
-
-        </div>
-      </main>
+      <FirstPage/>
     </div>
   );
 }
