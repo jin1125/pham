@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Router from "next/router";
-import { useContext, useEffect, useState } from "react";
-import { auth, storage } from "../../firebase";
+import { useContext, useEffect } from "react";
+import { auth } from "../../firebase";
 import { UserContext } from "../../UserContext";
 import { SearchCo_L } from "./SearchCo_L";
 import { SearchCo_R } from "./SearchCo_R";
