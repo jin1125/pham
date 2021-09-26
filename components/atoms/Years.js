@@ -3,7 +3,6 @@ import React from "react";
 export const Years = () => {
   return (
     <>
-      <option value="">生年</option>
       <option value="1950">1950</option>
       <option value="1951">1951</option>
       <option value="1952">1952</option>

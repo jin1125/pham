@@ -3,7 +3,6 @@ import React from "react";
 export const Month = () => {
   return (
     <>
-      <option value="">生月</option>
       <option value="1">1</option>
       <option value="2">2</option>
       <option value="3">3</option>

@@ -68,6 +68,7 @@ export const EditPC = ({
                 setProfile({ ...profile, homeAddress: e.target.value })
               }
             >
+              <option value="">住所</option>
               <Address />
             </select>
             <span className="text-red-500 align-top">*</span>
@@ -85,6 +86,7 @@ export const EditPC = ({
                 setProfile({ ...profile, dobYY: e.target.value })
               }
             >
+              <option value="">生年</option>
               <Years />
             </select>
             <span className="text-red-500 align-top">*</span>
@@ -99,6 +101,7 @@ export const EditPC = ({
                 setProfile({ ...profile, dobMM: e.target.value })
               }
             >
+              <option value="">生月</option>
               <Month />
             </select>
             <span className="text-red-500 align-top">*</span>
@@ -113,6 +116,7 @@ export const EditPC = ({
                 setProfile({ ...profile, dobDD: e.target.value })
               }
             >
+              <option value="">生日</option>
               <Days />
             </select>
             <span className="text-red-500 align-top">*</span>

@@ -3,7 +3,7 @@ import React from "react";
 export const Address = () => {
   return (
     <>
-      <option value="">住所</option>
+      
       <option value="01_北海道">北海道</option>
       <option value="02_青森県">青森県</option>
       <option value="03_岩手県">岩手県</option>
