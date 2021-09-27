@@ -7,7 +7,6 @@
     "export": "next export"
   },
   "dependencies": {
-    "@welldone-software/why-did-you-render": "^6.2.1",
     "algoliasearch": "^4.10.5",
     "emoji-mart": "^3.0.1",
     "firebase": "8.10.0",

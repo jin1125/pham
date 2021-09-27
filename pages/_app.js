@@ -1,4 +1,3 @@
-import '../scripts/ wdyr.js'
 import { useState } from "react";
 import { positions, Provider as AlertProvider } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
