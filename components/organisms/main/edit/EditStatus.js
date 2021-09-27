@@ -1,9 +1,14 @@
 import React from 'react'
 import { Emoji } from "emoji-mart";
+import Skeleton from "react-loading-skeleton";
 
-export const EditStatus = ({profile,setProfile,scout}) => {
+export const EditStatus = ({profile,setProfile,scout,loadingProfile}) => {
   return (
       <div className="flex flex-row flex-wrap my-10 justify-center gap-1 items-center">
+        {loadingProfile?(
+          <Skeleton width={200} />
+        ):(
+          <>
             <Emoji emoji="female-detective" size={20} />
             <label>
               <select
@@ -22,6 +27,8 @@ export const EditStatus = ({profile,setProfile,scout}) => {
               </select>
               <span className="text-red-500 align-top">*</span>
             </label>
+          </>
+        )}
           </div>
   )
 }

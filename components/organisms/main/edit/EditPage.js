@@ -3,6 +3,7 @@ import Router from "next/router";
 import React, { useContext, useEffect, useState } from "react";
 import { useAlert } from "react-alert";
 import Loader from "react-loader-spinner";
+import Skeleton from "react-loading-skeleton";
 import { auth, db, storage } from "../../../../firebase";
 import { UserContext } from "../../../../UserContext";
 import { EditFreeImg } from "../../../molecules/EditFreeImg";
@@ -53,6 +54,7 @@ export const EditPage = () => {
   const [demoImg, setDemoImg] = useState("");
   const [demoImgs, setDemoImgs] = useState("");
   const [loading, setLoading] = useState(false);
+  const [loadingProfile, setLoadingProfile] = useState(false);
 
   ////////////////// 関数エリア //////////////////
 
@@ -74,15 +76,18 @@ export const EditPage = () => {
 
   useEffect(() => {
     if (userId) {
+      setLoadingProfile(true);
       let unSub = db
         .collection("userProfiles")
         .doc(userId)
         .onSnapshot((doc) => {
           if (doc.data()) {
             setProfile({ ...profile, ...doc.data() });
+            setLoadingProfile(false);
           } else {
             if (!profile.userName) {
               setProfile({ ...profile, userName: displayName });
+              setLoadingProfile(false);
             }
           }
         });
@@ -227,7 +232,9 @@ export const EditPage = () => {
       <div className="grid lg:grid-cols-12 2xl:px-10 md:px-5 my-10">
         <div className="lg:col-span-3 col-span-12 text-center justify-self-center">
           <label>
-            {fileUrl ? (
+            {loadingProfile ? (
+              <Skeleton circle={true} height={200} width={200} />
+            ) : fileUrl ? (
               <Image
                 className="inline object-cover mr-2 rounded-full cursor-pointer"
                 width={200}
@@ -269,10 +276,16 @@ export const EditPage = () => {
               setProfile={setProfile}
               userName={userName}
               jobTitle={jobTitle}
+              loadingProfile={loadingProfile}
             />
           </div>
 
-          <EditStatus profile={profile} setProfile={setProfile} scout={scout} />
+          <EditStatus
+            profile={profile}
+            setProfile={setProfile}
+            scout={scout}
+            loadingProfile={loadingProfile}
+          />
 
           <div className="lg:hidden block px-5 md:px-0">
             <EditSP2
@@ -287,6 +300,7 @@ export const EditPage = () => {
               birthPlace={birthPlace}
               language={language}
               comments={comments}
+              loadingProfile={loadingProfile}
             />
           </div>
 
@@ -298,6 +312,7 @@ export const EditPage = () => {
             freeImageUrl1={freeImageUrl1}
             freeImageUrl2={freeImageUrl2}
             demoImgs={demoImgs}
+            loadingProfile={loadingProfile}
           />
         </div>
 
@@ -317,6 +332,7 @@ export const EditPage = () => {
               birthPlace={birthPlace}
               language={language}
               comments={comments}
+              loadingProfile={loadingProfile}
             />
           </div>
 
@@ -330,6 +346,7 @@ export const EditPage = () => {
             subjectArea={subjectArea}
             experiences={experiences}
             resumes={resumes}
+            loadingProfile={loadingProfile}
           />
 
           {/* ////// 変更を保存 ////// */}

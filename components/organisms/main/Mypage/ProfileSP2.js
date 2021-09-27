@@ -18,7 +18,7 @@ export const ProfileSP2 = ({
     <div>
       <div className="flex flex-row flex-wrap justify-center items-center my-3 gap-1 leading-none">
       {loading ? (
-        <Skeleton width={100} />
+        <Skeleton width={150} />
       ) :(
         <>
         <Emoji emoji="id" size={20} />
@@ -29,7 +29,7 @@ export const ProfileSP2 = ({
 
       <div className="flex flex-row flex-wrap justify-center my-5 gap-6 leading-none">
         {loading ? (
-        <Skeleton width={100} />
+        <Skeleton width={150} />
       ) :homeAddress ? (
           <div className="flex flex-row flex-wrap gap-1 items-center">
             <Emoji emoji="round_pushpin" size={20} />
@@ -47,7 +47,7 @@ export const ProfileSP2 = ({
         )}
 
         {loading ? (
-        <Skeleton width={100} />
+        <Skeleton width={150} />
       ) :dobYY && dobMM && dobDD && (
           <div className="flex flex-row flex-wrap gap-1 items-center">
             <Emoji emoji="birthday" size={20} />
@@ -56,7 +56,7 @@ export const ProfileSP2 = ({
         )}
 
         {loading ? (
-        <Skeleton width={100} />
+        <Skeleton width={150} />
       ) :school && (
           <div className="flex flex-row flex-wrap gap-1 items-center">
             <Emoji emoji="school" size={20} />
@@ -65,7 +65,7 @@ export const ProfileSP2 = ({
         )}
 
         {loading ? (
-        <Skeleton width={100} />
+        <Skeleton width={150} />
       ) :birthPlace && (
           <div className="flex flex-row flex-wrap gap-1 items-center">
             <Emoji emoji="baby" size={20} />
@@ -74,7 +74,7 @@ export const ProfileSP2 = ({
         )}
 
         {loading ? (
-        <Skeleton width={100} />
+        <Skeleton width={150} />
       ) :language && (
           <div className="flex flex-row flex-wrap gap-1 items-center">
             <Emoji emoji="speaking_head_in_silhouette" size={20} />
@@ -84,7 +84,7 @@ export const ProfileSP2 = ({
       </div>
 
       {loading ? (
-        <Skeleton width={100} />
+        <Skeleton width={150} />
       ) :comments && (
         <div className="my-12 whitespace-pre-wrap">
           <p className="text-base">{comments}</p>

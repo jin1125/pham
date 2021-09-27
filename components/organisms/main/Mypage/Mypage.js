@@ -96,8 +96,6 @@ export const Mypage = ({ setIsOpen }) => {
     userName,
   } = profile;
 
-  console.log(loading);
-
   return (
     <main className="grid grid-cols-12 my-10">
       <div className="lg:col-span-3 col-span-12 text-center justify-self-center ">

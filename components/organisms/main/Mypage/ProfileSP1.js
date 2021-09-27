@@ -6,7 +6,7 @@ export const ProfileSP1 = ({ userName, displayName, jobTitle, loading }) => {
     <div className="flex flex-row flex-wrap justify-center items-end my-5 gap-8 text-center">
       <div>
         {loading ? (
-          <Skeleton width={100} height={30}/>
+          <Skeleton width={150} height={30}/>
         ) : userName ? (
           <h2 className="text-4xl font-bold">{userName}</h2>
         ) : (
@@ -15,7 +15,7 @@ export const ProfileSP1 = ({ userName, displayName, jobTitle, loading }) => {
       </div>
 
       {loading ? (
-        <Skeleton width={100}  height={20}/>
+        <Skeleton width={150}  height={20}/>
       ) : (
         jobTitle && (
           <div>

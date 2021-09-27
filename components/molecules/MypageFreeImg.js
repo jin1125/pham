@@ -12,7 +12,9 @@ export const MypageFreeImg = ({
   return (
     <div className="flex lg:flex-col flex-row md:gap-5">
       {loading ? (
-        <Skeleton height={200} width={200} />
+        <div className="md:block hidden">
+          <Skeleton height={200} width={200} />
+        </div>
       ) : freeImageUrl0 ? (
         <div>
           <Image
@@ -38,7 +40,9 @@ export const MypageFreeImg = ({
       )}
 
       {loading ? (
-        <Skeleton height={200} width={200} />
+        <div className="md:block hidden">
+          <Skeleton height={200} width={200} />
+        </div>
       ) : freeImageUrl1 ? (
         <div>
           <Image
@@ -64,7 +68,9 @@ export const MypageFreeImg = ({
       )}
 
       {loading ? (
-        <Skeleton height={200} width={200} />
+        <div className="md:block hidden">
+          <Skeleton height={200} width={200} />
+        </div>
       ) : freeImageUrl2 ? (
         <div>
           <Image

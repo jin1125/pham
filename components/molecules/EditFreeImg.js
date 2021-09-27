@@ -1,7 +1,17 @@
-import React, { useState } from "react";
 import Image from "next/image";
+import React, { useState } from "react";
+import Skeleton from "react-loading-skeleton";
 
-export const EditFreeImg = ({setFreeImage0,setFreeImage1,setFreeImage2,freeImageUrl0,freeImageUrl1,freeImageUrl2,demoImgs}) => {
+export const EditFreeImg = ({
+  setFreeImage0,
+  setFreeImage1,
+  setFreeImage2,
+  freeImageUrl0,
+  freeImageUrl1,
+  freeImageUrl2,
+  demoImgs,
+  loadingProfile,
+}) => {
   const [fileUrls0, setFileUrls0] = useState("");
   const [fileUrls1, setFileUrls1] = useState("");
   const [fileUrls2, setFileUrls2] = useState("");
@@ -40,120 +50,140 @@ export const EditFreeImg = ({setFreeImage0,setFreeImage1,setFreeImage2,freeImage
     <div className="flex lg:flex-col flex-row justify-center md:gap-5">
       {/* /// フリー画像アップロード0 /// */}
       <div>
-        <label>
-          {fileUrls0 ? (
-            <Image
-              className="inline object-cover cursor-pointer transform hover:scale-150 transition duration-300"
-              width={200}
-              height={200}
-              src={fileUrls0}
-              alt="Free image0"
-            />
-          ) : freeImageUrl0 ? (
-            <Image
-              className="inline object-cover cursor-pointer transform hover:scale-150 transition duration-300"
-              width={200}
-              height={200}
-              src={freeImageUrl0}
-              alt="Free image0"
-            />
-          ) : (
-            demoImgs && (
+        {loadingProfile ? (
+          <div className="md:block hidden">
+            <Skeleton height={200} width={200} />
+          </div>
+        ) : (
+          <label>
+            {fileUrls0 ? (
               <Image
-                className="inline object-cover cursor-pointer"
+                className="inline object-cover cursor-pointer transform hover:scale-150 transition duration-300"
                 width={200}
                 height={200}
-                src={demoImgs}
+                src={fileUrls0}
                 alt="Free image0"
               />
-            )
-          )}
+            ) : freeImageUrl0 ? (
+              <Image
+                className="inline object-cover cursor-pointer transform hover:scale-150 transition duration-300"
+                width={200}
+                height={200}
+                src={freeImageUrl0}
+                alt="Free image0"
+              />
+            ) : (
+              demoImgs && (
+                <Image
+                  className="inline object-cover cursor-pointer"
+                  width={200}
+                  height={200}
+                  src={demoImgs}
+                  alt="Free image0"
+                />
+              )
+            )}
 
-          <input
-            className="hidden"
-            accept="image/*"
-            type="file"
-            onChange={uploadFreeImage0}
-          />
-        </label>
+            <input
+              className="hidden"
+              accept="image/*"
+              type="file"
+              onChange={uploadFreeImage0}
+            />
+          </label>
+        )}
       </div>
       {/* /// フリー画像アップロード1 /// */}
       <div>
-        <label>
-          {fileUrls1 ? (
-            <Image
-              className="inline object-cover cursor-pointer transform hover:scale-150 transition duration-300"
-              width={200}
-              height={200}
-              src={fileUrls1}
-              alt="Free image1"
-            />
-          ) : freeImageUrl1 ? (
-            <Image
-              className="inline object-cover cursor-pointer transform hover:scale-150 transition duration-300"
-              width={200}
-              height={200}
-              src={freeImageUrl1}
-              alt="Free image1"
-            />
-          ) : (
-            demoImgs && (
+        {loadingProfile ? (
+          <div className="md:block hidden">
+            <Skeleton height={200} width={200} />
+          </div>
+        ) : (
+          <label>
+            {loadingProfile ? (
+              <Skeleton height={200} width={200} />
+            ) : fileUrls1 ? (
               <Image
-                className="inline object-cover cursor-pointer"
+                className="inline object-cover cursor-pointer transform hover:scale-150 transition duration-300"
                 width={200}
                 height={200}
-                src={demoImgs}
+                src={fileUrls1}
                 alt="Free image1"
               />
-            )
-          )}
+            ) : freeImageUrl1 ? (
+              <Image
+                className="inline object-cover cursor-pointer transform hover:scale-150 transition duration-300"
+                width={200}
+                height={200}
+                src={freeImageUrl1}
+                alt="Free image1"
+              />
+            ) : (
+              demoImgs && (
+                <Image
+                  className="inline object-cover cursor-pointer"
+                  width={200}
+                  height={200}
+                  src={demoImgs}
+                  alt="Free image1"
+                />
+              )
+            )}
 
-          <input
-            className="hidden"
-            accept="image/*"
-            type="file"
-            onChange={uploadFreeImage1}
-          />
-        </label>
+            <input
+              className="hidden"
+              accept="image/*"
+              type="file"
+              onChange={uploadFreeImage1}
+            />
+          </label>
+        )}
       </div>
       {/* /// フリー画像アップロード2 /// */}
       <div>
-        <label>
-          {fileUrls2 ? (
-            <Image
-              className="inline object-cover cursor-pointer transform hover:scale-150 transition duration-300"
-              width={200}
-              height={200}
-              src={fileUrls2}
-              alt="Free image2"
-            />
-          ) : freeImageUrl2 ? (
-            <Image
-              className="inline object-cover cursor-pointer transform hover:scale-150 transition duration-300"
-              width={200}
-              height={200}
-              src={freeImageUrl2}
-              alt="Free image2"
-            />
-          ) : (
-            demoImgs && (
+        {loadingProfile ? (
+          <div className="md:block hidden">
+            <Skeleton height={200} width={200} />
+          </div>
+        ) : (
+          <label>
+            {fileUrls2 ? (
               <Image
-                className="inline object-cover cursor-pointer"
+                className="inline object-cover cursor-pointer transform hover:scale-150 transition duration-300"
                 width={200}
                 height={200}
-                src={demoImgs}
+                src={fileUrls2}
                 alt="Free image2"
               />
-            )
-          )}
+            ) : freeImageUrl2 ? (
+              <Image
+                className="inline object-cover cursor-pointer transform hover:scale-150 transition duration-300"
+                width={200}
+                height={200}
+                src={freeImageUrl2}
+                alt="Free image2"
+              />
+            ) : (
+              demoImgs && (
+                <Image
+                  className="inline object-cover cursor-pointer"
+                  width={200}
+                  height={200}
+                  src={demoImgs}
+                  alt="Free image2"
+                />
+              )
+            )}
 
-          <input
-            className="hidden"
-            accept="image/*"
-            type="file"
-            onChange={uploadFreeImage2}
-          />
-        </label>
+            <input
+              className="hidden"
+              accept="image/*"
+              type="file"
+              onChange={uploadFreeImage2}
+            />
+          </label>
+        )}
       </div>
     </div>
   );
