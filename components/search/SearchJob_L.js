@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { memo, useContext } from 'react'
 import algoliasearch from "algoliasearch/lite";
 import { Address } from "../atoms/Address";
 import { Hits, InstantSearch } from "react-instantsearch-dom";
@@ -6,7 +6,7 @@ import { hitComponentJob } from "./HitComponentJob";
 import { CustomSearchBox } from "./SearchBox";
 import { UserContext } from '../../UserContext';
 
-export const SearchJob_L = ({setCoPassId,setCoReceiveId}) => {
+export const SearchJob_L = memo(({setCoPassId,setCoReceiveId}) => {
   const searchClient = algoliasearch(
     "0TMIYQ8E9N",
     "58e6e394abd7a5cfcc6fcae0d7b51ac5"
@@ -87,4 +87,4 @@ export const SearchJob_L = ({setCoPassId,setCoReceiveId}) => {
           </div>
         </div>
   )
-}
+})

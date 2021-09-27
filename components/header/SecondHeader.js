@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { memo } from 'react'
 import Link from "next/link";
 
-export const SecondHeader = () => {
+export const SecondHeader = memo(() => {
   return (
     <header>
         <div className="m-5">
@@ -13,4 +13,4 @@ export const SecondHeader = () => {
         </div>
       </header>
   )
-}
+});

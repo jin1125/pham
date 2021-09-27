@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { memo, useContext, useEffect, useState } from 'react'
 import { Emoji } from "emoji-mart";
 import Link from "next/link";
 import { useAlert } from "react-alert";
@@ -6,7 +6,7 @@ import { db, storage } from '../../firebase';
 import { UserContext } from '../../UserContext';
 import Image from "next/image";
 
-export const Search_R = ({disabledState,phMatch,passId,receiveId}) => {
+export const Search_R = memo(({disabledState,phMatch,passId,receiveId}) => {
   const alert = useAlert();
   const [demoImg, setDemoImg] = useState("");
   const [demoImgs, setDemoImgs] = useState("");
@@ -439,4 +439,4 @@ export const Search_R = ({disabledState,phMatch,passId,receiveId}) => {
             </div>
           </div>
   )
-}
+})

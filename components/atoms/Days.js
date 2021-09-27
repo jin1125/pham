@@ -1,6 +1,6 @@
-import React from "react";
+import React, { memo } from "react";
 
-export const Days = () => {
+export const Days = memo(() => {
   return (
     <>
       <option value="1">1</option>
@@ -36,4 +36,4 @@ export const Days = () => {
       <option value="31">31</option>
     </>
   );
-};
+});

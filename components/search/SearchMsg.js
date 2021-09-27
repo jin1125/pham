@@ -1,14 +1,14 @@
 import firebase from "firebase/app";
 import Image from "next/image";
 import Router from "next/router";
-import { useContext, useEffect, useState } from "react";
+import { memo, useContext, useEffect, useState } from "react";
 import { auth, db, storage } from "../../firebase";
 import { UserContext } from "../../UserContext";
 import { SearchMsg_L } from "./SearchMsg_L";
 import { SearchMsg_R_Co } from "./SearchMsg_R_Co";
 import { SearchMsg_R_Ph } from "./SearchMsg_R_Ph";
 
-export const SearchMsg = () => {
+export const SearchMsg = memo(() => {
   const [demoImg, setDemoImg] = useState("");
   const [companyDemoImg, setCompanyDemoImg] = useState("");
   const [msgImage, setMsgImage] = useState("");
@@ -295,4 +295,4 @@ export const SearchMsg = () => {
       </div>
     </div>
   );
-};
+});

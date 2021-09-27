@@ -1,9 +1,9 @@
 import firebase from "firebase/app";
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import { useAlert } from "react-alert";
 import { db } from "../../firebase";
 
-export const RecruitForm = ({setIsContactUs}) => {
+export const RecruitForm = memo(({ setIsContactUs }) => {
   const alert = useAlert();
   const [companyName, setCompanyName] = useState("");
   const [clientName, setClientName] = useState("");
@@ -129,4 +129,4 @@ export const RecruitForm = ({setIsContactUs}) => {
       </div>
     </div>
   );
-};
+});

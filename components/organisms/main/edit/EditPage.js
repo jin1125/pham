@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Router from "next/router";
-import React, { useContext, useEffect, useState } from "react";
+import React, { memo, useContext, useEffect, useState } from "react";
 import { useAlert } from "react-alert";
 import Loader from "react-loader-spinner";
 import Skeleton from "react-loading-skeleton";
@@ -14,7 +14,7 @@ import { EditSP2 } from "./EditSP2";
 import { EditStatus } from "./EditStatus";
 import { Footer } from "./Footer";
 
-export const EditPage = () => {
+export const EditPage = memo(() => {
   ////////////////// ステートエリア //////////////////
   const { userId, setUserId } = useContext(UserContext);
 
@@ -385,4 +385,4 @@ export const EditPage = () => {
       <Footer userEmail={userEmail} />
     </div>
   );
-};
+});

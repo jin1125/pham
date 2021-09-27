@@ -1,13 +1,13 @@
 import Image from "next/image";
 import Router from "next/router";
-import { useContext, useEffect, useState } from "react";
+import { memo, useContext, useEffect, useState } from "react";
 import { auth } from "../../firebase";
 import { UserContext } from "../../UserContext";
 import ApplyModal from "../organisms/modal/ApplyModal";
 import { SearchJob_L } from "./SearchJob_L";
 import { SearchJob_R } from "./SearchJob_R";
 
-export const SearchJob = () => {
+export const SearchJob = memo(() => {
   const [coPassId, setCoPassId] = useState("");
   const [coReceiveId, setCoReceiveId] = useState("");
   const [isOpen, setIsOpen] = useState(false);
@@ -61,4 +61,4 @@ export const SearchJob = () => {
       </div>
     </div>
   );
-};
+});

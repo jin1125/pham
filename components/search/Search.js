@@ -1,12 +1,12 @@
 import Image from "next/image";
 import Router from "next/router";
-import { useContext, useEffect, useState } from "react";
+import { memo, useContext, useEffect, useState } from "react";
 import { auth, db } from "../../firebase";
 import { UserContext } from "../../UserContext";
 import { Search_L } from "./Search_L";
 import { Search_R } from "./Search_R";
 
-export const Search = () => {
+export const Search = memo(() => {
   const [phMatch, setPhMatch] = useState([]);
   const [phMatchA, setPhMatchA] = useState([]);
   const [phMatchB, setPhMatchB] = useState([]);
@@ -149,4 +149,4 @@ export const Search = () => {
       </div>
     </div>
   );
-};
+});

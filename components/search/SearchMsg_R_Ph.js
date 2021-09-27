@@ -1,10 +1,10 @@
 import { Emoji } from "emoji-mart";
 import Image from "next/image";
-import React, { useContext, useEffect, useRef } from "react";
+import React, { memo, useContext, useEffect, useRef } from "react";
 import Loader from "react-loader-spinner";
 import { UserContext } from "../../UserContext";
 
-export const SearchMsg_R_Ph = ({
+export const SearchMsg_R_Ph = memo(({
   feeds,
   demoImg,
   fileUrl,
@@ -141,4 +141,4 @@ export const SearchMsg_R_Ph = ({
       </div>
     </div>
   );
-};
+});

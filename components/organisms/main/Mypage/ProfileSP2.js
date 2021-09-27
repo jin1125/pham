@@ -1,8 +1,8 @@
 import { Emoji } from "emoji-mart";
-import React from "react";
+import React, { memo } from "react";
 import Skeleton from "react-loading-skeleton";
 
-export const ProfileSP2 = ({
+export const ProfileSP2 = memo(({
   userId,
   homeAddress,
   dobYY,
@@ -92,4 +92,4 @@ export const ProfileSP2 = ({
       )}
     </div>
   );
-};
+});

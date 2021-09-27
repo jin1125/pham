@@ -1,12 +1,12 @@
 import Image from "next/image";
 import Router from "next/router";
-import { useContext, useEffect } from "react";
+import { memo, useContext, useEffect } from "react";
 import { auth } from "../../firebase";
 import { UserContext } from "../../UserContext";
 import { SearchCo_L } from "./SearchCo_L";
 import { SearchCo_R } from "./SearchCo_R";
 
-export const SearchCo = () => {
+export const SearchCo = memo(() => {
   const {
     selectCompany,
   } = useContext(UserContext);
@@ -43,4 +43,4 @@ export const SearchCo = () => {
       </div>
     </div>
   );
-};
+});

@@ -1,12 +1,12 @@
 import Image from "next/image";
 import Router from "next/router";
-import { useContext, useEffect } from "react";
+import { memo, useContext, useEffect } from "react";
 import { auth } from "../../firebase";
 import { UserContext } from "../../UserContext";
 import { SearchPh_L } from "./SearchPh_L";
 import { SearchPh_R } from "./SearchPh_R";
 
-export const SearchPh = () => {
+export const SearchPh = memo(() => {
   const {
     selectPharmacy,
   } = useContext(UserContext);
@@ -43,4 +43,4 @@ export const SearchPh = () => {
       </div>
     </div>
   );
-};
+});

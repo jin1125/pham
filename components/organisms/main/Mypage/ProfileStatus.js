@@ -1,9 +1,9 @@
 import { Emoji } from "emoji-mart";
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import Skeleton from "react-loading-skeleton";
 import { db } from "../../../../firebase";
 
-export const ProfileStatus = ({ setIsOpen, scout, userId, loading }) => {
+export const ProfileStatus = memo(({ setIsOpen, scout, userId, loading }) => {
   const [phMatch, setPhMatch] = useState([]);
   const [phMatchA, setPhMatchA] = useState([]);
   const [phMatchB, setPhMatchB] = useState([]);
@@ -78,4 +78,4 @@ export const ProfileStatus = ({ setIsOpen, scout, userId, loading }) => {
       )}
     </div>
   );
-};
+});

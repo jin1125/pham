@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Router from "next/router";
-import React, { useContext, useEffect, useState } from "react";
+import React, { memo, useContext, useEffect, useState } from "react";
 import Skeleton from "react-loading-skeleton";
 import { auth, db, storage } from "../../../../firebase";
 import { UserContext } from "../../../../UserContext";
@@ -11,7 +11,7 @@ import { ProfileSP1 } from "./ProfileSP1";
 import { ProfileSP2 } from "./ProfileSP2";
 import { ProfileStatus } from "./ProfileStatus";
 
-export const Mypage = ({ setIsOpen }) => {
+export const Mypage = memo(({ setIsOpen }) => {
   const { userId, setUserId } = useContext(UserContext);
   const [profile, setProfile] = useState({});
   const [displayName, setDisplayName] = useState("");
@@ -188,4 +188,4 @@ export const Mypage = ({ setIsOpen }) => {
       </div>
     </main>
   );
-};
+});

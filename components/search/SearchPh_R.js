@@ -1,11 +1,11 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { memo, useContext, useEffect, useState } from 'react'
 import { Emoji } from "emoji-mart";
 import Link from "next/link";
 import AnchorLink from "react-anchor-link-smooth-scroll";
 import { UserContext } from '../../UserContext';
 import { db } from '../../firebase';
 
-export const SearchPh_R = () => {
+export const SearchPh_R = memo(() => {
   const [isApply, setIsApply] = useState(false);
   const {
     selectPharmacy,
@@ -243,4 +243,4 @@ export const SearchPh_R = () => {
             )}
           </div>
   )
-}
+})

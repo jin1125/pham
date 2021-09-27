@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { memo, useContext, useEffect, useState } from 'react'
 import firebase from "firebase/app";
 import { Emoji } from "emoji-mart";
 import Image from "next/image";
@@ -7,7 +7,7 @@ import { useAlert } from "react-alert";
 import { db, storage } from '../../firebase';
 import { UserContext } from '../../UserContext';
 
-export const SearchJob_R = ({coPassId,setCoPassId,coReceiveId,setCoReceiveId,setIsOpen}) => {
+export const SearchJob_R = memo(({coPassId,setCoPassId,coReceiveId,setCoReceiveId,setIsOpen}) => {
   const alert = useAlert();
   const [demoImgs, setDemoImgs] = useState("");
   const [applyData, setApplyData] = useState({
@@ -439,4 +439,4 @@ export const SearchJob_R = ({coPassId,setCoPassId,coReceiveId,setCoReceiveId,set
     </div>
   </div>
   )
-}
+})

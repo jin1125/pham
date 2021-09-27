@@ -1,11 +1,11 @@
-import React from "react";
+import React, { memo } from "react";
 import { Header } from "../header/Header";
 
-export const Layout = ({ children }) => {
+export const Layout = memo(({ children }) => {
   return (
     <div>
       <Header />
       {children}
     </div>
   );
-};
+});

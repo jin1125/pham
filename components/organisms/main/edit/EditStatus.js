@@ -1,13 +1,14 @@
-import React from 'react'
 import { Emoji } from "emoji-mart";
+import React, { memo } from "react";
 import Skeleton from "react-loading-skeleton";
 
-export const EditStatus = ({profile,setProfile,scout,loadingProfile}) => {
-  return (
+export const EditStatus = memo(
+  ({ profile, setProfile, scout, loadingProfile }) => {
+    return (
       <div className="flex flex-row flex-wrap my-10 justify-center gap-1 items-center">
-        {loadingProfile?(
+        {loadingProfile ? (
           <Skeleton width={200} />
-        ):(
+        ) : (
           <>
             <Emoji emoji="female-detective" size={20} />
             <label>
@@ -29,6 +30,7 @@ export const EditStatus = ({profile,setProfile,scout,loadingProfile}) => {
             </label>
           </>
         )}
-          </div>
-  )
-}
+      </div>
+    );
+  }
+);

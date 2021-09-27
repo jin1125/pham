@@ -1,11 +1,11 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { memo, useContext, useEffect, useState } from 'react'
 import { Emoji } from "emoji-mart";
 import Image from "next/image";
 import Link from "next/link";
 import { UserContext } from '../../UserContext';
 import { storage } from '../../firebase';
 
-export const SearchCo_R = () => {
+export const SearchCo_R = memo(() => {
   const [companyDemoImg, setCompanyDemoImg] = useState("");
   const {
     selectCompany,
@@ -173,4 +173,4 @@ export const SearchCo_R = () => {
     </div>
   </div>
   )
-}
+});

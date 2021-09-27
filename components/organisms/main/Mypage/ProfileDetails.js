@@ -1,8 +1,8 @@
-import React from "react";
+import React, { memo } from "react";
 import { Emoji } from "emoji-mart";
 import Skeleton from "react-loading-skeleton";
 
-export const ProfileDetails = ({
+export const ProfileDetails = memo(({
   hobby,
   dream,
   certification,
@@ -128,4 +128,4 @@ export const ProfileDetails = ({
       )}
     </div>
   );
-};
+});

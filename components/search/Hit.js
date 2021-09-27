@@ -1,9 +1,9 @@
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { Highlight } from "react-instantsearch-dom";
 import { storage } from "../../firebase";
 
-export const Hit = ({ hit }) => {
+export const Hit = memo(({ hit }) => {
   const [demoImg, setDemoImg] = useState("");
 
   useEffect(() => {
@@ -55,4 +55,4 @@ export const Hit = ({ hit }) => {
       </div>
     </div>
   );
-};
+});

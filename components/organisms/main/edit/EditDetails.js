@@ -1,8 +1,8 @@
 import { Emoji } from "emoji-mart";
-import React from "react";
+import React, { memo } from "react";
 import Skeleton from "react-loading-skeleton";
 
-export const EditDetails = ({
+export const EditDetails = memo(({
   profile,
   setProfile,
   hobby,
@@ -372,4 +372,4 @@ export const EditDetails = ({
       )}
     </div>
   );
-};
+});

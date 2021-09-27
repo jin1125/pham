@@ -1,19 +1,16 @@
-import React from 'react'
 import Image from "next/image";
-import { RecruitLoginForm } from '../../molecules/RecruitLoginForm';
+import React, { memo } from "react";
+import { RecruitLoginForm } from "../../molecules/RecruitLoginForm";
 
-export const RecruitLoginPage = () => {
-
+export const RecruitLoginPage = memo(() => {
   return (
     <main className="grid lg:grid-cols-2 min-h-screen md:-mt-20 justify-items-center items-center">
-        <div className="text-center md:w-3/4 w-11/12 mb-5">
-          <div>
-            <h1 className="text-2xl text-blue-400 font-bold">
-              企業ログイン
-            </h1>
-          </div>
+      <div className="text-center md:w-3/4 w-11/12 mb-5">
+        <div>
+          <h1 className="text-2xl text-blue-400 font-bold">企業ログイン</h1>
+        </div>
 
-          <div className="text-center block lg:hidden my-5">
+        <div className="text-center block lg:hidden my-5">
           <Image
             src="/recruit_login_img.png"
             alt="login_img"
@@ -22,17 +19,17 @@ export const RecruitLoginPage = () => {
           />
         </div>
 
-          <RecruitLoginForm/>
-        </div>
+        <RecruitLoginForm />
+      </div>
 
-        <div className="text-center hidden lg:block">
-          <Image
-            src="/recruit_login_img.png"
-            alt="login_img"
-            width={350}
-            height={350}
-          />
-        </div>
-      </main>
-  )
-}
+      <div className="text-center hidden lg:block">
+        <Image
+          src="/recruit_login_img.png"
+          alt="login_img"
+          width={350}
+          height={350}
+        />
+      </div>
+    </main>
+  );
+});

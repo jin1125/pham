@@ -1,6 +1,6 @@
-import React from "react";
+import React, { memo } from "react";
 
-export const Address = () => {
+export const Address = memo(() => {
   return (
     <>
       
@@ -53,4 +53,4 @@ export const Address = () => {
       <option value="47_沖縄県">沖縄県</option>
     </>
   );
-};
+});

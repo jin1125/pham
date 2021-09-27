@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { memo, useContext } from 'react'
 import { Emoji } from "emoji-mart";
 import algoliasearch from "algoliasearch/lite";
 import { Hits, InstantSearch } from "react-instantsearch-dom";
@@ -7,7 +7,7 @@ import { hitComponentMsg } from "./HitComponentMsg";
 import { CustomSearchBox } from "./SearchBox";
 import { UserContext } from '../../UserContext';
 
-export const SearchMsg_L = ({changeMsg,setChangeMsg,setFeeds}) => {
+export const SearchMsg_L = memo(({changeMsg,setChangeMsg,setFeeds}) => {
   const searchClient = algoliasearch(
     "0TMIYQ8E9N",
     "58e6e394abd7a5cfcc6fcae0d7b51ac5"
@@ -86,4 +86,4 @@ export const SearchMsg_L = ({changeMsg,setChangeMsg,setFeeds}) => {
           </div>
         </div>
   )
-}
+});

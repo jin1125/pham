@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { useAlert } from "react-alert";
-import { auth, provider } from "../../../../firebase";
 import firebase from "firebase/app";
 import Router from "next/router";
+import React, { memo, useEffect, useState } from "react";
+import { useAlert } from "react-alert";
+import { auth, provider } from "../../../../firebase";
 
-export const Footer = ({userEmail}) => {
+export const Footer = memo(({ userEmail }) => {
   const alert = useAlert();
   const [openEditEmail, setOpenEditEmail] = useState(false);
   const [openEditPassword, setOpenEditPassword] = useState(false);
@@ -25,146 +25,146 @@ export const Footer = ({userEmail}) => {
     return () => unSub();
   }, []);
 
-    /// メールアドレス変更処理 ///
-    const changeEmail = () => {
-      const unSub = auth.onAuthStateChanged((user) => {
-        if (user && resetEmailPassword) {
-          const credential = firebase.auth.EmailAuthProvider.credential(
-            user.email,
-            resetEmailPassword
-          );
-  
-          // ログインしていれば通る
+  /// メールアドレス変更処理 ///
+  const changeEmail = () => {
+    const unSub = auth.onAuthStateChanged((user) => {
+      if (user && resetEmailPassword) {
+        const credential = firebase.auth.EmailAuthProvider.credential(
+          user.email,
+          resetEmailPassword
+        );
+
+        // ログインしていれば通る
+        user
+          .reauthenticateWithCredential(credential)
+          .then(() => {
+            const result = confirm("メールアドレスを変更してもよろしいですか?");
+
+            if (result) {
+              user
+                .updateEmail(userEmail)
+                .then(() => {
+                  alert.success("メールアドレスを変更しました");
+                })
+                .catch((error) => {
+                  alert.error("メールアドレスを変更できませんでした");
+                });
+            } else {
+              alert.error("変更をキャンセルしました");
+            }
+          })
+          .catch(() => {
+            alert.error("パスワードが異なっています");
+          });
+      }
+      // 登録解除
+      return () => unSub();
+    });
+  };
+
+  /// アカウント削除 ///
+  const deleteAccount = () => {
+    const unSub = auth.onAuthStateChanged((user) => {
+      if (user && deleteAccountPassword) {
+        const credential = firebase.auth.EmailAuthProvider.credential(
+          user.email,
+          deleteAccountPassword
+        );
+
+        // ログインしていれば通る
+        user
+          .reauthenticateWithCredential(credential)
+          .then(async () => {
+            const result = confirm("本当にアカウントを削除しますか?");
+
+            if (result) {
+              await user
+                .delete()
+                .then(() => {
+                  alert.success("アカウントを削除しました");
+                  Router.push("/login");
+                })
+                .catch(() => {
+                  alert.error("アカウントを削除できませんでした");
+                });
+            } else {
+              alert.error("アカウント削除をキャンセルしました");
+            }
+          })
+          .catch((err) => {
+            alert.error("アカウントを削除できませんでした");
+            console.log(err);
+          });
+      }
+      // 登録解除
+      unSub();
+    });
+  };
+
+  /// アカウント(google)削除処理 ///
+  //google認証
+  const signInGoogle = () => {
+    auth
+      .signInWithPopup(provider)
+      .then(() => {
+        alert.success("アカウント削除の準備ができました");
+      })
+      .catch(() => {
+        alert.error("googleログイン情報を取得できませんでした");
+      });
+  };
+
+  //アカウント(google)削除
+  const deleteGoogleAccount = () => {
+    const unSub = auth.onAuthStateChanged((user) => {
+      if (user) {
+        const result = confirm("本当にアカウントを削除しますか?");
+
+        if (result) {
           user
-            .reauthenticateWithCredential(credential)
+            .delete()
             .then(() => {
-              const result = confirm("メールアドレスを変更してもよろしいですか?");
-  
-              if (result) {
-                user
-                  .updateEmail(userEmail)
-                  .then(() => {
-                    alert.success("メールアドレスを変更しました");
-                  })
-                  .catch((error) => {
-                    alert.error("メールアドレスを変更できませんでした");
-                  });
-              } else {
-                alert.error("変更をキャンセルしました");
-              }
+              alert.success("アカウントを削除しました");
+              Router.push("/login");
             })
             .catch(() => {
-              alert.error("パスワードが異なっています");
-            });
-        }
-        // 登録解除
-        return () => unSub();
-      });
-    };
-
-    /// アカウント削除 ///
-    const deleteAccount = () => {
-      const unSub = auth.onAuthStateChanged((user) => {
-        if (user && deleteAccountPassword) {
-          const credential = firebase.auth.EmailAuthProvider.credential(
-            user.email,
-            deleteAccountPassword
-          );
-  
-          // ログインしていれば通る
-          user
-            .reauthenticateWithCredential(credential)
-            .then(async () => {
-              const result = confirm("本当にアカウントを削除しますか?");
-  
-              if (result) {
-                await user
-                  .delete()
-                  .then(() => {
-                    alert.success("アカウントを削除しました");
-                    Router.push("/login");
-                  })
-                  .catch(() => {
-                    alert.error("アカウントを削除できませんでした");
-                  });
-              } else {
-                alert.error("アカウント削除をキャンセルしました");
-              }
-            })
-            .catch((err) => {
               alert.error("アカウントを削除できませんでした");
-              console.log(err);
             });
-        }
-        // 登録解除
-        unSub();
-      });
-    };
-
-     /// アカウント(google)削除処理 ///
-    //google認証
-    const signInGoogle = () => {
-      auth
-        .signInWithPopup(provider)
-        .then(() => {
-          alert.success("アカウント削除の準備ができました");
-        })
-        .catch(() => {
-          alert.error("googleログイン情報を取得できませんでした");
-        });
-    };
-  
-    //アカウント(google)削除
-    const deleteGoogleAccount = () => {
-      const unSub = auth.onAuthStateChanged((user) => {
-        if (user) {
-          const result = confirm("本当にアカウントを削除しますか?");
-  
-          if (result) {
-            user
-              .delete()
-              .then(() => {
-                alert.success("アカウントを削除しました");
-                Router.push("/login");
-              })
-              .catch(() => {
-                alert.error("アカウントを削除できませんでした");
-              });
-          } else {
-            alert.error("アカウント削除をキャンセルしました");
-          }
-        }
-        // 登録解除
-        return () => unSub();
-      });
-    };
-  
-    /// パスワード変更処理 ///
-    const sendResetEmail = async () => {
-      await auth
-        .sendPasswordResetEmail(userEmail)
-        .then(() => {
-          alert.success("メールを送信しました");
-        })
-        .catch(() => {
-          alert.error("正しい内容を入力してください");
-        });
-    };
-  
-    /// ログアウト処理 ///
-    const signOutUser = async () => {
-      const result = confirm("ログアウトしますか？");
-      if (result) {
-        try {
-          await auth.signOut();
-          alert.success("ログアウトしました");
-          Router.push("/login");
-        } catch (error) {
-          console.log(error);
-          alert.error("ログアウトできませんでした");
+        } else {
+          alert.error("アカウント削除をキャンセルしました");
         }
       }
-    };
+      // 登録解除
+      return () => unSub();
+    });
+  };
+
+  /// パスワード変更処理 ///
+  const sendResetEmail = async () => {
+    await auth
+      .sendPasswordResetEmail(userEmail)
+      .then(() => {
+        alert.success("メールを送信しました");
+      })
+      .catch(() => {
+        alert.error("正しい内容を入力してください");
+      });
+  };
+
+  /// ログアウト処理 ///
+  const signOutUser = async () => {
+    const result = confirm("ログアウトしますか？");
+    if (result) {
+      try {
+        await auth.signOut();
+        alert.success("ログアウトしました");
+        Router.push("/login");
+      } catch (error) {
+        console.log(error);
+        alert.error("ログアウトできませんでした");
+      }
+    }
+  };
 
   return (
     <div>
@@ -327,4 +327,4 @@ export const Footer = ({userEmail}) => {
       </div>
     </div>
   );
-};
+});
