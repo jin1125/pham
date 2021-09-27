@@ -1,8 +1,6 @@
 import Head from "next/head";
-import Link from "next/link";
-import Image from 'next/image'
-import { FirstHeader } from "../components/header/FirstHeader";
-import { FirstPage } from "../components/organisms/main/FirstPage";
+import {FirstHeader} from '../components/header/FirstHeader'
+import {FirstPage} from '../components/organisms/main/FirstPage'
 
 export default function Lp() {
   
