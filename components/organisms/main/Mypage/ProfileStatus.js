@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react'
 import { Emoji } from "emoji-mart";
-import { db } from '../../../../firebase';
+import React, { useEffect, useState } from "react";
+import Skeleton from "react-loading-skeleton";
+import { db } from "../../../../firebase";
 
-export const ProfileStatus = ({ setIsOpen,scout,userId }) => {
+export const ProfileStatus = ({ setIsOpen, scout, userId, loading }) => {
   const [phMatch, setPhMatch] = useState([]);
   const [phMatchA, setPhMatchA] = useState([]);
   const [phMatchB, setPhMatchB] = useState([]);
@@ -49,22 +50,32 @@ export const ProfileStatus = ({ setIsOpen,scout,userId }) => {
   return (
     <div>
       <div className="flex flex-row flex-wrap my-5 justify-center gap-1 items-center">
-          <Emoji emoji="handshake" size={20} />
-          <p className="text-base">{`${phMatch.length}人`}</p>
-          <button
-            className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 py-1 px-2 mx-2 rounded-full shadow-lg text-xs"
-            onClick={connect}
-          >
-            リクエスト
-          </button>
-        </div>
+        {loading ? (
+          <Skeleton width={200} />
+        ) : (
+          <>
+            <Emoji emoji="handshake" size={20} />
+            <p className="text-base">{`${phMatch.length}人`}</p>
+            <button
+              className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 py-1 px-2 mx-2 rounded-full shadow-lg text-xs"
+              onClick={connect}
+            >
+              リクエスト
+            </button>
+          </>
+        )}
+      </div>
 
-        {scout && (
+      {loading ? (
+        <Skeleton width={200} />
+      ) : (
+        scout && (
           <div className="flex flex-row flex-wrap mt-5 mb-10 justify-center gap-1 items-center">
             <Emoji emoji="female-detective" size={20} />
             <p className="text-base">{scout}</p>
           </div>
-        )}
+        )
+      )}
     </div>
-  )
-}
+  );
+};

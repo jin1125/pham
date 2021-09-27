@@ -1,5 +1,6 @@
 import React from "react";
 import { Emoji } from "emoji-mart";
+import Skeleton from "react-loading-skeleton";
 
 export const ProfileDetails = ({
   hobby,
@@ -9,10 +10,13 @@ export const ProfileDetails = ({
   subjectArea,
   experiences,
   resumes,
+  loading
 }) => {
   return (
     <div>
-      {hobby && (
+      {loading ? (
+        <Skeleton width={200} />
+      ) :hobby && (
         <div className="my-10">
           <div className="flex flex-row flex-wrap gap-1 items-center">
             <Emoji emoji="camping" size={20} />
@@ -22,7 +26,9 @@ export const ProfileDetails = ({
         </div>
       )}
 
-      {dream && (
+      {loading ? (
+        <Skeleton width={200} />
+      ) :dream && (
         <div className="my-10">
           <div className="flex flex-row flex-wrap gap-1 items-center">
             <Emoji emoji="thought_balloon" size={20} />
@@ -32,7 +38,9 @@ export const ProfileDetails = ({
         </div>
       )}
 
-      {certification && (
+      {loading ? (
+        <Skeleton width={200} />
+      ) :certification && (
         <div className="my-10">
           <div className="flex flex-row flex-wrap gap-1 items-center">
             <Emoji emoji="pencil2" size={20} />
@@ -42,7 +50,9 @@ export const ProfileDetails = ({
         </div>
       )}
 
-      {strongArea && (
+      {loading ? (
+        <Skeleton width={200} />
+      ) :strongArea && (
         <div className="my-10">
           <div className="flex flex-row flex-wrap gap-1 items-center">
             <Emoji emoji="muscle" size={20} />
@@ -52,7 +62,9 @@ export const ProfileDetails = ({
         </div>
       )}
 
-      {subjectArea && (
+      {loading ? (
+        <Skeleton width={200} />
+      ) :subjectArea && (
         <div className="my-10">
           <div className="flex flex-row flex-wrap gap-1 items-center">
             <Emoji emoji="pill" size={20} />
@@ -62,7 +74,9 @@ export const ProfileDetails = ({
         </div>
       )}
 
-      {experiences && experiences[0].experience && (
+      {loading ? (
+        <Skeleton width={200} />
+      ) :experiences && experiences[0].experience && (
         <div className="my-10">
           <div className="flex flex-row flex-wrap gap-1 items-center">
             <Emoji emoji="hourglass_flowing_sand" size={20} />
@@ -85,7 +99,9 @@ export const ProfileDetails = ({
         </div>
       )}
 
-      {resumes && resumes[0].companyName && (
+      {loading ? (
+        <Skeleton width={200} />
+      ) :resumes && resumes[0].companyName && (
         <div className="my-10">
           <div className="flex flex-row flex-wrap gap-1 items-center">
             <Emoji emoji="page_facing_up" size={20} />

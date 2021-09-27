@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Router from "next/router";
 import React, { useContext, useEffect, useState } from "react";
+import Skeleton from "react-loading-skeleton";
 import { auth, db, storage } from "../../../../firebase";
 import { UserContext } from "../../../../UserContext";
 import { MypageFreeImg } from "../../../molecules/MypageFreeImg";
@@ -16,12 +17,18 @@ export const Mypage = ({ setIsOpen }) => {
   const [displayName, setDisplayName] = useState("");
   const [demoImg, setDemoImg] = useState("");
   const [demoImgs, setDemoImgs] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     let isMounted = true;
 
     (async () => {
-      const url = await storage.ref().child("demo_img.png").getDownloadURL();
+     
+      const url = await storage
+        .ref()
+        .child("demo_img.png")
+        .getDownloadURL()
+        ;
       const Url = await storage.ref().child("demo_imgs.jpeg").getDownloadURL();
       if (isMounted) {
         setDemoImg(url);
@@ -49,14 +56,17 @@ export const Mypage = ({ setIsOpen }) => {
 
   useEffect(() => {
     if (userId) {
+      setLoading(true);
       const unSub = db
         .collection("userProfiles")
         .doc(userId)
         .onSnapshot((doc) => {
           if (doc.data()) {
             setProfile(doc.data());
+            setLoading(false)
           }
-        });
+        })
+
       return () => unSub();
     }
   }, [userId]);
@@ -86,10 +96,14 @@ export const Mypage = ({ setIsOpen }) => {
     userName,
   } = profile;
 
+  console.log(loading);
+
   return (
     <main className="grid grid-cols-12 my-10">
       <div className="lg:col-span-3 col-span-12 text-center justify-self-center ">
-        {profileImageUrl ? (
+        {loading ? (
+          <Skeleton circle={true} height={200} width={200} />
+        ) : profileImageUrl ? (
           <Image
             className="inline object-cover mr-2 rounded-full"
             width={200}
@@ -114,10 +128,11 @@ export const Mypage = ({ setIsOpen }) => {
             userName={userName}
             displayName={displayName}
             jobTitle={jobTitle}
+            loading={loading}
           />
         </div>
-
-        <ProfileStatus scout={scout} userId={userId} setIsOpen={setIsOpen} />
+        
+        <ProfileStatus scout={scout} userId={userId} setIsOpen={setIsOpen} loading={loading}/>
 
         <div className="lg:hidden block px-5">
           <ProfileSP2
@@ -130,6 +145,7 @@ export const Mypage = ({ setIsOpen }) => {
             birthPlace={birthPlace}
             language={language}
             comments={comments}
+            loading={loading}
           />
         </div>
 
@@ -138,6 +154,7 @@ export const Mypage = ({ setIsOpen }) => {
           freeImageUrl0={freeImageUrl0}
           freeImageUrl1={freeImageUrl1}
           freeImageUrl2={freeImageUrl2}
+          loading={loading}
         />
       </div>
 
@@ -156,6 +173,7 @@ export const Mypage = ({ setIsOpen }) => {
             birthPlace={birthPlace}
             language={language}
             comments={comments}
+            loading={loading}
           />
         </div>
 
@@ -167,6 +185,7 @@ export const Mypage = ({ setIsOpen }) => {
           subjectArea={subjectArea}
           experiences={experiences}
           resumes={resumes}
+          loading={loading}
         />
       </div>
     </main>

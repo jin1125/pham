@@ -1,5 +1,6 @@
 import { Emoji } from "emoji-mart";
 import React from "react";
+import Skeleton from "react-loading-skeleton";
 
 export const ProfileSP2 = ({
   userId,
@@ -11,16 +12,25 @@ export const ProfileSP2 = ({
   birthPlace,
   language,
   comments,
+  loading
 }) => {
   return (
     <div>
       <div className="flex flex-row flex-wrap justify-center items-center my-3 gap-1 leading-none">
+      {loading ? (
+        <Skeleton width={100} />
+      ) :(
+        <>
         <Emoji emoji="id" size={20} />
         <p className="text-base">{userId}</p>
+        </>
+      )}
       </div>
 
       <div className="flex flex-row flex-wrap justify-center my-5 gap-6 leading-none">
-        {homeAddress ? (
+        {loading ? (
+        <Skeleton width={100} />
+      ) :homeAddress ? (
           <div className="flex flex-row flex-wrap gap-1 items-center">
             <Emoji emoji="round_pushpin" size={20} />
             <p className="text-base">{homeAddress.slice(3)}</p>
@@ -36,28 +46,36 @@ export const ProfileSP2 = ({
           </div>
         )}
 
-        {dobYY && dobMM && dobDD && (
+        {loading ? (
+        <Skeleton width={100} />
+      ) :dobYY && dobMM && dobDD && (
           <div className="flex flex-row flex-wrap gap-1 items-center">
             <Emoji emoji="birthday" size={20} />
             <p className="text-base">{`${dobYY}/${dobMM}/${dobDD}`}</p>
           </div>
         )}
 
-        {school && (
+        {loading ? (
+        <Skeleton width={100} />
+      ) :school && (
           <div className="flex flex-row flex-wrap gap-1 items-center">
             <Emoji emoji="school" size={20} />
             <p className="text-base">{`${school} 卒業`}</p>
           </div>
         )}
 
-        {birthPlace && (
+        {loading ? (
+        <Skeleton width={100} />
+      ) :birthPlace && (
           <div className="flex flex-row flex-wrap gap-1 items-center">
             <Emoji emoji="baby" size={20} />
             <p className="text-base">{`${birthPlace} 出身`}</p>
           </div>
         )}
 
-        {language && (
+        {loading ? (
+        <Skeleton width={100} />
+      ) :language && (
           <div className="flex flex-row flex-wrap gap-1 items-center">
             <Emoji emoji="speaking_head_in_silhouette" size={20} />
             <p className="text-base">{language}</p>
@@ -65,7 +83,9 @@ export const ProfileSP2 = ({
         )}
       </div>
 
-      {comments && (
+      {loading ? (
+        <Skeleton width={100} />
+      ) :comments && (
         <div className="my-12 whitespace-pre-wrap">
           <p className="text-base">{comments}</p>
         </div>

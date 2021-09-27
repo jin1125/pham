@@ -1,21 +1,28 @@
-import React from 'react'
+import React from "react";
+import Skeleton from "react-loading-skeleton";
 
-export const ProfileSP1 = ({userName,displayName,jobTitle}) => {
+export const ProfileSP1 = ({ userName, displayName, jobTitle, loading }) => {
   return (
     <div className="flex flex-row flex-wrap justify-center items-end my-5 gap-8 text-center">
-    <div>
-      {userName ? (
-        <h2 className="text-4xl font-bold">{userName}</h2>
+      <div>
+        {loading ? (
+          <Skeleton width={100} height={30}/>
+        ) : userName ? (
+          <h2 className="text-4xl font-bold">{userName}</h2>
+        ) : (
+          <h2 className="text-4xl font-bold">{displayName}</h2>
+        )}
+      </div>
+
+      {loading ? (
+        <Skeleton width={100}  height={20}/>
       ) : (
-        <h2 className="text-4xl font-bold">{displayName}</h2>
+        jobTitle && (
+          <div>
+            <p className="text-xl font-bold text-blue-400">{jobTitle}</p>
+          </div>
+        )
       )}
     </div>
-
-    {jobTitle && (
-      <div>
-        <p className="text-xl font-bold text-blue-400">{jobTitle}</p>
-      </div>
-    )}
-  </div>
-  )
-}
+  );
+};

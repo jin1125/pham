@@ -1,15 +1,19 @@
 import Image from "next/image";
 import React from "react";
+import Skeleton from "react-loading-skeleton";
 
 export const MypageFreeImg = ({
   demoImgs,
   freeImageUrl0,
   freeImageUrl1,
   freeImageUrl2,
+  loading,
 }) => {
   return (
     <div className="flex lg:flex-col flex-row md:gap-5">
-      {freeImageUrl0 ? (
+      {loading ? (
+        <Skeleton height={200} width={200} />
+      ) : freeImageUrl0 ? (
         <div>
           <Image
             className="inline object-cover transform hover:scale-150 transition duration-300"
@@ -32,7 +36,10 @@ export const MypageFreeImg = ({
           </div>
         )
       )}
-      {freeImageUrl1 ? (
+
+      {loading ? (
+        <Skeleton height={200} width={200} />
+      ) : freeImageUrl1 ? (
         <div>
           <Image
             className="inline object-cover transform hover:scale-150 transition duration-300"
@@ -55,7 +62,10 @@ export const MypageFreeImg = ({
           </div>
         )
       )}
-      {freeImageUrl2 ? (
+
+      {loading ? (
+        <Skeleton height={200} width={200} />
+      ) : freeImageUrl2 ? (
         <div>
           <Image
             className="inline object-cover transform hover:scale-150 transition duration-300"
