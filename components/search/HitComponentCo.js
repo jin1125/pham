@@ -1,20 +1,20 @@
 import { useContext, useEffect } from "react";
 import { UserContext } from "../../UserContext";
-import {HitCo} from "./HitCo";
+import { HitCo } from "./HitCo";
 
 export function hitComponentCo({ hit }) {
-  const { selectCompanyAddress, selectCompany, setSelectCompany,comId } =
+  const { selectCompanyAddress, selectCompany, setSelectCompany, comId } =
     useContext(UserContext);
 
   const click = () => {
     setSelectCompany(hit);
   };
 
-  useEffect(()=>{
-    if(comId && comId === hit.objectID){
+  useEffect(() => {
+    if (comId && comId === hit.objectID) {
       setSelectCompany(hit);
     }
-   },[comId])
+  }, [comId]);
 
   ////////////////////////// JSXエリア //////////////////////////
   return (
@@ -28,11 +28,9 @@ export function hitComponentCo({ hit }) {
         }
       >
         {selectCompanyAddress === "" ? (
-          <HitCo hit={hit}/>
+          <HitCo hit={hit} />
         ) : (
-          hit.companyPrefecture === selectCompanyAddress && (
-            <HitCo hit={hit}/>
-          )
+          hit.companyPrefecture === selectCompanyAddress && <HitCo hit={hit} />
         )}
       </div>
     </>
