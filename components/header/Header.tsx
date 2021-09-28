@@ -1,11 +1,11 @@
 import { Emoji } from "emoji-mart";
 import Link from "next/link";
-import React, { memo, useContext, useEffect, useState } from "react";
+import React, { memo, useContext, useEffect, useState, VFC } from "react";
 import { auth, db } from "../../firebase";
 import { UserContext } from "../../UserContext";
 
-export const Header = memo(() => {
-  const [check, setCheck] = useState(false);
+export const Header:VFC = memo(() => {
+  const [check, setCheck] = useState<boolean>(false);
   const {
     setSelectJob,
     setCompanyId,

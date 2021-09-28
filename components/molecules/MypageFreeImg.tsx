@@ -1,8 +1,16 @@
 import Image from "next/image";
-import React, { memo } from "react";
+import React, { memo, VFC } from "react";
 import Skeleton from "react-loading-skeleton";
 
-export const MypageFreeImg = memo(
+type Props = {
+  demoImgs:string;
+  freeImageUrl0:string;
+  freeImageUrl1:string;
+  freeImageUrl2:string;
+  loading:boolean;
+};
+
+export const MypageFreeImg: VFC<Props> = memo(
   ({ demoImgs, freeImageUrl0, freeImageUrl1, freeImageUrl2, loading }) => {
     return (
       <div className="flex lg:flex-col flex-row md:gap-5">

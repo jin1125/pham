@@ -1,6 +1,13 @@
 import Image from "next/image";
 import Router from "next/router";
-import React, { memo, useContext, useEffect, useState } from "react";
+import React, {
+  Dispatch,
+  memo,
+  useContext,
+  useEffect,
+  useState,
+  VFC,
+} from "react";
 import Skeleton from "react-loading-skeleton";
 import { auth, db, storage } from "../../../../firebase";
 import { UserContext } from "../../../../UserContext";
@@ -11,24 +18,56 @@ import { ProfileSP1 } from "./ProfileSP1";
 import { ProfileSP2 } from "./ProfileSP2";
 import { ProfileStatus } from "./ProfileStatus";
 
-export const Mypage = memo(({ setIsOpen }) => {
+type Props = {
+  setIsOpen: Dispatch<React.SetStateAction<boolean>>;
+};
+
+type Profile = {
+  birthPlace?: string;
+  certification?: string;
+  comments?: string;
+  dobDD?: string;
+  dobMM?: string;
+  dobYY?: string;
+  dream?: string;
+  experiences?: {
+    experience: string;
+    years: string;
+  }[];
+  freeImageUrl0?: string;
+  freeImageUrl1?: string;
+  freeImageUrl2?: string;
+  hobby?: string;
+  homeAddress?: string;
+  jobTitle?: string;
+  language?: string;
+  profileImageUrl?: string;
+  resumes?: {
+    companyName: string;
+    employmentStatus: string;
+    workEnd: string;
+    workStart: string;
+  }[];
+  school?: string;
+  scout?: string;
+  strongArea?: string;
+  subjectArea?: string;
+  userName?: string;
+};
+
+export const Mypage: VFC<Props> = memo(({ setIsOpen }) => {
   const { userId, setUserId } = useContext(UserContext);
-  const [profile, setProfile] = useState({});
-  const [displayName, setDisplayName] = useState("");
-  const [demoImg, setDemoImg] = useState("");
-  const [demoImgs, setDemoImgs] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [profile, setProfile] = useState<Profile>({});
+  const [displayName, setDisplayName] = useState<string>("");
+  const [demoImg, setDemoImg] = useState<string>("");
+  const [demoImgs, setDemoImgs] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     let isMounted = true;
 
     (async () => {
-     
-      const url = await storage
-        .ref()
-        .child("demo_img.png")
-        .getDownloadURL()
-        ;
+      const url = await storage.ref().child("demo_img.png").getDownloadURL();
       const Url = await storage.ref().child("demo_imgs.jpeg").getDownloadURL();
       if (isMounted) {
         setDemoImg(url);
@@ -63,9 +102,9 @@ export const Mypage = memo(({ setIsOpen }) => {
         .onSnapshot((doc) => {
           if (doc.data()) {
             setProfile(doc.data());
-            setLoading(false)
+            setLoading(false);
           }
-        })
+        });
 
       return () => unSub();
     }
@@ -129,8 +168,13 @@ export const Mypage = memo(({ setIsOpen }) => {
             loading={loading}
           />
         </div>
-        
-        <ProfileStatus scout={scout} userId={userId} setIsOpen={setIsOpen} loading={loading}/>
+
+        <ProfileStatus
+          scout={scout}
+          userId={userId}
+          setIsOpen={setIsOpen}
+          loading={loading}
+        />
 
         <div className="lg:hidden block px-5">
           <ProfileSP2

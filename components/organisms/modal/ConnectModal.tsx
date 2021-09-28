@@ -5,17 +5,66 @@ import { useAlert } from "react-alert";
 import { auth, db, storage } from "../../../firebase";
 import { UserContext } from "../../../UserContext";
 
+type Profile = {
+  birthPlace: string;
+  certification: string;
+  comments: string;
+  dobDD: string;
+  dobMM: string;
+  dobYY: string;
+  dream: string;
+  experiences: {
+    experience: string;
+    years: string;
+  }[];
+  freeImageUrl0: string;
+  freeImageUrl1: string;
+  freeImageUrl2: string;
+  hobby: string;
+  homeAddress: string;
+  id: string;
+  jobTitle: string;
+  language: string;
+  profileImageUrl: string;
+  resumes: {
+    companyName: string;
+    employmentStatus: string;
+    workEnd: string;
+    workStart: string;
+  }[];
+  school: string;
+  scout: string;
+  strongArea: string;
+  subjectArea: string;
+  userName: string;
+};
+
+type Company = {
+  comments: string;
+  companyAddress: string;
+  companyImageUrl: string;
+  companyName: string;
+  companyPrefecture: string;
+  establishment: string;
+  exchange: string;
+  id: string;
+  pharmacies: string;
+  presidentHobby: string;
+  unique: string;
+  websiteUrl: string;
+};
+
 export default function ConnectModal({ isOpen, setIsOpen }) {
-  const [phMatchA, setPhMatchA] = useState([]);
-  const [phMatchB, setPhMatchB] = useState([]);
-  const [coMatchB, setCoMatchB] = useState([]);
-  const [receives, setReceives] = useState([]);
-  const [passes, setPasses] = useState([]);
-  const [passesA, setPassesA] = useState([]);
-  const [passesB, setPassesB] = useState([]);
-  const [demoImg, setDemoImg] = useState("");
-  const [companyDemoImg, setCompanyDemoImg] = useState("");
-  const [request, setRequest] = useState(true);
+  const [phMatchA, setPhMatchA] = useState<string[]>([]);
+  const [phMatchB, setPhMatchB] = useState<string[]>([]);
+  const [coMatchB, setCoMatchB] = useState<string[]>([]);
+  const [receives, setReceives] = useState<Profile[]>([]);
+  const [passes, setPasses] = useState<any[]>([]);
+  const [passesA, setPassesA] = useState<Profile[]>([]);
+  const [passesB, setPassesB] = useState<Company[]>([]);
+  const [demoImg, setDemoImg] = useState<string>("");
+  const [companyDemoImg, setCompanyDemoImg] = useState<string>("");
+  const [request, setRequest] = useState<boolean>(true);
   const { userId, setUserId } = useContext(UserContext);
 
   const alert = useAlert();
@@ -60,8 +109,6 @@ export default function ConnectModal({ isOpen, setIsOpen }) {
     const unSub = auth.onAuthStateChanged((user) => {
       if (user) {
         setUserId(user.uid);
-      } else {
-        Router.push("/login");
       }
     });
 
@@ -154,7 +201,6 @@ export default function ConnectModal({ isOpen, setIsOpen }) {
             com.push({ ...doc.data(), id: doc.id });
           }
         });
-
         setPassesB([...com]);
       });
 
@@ -337,7 +383,6 @@ export default function ConnectModal({ isOpen, setIsOpen }) {
                                   />
                                 )
                               )}
-                              
                             </div>
 
                             <div className="col-span-5 break-words justify-self-start text-left">
@@ -371,7 +416,6 @@ export default function ConnectModal({ isOpen, setIsOpen }) {
                                   />
                                 )
                               )}
-                              
                             </div>
 
                             <div className="col-span-5 break-words justify-self-start text-left">

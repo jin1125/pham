@@ -22,7 +22,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "components/organisms/main/mypage/ProfileDetails.js"  ],
   "exclude": [
     "node_modules"
   ]

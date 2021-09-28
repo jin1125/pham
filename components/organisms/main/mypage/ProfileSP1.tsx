@@ -1,7 +1,14 @@
-import React, { memo } from "react";
+import React, { memo, VFC } from "react";
 import Skeleton from "react-loading-skeleton";
 
-export const ProfileSP1 = memo(({ userName, displayName, jobTitle, loading }) => {
+type Props = {
+  userName:string;
+  displayName:string;
+  jobTitle:string;
+  loading:boolean;
+};
+
+export const ProfileSP1:VFC<Props> = memo(({ userName, displayName, jobTitle, loading }) => {
   return (
     <div className="flex flex-row flex-wrap justify-center items-end my-5 gap-8 text-center">
       <div>

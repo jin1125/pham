@@ -1,8 +1,21 @@
 import { Emoji } from "emoji-mart";
-import React, { memo } from "react";
+import React, { memo, VFC } from "react";
 import Skeleton from "react-loading-skeleton";
 
-export const ProfileSP2 = memo(({
+type Props = {
+  userId:string;
+  homeAddress:string;
+  dobYY:string;
+  dobMM:string;
+  dobDD:string;
+  school:string;
+  birthPlace:string;
+  language:string;
+  comments:string;
+  loading:boolean;
+}
+
+export const ProfileSP2:VFC<Props> = memo(({
   userId,
   homeAddress,
   dobYY,

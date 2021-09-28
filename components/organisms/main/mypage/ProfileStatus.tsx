@@ -1,9 +1,16 @@
 import { Emoji } from "emoji-mart";
-import React, { memo, useEffect, useState } from "react";
+import React, { Dispatch, memo, useEffect, useState, VFC } from "react";
 import Skeleton from "react-loading-skeleton";
 import { db } from "../../../../firebase";
 
-export const ProfileStatus = memo(({ setIsOpen, scout, userId, loading }) => {
+type Props = {
+  setIsOpen:Dispatch<React.SetStateAction<boolean>>;
+  scout:string;
+  userId:string;
+  loading:boolean;
+}
+
+export const ProfileStatus:VFC<Props> = memo(({ setIsOpen, scout, userId, loading }) => {
   const [phMatch, setPhMatch] = useState([]);
   const [phMatchA, setPhMatchA] = useState([]);
   const [phMatchB, setPhMatchB] = useState([]);

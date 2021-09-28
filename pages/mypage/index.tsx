@@ -1,11 +1,11 @@
 import Head from "next/head";
 import React, { useState } from "react";
 import { Layout } from "../../components/layout/Layout";
-import { Mypage } from "../../components/organisms/main/Mypage/Mypage";
+import { Mypage } from "../../components/organisms/main/mypage/Mypage";
 import ConnectModal from "../../components/organisms/modal/ConnectModal";
 
 export default function mypage() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   ////////////////////////// JSXエリア //////////////////////////
   return (
