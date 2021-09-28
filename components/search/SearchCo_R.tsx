@@ -146,7 +146,7 @@ export const SearchCo_R: VFC = memo(() => {
               className="text-blue-400 border-2 border-blue-400 bg-white transition duration-300 hover:bg-blue-100 py-2 w-3/5 rounded-full shadow-lg font-bold"
               onClick={() => {
                 setCompanyId(selectCompany.objectID);
-                setSelectPharmacy("");
+                setSelectPharmacy({});
                 setPharmId("");
               }}
             >
@@ -161,7 +161,7 @@ export const SearchCo_R: VFC = memo(() => {
               className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 py-2 w-3/5 rounded-full shadow-lg font-bold"
               onClick={() => {
                 setCompanyId(selectCompany.objectID);
-                setSelectPharmacy("");
+                setSelectPharmacy({});
                 setPharmacyId("");
                 setPharmId("");
               }}
