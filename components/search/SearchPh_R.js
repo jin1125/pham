@@ -233,7 +233,7 @@ export const SearchPh_R = memo(() => {
                     className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 py-2 w-3/5 rounded-full shadow-lg font-bold"
                     onClick={() => {
                       setPharmacyId(selectPharmacy.objectID);
-                      setSelectJob("");
+                      setSelectJob({});
                     }}
                   >
                     募集内容

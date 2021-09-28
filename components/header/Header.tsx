@@ -83,7 +83,7 @@ export const Header:VFC = memo(() => {
             className="font-bold text-center text-blue-400 transition duration-300 hover:text-white disabled:bg-blue-300 bg-white hover:bg-blue-300 disabled:hover:text-blue-400 py-2 rounded-full w-full"
             disabled={check}
             onClick={() => {
-              setSelectJob("");
+              setSelectJob({});
               setPharmacyId("");
               setCompanyId("");
               setPharmId("");
@@ -102,7 +102,7 @@ export const Header:VFC = memo(() => {
             className="font-bold text-center text-blue-400 transition duration-300 hover:text-white disabled:bg-blue-300 bg-white hover:bg-blue-300 disabled:hover:text-blue-400 py-2 rounded-full w-full"
             disabled={check}
             onClick={() => {
-              setSelectJob("");
+              setSelectJob({});
               setPharmacyId("");
               setCompanyId("");
               setPharmId("");

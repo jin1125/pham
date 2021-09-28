@@ -1,4 +1,5 @@
 import { createContext, Dispatch } from "react";
+import { SelectJob } from "./types/selectJob";
 
 export const UserContext = createContext(
   {} as {
@@ -18,37 +19,8 @@ export const UserContext = createContext(
     setSelectPharmacy: Dispatch<React.SetStateAction<string>>;
     selectPharmacyAddress: string;
     setSelectPharmacyAddress: Dispatch<React.SetStateAction<string>>;
-    selectJob: {
-      access?: string;
-      allowance?: string;
-      bonus?: string;
-      businessHours?: string;
-      clothes?: string;
-      coId?: string;
-      employeeBenefits?: string;
-      employmentStatus?: string;
-      freeImageUrl0?: string;
-      freeImageUrl1?: string;
-      freeImageUrl2?: string;
-      holiday?: string;
-      jobAddress?:string;
-      jobDescription?: string;
-      jobPrefecture?:string;
-      lastmodified?: number;
-      notes?: string;
-      objectID?: string;
-      pay?: string;
-      phId?: string;
-      pharmacyName?: string;
-      raise?: string;
-      recommend?: string;
-      selection?: string;
-      training?: string;
-      transport?: string;
-      unique?: string;
-      __position?: number;
-    };
-    setSelectJob: Dispatch<React.SetStateAction<string>>;
+    selectJob: SelectJob;
+    setSelectJob: Dispatch<React.SetStateAction<SelectJob>>;
     selectJobAddress: string;
     setSelectJobAddress: Dispatch<React.SetStateAction<string>>;
     selectMsg: string;

@@ -4,6 +4,7 @@ import { positions, Provider as AlertProvider } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
 import "tailwindcss/tailwind.css";
 import "../styles/global.css";
+import { SelectJob } from "../types/selectJob";
 import { UserContext } from "../UserContext";
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -15,7 +16,7 @@ export default function App({ Component, pageProps }: AppProps) {
   const [selectCompanyAddress, setSelectCompanyAddress] = useState<string>("");
   const [selectPharmacy, setSelectPharmacy] = useState<string>("");
   const [selectPharmacyAddress, setSelectPharmacyAddress] = useState<string>("");
-  const [selectJob, setSelectJob] = useState<string>("");
+  const [selectJob, setSelectJob] = useState<SelectJob>({});
   const [selectJobAddress, setSelectJobAddress] = useState<string>("");
   const [selectJobEmploymentStatus, setSelectJobEmploymentStatus] =
     useState<string>("");

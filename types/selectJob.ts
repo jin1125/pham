@@ -1,0 +1,30 @@
+export type SelectJob = {
+  access?: string;
+      allowance?: string;
+      bonus?: string;
+      businessHours?: string;
+      clothes?: string;
+      coId?: string;
+      employeeBenefits?: string;
+      employmentStatus?: string;
+      freeImageUrl0?: string;
+      freeImageUrl1?: string;
+      freeImageUrl2?: string;
+      holiday?: string;
+      jobAddress?:string;
+      jobDescription?: string;
+      jobPrefecture?:string;
+      lastmodified?: number;
+      notes?: string;
+      objectID?: string;
+      pay?: string;
+      phId?: string;
+      pharmacyName?: string;
+      raise?: string;
+      recommend?: string;
+      selection?: string;
+      training?: string;
+      transport?: string;
+      unique?: string;
+      __position?: number;
+}
