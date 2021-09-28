@@ -14,9 +14,6 @@ export const SearchJob:VFC = memo(() => {
 
   const { selectJob, setUserId } = useContext(UserContext);
 
-  console.log(selectJob);
-  
-
   useEffect(() => {
     const unSub = auth.onAuthStateChanged((user) => {
       if (user) {

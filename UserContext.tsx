@@ -1,4 +1,5 @@
 import { createContext, Dispatch } from "react";
+import { SelectCompany } from "./types/selectCompany";
 import { SelectJob } from "./types/selectJob";
 
 export const UserContext = createContext(
@@ -13,8 +14,8 @@ export const UserContext = createContext(
     setSelectProfile: Dispatch<React.SetStateAction<string>>;
     selectCompanyAddress: string;
     setSelectCompanyAddress: Dispatch<React.SetStateAction<string>>;
-    selectCompany: string;
-    setSelectCompany: Dispatch<React.SetStateAction<string>>;
+    selectCompany: SelectCompany;
+    setSelectCompany: Dispatch<React.SetStateAction<SelectCompany>>;
     selectPharmacy: string;
     setSelectPharmacy: Dispatch<React.SetStateAction<string>>;
     selectPharmacyAddress: string;

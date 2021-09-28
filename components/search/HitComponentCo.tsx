@@ -6,7 +6,7 @@ export function hitComponentCo({ hit }) {
   const { selectCompanyAddress, selectCompany, setSelectCompany, comId } =
     useContext(UserContext);
 
-  const click = () => {
+  const click = ():void => {
     setSelectCompany(hit);
   };
 
