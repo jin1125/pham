@@ -5,7 +5,7 @@ import { useAlert } from "react-alert";
 import Loader from "react-loader-spinner";
 import Skeleton from "react-loading-skeleton";
 import { auth, db, storage } from "../../../../firebase";
-import { EditProfile } from "../../../../types/editProfile";
+import { AllProfile } from "../../../../types/allProfile";
 import { UserContext } from "../../../../UserContext";
 import { EditFreeImg } from "../../../molecules/EditFreeImg";
 import { EditDetails } from "./EditDetails";
@@ -15,11 +15,11 @@ import { EditSP2 } from "./EditSP2";
 import { EditStatus } from "./EditStatus";
 import { Footer } from "./Footer";
 
-export const EditPage:VFC = memo(() => {
+export const EditPage: VFC = memo(() => {
   ////////////////// ステートエリア //////////////////
   const { userId, setUserId } = useContext(UserContext);
 
-  const [profile, setProfile] = useState<EditProfile>({
+  const [profile, setProfile] = useState<AllProfile>({
     birthPlace: "",
     certification: "",
     comments: "",
@@ -47,10 +47,10 @@ export const EditPage:VFC = memo(() => {
   });
   const [userEmail, setUserEmail] = useState<string>("");
   const [displayName, setDisplayName] = useState<string>("");
-  const [profileImage, setProfileImage] = useState<File|null>(null);
-  const [freeImage0, setFreeImage0] = useState<File|null>(null);
-  const [freeImage1, setFreeImage1] = useState<File|null>(null);
-  const [freeImage2, setFreeImage2] = useState<File|null>(null);
+  const [profileImage, setProfileImage] = useState<File | null>(null);
+  const [freeImage0, setFreeImage0] = useState<File | null>(null);
+  const [freeImage1, setFreeImage1] = useState<File | null>(null);
+  const [freeImage2, setFreeImage2] = useState<File | null>(null);
   const [fileUrl, setFileUrl] = useState<string>("");
   const [demoImg, setDemoImg] = useState<string>("");
   const [demoImgs, setDemoImgs] = useState<string>("");

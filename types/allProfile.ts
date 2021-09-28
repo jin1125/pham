@@ -1,4 +1,4 @@
-export type EditProfile = {
+export type AllProfile = {
   birthPlace: string;
   certification: string;
   comments: string;

@@ -1,10 +1,10 @@
 import React, { Dispatch, memo, VFC } from "react";
 import Skeleton from "react-loading-skeleton";
-import { EditProfile } from "../../../../types/editProfile"
+import { AllProfile } from "../../../../types/allProfile";
 
 type Props = {
-  profile:EditProfile;
-  setProfile:Dispatch<React.SetStateAction<EditProfile>>;
+  profile:AllProfile;
+  setProfile:Dispatch<React.SetStateAction<AllProfile>>;
   userName:string;
   jobTitle:string;
   loadingProfile:boolean;

@@ -1,4 +1,4 @@
-import React, { memo, useContext } from 'react'
+import React, { Dispatch, memo, useContext, VFC } from 'react'
 import algoliasearch from "algoliasearch/lite";
 import { Address } from "../atoms/Address";
 import { Hits, InstantSearch } from "react-instantsearch-dom";
@@ -6,7 +6,12 @@ import { hitComponentJob } from "./HitComponentJob";
 import { CustomSearchBox } from "./SearchBox";
 import { UserContext } from '../../UserContext';
 
-export const SearchJob_L = memo(({setCoPassId,setCoReceiveId}) => {
+type Props = {
+  setCoPassId:Dispatch<React.SetStateAction<string>>;
+  setCoReceiveId:Dispatch<React.SetStateAction<string>>;
+};
+
+export const SearchJob_L:VFC<Props> = memo(({setCoPassId,setCoReceiveId}) => {
   const searchClient = algoliasearch(
     "0TMIYQ8E9N",
     "58e6e394abd7a5cfcc6fcae0d7b51ac5"
@@ -46,7 +51,7 @@ export const SearchJob_L = memo(({setCoPassId,setCoReceiveId}) => {
                         className="bg-blue-100 rounded-full outline-none pl-3 w-full py-1"
                         name="selectJobEmploymentStatus"
                         value={selectJobEmploymentStatus}
-                        onChange={(e) =>
+                        onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
                           setSelectJobEmploymentStatus(e.target.value)
                         }
                       >
@@ -65,7 +70,7 @@ export const SearchJob_L = memo(({setCoPassId,setCoReceiveId}) => {
                         className="bg-blue-100 rounded-full outline-none pl-3 w-full py-1"
                         name="selectJobAddress"
                         value={selectJobAddress}
-                        onChange={(e) => setSelectJobAddress(e.target.value)}
+                        onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSelectJobAddress(e.target.value)}
                       >
                         <option value="">指定しない</option>
                         <Address/>

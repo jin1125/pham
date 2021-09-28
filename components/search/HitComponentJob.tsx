@@ -12,7 +12,7 @@ export function hitComponentJob({ hit }) {
     companyId,
   } = useContext(UserContext);
 
-  const click = () => {
+  const click = ():void => {
     setSelectJob(hit);
   };
 

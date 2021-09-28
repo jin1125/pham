@@ -1,4 +1,4 @@
-import React, { memo, useContext, useEffect, useState } from 'react'
+import React, { Dispatch, memo, useContext, useEffect, useState, VFC } from 'react'
 import firebase from "firebase/app";
 import { Emoji } from "emoji-mart";
 import Image from "next/image";
@@ -7,17 +7,35 @@ import { useAlert } from "react-alert";
 import { db, storage } from '../../firebase';
 import { UserContext } from '../../UserContext';
 
-export const SearchJob_R = memo(({coPassId,setCoPassId,coReceiveId,setCoReceiveId,setIsOpen}) => {
+type Props = {
+  coPassId: string;
+  setCoPassId:Dispatch<React.SetStateAction<string>>;
+  coReceiveId:string;
+  setCoReceiveId:Dispatch<React.SetStateAction<string>>;
+  setIsOpen:Dispatch<React.SetStateAction<boolean>>;
+};
+
+type ApplyData = {
+  jobId: string;
+  userId: string;
+  userName: string;
+  companyId: string;
+  pharmacyId: string;
+  pharmacyName: string;
+  datetime: any;
+}
+
+export const SearchJob_R:VFC<Props> = memo(({coPassId,setCoPassId,coReceiveId,setCoReceiveId,setIsOpen}) => {
   const alert = useAlert();
-  const [demoImgs, setDemoImgs] = useState("");
-  const [applyData, setApplyData] = useState({
+  const [demoImgs, setDemoImgs] = useState<string>("");
+  const [applyData, setApplyData] = useState<ApplyData>({
     jobId: "",
     userId: "",
     userName: "",
     companyId: "",
     pharmacyId: "",
     pharmacyName: "",
-    datetime: "",
+    datetime: null,
   });
   const {
     selectJob,
@@ -25,6 +43,7 @@ export const SearchJob_R = memo(({coPassId,setCoPassId,coReceiveId,setCoReceiveI
     setCompanyId,
     userId,
   } = useContext(UserContext);
+  
 
   useEffect(() => {
     let isMounted = true;
@@ -429,7 +448,7 @@ export const SearchJob_R = memo(({coPassId,setCoPassId,coReceiveId,setCoReceiveI
       <button
         className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 disabled:bg-blue-200 py-2 w-3/5 rounded-full shadow-lg font-bold"
         onClick={apply}
-        disabled={coPassId}
+        disabled={coPassId && true}
       >
         {coPassId ? "応募済み" : "応募！"}
       </button>

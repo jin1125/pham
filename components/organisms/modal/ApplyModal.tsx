@@ -1,8 +1,14 @@
 import { Dialog, Transition } from "@headlessui/react";
 import Image from "next/image";
-import { Fragment } from "react";
+import { Dispatch, Fragment } from "react";
 
-export default function ApplyModal({ isOpen, setIsOpen }) {
+export default function ApplyModal({
+  isOpen,
+  setIsOpen,
+}: {
+  isOpen: boolean;
+  setIsOpen: Dispatch<React.SetStateAction<boolean>>;
+}) {
   function closeModal() {
     setIsOpen(false);
   }

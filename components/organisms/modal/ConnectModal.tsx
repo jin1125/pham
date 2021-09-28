@@ -3,64 +3,17 @@ import Image from "next/image";
 import { Fragment, useContext, useEffect, useState } from "react";
 import { useAlert } from "react-alert";
 import { auth, db, storage } from "../../../firebase";
+import { Company } from "../../../types/company";
+import { AllProfile } from "../../../types/allProfile";
 import { UserContext } from "../../../UserContext";
-
-type Profile = {
-  birthPlace: string;
-  certification: string;
-  comments: string;
-  dobDD: string;
-  dobMM: string;
-  dobYY: string;
-  dream: string;
-  experiences: {
-    experience: string;
-    years: string;
-  }[];
-  freeImageUrl0: string;
-  freeImageUrl1: string;
-  freeImageUrl2: string;
-  hobby: string;
-  homeAddress: string;
-  id: string;
-  jobTitle: string;
-  language: string;
-  profileImageUrl: string;
-  resumes: {
-    companyName: string;
-    employmentStatus: string;
-    workEnd: string;
-    workStart: string;
-  }[];
-  school: string;
-  scout: string;
-  strongArea: string;
-  subjectArea: string;
-  userName: string;
-};
-
-type Company = {
-  comments: string;
-  companyAddress: string;
-  companyImageUrl: string;
-  companyName: string;
-  companyPrefecture: string;
-  establishment: string;
-  exchange: string;
-  id: string;
-  pharmacies: string;
-  presidentHobby: string;
-  unique: string;
-  websiteUrl: string;
-};
 
 export default function ConnectModal({ isOpen, setIsOpen }) {
   const [phMatchA, setPhMatchA] = useState<string[]>([]);
   const [phMatchB, setPhMatchB] = useState<string[]>([]);
   const [coMatchB, setCoMatchB] = useState<string[]>([]);
-  const [receives, setReceives] = useState<Profile[]>([]);
+  const [receives, setReceives] = useState<AllProfile[]>([]);
   const [passes, setPasses] = useState<any[]>([]);
-  const [passesA, setPassesA] = useState<Profile[]>([]);
+  const [passesA, setPassesA] = useState<AllProfile[]>([]);
   const [passesB, setPassesB] = useState<Company[]>([]);
   const [demoImg, setDemoImg] = useState<string>("");
   const [companyDemoImg, setCompanyDemoImg] = useState<string>("");

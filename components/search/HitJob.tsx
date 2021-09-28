@@ -1,10 +1,14 @@
 import Image from "next/image";
-import React, { memo, useEffect, useState } from "react";
+import React, { memo, useEffect, useState, VFC } from "react";
 import { Highlight } from "react-instantsearch-dom";
 import { storage } from "../../firebase";
 
-export const HitJob=memo(({ hit })=> {
-  const [jobDemoImg, setJobDemoImg] = useState("");
+type Props = {
+  hit:any;
+};
+
+export const HitJob: VFC<Props> = memo(({ hit }) => {
+  const [jobDemoImg, setJobDemoImg] = useState<string>("");
 
   useEffect(() => {
     let isMounted = true;
@@ -52,4 +56,4 @@ export const HitJob=memo(({ hit })=> {
       </div>
     </div>
   );
-})
+});

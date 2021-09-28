@@ -1,16 +1,16 @@
 import { Emoji } from "emoji-mart";
 import React, { Dispatch, memo, VFC } from "react";
 import Skeleton from "react-loading-skeleton";
-import { EditProfile } from "../../../../types/editProfile";
+import { AllProfile } from "../../../../types/allProfile";
 
 type Props = {
-  profile:EditProfile;
-  setProfile:Dispatch<React.SetStateAction<EditProfile>>;
-  scout:string;
-  loadingProfile:boolean;
+  profile: AllProfile;
+  setProfile: Dispatch<React.SetStateAction<AllProfile>>;
+  scout: string;
+  loadingProfile: boolean;
 };
 
-export const EditStatus:VFC<Props> = memo(
+export const EditStatus: VFC<Props> = memo(
   ({ profile, setProfile, scout, loadingProfile }) => {
     return (
       <div className="flex flex-row flex-wrap my-10 justify-center gap-1 items-center">

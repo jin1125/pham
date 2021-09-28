@@ -1,15 +1,15 @@
 import { Emoji } from "emoji-mart";
 import React, { Dispatch, memo, VFC } from "react";
 import Skeleton from "react-loading-skeleton";
-import { EditProfile } from "../../../../types/editProfile";
+import { AllProfile } from "../../../../types/allProfile";
 import { Address } from "../../../atoms/Address";
 import { Days } from "../../../atoms/Days";
 import { Month } from "../../../atoms/Month";
 import { Years } from "../../../atoms/Years";
 
 type Props = {
-  profile: EditProfile;
-  setProfile: Dispatch<React.SetStateAction<EditProfile>>;
+  profile: AllProfile;
+  setProfile: Dispatch<React.SetStateAction<AllProfile>>;
   userId: string;
   homeAddress:string;
   dobYY: string;

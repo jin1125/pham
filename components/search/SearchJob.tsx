@@ -1,16 +1,16 @@
 import Image from "next/image";
 import Router from "next/router";
-import { memo, useContext, useEffect, useState } from "react";
+import { memo, useContext, useEffect, useState, VFC } from "react";
 import { auth } from "../../firebase";
 import { UserContext } from "../../UserContext";
 import ApplyModal from "../organisms/modal/ApplyModal";
 import { SearchJob_L } from "./SearchJob_L";
 import { SearchJob_R } from "./SearchJob_R";
 
-export const SearchJob = memo(() => {
-  const [coPassId, setCoPassId] = useState("");
-  const [coReceiveId, setCoReceiveId] = useState("");
-  const [isOpen, setIsOpen] = useState(false);
+export const SearchJob:VFC = memo(() => {
+  const [coPassId, setCoPassId] = useState<string>("");
+  const [coReceiveId, setCoReceiveId] = useState<string>("");
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const { selectJob, setUserId } = useContext(UserContext);
 
