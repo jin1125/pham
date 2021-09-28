@@ -1,3 +1,4 @@
+import { AppProps } from "next/app";
 import { useState } from "react";
 import { positions, Provider as AlertProvider } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
@@ -5,28 +6,31 @@ import "tailwindcss/tailwind.css";
 import "../styles/global.css";
 import { UserContext } from "../UserContext";
 
-export default function App({ Component, pageProps }) {
-  const [userId, setUserId] = useState("");
-  const [defaultName, setDefaultName] = useState("");
-  const [selectProfile, setSelectProfile] = useState("");
-  const [selectHomeAddress, setSelectHomeAddress] = useState("");
-  const [selectCompany, setSelectCompany] = useState("");
-  const [selectCompanyAddress, setSelectCompanyAddress] = useState("");
-  const [selectPharmacy, setSelectPharmacy] = useState("");
-  const [selectPharmacyAddress, setSelectPharmacyAddress] = useState("");
-  const [selectJob, setSelectJob] = useState("");
-  const [selectJobAddress, setSelectJobAddress] = useState("");
+export default function App({ Component, pageProps }: AppProps) {
+  const [userId, setUserId] = useState<string>("");
+  const [defaultName, setDefaultName] = useState<string>("");
+  const [selectProfile, setSelectProfile] = useState<string>("");
+  const [selectHomeAddress, setSelectHomeAddress] = useState<string>("");
+  const [selectCompany, setSelectCompany] = useState<string>("");
+  const [selectCompanyAddress, setSelectCompanyAddress] = useState<string>("");
+  const [selectPharmacy, setSelectPharmacy] = useState<string>("");
+  const [selectPharmacyAddress, setSelectPharmacyAddress] = useState<string>("");
+  const [selectJob, setSelectJob] = useState<string>("");
+  const [selectJobAddress, setSelectJobAddress] = useState<string>("");
   const [selectJobEmploymentStatus, setSelectJobEmploymentStatus] =
-    useState("");
-  const [selectMsg, setSelectMsg] = useState("");
-  const [selectCoMsg, setSelectCoMsg] = useState("");
-  const [companyId, setCompanyId] = useState("");
-  const [pharmacyId, setPharmacyId] = useState("");
-  const [pharmId, setPharmId] = useState("");
-  const [comId, setComId] = useState("");
+    useState<string>("");
+  const [selectMsg, setSelectMsg] = useState<string>("");
+  const [selectCoMsg, setSelectCoMsg] = useState<string>("");
+  const [companyId, setCompanyId] = useState<string>("");
+  const [pharmacyId, setPharmacyId] = useState<string>("");
+  const [pharmId, setPharmId] = useState<string>("");
+  const [comId, setComId] = useState<string>("");
 
   /// アラート設定 ///
-  const options = {
+  const options: {
+    timeout: number;
+    position: "top center";
+  } = {
     timeout: 2000,
     position: positions.TOP_CENTER,
   };

@@ -114,7 +114,7 @@ export const LoginForm: VFC = memo(() => {
                 name="name"
                 autoComplete="name"
                 type="text"
-                maxLength="20"
+                // maxLength="20"
                 value={name}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   setName(e.target.value)
@@ -134,7 +134,7 @@ export const LoginForm: VFC = memo(() => {
             name="email"
             autoComplete="email"
             type="email"
-            maxLength="256"
+            // maxLength="256"
             value={email}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setEmail(e.target.value)
@@ -150,7 +150,7 @@ export const LoginForm: VFC = memo(() => {
             className="bg-blue-100 placeholder-blue-300 text-center rounded-full w-3/4 py-1 outline-none"
             name="password"
             type="password"
-            maxLength="20"
+            // maxLength="20"
             value={password}
             placeholder="半角英数字 6文字以上"
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
