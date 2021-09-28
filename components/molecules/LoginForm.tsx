@@ -1,16 +1,16 @@
 import Router from "next/router";
-import React, { memo, useState } from "react";
+import React, { memo, useState, VFC } from "react";
 import { useAlert } from "react-alert";
 import { auth, db, provider } from "../../firebase";
 
-export const LoginForm = memo(() => {
+export const LoginForm:VFC = memo(() => {
   const alert = useAlert();
-  const [name, setName] = useState("");
-  const [isLogin, setIsLogin] = useState(true);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [resetEmail, setResetEmail] = useState("");
-  const [openReset, setOpenReset] = useState(false);
+  const [name, setName] = useState<string>("");
+  const [isLogin, setIsLogin] = useState<boolean>(true);
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [resetEmail, setResetEmail] = useState<string>("");
+  const [openReset, setOpenReset] = useState<boolean>(false);
 
   //Google新規登録＆ログイン
   const signInGoogle = async () => {
