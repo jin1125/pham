@@ -38,6 +38,7 @@ export const SearchMsg: VFC = memo(() => {
   ]);
 
   const { selectMsg, userId, setUserId } = useContext(UserContext);
+  
 
   useEffect(() => {
     let isMounted = true;
@@ -142,7 +143,7 @@ export const SearchMsg: VFC = memo(() => {
     }
   }, [userId, selectMsg.objectID]);
 
-  const uploadImage = (e: React.ChangeEvent<HTMLInputElement>):void => {
+  const uploadImage = (e: React.ChangeEvent<HTMLInputElement>): void => {
     if (e.target.files![0]) {
       const imageFile = e.target.files[0];
       const imageUrl = URL.createObjectURL(imageFile);
@@ -153,89 +154,93 @@ export const SearchMsg: VFC = memo(() => {
   };
 
   const sendMsg = async () => {
-    setLoading(true);
-    if (msgImage) {
-      const S =
-        "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-      const N = 16;
-      const randomChar = Array.from(crypto.getRandomValues(new Uint32Array(N)))
-        .map((n) => S[n % S.length])
-        .join("");
-      const fileName = randomChar + "_" + msgImage.name;
-      await storage.ref(`msgImages/${fileName}`).put(msgImage);
-      await storage
-        .ref("msgImages")
-        .child(fileName)
-        .getDownloadURL()
-        .then(async (url) => {
-          await db
-            .collection("msgs")
-            .doc(userId)
-            .collection(selectMsg.objectID)
-            .add({
-              id: userId,
-              msgId: selectMsg.objectID,
-              name: name,
-              avatarImage: avatarImage,
-              text: msg,
-              image: url,
-              datetime: firebase.firestore.Timestamp.now(),
-            });
+    {
+      selectMsg.objectID && setLoading(true);
+      if (msgImage) {
+        const S =
+          "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        const N = 16;
+        const randomChar = Array.from(
+          crypto.getRandomValues(new Uint32Array(N))
+        )
+          .map((n) => S[n % S.length])
+          .join("");
+        const fileName = randomChar + "_" + msgImage.name;
+        await storage.ref(`msgImages/${fileName}`).put(msgImage);
+        await storage
+          .ref("msgImages")
+          .child(fileName)
+          .getDownloadURL()
+          .then(async (url) => {
+            await db
+              .collection("msgs")
+              .doc(userId)
+              .collection(selectMsg.objectID)
+              .add({
+                id: userId,
+                msgId: selectMsg.objectID,
+                name: name,
+                avatarImage: avatarImage,
+                text: msg,
+                image: url,
+                datetime: firebase.firestore.Timestamp.now(),
+              });
 
-          await db
-            .collection("msgs")
-            .doc(selectMsg.objectID)
-            .collection(userId)
-            .add({
-              id: userId,
-              msgId: selectMsg.objectID,
-              name: name,
-              avatarImage: avatarImage,
-              text: msg,
-              image: url,
-              datetime: firebase.firestore.Timestamp.now(),
-            });
-        })
-        .finally(() => {
-          setLoading(false);
-          setMsg("");
-          setFileUrl("");
-          setMsgImage(null);
-        });
-    } else {
-      await db
-        .collection("msgs")
-        .doc(userId)
-        .collection(selectMsg.objectID)
-        .add({
-          id: userId,
-          msgId: selectMsg.objectID,
-          name: name,
-          avatarImage: avatarImage,
-          text: msg,
-          image: "",
-          datetime: firebase.firestore.Timestamp.now(),
-        });
+            await db
+              .collection("msgs")
+              .doc(selectMsg.objectID)
+              .collection(userId)
+              .add({
+                id: userId,
+                msgId: selectMsg.objectID,
+                name: name,
+                avatarImage: avatarImage,
+                text: msg,
+                image: url,
+                datetime: firebase.firestore.Timestamp.now(),
+              });
+          })
+          .finally(() => {
+            setLoading(false);
+            setMsg("");
+            setFileUrl("");
+            setMsgImage(null);
+          });
+      } else {
+        await db
+          .collection("msgs")
+          .doc(userId)
+          .collection(selectMsg.objectID)
+          .add({
+            id: userId,
+            msgId: selectMsg.objectID,
+            name: name,
+            avatarImage: avatarImage,
+            text: msg,
+            image: "",
+            datetime: firebase.firestore.Timestamp.now(),
+          });
 
-      await db
-        .collection("msgs")
-        .doc(selectMsg.objectID)
-        .collection(userId)
-        .add({
-          id: userId,
-          msgId: selectMsg.objectID,
-          name: name,
-          avatarImage: avatarImage,
-          text: msg,
-          image: "",
-          datetime: firebase.firestore.Timestamp.now(),
-        })
-        .finally(() => {
-          setLoading(false);
-          setMsg("");
-          setFileUrl("");
-          setMsgImage(null);
-        });
+        await db
+          .collection("msgs")
+          .doc(selectMsg.objectID)
+          .collection(userId)
+          .add({
+            id: userId,
+            msgId: selectMsg.objectID,
+            name: name,
+            avatarImage: avatarImage,
+            text: msg,
+            image: "",
+            datetime: firebase.firestore.Timestamp.now(),
+          })
+          .finally(() => {
+            setLoading(false);
+            setMsg("");
+            setFileUrl("");
+            setMsgImage(null);
+          });
+      }
     }
   };
 
@@ -253,7 +258,7 @@ export const SearchMsg: VFC = memo(() => {
         />
 
         {/* ////// プロフィール描画(ページ右) ////// */}
-        {changeMsg && selectMsg ? (
+        {changeMsg && selectMsg && Object.keys(selectMsg).length ? (
           <SearchMsg_R_Ph
             feeds={feeds}
             demoImg={demoImg}
@@ -268,7 +273,7 @@ export const SearchMsg: VFC = memo(() => {
             avatarImage={avatarImage}
             name={name}
           />
-        ) : !changeMsg && selectMsg ? (
+        ) : !changeMsg && selectMsg && Object.keys(selectMsg).length ? (
           <SearchMsg_R_Co
             feeds={feeds}
             demoImg={demoImg}

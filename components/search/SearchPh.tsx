@@ -28,7 +28,7 @@ export const SearchPh:VFC = memo(() => {
         <SearchPh_L/>
 
         {/* ////// 薬局検索描画(ページ右) ////// */}
-        {selectPharmacy ? (
+        {selectPharmacy && Object.keys(selectPharmacy).length ? (
           <SearchPh_R/>
         ) : (
           <div className="h-screen md:col-span-9 col-span-12 justify-self-center self-center md:pt-24">

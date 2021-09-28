@@ -37,7 +37,7 @@ export const SearchJob:VFC = memo(() => {
         />
 
         {/* ////// 薬局検索描画(ページ右) ////// */}
-        {selectJob ? (
+        {selectJob && Object.keys(selectJob).length ? (
           <>
             <SearchJob_R
               setCoPassId={setCoPassId}

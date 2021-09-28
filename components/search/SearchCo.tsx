@@ -28,7 +28,7 @@ export const SearchCo:VFC = memo(() => {
         <SearchCo_L/>
 
         {/* ////// 企業検索描画(ページ右) ////// */}
-        {selectCompany ? (
+        {selectCompany && Object.keys(selectCompany).length ? (
          <SearchCo_R/>
         ) : (
           <div className="h-screen md:col-span-9 col-span-12 justify-self-center self-center md:pt-24">

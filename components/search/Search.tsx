@@ -121,6 +121,7 @@ export const Search: VFC = memo(() => {
       setPhMatch([...phMatchA, ...phMatchB]);
     }
   }, [phMatchA, phMatchB]);
+  
 
   return (
     <div>
@@ -135,7 +136,7 @@ export const Search: VFC = memo(() => {
         />
 
         {/* ////// プロフィール描画(ページ右) ////// */}
-        {selectProfile ? (
+        {selectProfile && Object.keys(selectProfile).length ? (
           <Search_R disabledState={disabledState} phMatch={phMatch} passId={""} receiveId={""} />
         ) : (
           <div className="h-screen md:col-span-9 col-span-12 justify-self-center self-center md:pt-24">
