@@ -52,7 +52,7 @@ export const RecruitForm: VFC<Props> = memo(({ setIsContactUs }) => {
             autoComplete="organization"
             autoFocus
             required
-            // maxLength="30"
+            maxLength={30}
             pattern=".*\S+.*"
             value={companyName}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -73,7 +73,7 @@ export const RecruitForm: VFC<Props> = memo(({ setIsContactUs }) => {
             required
             pattern=".*\S+.*"
             placeholder="姓 名"
-            // maxLength="20"
+            maxLength={20}
             value={clientName}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setClientName(e.target.value)
@@ -93,7 +93,7 @@ export const RecruitForm: VFC<Props> = memo(({ setIsContactUs }) => {
             autoComplete="email"
             value={email}
             required
-            // maxLength="256"
+            maxLength={256}
             pattern=".*\S+.*"
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setEmail(e.target.value)
@@ -113,7 +113,7 @@ export const RecruitForm: VFC<Props> = memo(({ setIsContactUs }) => {
             autoComplete="tel"
             value={tel}
             required
-            // maxLength="20"
+            maxLength={20}
             pattern=".*\S+.*"
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setTel(e.target.value)

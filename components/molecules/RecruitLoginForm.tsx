@@ -29,7 +29,7 @@ export const RecruitLoginForm:VFC = memo(() => {
             name="email"
             autoComplete="email"
             type="email"
-            // maxLength="256"
+            maxLength={256}
             value={companyEmail}
             onChange={(e) => setCompanyEmail(e.target.value)}
           />
@@ -43,7 +43,7 @@ export const RecruitLoginForm:VFC = memo(() => {
             className="bg-blue-100 placeholder-blue-300 text-center rounded-full w-3/4 py-1 outline-none"
             name="password"
             type="password"
-            // maxLength="20"
+            maxLength={20}
             placeholder="半角英数字 6文字以上"
             value={companyPassword}
             onChange={(e) => setCompanyPassword(e.target.value)}
