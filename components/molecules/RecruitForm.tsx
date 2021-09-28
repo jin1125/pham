@@ -1,9 +1,13 @@
 import firebase from "firebase/app";
-import React, { memo, useState } from "react";
+import React, { Dispatch, memo, useState, VFC } from "react";
 import { useAlert } from "react-alert";
 import { db } from "../../firebase";
 
-export const RecruitForm = memo(({ setIsContactUs }) => {
+type Props ={
+  setIsContactUs:Dispatch<React.SetStateAction<boolean>>;
+}
+
+export const RecruitForm:VFC<Props> = memo(({ setIsContactUs }) => {
   const alert = useAlert();
   const [companyName, setCompanyName] = useState("");
   const [clientName, setClientName] = useState("");

@@ -1,7 +1,7 @@
 import Link from "next/link";
-import React, { memo } from "react";
+import React, { memo, VFC } from "react";
 
-export const FirstHeader = memo(() => {
+export const FirstHeader:VFC = memo(() => {
   return (
     <header>
       <div className="flex justify-between">

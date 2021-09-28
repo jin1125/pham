@@ -1,5 +1,5 @@
 import Head from "next/head";
-import {FirstHeader} from '../components/header/FirstHeader'
+import { FirstHeader } from "../components/header/FirstHeader";
 import {FirstPage} from '../components/organisms/main/FirstPage'
 
 export default function Lp() {

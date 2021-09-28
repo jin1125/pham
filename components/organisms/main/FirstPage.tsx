@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
-import React, { memo } from "react";
+import React, { memo, VFC } from "react";
 
-export const FirstPage = memo(() => {
+export const FirstPage:VFC = memo(() => {
   return (
     <main>
       <div className="min-h-screen grid justify-items-center items-center content-center md:-mt-20 -mt-10">

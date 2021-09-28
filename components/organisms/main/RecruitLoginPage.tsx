@@ -1,8 +1,8 @@
 import Image from "next/image";
-import React, { memo } from "react";
+import React, { memo, VFC } from "react";
 import { RecruitLoginForm } from "../../molecules/RecruitLoginForm";
 
-export const RecruitLoginPage = memo(() => {
+export const RecruitLoginPage:VFC = memo(() => {
   return (
     <main className="grid lg:grid-cols-2 min-h-screen md:-mt-20 justify-items-center items-center">
       <div className="text-center md:w-3/4 w-11/12 mb-5">

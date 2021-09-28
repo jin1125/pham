@@ -1,7 +1,7 @@
-import React, { memo } from 'react'
+import React, { memo, VFC } from 'react'
 import Link from "next/link";
 
-export const SecondHeader = memo(() => {
+export const SecondHeader:VFC = memo(() => {
   return (
     <header>
         <div className="m-5">

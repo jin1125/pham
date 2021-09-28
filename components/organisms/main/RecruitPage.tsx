@@ -1,10 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
-import React, { memo, useState } from "react";
+import React, { memo, useState, VFC } from "react";
 import { RecruitForm } from "../../molecules/RecruitForm";
 
-export const RecruitPage = memo(() => {
-  const [isContactUs, setIsContactUs] = useState(false);
+export const RecruitPage:VFC = memo(() => {
+  const [isContactUs, setIsContactUs] = useState<boolean>(false);
 
   return (
     <main className="grid lg:grid-cols-2 min-h-screen xl:-mt-20 justify-items-center items-center">
