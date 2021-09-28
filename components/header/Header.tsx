@@ -68,7 +68,7 @@ export const Header:VFC = memo(() => {
           <button
             className="font-bold text-center text-blue-400 transition duration-300 hover:text-white disabled:bg-blue-300 bg-white hover:bg-blue-300 disabled:hover:text-blue-400 py-2 rounded-full w-full"
             disabled={check}
-            onClick={() => setSelectProfile("")}
+            onClick={() => setSelectProfile({})}
           >
             
             <div className="hidden md:block">薬剤師検索</div>

@@ -6,6 +6,7 @@ import "tailwindcss/tailwind.css";
 import "../styles/global.css";
 import { SelectCompany } from "../types/selectCompany";
 import { SelectJob } from "../types/selectJob";
+import { SelectMsg } from "../types/selectMsg";
 import { SelectPharmacy } from "../types/selectPharmacy";
 import { SelectProfile } from "../types/selectProfile";
 import { UserContext } from "../UserContext";
@@ -23,7 +24,7 @@ export default function App({ Component, pageProps }: AppProps) {
   const [selectJobAddress, setSelectJobAddress] = useState<string>("");
   const [selectJobEmploymentStatus, setSelectJobEmploymentStatus] =
     useState<string>("");
-  const [selectMsg, setSelectMsg] = useState<SelectProfile>({});
+  const [selectMsg, setSelectMsg] = useState<SelectMsg>({});
   // const [selectCoMsg, setSelectCoMsg] = useState<string>("");
   const [companyId, setCompanyId] = useState<string>("");
   const [pharmacyId, setPharmacyId] = useState<string>("");

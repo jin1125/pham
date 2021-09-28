@@ -1,22 +1,36 @@
 import { Emoji } from "emoji-mart";
 import Image from "next/image";
-import React, { memo, useContext, useEffect, useRef } from "react";
+import React, { Dispatch, memo, useContext, useEffect, useRef, VFC } from "react";
 import Loader from "react-loader-spinner";
+import { Feeds } from "../../types/feeds";
 import { UserContext } from "../../UserContext";
 
-export const SearchMsg_R_Co = memo(({
+type Props = {
+  feeds:Feeds;
+  demoImg:string;
+  fileUrl:string;
+  loading:boolean;
+  length:number;
+  isLastItem:boolean;
+  uploadImage:any;
+  sendMsg:any;
+  msg:string;
+  setMsg:Dispatch<React.SetStateAction<string>>;
+  avatarImage:string;
+  name:string;
+};
+
+export const SearchMsg_R_Ph:VFC<Props> = memo(({
   feeds,
   demoImg,
-  companyDemoImg,
   fileUrl,
-  coName,
-  coAvatarImage,
   loading,
   length,
   isLastItem,
   uploadImage,
   sendMsg,
   msg,
+  setMsg,
   avatarImage,
   name,
 }) => {
@@ -28,6 +42,7 @@ export const SearchMsg_R_Co = memo(({
       ref.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [isLastItem, ref.current, feeds]);
+
   return (
     <div className="md:col-span-9 col-span-12">
       <div className="overflow-auto h-screen lg:pb-16 pb-12 md:px-10 px-5">
@@ -57,17 +72,7 @@ export const SearchMsg_R_Co = memo(({
                     src={selectMsg.profileImageUrl}
                     alt="avatarImage"
                   />
-                ) : feed.id === userId && avatarImage && demoImg ? (
-                  <Image
-                    className="inline object-cover  rounded-full"
-                    width={50}
-                    height={50}
-                    src={demoImg}
-                    alt="avatarImage"
-                  />
                 ) : (
-                  feed.id === selectMsg.objectID &&
-                  selectMsg.profileImageUrl &&
                   demoImg && (
                     <Image
                       className="inline object-cover  rounded-full"
@@ -78,62 +83,14 @@ export const SearchMsg_R_Co = memo(({
                     />
                   )
                 )}
-
-                {feed.id === userId && coAvatarImage ? (
-                  <Image
-                    className="inline object-cover  rounded-full"
-                    width={50}
-                    height={50}
-                    src={coAvatarImage}
-                    alt="coAvatarImage"
-                  />
-                ) : feed.id === selectMsg.objectID &&
-                  selectMsg.companyImageUrl ? (
-                  <Image
-                    className="inline object-cover  rounded-full"
-                    width={50}
-                    height={50}
-                    src={selectMsg.companyImageUrl}
-                    alt="coAvatarImage"
-                  />
-                ) : feed.id === userId && coAvatarImage && companyDemoImg ? (
-                  <Image
-                    className="inline object-cover  rounded-full"
-                    width={50}
-                    height={50}
-                    src={companyDemoImg}
-                    alt="coAvatarImage"
-                  />
-                ) : (
-                  feed.id === selectMsg.objectID &&
-                  selectMsg.companyImageUrl &&
-                  companyDemoImg && (
-                    <Image
-                      className="inline object-cover  rounded-full"
-                      width={50}
-                      height={50}
-                      src={companyDemoImg}
-                      alt="coAvatarImage"
-                    />
-                  )
-                )}
               </div>
 
               <div className="md:col-span-11 col-span-10">
                 <div className="flex flex-row flex-wrap gap-3 items-end mb-1">
-                  {feed.id === userId && name && (
-                    <p className="font-bold">{name}</p>
-                  )}
-                  {feed.id === userId && coName && (
-                    <p className="font-bold">{coName}</p>
-                  )}
-                  {feed.id === selectMsg.objectID && selectMsg.userName && (
+                  {feed.id === userId && <p className="font-bold">{name}</p>}
+                  {feed.id === selectMsg.objectID && (
                     <p className="font-bold">{selectMsg.userName}</p>
                   )}
-                  {feed.id === selectMsg.objectID && selectMsg.companyName && (
-                    <p className="font-bold">{selectMsg.companyName}</p>
-                  )}
-
                   {feed.yyyy && (
                     <p className="text-xs text-blue-300">{`${feed.yyyy}/${feed.MM}/${feed.dd} ${feed.HH}:${feed.mm}`}</p>
                   )}
@@ -176,11 +133,11 @@ export const SearchMsg_R_Co = memo(({
         </label>
 
         <textarea
-          rows="1"
+          rows={1}
           autoFocus
           value={msg}
           name="msg"
-          maxLength="200"
+          maxLength={200}
           className="bg-blue-100 rounded-lg p-2 w-full outline-none col-span-10"
           onChange={(e) => setMsg(e.target.value.trim())}
         />

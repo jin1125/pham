@@ -1,29 +1,34 @@
 import firebase from "firebase/app";
 import Image from "next/image";
 import Router from "next/router";
-import { memo, useContext, useEffect, useState } from "react";
+import { memo, useContext, useEffect, useState, VFC } from "react";
 import { auth, db, storage } from "../../firebase";
+import { Feeds } from "../../types/feeds";
 import { UserContext } from "../../UserContext";
 import { SearchMsg_L } from "./SearchMsg_L";
 import { SearchMsg_R_Co } from "./SearchMsg_R_Co";
 import { SearchMsg_R_Ph } from "./SearchMsg_R_Ph";
 
-export const SearchMsg = memo(() => {
-  const [demoImg, setDemoImg] = useState("");
-  const [companyDemoImg, setCompanyDemoImg] = useState("");
-  const [msgImage, setMsgImage] = useState("");
-  const [msg, setMsg] = useState("");
-  const [fileUrl, setFileUrl] = useState("");
-  const [name, setName] = useState("");
-  const [avatarImage, setAvatarImage] = useState("");
-  const [coName, setCoName] = useState("");
-  const [coAvatarImage, setCoAvatarImage] = useState("");
-  const [changeMsg, setChangeMsg] = useState(true);
-  const [loading, setLoading] = useState(false);
-  const [feeds, setFeeds] = useState([
+export const SearchMsg: VFC = memo(() => {
+  const [demoImg, setDemoImg] = useState<string>("");
+  const [companyDemoImg, setCompanyDemoImg] = useState<string>("");
+  const [msgImage, setMsgImage] = useState<File | null>(null);
+  const [msg, setMsg] = useState<string>("");
+  const [fileUrl, setFileUrl] = useState<string>("");
+  const [name, setName] = useState<string>("");
+  const [avatarImage, setAvatarImage] = useState<string>("");
+  const [coName, setCoName] = useState<string>("");
+  const [coAvatarImage, setCoAvatarImage] = useState<string>("");
+  const [changeMsg, setChangeMsg] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [feeds, setFeeds] = useState<Feeds>([
     {
       avatarImage: "",
-      datetime: "",
+      yyyy: "",
+      MM: "",
+      dd: "",
+      HH: "",
+      mm: "",
       id: "",
       image: "",
       msgId: "",
@@ -109,8 +114,6 @@ export const SearchMsg = memo(() => {
     }
   }, [userId, feeds]);
 
-  console.log(selectMsg);
-
   useEffect(() => {
     if (userId && selectMsg.objectID) {
       const unSub = db
@@ -139,8 +142,8 @@ export const SearchMsg = memo(() => {
     }
   }, [userId, selectMsg.objectID]);
 
-  const uploadImage = (e) => {
-    if (e.target.files[0]) {
+  const uploadImage = (e: React.ChangeEvent<HTMLInputElement>):void => {
+    if (e.target.files![0]) {
       const imageFile = e.target.files[0];
       const imageUrl = URL.createObjectURL(imageFile);
       setFileUrl(imageUrl);
@@ -197,7 +200,7 @@ export const SearchMsg = memo(() => {
           setLoading(false);
           setMsg("");
           setFileUrl("");
-          setMsgImage("");
+          setMsgImage(null);
         });
     } else {
       await db
@@ -231,7 +234,7 @@ export const SearchMsg = memo(() => {
           setLoading(false);
           setMsg("");
           setFileUrl("");
-          setMsgImage("");
+          setMsgImage(null);
         });
     }
   };
@@ -254,16 +257,14 @@ export const SearchMsg = memo(() => {
           <SearchMsg_R_Ph
             feeds={feeds}
             demoImg={demoImg}
-            companyDemoImg={companyDemoImg}
             fileUrl={fileUrl}
-            coName={coName}
-            coAvatarImage={coAvatarImage}
             loading={loading}
             length={length}
             isLastItem={isLastItem}
             uploadImage={uploadImage}
             sendMsg={sendMsg}
             msg={msg}
+            setMsg={setMsg}
             avatarImage={avatarImage}
             name={name}
           />
@@ -281,6 +282,7 @@ export const SearchMsg = memo(() => {
             uploadImage={uploadImage}
             sendMsg={sendMsg}
             msg={msg}
+            setMsg={setMsg}
             avatarImage={avatarImage}
             name={name}
           />

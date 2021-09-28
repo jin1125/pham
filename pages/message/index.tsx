@@ -4,7 +4,6 @@ import { Layout } from "../../components/layout/Layout";
 import { SearchMsg } from "../../components/search/SearchMsg";
 
 export default function message() {
-  // const [changeMsg, setChangeMsg] = useState("ph");
   ////////////////////////// JSXエリア //////////////////////////
   return (
     <div className="min-h-screen">

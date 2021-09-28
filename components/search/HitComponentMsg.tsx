@@ -14,14 +14,12 @@ export function hitComponentMsg({ hit }) {
     const unSub = auth.onAuthStateChanged((user) => {
       if (user) {
         setUserId(user.uid);
-      } else {
-        Router.push("/login");
       }
     });
     return () => unSub();
   }, []);
 
-  const click = () => {
+  const click = ():void => {
     setSelectMsg(hit);
   };
 
