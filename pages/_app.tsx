@@ -7,12 +7,13 @@ import "../styles/global.css";
 import { SelectCompany } from "../types/selectCompany";
 import { SelectJob } from "../types/selectJob";
 import { SelectPharmacy } from "../types/selectPharmacy";
+import { SelectProfile } from "../types/selectProfile";
 import { UserContext } from "../UserContext";
 
 export default function App({ Component, pageProps }: AppProps) {
   const [userId, setUserId] = useState<string>("");
   const [defaultName, setDefaultName] = useState<string>("");
-  const [selectProfile, setSelectProfile] = useState<string>("");
+  const [selectProfile, setSelectProfile] = useState<SelectProfile>({});
   const [selectHomeAddress, setSelectHomeAddress] = useState<string>("");
   const [selectCompany, setSelectCompany] = useState<SelectCompany>({});
   const [selectCompanyAddress, setSelectCompanyAddress] = useState<string>("");
@@ -22,7 +23,7 @@ export default function App({ Component, pageProps }: AppProps) {
   const [selectJobAddress, setSelectJobAddress] = useState<string>("");
   const [selectJobEmploymentStatus, setSelectJobEmploymentStatus] =
     useState<string>("");
-  const [selectMsg, setSelectMsg] = useState<string>("");
+  const [selectMsg, setSelectMsg] = useState<SelectProfile>({});
   // const [selectCoMsg, setSelectCoMsg] = useState<string>("");
   const [companyId, setCompanyId] = useState<string>("");
   const [pharmacyId, setPharmacyId] = useState<string>("");

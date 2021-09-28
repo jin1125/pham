@@ -3,9 +3,9 @@ import React, { memo, useEffect, useState, VFC } from "react";
 import { Highlight } from "react-instantsearch-dom";
 import { storage } from "../../firebase";
 
-type Props = {
-  hit:any;
-};
+  type Props = {
+    hit:any;
+  };
 
 export const HitCo:VFC<Props> = memo(({ hit }) => {
   const [companyDemoImg, setCompanyDemoImg] = useState<string>("");

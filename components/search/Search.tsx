@@ -1,28 +1,24 @@
 import Image from "next/image";
 import Router from "next/router";
-import { memo, useContext, useEffect, useState } from "react";
+import { memo, useContext, useEffect, useState, VFC } from "react";
 import { auth, db } from "../../firebase";
 import { UserContext } from "../../UserContext";
 import { Search_L } from "./Search_L";
 import { Search_R } from "./Search_R";
 
-export const Search = memo(() => {
+export const Search: VFC = memo(() => {
   const [phMatch, setPhMatch] = useState([]);
-  const [phMatchA, setPhMatchA] = useState([]);
-  const [phMatchB, setPhMatchB] = useState([]);
-  const [disabledState, setDisabledState] = useState("");
-  const [passId, setPassId] = useState("");
-  const [passData, setPassData] = useState("");
-  const [receiveId, setReceiveId] = useState("");
-  const [receiveData, setReceiveData] = useState("");
+  const [phMatchA, setPhMatchA] = useState<string[]>([]);
+  const [phMatchB, setPhMatchB] = useState<string[]>([]);
+  const [disabledState, setDisabledState] = useState<
+    "passed" | "received" | "match" | ""
+  >("");
+  const [passId, setPassId] = useState<string>("");
+  const [passData, setPassData] = useState<any>('');
+  const [receiveId, setReceiveId] = useState<string>("");
+  const [receiveData, setReceiveData] = useState<any>("");
 
-  const {
-    selectProfile,
-    userId,
-    setUserId,
-  } = useContext(UserContext);
-
-  
+  const { selectProfile, userId, setUserId } = useContext(UserContext);
 
   useEffect(() => {
     const unSub = auth.onAuthStateChanged((user) => {
@@ -70,7 +66,6 @@ export const Search = memo(() => {
     }
   }, [userId, selectProfile.objectID]);
 
-
   useEffect(() => {
     if (passId) {
       setDisabledState("passed");
@@ -92,7 +87,7 @@ export const Search = memo(() => {
   }, [receiveId, receiveData]);
 
   useEffect(() => {
-    if (selectProfile) {
+    if (selectProfile.objectID) {
       let unSub = db
         .collection("phMatch")
         .where("pharmacistA", "==", selectProfile.objectID)
@@ -104,10 +99,10 @@ export const Search = memo(() => {
 
       return () => unSub();
     }
-  }, [selectProfile]);
+  }, [selectProfile.objectID]);
 
   useEffect(() => {
-    if (selectProfile) {
+    if (selectProfile.objectID) {
       let unSub = db
         .collection("phMatch")
         .where("pharmacistB", "==", selectProfile.objectID)
@@ -119,7 +114,7 @@ export const Search = memo(() => {
 
       return () => unSub();
     }
-  }, [selectProfile]);
+  }, [selectProfile.objectID]);
 
   useEffect(() => {
     if (phMatchA && phMatchB) {
@@ -131,11 +126,17 @@ export const Search = memo(() => {
     <div>
       <div className="grid grid-cols-12">
         {/* ////// プロフィール検索(ページ左) ////// */}
-        <Search_L setDisabledState={setDisabledState} setPassId={setPassId} setPassData={setPassData} setReceiveId={setReceiveId} setReceiveData={setReceiveData} receiveId={receiveId} passId={passId}/>
+        <Search_L
+          setDisabledState={setDisabledState}
+          setPassId={setPassId}
+          setPassData={setPassData}
+          setReceiveId={setReceiveId}
+          setReceiveData={setReceiveData}
+        />
 
         {/* ////// プロフィール描画(ページ右) ////// */}
         {selectProfile ? (
-          <Search_R disabledState={disabledState} phMatch={phMatch}/>
+          <Search_R disabledState={disabledState} phMatch={phMatch} passId={""} receiveId={""} />
         ) : (
           <div className="h-screen md:col-span-9 col-span-12 justify-self-center self-center md:pt-24">
             <Image

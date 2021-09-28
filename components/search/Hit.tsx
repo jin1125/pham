@@ -1,10 +1,14 @@
 import Image from "next/image";
-import React, { memo, useEffect, useState } from "react";
+import React, { memo, useEffect, useState, VFC } from "react";
 import { Highlight } from "react-instantsearch-dom";
 import { storage } from "../../firebase";
 
-export const Hit = memo(({ hit }) => {
-  const [demoImg, setDemoImg] = useState("");
+type Props = {
+  hit:any;
+};
+
+export const Hit:VFC<Props> = memo(({ hit }) => {
+  const [demoImg, setDemoImg] = useState<string>("");
 
   useEffect(() => {
     let isMounted = true;

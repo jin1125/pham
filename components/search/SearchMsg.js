@@ -109,6 +109,8 @@ export const SearchMsg = memo(() => {
     }
   }, [userId, feeds]);
 
+  console.log(selectMsg);
+
   useEffect(() => {
     if (userId && selectMsg.objectID) {
       const unSub = db
