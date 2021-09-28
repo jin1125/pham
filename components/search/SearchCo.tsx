@@ -1,12 +1,12 @@
 import Image from "next/image";
 import Router from "next/router";
-import { memo, useContext, useEffect } from "react";
+import { memo, useContext, useEffect, VFC } from "react";
 import { auth } from "../../firebase";
 import { UserContext } from "../../UserContext";
 import { SearchCo_L } from "./SearchCo_L";
 import { SearchCo_R } from "./SearchCo_R";
 
-export const SearchCo = memo(() => {
+export const SearchCo:VFC = memo(() => {
   const {
     selectCompany,
   } = useContext(UserContext);

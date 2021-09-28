@@ -8,7 +8,7 @@ export const RecruitLoginForm:VFC = memo(() => {
   const [companyEmail, setCompanyEmail] = useState<string>("");
   const [companyPassword, setCompanyPassword] = useState<string>("");
 
-  const signIn = async () => {
+  const signIn = async ():Promise<void> => {
     try {
       await auth.signInWithEmailAndPassword(companyEmail, companyPassword);
       alert.success("ログインしました");

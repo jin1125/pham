@@ -4,16 +4,17 @@ import { Fragment, useContext, useEffect, useState } from "react";
 import { useAlert } from "react-alert";
 import { auth, db, storage } from "../../../firebase";
 import { Company } from "../../../types/company";
-import { AllProfile } from "../../../types/allProfile";
 import { UserContext } from "../../../UserContext";
+import { Profile } from "../../../types/profile";
+import { Receives } from "../../../types/receives";
 
 export default function ConnectModal({ isOpen, setIsOpen }) {
   const [phMatchA, setPhMatchA] = useState<string[]>([]);
   const [phMatchB, setPhMatchB] = useState<string[]>([]);
   const [coMatchB, setCoMatchB] = useState<string[]>([]);
-  const [receives, setReceives] = useState<AllProfile[]>([]);
+  const [receives, setReceives] = useState<Receives[]>([]);
   const [passes, setPasses] = useState<any[]>([]);
-  const [passesA, setPassesA] = useState<AllProfile[]>([]);
+  const [passesA, setPassesA] = useState<Profile[]>([]);
   const [passesB, setPassesB] = useState<Company[]>([]);
   const [demoImg, setDemoImg] = useState<string>("");
   const [companyDemoImg, setCompanyDemoImg] = useState<string>("");
@@ -21,7 +22,7 @@ export default function ConnectModal({ isOpen, setIsOpen }) {
   const { userId, setUserId } = useContext(UserContext);
 
   const alert = useAlert();
-  function closeModal() {
+  function closeModal():void {
     setIsOpen(false);
   }
 
@@ -167,7 +168,7 @@ export default function ConnectModal({ isOpen, setIsOpen }) {
     }
   }, [passesA, passesB]);
 
-  const allow = async (receive) => {
+  const allow = async (receive:Receives):Promise<void> => {
     if (receive) {
       await db
         .collection("phMatch")

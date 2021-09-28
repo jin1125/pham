@@ -131,7 +131,7 @@ export const EditPage: VFC = memo(() => {
     userName,
   } = profile;
 
-  const uploadImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const uploadImage = (e: React.ChangeEvent<HTMLInputElement>):void => {
     if (e.target.files![0]) {
       const imageFile = e.target.files[0];
       const imageUrl = URL.createObjectURL(imageFile);
@@ -142,7 +142,7 @@ export const EditPage: VFC = memo(() => {
   };
 
   /// 変更を保存ボタン処理 ///
-  const editHandler = async () => {
+  const editHandler = async ():Promise<void> => {
     setLoading(true);
     let profileUrl = "";
     let freeUrl0 = "";
@@ -225,7 +225,7 @@ export const EditPage: VFC = memo(() => {
       .finally(() => setLoading(false));
   };
 
-  const check1 =
+  const check1: boolean =
     !userName || !scout || !homeAddress || !dobYY || !dobMM || !dobDD;
 
   return (

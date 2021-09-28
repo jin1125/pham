@@ -31,7 +31,7 @@ export const Footer:VFC<Props> = memo(({ userEmail,setUserEmail }) => {
   }, []);
 
   /// メールアドレス変更処理 ///
-  const changeEmail = () => {
+  const changeEmail = ():void => {
     const unSub = auth.onAuthStateChanged((user) => {
       if (user && resetEmailPassword) {
         const credential = firebase.auth.EmailAuthProvider.credential(
@@ -68,7 +68,7 @@ export const Footer:VFC<Props> = memo(({ userEmail,setUserEmail }) => {
   };
 
   /// アカウント削除 ///
-  const deleteAccount = () => {
+  const deleteAccount = ():void => {
     const unSub = auth.onAuthStateChanged((user) => {
       if (user && deleteAccountPassword) {
         const credential = firebase.auth.EmailAuthProvider.credential(
@@ -108,7 +108,7 @@ export const Footer:VFC<Props> = memo(({ userEmail,setUserEmail }) => {
 
   /// アカウント(google)削除処理 ///
   //google認証
-  const signInGoogle = () => {
+  const signInGoogle = ():void => {
     auth
       .signInWithPopup(provider)
       .then(() => {
@@ -120,7 +120,7 @@ export const Footer:VFC<Props> = memo(({ userEmail,setUserEmail }) => {
   };
 
   //アカウント(google)削除
-  const deleteGoogleAccount = () => {
+  const deleteGoogleAccount = ():void => {
     const unSub = auth.onAuthStateChanged((user) => {
       if (user) {
         const result = confirm("本当にアカウントを削除しますか?");
@@ -145,7 +145,7 @@ export const Footer:VFC<Props> = memo(({ userEmail,setUserEmail }) => {
   };
 
   /// パスワード変更処理 ///
-  const sendResetEmail = async () => {
+  const sendResetEmail = async ():Promise<void> => {
     await auth
       .sendPasswordResetEmail(userEmail)
       .then(() => {
@@ -157,7 +157,7 @@ export const Footer:VFC<Props> = memo(({ userEmail,setUserEmail }) => {
   };
 
   /// ログアウト処理 ///
-  const signOutUser = async () => {
+  const signOutUser = async ():Promise<void> => {
     const result = confirm("ログアウトしますか？");
     if (result) {
       try {

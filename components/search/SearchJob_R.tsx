@@ -95,7 +95,7 @@ export const SearchJob_R:VFC<Props> = memo(({coPassId,setCoPassId,coReceiveId,se
   }, [userId, selectJob.coId]);
 
 
-  const apply = async () => {
+  const apply = async ():Promise<void> => {
     const result = confirm("応募しますか?");
     if (result) {
       if (coReceiveId) {

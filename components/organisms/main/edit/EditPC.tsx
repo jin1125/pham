@@ -40,6 +40,7 @@ export const EditPC: VFC<Props> = memo(
     comments,
     loadingProfile,
   }) => {
+    
     return (
       <div>
         {loadingProfile ? (

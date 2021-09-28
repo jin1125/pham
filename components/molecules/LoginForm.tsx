@@ -13,7 +13,7 @@ export const LoginForm: VFC = memo(() => {
   const [openReset, setOpenReset] = useState<boolean>(false);
 
   //Google新規登録＆ログイン
-  const signInGoogle = async () => {
+  const signInGoogle = async ():Promise<void> => {
     await auth
       .signInWithPopup(provider)
       .then(() => {
@@ -28,7 +28,7 @@ export const LoginForm: VFC = memo(() => {
   };
 
   //メールアドレスログイン
-  const signIn = async () => {
+  const signIn = async ():Promise<void> => {
     try {
       await auth.signInWithEmailAndPassword(email, password);
       alert.success("ログインしました");
@@ -39,7 +39,7 @@ export const LoginForm: VFC = memo(() => {
   };
 
   //メールアドレス新規登録
-  const signUp = async () => {
+  const signUp = async ():Promise<void> => {
     if (name) {
       try {
         await auth.signOut();
@@ -64,7 +64,7 @@ export const LoginForm: VFC = memo(() => {
     }
   };
 
-  const sendResetEmail = async () => {
+  const sendResetEmail = async ():Promise<void> => {
     await auth
       .sendPasswordResetEmail(resetEmail)
       .then(() => {

@@ -9,7 +9,7 @@ export default function ApplyModal({
   isOpen: boolean;
   setIsOpen: Dispatch<React.SetStateAction<boolean>>;
 }) {
-  function closeModal() {
+  function closeModal():void {
     setIsOpen(false);
   }
 

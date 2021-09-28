@@ -28,7 +28,7 @@ export const EditFreeImg: VFC<Props> = memo(
     const [fileUrls1, setFileUrls1] = useState<string>("");
     const [fileUrls2, setFileUrls2] = useState<string>("");
 
-    const uploadFreeImage0 = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const uploadFreeImage0 = (e: React.ChangeEvent<HTMLInputElement>):void => {
       if (e.target.files![0]) {
         const imageFile = e.target.files[0];
         const imageUrl = URL.createObjectURL(imageFile);
@@ -38,7 +38,7 @@ export const EditFreeImg: VFC<Props> = memo(
       }
     };
 
-    const uploadFreeImage1 = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const uploadFreeImage1 = (e: React.ChangeEvent<HTMLInputElement>):void => {
       if (e.target.files![0]) {
         const imageFile = e.target.files[0];
         const imageUrl = URL.createObjectURL(imageFile);
@@ -48,7 +48,7 @@ export const EditFreeImg: VFC<Props> = memo(
       }
     };
 
-    const uploadFreeImage2 = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const uploadFreeImage2 = (e: React.ChangeEvent<HTMLInputElement>):void => {
       if (e.target.files![0]) {
         const imageFile = e.target.files[0];
         const imageUrl = URL.createObjectURL(imageFile);

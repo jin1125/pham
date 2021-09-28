@@ -14,7 +14,7 @@ export const RecruitForm: VFC<Props> = memo(({ setIsContactUs }) => {
   const [email, setEmail] = useState<string>("");
   const [tel, setTel] = useState<string>("");
 
-  const contactUs = async () => {
+  const contactUs = async ():Promise<void> => {
     const inquiry = {
       companyName: companyName,
       clientName: clientName,
