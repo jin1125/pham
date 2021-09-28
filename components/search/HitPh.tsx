@@ -1,12 +1,15 @@
-import React, { memo, useEffect, useState } from 'react'
+import React, { memo, useEffect, useState, VFC } from 'react'
 import Image from "next/image";
 import { storage } from '../../firebase';
 import { Highlight } from 'react-instantsearch-dom';
 
+type Props = {
+  hit:any;
+};
 
-export const HitPh =memo(({hit})=> {
+export const HitPh:VFC<Props> =memo(({hit})=> {
 
-const [pharmacyDemoImg, setPharmacyDemoImg] = useState("");
+const [pharmacyDemoImg, setPharmacyDemoImg] = useState<string>("");
 
 useEffect(() => {
   let isMounted = true;

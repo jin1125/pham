@@ -1,12 +1,12 @@
 import Image from "next/image";
 import Router from "next/router";
-import { memo, useContext, useEffect } from "react";
+import { memo, useContext, useEffect, VFC } from "react";
 import { auth } from "../../firebase";
 import { UserContext } from "../../UserContext";
 import { SearchPh_L } from "./SearchPh_L";
 import { SearchPh_R } from "./SearchPh_R";
 
-export const SearchPh = memo(() => {
+export const SearchPh:VFC = memo(() => {
   const {
     selectPharmacy,
   } = useContext(UserContext);

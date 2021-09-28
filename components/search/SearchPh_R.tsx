@@ -1,12 +1,12 @@
-import React, { memo, useContext, useEffect, useState } from 'react'
+import React, { memo, useContext, useEffect, useState, VFC } from 'react'
 import { Emoji } from "emoji-mart";
 import Link from "next/link";
 import AnchorLink from "react-anchor-link-smooth-scroll";
 import { UserContext } from '../../UserContext';
 import { db } from '../../firebase';
 
-export const SearchPh_R = memo(() => {
-  const [isApply, setIsApply] = useState(false);
+export const SearchPh_R:VFC = memo(() => {
+  const [isApply, setIsApply] = useState<boolean>(false);
   const {
     selectPharmacy,
     setPharmacyId,
@@ -27,6 +27,7 @@ export const SearchPh_R = memo(() => {
         });
     })();
   }, [selectPharmacy.objectID]);
+  
 
   return (
     <div className="md:col-span-9 col-span-12 min-h-screen md:px-10 px-5">

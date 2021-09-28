@@ -1,4 +1,4 @@
-import React, { memo, useContext } from 'react'
+import React, { memo, useContext, VFC } from 'react'
 import algoliasearch from "algoliasearch/lite";
 import { Hits, InstantSearch } from "react-instantsearch-dom";
 import { Address } from "../atoms/Address";
@@ -6,7 +6,7 @@ import { hitComponentPh } from "./HitComponentPh";
 import { CustomSearchBox } from "./SearchBox";
 import { UserContext } from '../../UserContext';
 
-export const SearchPh_L = memo(() => {
+export const SearchPh_L:VFC = memo(() => {
   const searchClient = algoliasearch(
     "0TMIYQ8E9N",
     "58e6e394abd7a5cfcc6fcae0d7b51ac5"

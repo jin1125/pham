@@ -1,6 +1,7 @@
 import { createContext, Dispatch } from "react";
 import { SelectCompany } from "./types/selectCompany";
 import { SelectJob } from "./types/selectJob";
+import { SelectPharmacy } from "./types/selectPharmacy";
 
 export const UserContext = createContext(
   {} as {
@@ -16,8 +17,8 @@ export const UserContext = createContext(
     setSelectCompanyAddress: Dispatch<React.SetStateAction<string>>;
     selectCompany: SelectCompany;
     setSelectCompany: Dispatch<React.SetStateAction<SelectCompany>>;
-    selectPharmacy: string;
-    setSelectPharmacy: Dispatch<React.SetStateAction<string>>;
+    selectPharmacy: SelectPharmacy;
+    setSelectPharmacy: Dispatch<React.SetStateAction<SelectPharmacy>>;
     selectPharmacyAddress: string;
     setSelectPharmacyAddress: Dispatch<React.SetStateAction<string>>;
     selectJob: SelectJob;
@@ -26,8 +27,8 @@ export const UserContext = createContext(
     setSelectJobAddress: Dispatch<React.SetStateAction<string>>;
     selectMsg: string;
     setSelectMsg: Dispatch<React.SetStateAction<string>>;
-    selectCoMsg: string;
-    setSelectCoMsg: Dispatch<React.SetStateAction<string>>;
+    // selectCoMsg: string;
+    // setSelectCoMsg: Dispatch<React.SetStateAction<string>>;
     companyId: string;
     setCompanyId: Dispatch<React.SetStateAction<string>>;
     selectJobEmploymentStatus: string;

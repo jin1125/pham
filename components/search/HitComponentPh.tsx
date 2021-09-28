@@ -11,7 +11,7 @@ export function hitComponentPh({ hit }) {
     pharmId,
   } = useContext(UserContext);
 
-  const click = () => {
+  const click = ():void => {
     setSelectPharmacy(hit);
   };
 
