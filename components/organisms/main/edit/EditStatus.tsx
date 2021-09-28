@@ -1,8 +1,16 @@
 import { Emoji } from "emoji-mart";
-import React, { memo } from "react";
+import React, { Dispatch, memo, VFC } from "react";
 import Skeleton from "react-loading-skeleton";
+import { EditProfile } from "../../../../types/editProfile";
 
-export const EditStatus = memo(
+type Props = {
+  profile:EditProfile;
+  setProfile:Dispatch<React.SetStateAction<EditProfile>>;
+  scout:string;
+  loadingProfile:boolean;
+};
+
+export const EditStatus:VFC<Props> = memo(
   ({ profile, setProfile, scout, loadingProfile }) => {
     return (
       <div className="flex flex-row flex-wrap my-10 justify-center gap-1 items-center">
@@ -16,7 +24,7 @@ export const EditStatus = memo(
                 className="bg-blue-100 rounded-full outline-none pl-3 py-1 w-11/12"
                 name="scout"
                 value={scout}
-                onChange={(e) =>
+                onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
                   setProfile({ ...profile, scout: e.target.value })
                 }
               >

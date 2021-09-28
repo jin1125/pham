@@ -1,17 +1,22 @@
 import firebase from "firebase/app";
 import Router from "next/router";
-import React, { memo, useEffect, useState } from "react";
+import React, { Dispatch, memo, useEffect, useState, VFC } from "react";
 import { useAlert } from "react-alert";
 import { auth, provider } from "../../../../firebase";
 
-export const Footer = memo(({ userEmail }) => {
+type Props = {
+  userEmail:string;
+  setUserEmail:Dispatch<React.SetStateAction<string>>;
+};
+
+export const Footer:VFC<Props> = memo(({ userEmail,setUserEmail }) => {
   const alert = useAlert();
-  const [openEditEmail, setOpenEditEmail] = useState(false);
-  const [openEditPassword, setOpenEditPassword] = useState(false);
-  const [openDeleteAccount, setOpenDeleteAccount] = useState(false);
-  const [isGoogleLogin, setIsGoogleLogin] = useState(false);
-  const [resetEmailPassword, setResetEmailPassword] = useState("");
-  const [deleteAccountPassword, setDeleteAccountPassword] = useState("");
+  const [openEditEmail, setOpenEditEmail] = useState<boolean>(false);
+  const [openEditPassword, setOpenEditPassword] = useState<boolean>(false);
+  const [openDeleteAccount, setOpenDeleteAccount] = useState<boolean>(false);
+  const [isGoogleLogin, setIsGoogleLogin] = useState<boolean>(false);
+  const [resetEmailPassword, setResetEmailPassword] = useState<string>("");
+  const [deleteAccountPassword, setDeleteAccountPassword] = useState<string>("");
 
   /// google認識でログインか判別処理 ///
   useEffect(() => {
@@ -191,9 +196,9 @@ export const Footer = memo(({ userEmail }) => {
                       name="email"
                       autoComplete="email"
                       type="email"
-                      maxLength="256"
+                      maxLength={256}
                       value={userEmail}
-                      onChange={(e) => setUserEmail(e.target.value)}
+                      onChange={( e: React.ChangeEvent<HTMLInputElement>) => setUserEmail(e.target.value)}
                     />
                   </label>
                   <label>
@@ -203,9 +208,9 @@ export const Footer = memo(({ userEmail }) => {
                       name="password"
                       autoComplete="password"
                       type="password"
-                      maxLength="20"
+                      maxLength={20}
                       value={resetEmailPassword}
-                      onChange={(e) => setResetEmailPassword(e.target.value)}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => setResetEmailPassword(e.target.value)}
                     />
                   </label>
                   <div>
@@ -281,9 +286,9 @@ export const Footer = memo(({ userEmail }) => {
                       name="password"
                       autoComplete="password"
                       type="password"
-                      maxLength="20"
+                      maxLength={20}
                       value={deleteAccountPassword}
-                      onChange={(e) => setDeleteAccountPassword(e.target.value)}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => setDeleteAccountPassword(e.target.value)}
                     />
                   </label>
                   <div>

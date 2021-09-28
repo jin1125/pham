@@ -1,8 +1,30 @@
 import { Emoji } from "emoji-mart";
-import React, { memo } from "react";
+import React, { Dispatch, memo, VFC } from "react";
 import Skeleton from "react-loading-skeleton";
+import { EditProfile } from "../../../../types/editProfile";
 
-export const EditDetails = memo(({
+type Props = {
+  profile:EditProfile;
+  setProfile:Dispatch<React.SetStateAction<EditProfile>>;
+  hobby:string;
+  dream:string;
+  certification:string;
+  strongArea:string;
+  subjectArea:string;
+  experiences: {
+    experience: string;
+    years: string;
+  }[];
+  resumes: {
+    companyName: string;
+    employmentStatus: string;
+    workEnd: string;
+    workStart: string;
+  }[];
+  loadingProfile:boolean;
+};
+
+export const EditDetails:VFC<Props> = memo(({
   profile,
   setProfile,
   hobby,
@@ -15,7 +37,7 @@ export const EditDetails = memo(({
   loadingProfile,
 }) => {
   /// 経験年数の各experienceの変更処理 ///
-  const changeExperience = (e, index) => {
+  const changeExperience = (e: React.ChangeEvent<HTMLInputElement>, index:number) => {
     const list = [...experiences];
     list[index] = {
       experience: e.target.value,
@@ -25,7 +47,7 @@ export const EditDetails = memo(({
   };
 
   /// 経験年数の各yearsの変更処理 ///
-  const changeYears = (e, index) => {
+  const changeYears = (e: React.ChangeEvent<HTMLInputElement>, index:number) => {
     const list = [...experiences];
     list[index] = {
       experience: list[index].experience,
@@ -52,7 +74,7 @@ export const EditDetails = memo(({
     setProfile({ ...profile, experiences: list });
   };
 
-  const changeCompanyName = (e, index) => {
+  const changeCompanyName = (e: React.ChangeEvent<HTMLInputElement>, index:number) => {
     const list = [...resumes];
     list[index] = {
       companyName: e.target.value,
@@ -64,7 +86,7 @@ export const EditDetails = memo(({
     setProfile({ ...profile, resumes: list });
   };
 
-  const changeEmploymentStatus = (e, index) => {
+  const changeEmploymentStatus = (e: React.ChangeEvent<HTMLInputElement>, index:number) => {
     const list = [...resumes];
     list[index] = {
       companyName: list[index].companyName,
@@ -76,7 +98,7 @@ export const EditDetails = memo(({
     setProfile({ ...profile, resumes: list });
   };
 
-  const changeWorkStart = (e, index) => {
+  const changeWorkStart = (e: React.ChangeEvent<HTMLInputElement>, index:number) => {
     const list = [...resumes];
     list[index] = {
       companyName: list[index].companyName,
@@ -88,7 +110,7 @@ export const EditDetails = memo(({
     setProfile({ ...profile, resumes: list });
   };
 
-  const changeWorkEnd = (e, index) => {
+  const changeWorkEnd = (e: React.ChangeEvent<HTMLInputElement>, index:number) => {
     const list = [...resumes];
     list[index] = {
       companyName: list[index].companyName,
@@ -141,10 +163,10 @@ export const EditDetails = memo(({
             type="text"
             value={hobby}
             name="hobby"
-            onChange={(e) =>
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setProfile({ ...profile, hobby: e.target.value.trim() })
             }
-            maxLength="30"
+            maxLength={30}
             className="text-base bg-blue-100 placeholder-blue-300 text-left rounded-full py-1 pl-5 outline-none w-full"
           />
         </div>
@@ -163,8 +185,8 @@ export const EditDetails = memo(({
             type="text"
             value={dream}
             name="dream"
-            maxLength="30"
-            onChange={(e) =>
+            maxLength={30}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setProfile({ ...profile, dream: e.target.value.trim() })
             }
             className="text-base bg-blue-100 placeholder-blue-300 text-left rounded-full py-1 pl-5 outline-none w-full"
@@ -184,8 +206,8 @@ export const EditDetails = memo(({
             type="text"
             value={certification}
             name="certification"
-            maxLength="30"
-            onChange={(e) =>
+            maxLength={30}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setProfile({
                 ...profile,
                 certification: e.target.value.trim(),
@@ -208,8 +230,8 @@ export const EditDetails = memo(({
             type="text"
             value={strongArea}
             name="strongArea"
-            maxLength="30"
-            onChange={(e) =>
+            maxLength={30}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setProfile({ ...profile, strongArea: e.target.value.trim() })
             }
             className="text-base bg-blue-100 placeholder-blue-300 text-left rounded-full py-1 pl-5 outline-none "
@@ -229,8 +251,8 @@ export const EditDetails = memo(({
             type="text"
             value={subjectArea}
             name="subjectArea"
-            maxLength="30"
-            onChange={(e) =>
+            maxLength={30}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setProfile({ ...profile, subjectArea: e.target.value.trim() })
             }
             className="text-base bg-blue-100 placeholder-blue-300 text-left rounded-full py-1 pl-5 outline-none w-full"
@@ -263,7 +285,7 @@ export const EditDetails = memo(({
                     type="text"
                     value={ex.experience}
                     name="experience"
-                    maxLength="15"
+                    maxLength={15}
                     placeholder="一般薬剤師/管理薬剤師など"
                     onChange={(e) => changeExperience(e, index)}
                     className="text-base bg-blue-100 placeholder-blue-300 text-left rounded-full py-1 pl-5 outline-none w-full col-span-10"
@@ -275,7 +297,7 @@ export const EditDetails = memo(({
                     type="text"
                     value={ex.years}
                     name="years"
-                    maxLength="15"
+                    maxLength={15}
                     onChange={(e) => changeYears(e, index)}
                     className="text-base bg-blue-100 placeholder-blue-300 text-left rounded-full py-1 pl-5 outline-none"
                   />
@@ -318,7 +340,7 @@ export const EditDetails = memo(({
                   type="text"
                   value={re.companyName}
                   name="companyName"
-                  maxLength="15"
+                  maxLength={15}
                   placeholder="企業名"
                   onChange={(e) => changeCompanyName(e, index)}
                   className="text-base bg-blue-100 placeholder-blue-300 text-left rounded-full py-1 pl-5 outline-none w-full md:col-span-4 col-span-8 my-1"
@@ -328,7 +350,7 @@ export const EditDetails = memo(({
                   type="text"
                   value={re.employmentStatus}
                   name="employmentStatus"
-                  maxLength="10"
+                  maxLength={10}
                   placeholder="雇用形態"
                   onChange={(e) => changeEmploymentStatus(e, index)}
                   className="text-base bg-blue-100 placeholder-blue-300 text-left rounded-full py-1 pl-5 outline-none w-full md:col-span-2 col-span-4 my-1"
@@ -338,7 +360,7 @@ export const EditDetails = memo(({
                   type="text"
                   value={re.workStart}
                   name="workStart"
-                  maxLength="10"
+                  maxLength={10}
                   placeholder="いつから"
                   onChange={(e) => changeWorkStart(e, index)}
                   className="text-base bg-blue-100 placeholder-blue-300 text-left rounded-full py-1 pl-5 outline-none w-full md:col-span-2 col-span-4 my-1"
@@ -352,7 +374,7 @@ export const EditDetails = memo(({
                   type="text"
                   value={re.workEnd}
                   name="workEnd"
-                  maxLength="10"
+                  maxLength={10}
                   placeholder="いつまで"
                   onChange={(e) => changeWorkEnd(e, index)}
                   className="text-base bg-blue-100 placeholder-blue-300 text-left rounded-full py-1 pl-5 outline-none w-full md:col-span-2 col-span-4 my-1"

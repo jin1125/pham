@@ -9,10 +9,10 @@ type Props = {
 
 export const RecruitForm: VFC<Props> = memo(({ setIsContactUs }) => {
   const alert = useAlert();
-  const [companyName, setCompanyName] = useState("");
-  const [clientName, setClientName] = useState("");
-  const [email, setEmail] = useState("");
-  const [tel, setTel] = useState("");
+  const [companyName, setCompanyName] = useState<string>("");
+  const [clientName, setClientName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [tel, setTel] = useState<string>("");
 
   const contactUs = async () => {
     const inquiry = {

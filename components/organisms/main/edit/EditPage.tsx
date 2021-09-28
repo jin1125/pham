@@ -1,10 +1,11 @@
 import Image from "next/image";
 import Router from "next/router";
-import React, { memo, useContext, useEffect, useState } from "react";
+import React, { memo, useContext, useEffect, useState, VFC } from "react";
 import { useAlert } from "react-alert";
 import Loader from "react-loader-spinner";
 import Skeleton from "react-loading-skeleton";
 import { auth, db, storage } from "../../../../firebase";
+import { EditProfile } from "../../../../types/editProfile";
 import { UserContext } from "../../../../UserContext";
 import { EditFreeImg } from "../../../molecules/EditFreeImg";
 import { EditDetails } from "./EditDetails";
@@ -14,11 +15,11 @@ import { EditSP2 } from "./EditSP2";
 import { EditStatus } from "./EditStatus";
 import { Footer } from "./Footer";
 
-export const EditPage = memo(() => {
+export const EditPage:VFC = memo(() => {
   ////////////////// ステートエリア //////////////////
   const { userId, setUserId } = useContext(UserContext);
 
-  const [profile, setProfile] = useState({
+  const [profile, setProfile] = useState<EditProfile>({
     birthPlace: "",
     certification: "",
     comments: "",
@@ -44,17 +45,17 @@ export const EditPage = memo(() => {
       { companyName: "", employmentStatus: "", workEnd: "", workStart: "" },
     ],
   });
-  const [userEmail, setUserEmail] = useState("");
-  const [displayName, setDisplayName] = useState("");
-  const [profileImage, setProfileImage] = useState("");
-  const [freeImage0, setFreeImage0] = useState("");
-  const [freeImage1, setFreeImage1] = useState("");
-  const [freeImage2, setFreeImage2] = useState("");
-  const [fileUrl, setFileUrl] = useState("");
-  const [demoImg, setDemoImg] = useState("");
-  const [demoImgs, setDemoImgs] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [loadingProfile, setLoadingProfile] = useState(false);
+  const [userEmail, setUserEmail] = useState<string>("");
+  const [displayName, setDisplayName] = useState<string>("");
+  const [profileImage, setProfileImage] = useState<File|null>(null);
+  const [freeImage0, setFreeImage0] = useState<File|null>(null);
+  const [freeImage1, setFreeImage1] = useState<File|null>(null);
+  const [freeImage2, setFreeImage2] = useState<File|null>(null);
+  const [fileUrl, setFileUrl] = useState<string>("");
+  const [demoImg, setDemoImg] = useState<string>("");
+  const [demoImgs, setDemoImgs] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
+  const [loadingProfile, setLoadingProfile] = useState<boolean>(false);
 
   ////////////////// 関数エリア //////////////////
 
@@ -130,8 +131,8 @@ export const EditPage = memo(() => {
     userName,
   } = profile;
 
-  const uploadImage = (e) => {
-    if (e.target.files[0]) {
+  const uploadImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files![0]) {
       const imageFile = e.target.files[0];
       const imageUrl = URL.createObjectURL(imageFile);
       setFileUrl(imageUrl);
@@ -382,7 +383,7 @@ export const EditPage = memo(() => {
 
       <hr />
 
-      <Footer userEmail={userEmail} />
+      <Footer userEmail={userEmail} setUserEmail={setUserEmail} />
     </div>
   );
 });

@@ -1,8 +1,19 @@
 import Image from "next/image";
-import React, { memo, useState } from "react";
+import React, { Dispatch, memo, useState, VFC } from "react";
 import Skeleton from "react-loading-skeleton";
 
-export const EditFreeImg = memo(
+type Props = {
+  setFreeImage0: Dispatch<React.SetStateAction<File>>;
+  setFreeImage1: Dispatch<React.SetStateAction<File>>;
+  setFreeImage2: Dispatch<React.SetStateAction<File>>;
+  freeImageUrl0: string;
+  freeImageUrl1: string;
+  freeImageUrl2: string;
+  demoImgs: string;
+  loadingProfile: boolean;
+};
+
+export const EditFreeImg: VFC<Props> = memo(
   ({
     setFreeImage0,
     setFreeImage1,
@@ -13,12 +24,12 @@ export const EditFreeImg = memo(
     demoImgs,
     loadingProfile,
   }) => {
-    const [fileUrls0, setFileUrls0] = useState("");
-    const [fileUrls1, setFileUrls1] = useState("");
-    const [fileUrls2, setFileUrls2] = useState("");
+    const [fileUrls0, setFileUrls0] = useState<string>("");
+    const [fileUrls1, setFileUrls1] = useState<string>("");
+    const [fileUrls2, setFileUrls2] = useState<string>("");
 
-    const uploadFreeImage0 = (e) => {
-      if (e.target.files[0]) {
+    const uploadFreeImage0 = (e: React.ChangeEvent<HTMLInputElement>) => {
+      if (e.target.files![0]) {
         const imageFile = e.target.files[0];
         const imageUrl = URL.createObjectURL(imageFile);
         setFileUrls0(imageUrl);
@@ -27,8 +38,8 @@ export const EditFreeImg = memo(
       }
     };
 
-    const uploadFreeImage1 = (e) => {
-      if (e.target.files[0]) {
+    const uploadFreeImage1 = (e: React.ChangeEvent<HTMLInputElement>) => {
+      if (e.target.files![0]) {
         const imageFile = e.target.files[0];
         const imageUrl = URL.createObjectURL(imageFile);
         setFileUrls1(imageUrl);
@@ -37,8 +48,8 @@ export const EditFreeImg = memo(
       }
     };
 
-    const uploadFreeImage2 = (e) => {
-      if (e.target.files[0]) {
+    const uploadFreeImage2 = (e: React.ChangeEvent<HTMLInputElement>) => {
+      if (e.target.files![0]) {
         const imageFile = e.target.files[0];
         const imageUrl = URL.createObjectURL(imageFile);
         setFileUrls2(imageUrl);
