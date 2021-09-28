@@ -3,11 +3,11 @@ import React, { Dispatch, memo, useState, VFC } from "react";
 import { useAlert } from "react-alert";
 import { db } from "../../firebase";
 
-type Props ={
-  setIsContactUs:Dispatch<React.SetStateAction<boolean>>;
-}
+type Props = {
+  setIsContactUs: Dispatch<React.SetStateAction<boolean>>;
+};
 
-export const RecruitForm:VFC<Props> = memo(({ setIsContactUs }) => {
+export const RecruitForm: VFC<Props> = memo(({ setIsContactUs }) => {
   const alert = useAlert();
   const [companyName, setCompanyName] = useState("");
   const [clientName, setClientName] = useState("");
@@ -55,7 +55,9 @@ export const RecruitForm:VFC<Props> = memo(({ setIsContactUs }) => {
             maxLength="30"
             pattern=".*\S+.*"
             value={companyName}
-            onChange={(e) => setCompanyName(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setCompanyName(e.target.value)
+            }
           />
         </label>
       </div>
@@ -73,7 +75,9 @@ export const RecruitForm:VFC<Props> = memo(({ setIsContactUs }) => {
             placeholder="姓 名"
             maxLength="20"
             value={clientName}
-            onChange={(e) => setClientName(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setClientName(e.target.value)
+            }
           />
         </label>
       </div>
@@ -91,7 +95,9 @@ export const RecruitForm:VFC<Props> = memo(({ setIsContactUs }) => {
             required
             maxLength="256"
             pattern=".*\S+.*"
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setEmail(e.target.value)
+            }
           />
         </label>
       </div>
@@ -109,7 +115,9 @@ export const RecruitForm:VFC<Props> = memo(({ setIsContactUs }) => {
             required
             maxLength="20"
             pattern=".*\S+.*"
-            onChange={(e) => setTel(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setTel(e.target.value)
+            }
           />
         </label>
       </div>

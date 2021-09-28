@@ -3,7 +3,7 @@ import React, { memo, useState, VFC } from "react";
 import { useAlert } from "react-alert";
 import { auth, db, provider } from "../../firebase";
 
-export const LoginForm:VFC = memo(() => {
+export const LoginForm: VFC = memo(() => {
   const alert = useAlert();
   const [name, setName] = useState<string>("");
   const [isLogin, setIsLogin] = useState<boolean>(true);
@@ -116,7 +116,9 @@ export const LoginForm:VFC = memo(() => {
                 type="text"
                 maxLength="20"
                 value={name}
-                onChange={(e) => setName(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setName(e.target.value)
+                }
               />
             </label>
           </div>
@@ -134,7 +136,9 @@ export const LoginForm:VFC = memo(() => {
             type="email"
             maxLength="256"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setEmail(e.target.value)
+            }
           />
         </label>
       </div>
@@ -149,7 +153,9 @@ export const LoginForm:VFC = memo(() => {
             maxLength="20"
             value={password}
             placeholder="半角英数字 6文字以上"
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setPassword(e.target.value)
+            }
           />
         </label>
       </div>
@@ -195,7 +201,9 @@ export const LoginForm:VFC = memo(() => {
                   type="email"
                   placeholder="email@example.com"
                   value={resetEmail}
-                  onChange={(e) => setResetEmail(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    setResetEmail(e.target.value)
+                  }
                 />
                 <button
                   onClick={sendResetEmail}
