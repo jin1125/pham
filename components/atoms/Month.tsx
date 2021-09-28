@@ -1,6 +1,6 @@
-import React, { memo } from "react";
+import React, { memo, VFC } from "react";
 
-export const Month = memo(() => {
+export const Month:VFC = memo(() => {
   return (
     <>
       <option value="1">1</option>

@@ -1,6 +1,6 @@
-import React, { memo } from "react";
+import React, { memo, VFC } from "react";
 
-export const Address = memo(() => {
+export const Address:VFC = memo(() => {
   return (
     <>
       
