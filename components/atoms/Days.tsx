@@ -1,6 +1,7 @@
 import React, { memo, VFC } from "react";
 
-export const Days:VFC = memo(() => {
+export const Days: VFC = memo(() => {
+  ///////// JSXエリア /////////
   return (
     <>
       <option value="1">1</option>

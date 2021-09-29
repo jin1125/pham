@@ -6,6 +6,7 @@ import { storage } from "../../firebase";
 import { UserContext } from "../../UserContext";
 
 export const SearchCo_R: VFC = memo(() => {
+  ///////// ステートエリア /////////
   const [companyDemoImg, setCompanyDemoImg] = useState<string>("");
   const {
     selectCompany,
@@ -15,6 +16,8 @@ export const SearchCo_R: VFC = memo(() => {
     setPharmacyId,
   } = useContext(UserContext);
 
+  ///////// 関数エリア /////////
+  //  ストレージから企業デモ画像取得
   useEffect(() => {
     let isMounted = true;
     (async () => {
@@ -33,6 +36,7 @@ export const SearchCo_R: VFC = memo(() => {
     };
   }, []);
 
+  ///////// JSXエリア /////////
   return (
     <div className="md:col-span-9 col-span-12 min-h-screen md:px-10 px-5">
       <div className="grid grid-cols-12 my-10 mr-10">

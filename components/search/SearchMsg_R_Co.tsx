@@ -12,6 +12,7 @@ import Loader from "react-loader-spinner";
 import { Feeds } from "../../types/feeds";
 import { UserContext } from "../../UserContext";
 
+///////// 型定義エリア /////////
 type Props = {
   feeds: Feeds;
   demoImg: string;
@@ -49,13 +50,17 @@ export const SearchMsg_R_Co: VFC<Props> = memo(
     name,
   }) => {
     const { selectMsg, userId } = useContext(UserContext);
-    const ref = useRef(null);
 
+    ///////// 関数エリア /////////
+    // メッセージの最後にスクロール設定
+    const ref = useRef(null);
     useEffect(() => {
       if (isLastItem && ref.current) {
         ref.current.scrollIntoView({ behavior: "smooth" });
       }
     }, [isLastItem, ref.current, feeds]);
+
+    ///////// JSXエリア /////////
     return (
       <div className="md:col-span-9 col-span-12">
         <div className="overflow-auto h-screen lg:pb-16 pb-12 md:px-10 px-5">

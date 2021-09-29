@@ -4,9 +4,7 @@ import { Layout } from "../../components/layout/Layout";
 import { EditPage } from "../../components/organisms/main/edit/EditPage";
 
 export default function edit() {
-
-
-  ////////////////// JSXエリア //////////////////
+  ///////// JSXエリア /////////
   return (
     <div className="min-h-screen">
       <Head>
@@ -15,7 +13,8 @@ export default function edit() {
       </Head>
 
       <Layout>
-        <EditPage/>
+        {/* メインページ */}
+        <EditPage />
       </Layout>
     </div>
   );

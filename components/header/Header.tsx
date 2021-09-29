@@ -4,7 +4,8 @@ import React, { memo, useContext, useEffect, useState, VFC } from "react";
 import { auth, db } from "../../firebase";
 import { UserContext } from "../../UserContext";
 
-export const Header:VFC = memo(() => {
+export const Header: VFC = memo(() => {
+  ///////// ステートエリア /////////
   const [check, setCheck] = useState<boolean>(false);
   const {
     setSelectJob,
@@ -16,6 +17,8 @@ export const Header:VFC = memo(() => {
     setSelectProfile,
   } = useContext(UserContext);
 
+  ///////// 関数エリア /////////
+  // ユーザーIDを取得
   useEffect(() => {
     const unSub = auth.onAuthStateChanged((user) => {
       if (user) {
@@ -26,6 +29,7 @@ export const Header:VFC = memo(() => {
     return () => unSub();
   }, []);
 
+  // ヘッダーボタンのdisabled判定
   useEffect(() => {
     if (userId) {
       let unSub = db
@@ -43,6 +47,7 @@ export const Header:VFC = memo(() => {
     }
   }, [userId]);
 
+  ///////// JSXエリア /////////
   return (
     <header>
       <div className="grid grid-cols-6 gap-3 bg-blue-300 py-4 justify-items-center items-center leading-none px-1">
@@ -70,7 +75,6 @@ export const Header:VFC = memo(() => {
             disabled={check}
             onClick={() => setSelectProfile({})}
           >
-            
             <div className="hidden md:block">薬剤師検索</div>
             <div className="md:hidden block">
               <Emoji emoji="pill" size={30} />
@@ -89,7 +93,6 @@ export const Header:VFC = memo(() => {
               setPharmId("");
             }}
           >
-            
             <div className="hidden md:block">企業検索</div>
             <div className="md:hidden block">
               <Emoji emoji="office" size={30} />

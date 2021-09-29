@@ -11,10 +11,13 @@ export function hitComponentPh({ hit }) {
     pharmId,
   } = useContext(UserContext);
 
+   ///////// 関数エリア /////////
+   // 選んだ検索結果を取得
   const click = ():void => {
     setSelectPharmacy(hit);
   };
 
+  // 薬局詳細ボタンからの遷移時は該当薬局を選択済みにする
  useEffect(()=>{
   if(pharmId && pharmId === hit.objectID){
     setSelectPharmacy(hit);
@@ -22,7 +25,7 @@ export function hitComponentPh({ hit }) {
   }
  },[pharmId])
 
-  ////////////////////////// JSXエリア //////////////////////////
+   ///////// JSXエリア /////////
   return (
     <>
       <div

@@ -4,8 +4,7 @@ import { SecondHeader } from "../components/header/SecondHeader";
 import { LoginPage } from "../components/organisms/main/LoginPage";
 
 export default function login() {
-
-  ////////////////////////// JSXエリア //////////////////////////
+  ///////// JSXエリア /////////
   return (
     <div className="min-h-screen">
       <Head>
@@ -13,9 +12,11 @@ export default function login() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <SecondHeader/>
+      {/* ヘッダー */}
+      <SecondHeader />
 
-      <LoginPage/>
+      {/* メインページ */}
+      <LoginPage />
     </div>
   );
 }

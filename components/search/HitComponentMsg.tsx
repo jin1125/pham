@@ -1,15 +1,18 @@
 import { useContext, useEffect, useState } from "react";
 import { auth, db } from "../../firebase";
 import { UserContext } from "../../UserContext";
-import {Hit} from "./Hit";
+import { Hit } from "./Hit";
 
 export function hitComponentMsg({ hit }) {
-  const { selectMsg, setSelectMsg, userId, setUserId } =
-    useContext(UserContext);
+  ///////// ステートエリア /////////
   const [phMatch, setPhMatch] = useState([]);
   const [phMatchA, setPhMatchA] = useState([]);
   const [phMatchB, setPhMatchB] = useState([]);
+  const { selectMsg, setSelectMsg, userId, setUserId } =
+    useContext(UserContext);
 
+  ///////// 関数エリア /////////
+  //ユーザーID取得
   useEffect(() => {
     const unSub = auth.onAuthStateChanged((user) => {
       if (user) {
@@ -19,10 +22,12 @@ export function hitComponentMsg({ hit }) {
     return () => unSub();
   }, []);
 
-  const click = ():void => {
+  // 選んだ検索結果を取得
+  const click = (): void => {
     setSelectMsg(hit);
   };
 
+  // 自分から申請して許可済みのユーザーID取得
   useEffect(() => {
     if (userId) {
       let unSub = db
@@ -38,6 +43,7 @@ export function hitComponentMsg({ hit }) {
     }
   }, [userId]);
 
+  // 相手から申請して許可済みのユーザーID取得
   useEffect(() => {
     if (userId) {
       let unSub = db
@@ -52,15 +58,15 @@ export function hitComponentMsg({ hit }) {
       return () => unSub();
     }
   }, [userId]);
-  
 
+  // 上記の、申請許可済みユーザーIDを結合(マッチしているユーザーIDを取得)
   useEffect(() => {
     if (phMatchA && phMatchB) {
       setPhMatch([...phMatchA, ...phMatchB]);
     }
   }, [phMatchA, phMatchB]);
 
-
+  ///////// JSXエリア /////////
   return (
     <>
       <div

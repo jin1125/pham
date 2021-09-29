@@ -4,7 +4,7 @@ import { SecondHeader } from "../../components/header/SecondHeader";
 import { RecruitPage } from "../../components/organisms/main/RecruitPage";
 
 export default function recruit() {
-  ////////////////////////// JSXエリア //////////////////////////
+  ///////// JSXエリア /////////
   return (
     <div className="min-h-screen">
       <Head>
@@ -12,8 +12,10 @@ export default function recruit() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+      {/* ヘッダー */}
       <SecondHeader />
 
+      {/* メインページ */}
       <RecruitPage />
     </div>
   );

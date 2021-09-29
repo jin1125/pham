@@ -3,6 +3,7 @@ import React, { Dispatch, memo, VFC } from "react";
 import Skeleton from "react-loading-skeleton";
 import { AllProfile } from "../../../../types/allProfile";
 
+///////// 型定義エリア /////////
 type Props = {
   profile: AllProfile;
   setProfile: Dispatch<React.SetStateAction<AllProfile>>;
@@ -10,6 +11,7 @@ type Props = {
   loadingProfile: boolean;
 };
 
+///////// JSXエリア /////////
 export const EditStatus: VFC<Props> = memo(
   ({ profile, setProfile, scout, loadingProfile }) => {
     return (

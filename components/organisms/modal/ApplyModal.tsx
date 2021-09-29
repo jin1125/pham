@@ -9,10 +9,13 @@ export default function ApplyModal({
   isOpen: boolean;
   setIsOpen: Dispatch<React.SetStateAction<boolean>>;
 }) {
-  function closeModal():void {
+  ///////// 関数エリア /////////
+  // 求人応募完了モーダルを閉じる
+  function closeModal(): void {
     setIsOpen(false);
   }
 
+  ///////// JSXエリア /////////
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>

@@ -3,9 +3,11 @@ import Link from "next/link";
 import React, { memo, useState, VFC } from "react";
 import { RecruitForm } from "../../molecules/RecruitForm";
 
-export const RecruitPage:VFC = memo(() => {
+export const RecruitPage: VFC = memo(() => {
+  ///////// ステートエリア /////////
   const [isContactUs, setIsContactUs] = useState<boolean>(false);
 
+  ///////// JSXエリア /////////
   return (
     <main className="grid lg:grid-cols-2 min-h-screen xl:-mt-20 justify-items-center items-center">
       <div className="text-center md:w-3/4 w-11/12">

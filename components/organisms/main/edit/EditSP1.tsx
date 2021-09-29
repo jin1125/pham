@@ -2,14 +2,16 @@ import React, { Dispatch, memo, VFC } from "react";
 import Skeleton from "react-loading-skeleton";
 import { AllProfile } from "../../../../types/allProfile";
 
+///////// 型定義エリア /////////
 type Props = {
-  profile:AllProfile;
-  setProfile:Dispatch<React.SetStateAction<AllProfile>>;
-  userName:string;
-  jobTitle:string;
-  loadingProfile:boolean;
+  profile: AllProfile;
+  setProfile: Dispatch<React.SetStateAction<AllProfile>>;
+  userName: string;
+  jobTitle: string;
+  loadingProfile: boolean;
 };
 
+///////// JSXエリア /////////
 export const EditSP1: VFC<Props> = memo(
   ({ profile, setProfile, userName, jobTitle, loadingProfile }) => {
     return (
@@ -39,7 +41,7 @@ export const EditSP1: VFC<Props> = memo(
           <input
             type="text"
             value={jobTitle}
-            onChange={(e:React.ChangeEvent<HTMLInputElement>) =>
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setProfile({ ...profile, jobTitle: e.target.value.trim() })
             }
             placeholder="役職"

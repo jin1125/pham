@@ -3,18 +3,22 @@ import React, { Dispatch, memo, useState, VFC } from "react";
 import { useAlert } from "react-alert";
 import { db } from "../../firebase";
 
+///////// 型定義エリア /////////
 type Props = {
   setIsContactUs: Dispatch<React.SetStateAction<boolean>>;
 };
 
 export const RecruitForm: VFC<Props> = memo(({ setIsContactUs }) => {
   const alert = useAlert();
+  ///////// ステートエリア /////////
   const [companyName, setCompanyName] = useState<string>("");
   const [clientName, setClientName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [tel, setTel] = useState<string>("");
 
-  const contactUs = async ():Promise<void> => {
+  ///////// 関数エリア /////////
+  // お問い合わせ処理
+  const contactUs = async (): Promise<void> => {
     const inquiry = {
       companyName: companyName,
       clientName: clientName,
@@ -40,6 +44,7 @@ export const RecruitForm: VFC<Props> = memo(({ setIsContactUs }) => {
     setTel("");
   };
 
+  ///////// JSXエリア /////////
   return (
     <div className="border my-7 shadow-lg">
       <div className="my-7">

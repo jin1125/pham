@@ -1,10 +1,9 @@
 import Head from "next/head";
 import { FirstHeader } from "../components/header/FirstHeader";
-import {FirstPage} from '../components/organisms/main/FirstPage'
+import { FirstPage } from "../components/organisms/main/FirstPage";
 
 export default function Lp() {
-  
-  ////////////////////////// JSXエリア //////////////////////////
+  ///////// JSXエリア /////////
   return (
     <div className="min-h-screen">
       <Head>
@@ -12,9 +11,11 @@ export default function Lp() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <FirstHeader/>
+      {/* ヘッダー */}
+      <FirstHeader />
 
-      <FirstPage/>
+      {/* メインページ */}
+      <FirstPage />
     </div>
   );
 }

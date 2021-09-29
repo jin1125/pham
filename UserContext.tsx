@@ -29,8 +29,6 @@ export const UserContext = createContext(
     setSelectJobAddress: Dispatch<React.SetStateAction<string>>;
     selectMsg: SelectMsg;
     setSelectMsg: Dispatch<React.SetStateAction<SelectMsg>>;
-    // selectCoMsg: string;
-    // setSelectCoMsg: Dispatch<React.SetStateAction<string>>;
     companyId: string;
     setCompanyId: Dispatch<React.SetStateAction<string>>;
     selectJobEmploymentStatus: string;

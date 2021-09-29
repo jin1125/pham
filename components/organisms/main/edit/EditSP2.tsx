@@ -7,11 +7,12 @@ import { Days } from "../../../atoms/Days";
 import { Month } from "../../../atoms/Month";
 import { Years } from "../../../atoms/Years";
 
+///////// 型定義エリア /////////
 type Props = {
   profile: AllProfile;
   setProfile: Dispatch<React.SetStateAction<AllProfile>>;
   userId: string;
-  homeAddress:string;
+  homeAddress: string;
   dobYY: string;
   dobMM: string;
   dobDD: string;
@@ -37,6 +38,7 @@ export const EditSP2: VFC<Props> = memo(
     comments,
     loadingProfile,
   }) => {
+    ///////// JSXエリア /////////
     return (
       <div>
         {loadingProfile ? (
@@ -59,7 +61,7 @@ export const EditSP2: VFC<Props> = memo(
                   className="bg-blue-100 rounded-full outline-none pl-3 pr-2 py-1"
                   name="homeAddress"
                   value={homeAddress}
-                  onChange={( e: React.ChangeEvent<HTMLSelectElement>) =>
+                  onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
                     setProfile({ ...profile, homeAddress: e.target.value })
                   }
                 >
@@ -81,7 +83,7 @@ export const EditSP2: VFC<Props> = memo(
                   className="bg-blue-100 rounded-full outline-none pl-3 pr-2 py-1"
                   name="dobYY"
                   value={dobYY}
-                  onChange={( e: React.ChangeEvent<HTMLSelectElement>) =>
+                  onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
                     setProfile({ ...profile, dobYY: e.target.value })
                   }
                 >
@@ -96,7 +98,7 @@ export const EditSP2: VFC<Props> = memo(
                   className="bg-blue-100 rounded-full outline-none pl-3 pr-2 py-1"
                   name="dobMM"
                   value={dobMM}
-                  onChange={( e: React.ChangeEvent<HTMLSelectElement>) =>
+                  onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
                     setProfile({ ...profile, dobMM: e.target.value })
                   }
                 >
@@ -111,7 +113,7 @@ export const EditSP2: VFC<Props> = memo(
                   className="bg-blue-100 rounded-full outline-none pl-3 pr-2 py-1"
                   name="dobDD"
                   value={dobDD}
-                  onChange={( e: React.ChangeEvent<HTMLSelectElement>) =>
+                  onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
                     setProfile({ ...profile, dobDD: e.target.value })
                   }
                 >

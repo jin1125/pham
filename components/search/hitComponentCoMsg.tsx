@@ -4,10 +4,13 @@ import { UserContext } from "../../UserContext";
 import { HitCo } from "./HitCo";
 
 export function hitComponentCoMsg({ hit }) {
+  ///////// ステートエリア /////////
+  const [coMatch, setCoMatch] = useState([]);
   const { selectMsg, setSelectMsg, userId, setUserId } =
     useContext(UserContext);
-  const [coMatch, setCoMatch] = useState([]);
 
+  ///////// 関数エリア /////////
+  //ユーザーID取得
   useEffect(() => {
     const unSub = auth.onAuthStateChanged((user) => {
       if (user) {
@@ -17,10 +20,12 @@ export function hitComponentCoMsg({ hit }) {
     return () => unSub();
   }, []);
 
-  const click = ():void => {
+  // 選んだ検索結果を取得
+  const click = (): void => {
     setSelectMsg(hit);
   };
 
+  // 自分から申請して許可済みの企業ID取得
   useEffect(() => {
     if (userId) {
       let unSub = db
@@ -36,7 +41,7 @@ export function hitComponentCoMsg({ hit }) {
     }
   }, [userId]);
 
-
+  ///////// JSXエリア /////////
   return (
     <>
       <div
@@ -47,7 +52,6 @@ export function hitComponentCoMsg({ hit }) {
             : "cursor-pointer hover:bg-blue-100"
         }
       >
-
         {coMatch.map(
           (co, index) =>
             co === hit.objectID && (

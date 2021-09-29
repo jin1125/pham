@@ -2,23 +2,24 @@ import { Emoji } from "emoji-mart";
 import React, { memo, VFC } from "react";
 import Skeleton from "react-loading-skeleton";
 
+///////// 型定義エリア /////////
 type Props = {
-  userName:string;
-  displayName:string;
-  jobTitle:string;
-  userId:string;
-  homeAddress:string;
-  dobYY:string;
-  dobMM:string;
-  dobDD:string;
-  school:string;
-  birthPlace:string;
-  language:string;
-  comments:string;
-  loading:boolean;
-}
+  userName: string;
+  displayName: string;
+  jobTitle: string;
+  userId: string;
+  homeAddress: string;
+  dobYY: string;
+  dobMM: string;
+  dobDD: string;
+  school: string;
+  birthPlace: string;
+  language: string;
+  comments: string;
+  loading: boolean;
+};
 
-export const ProfilePC:VFC<Props> = memo(
+export const ProfilePC: VFC<Props> = memo(
   ({
     userName,
     displayName,
@@ -34,6 +35,7 @@ export const ProfilePC:VFC<Props> = memo(
     comments,
     loading,
   }) => {
+    ///////// JSXエリア /////////
     return (
       <div>
         <div className="flex flex-row flex-wrap items-end my-10 gap-8">

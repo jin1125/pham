@@ -6,12 +6,15 @@ import { Address } from "../atoms/Address";
 import { hitComponent } from "./HitComponent";
 import { CustomSearchBox } from "./SearchBox";
 
+///////// 型定義エリア /////////
 type Props = {
-  setDisabledState:Dispatch<React.SetStateAction<"" | "match" | "passed" | "received">>;
-  setPassId:Dispatch<React.SetStateAction<string>>;
-  setPassData:Dispatch<any>;
-  setReceiveId:Dispatch<React.SetStateAction<string>>;
-  setReceiveData:Dispatch<any>;
+  setDisabledState: Dispatch<
+    React.SetStateAction<"" | "match" | "passed" | "received">
+  >;
+  setPassId: Dispatch<React.SetStateAction<string>>;
+  setPassData: Dispatch<any>;
+  setReceiveId: Dispatch<React.SetStateAction<string>>;
+  setReceiveData: Dispatch<any>;
 };
 
 export const Search_L: VFC<Props> = memo(
@@ -22,6 +25,8 @@ export const Search_L: VFC<Props> = memo(
     setReceiveId,
     setReceiveData,
   }) => {
+    ///////// 関数エリア /////////
+    //algolia情報
     const searchClient = algoliasearch(
       "0TMIYQ8E9N",
       "58e6e394abd7a5cfcc6fcae0d7b51ac5"
@@ -31,6 +36,7 @@ export const Search_L: VFC<Props> = memo(
 
     const { selectHomeAddress, setSelectHomeAddress } = useContext(UserContext);
 
+     ///////// JSXエリア /////////
     return (
       <div className="md:col-span-3 col-span-12 border-r-2 border-blue-400 relative">
         <div className="md:absolute h-full flex flex-col w-full">
@@ -45,6 +51,7 @@ export const Search_L: VFC<Props> = memo(
                 <div className="my-5">
                   <p>名前</p>
                   <div>
+                     {/* 検索窓 */}
                     <CustomSearchBox />
                   </div>
                 </div>
@@ -58,6 +65,7 @@ export const Search_L: VFC<Props> = memo(
                       value={selectHomeAddress}
                       onChange={(e) => setSelectHomeAddress(e.target.value)}
                     >
+                       {/* 都道府県 */}
                       <option value="">指定しない</option>
                       <Address />
                     </select>
@@ -75,6 +83,7 @@ export const Search_L: VFC<Props> = memo(
                 setReceiveData("");
               }}
             >
+              {/* 検索結果 */}
               <Hits hitComponent={hitComponent} />
             </div>
           </InstantSearch>

@@ -6,17 +6,20 @@ export function hitComponentCo({ hit }) {
   const { selectCompanyAddress, selectCompany, setSelectCompany, comId } =
     useContext(UserContext);
 
-  const click = ():void => {
+  ///////// 関数エリア /////////
+  // 選んだ検索結果を取得
+  const click = (): void => {
     setSelectCompany(hit);
   };
 
+  // 企業詳細ボタンからの遷移時は該当企業を選択済みにする
   useEffect(() => {
     if (comId && comId === hit.objectID) {
       setSelectCompany(hit);
     }
   }, [comId]);
 
-  ////////////////////////// JSXエリア //////////////////////////
+  ///////// JSXエリア /////////
   return (
     <>
       <div

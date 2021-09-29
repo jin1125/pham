@@ -4,21 +4,25 @@ import React, { Dispatch, memo, useEffect, useState, VFC } from "react";
 import { useAlert } from "react-alert";
 import { auth, provider } from "../../../../firebase";
 
+///////// 型定義エリア /////////
 type Props = {
-  userEmail:string;
-  setUserEmail:Dispatch<React.SetStateAction<string>>;
+  userEmail: string;
+  setUserEmail: Dispatch<React.SetStateAction<string>>;
 };
 
-export const Footer:VFC<Props> = memo(({ userEmail,setUserEmail }) => {
+export const Footer: VFC<Props> = memo(({ userEmail, setUserEmail }) => {
   const alert = useAlert();
+  ///////// ステートエリア /////////
   const [openEditEmail, setOpenEditEmail] = useState<boolean>(false);
   const [openEditPassword, setOpenEditPassword] = useState<boolean>(false);
   const [openDeleteAccount, setOpenDeleteAccount] = useState<boolean>(false);
   const [isGoogleLogin, setIsGoogleLogin] = useState<boolean>(false);
   const [resetEmailPassword, setResetEmailPassword] = useState<string>("");
-  const [deleteAccountPassword, setDeleteAccountPassword] = useState<string>("");
+  const [deleteAccountPassword, setDeleteAccountPassword] =
+    useState<string>("");
 
-  /// google認識でログインか判別処理 ///
+  ///////// 関数エリア /////////
+  // google認識でログインか判別処理
   useEffect(() => {
     const unSub = auth.onAuthStateChanged((user) => {
       if (user) {
@@ -30,8 +34,8 @@ export const Footer:VFC<Props> = memo(({ userEmail,setUserEmail }) => {
     return () => unSub();
   }, []);
 
-  /// メールアドレス変更処理 ///
-  const changeEmail = ():void => {
+  // メールアドレス変更処理
+  const changeEmail = (): void => {
     const unSub = auth.onAuthStateChanged((user) => {
       if (user && resetEmailPassword) {
         const credential = firebase.auth.EmailAuthProvider.credential(
@@ -67,8 +71,8 @@ export const Footer:VFC<Props> = memo(({ userEmail,setUserEmail }) => {
     });
   };
 
-  /// アカウント削除 ///
-  const deleteAccount = ():void => {
+  // アカウント削除
+  const deleteAccount = (): void => {
     const unSub = auth.onAuthStateChanged((user) => {
       if (user && deleteAccountPassword) {
         const credential = firebase.auth.EmailAuthProvider.credential(
@@ -106,9 +110,9 @@ export const Footer:VFC<Props> = memo(({ userEmail,setUserEmail }) => {
     });
   };
 
-  /// アカウント(google)削除処理 ///
+  // アカウント(google)削除処理
   //google認証
-  const signInGoogle = ():void => {
+  const signInGoogle = (): void => {
     auth
       .signInWithPopup(provider)
       .then(() => {
@@ -120,7 +124,7 @@ export const Footer:VFC<Props> = memo(({ userEmail,setUserEmail }) => {
   };
 
   //アカウント(google)削除
-  const deleteGoogleAccount = ():void => {
+  const deleteGoogleAccount = (): void => {
     const unSub = auth.onAuthStateChanged((user) => {
       if (user) {
         const result = confirm("本当にアカウントを削除しますか?");
@@ -144,8 +148,8 @@ export const Footer:VFC<Props> = memo(({ userEmail,setUserEmail }) => {
     });
   };
 
-  /// パスワード変更処理 ///
-  const sendResetEmail = async ():Promise<void> => {
+  // パスワード変更処理
+  const sendResetEmail = async (): Promise<void> => {
     await auth
       .sendPasswordResetEmail(userEmail)
       .then(() => {
@@ -156,8 +160,8 @@ export const Footer:VFC<Props> = memo(({ userEmail,setUserEmail }) => {
       });
   };
 
-  /// ログアウト処理 ///
-  const signOutUser = async ():Promise<void> => {
+  // ログアウト処理
+  const signOutUser = async (): Promise<void> => {
     const result = confirm("ログアウトしますか？");
     if (result) {
       try {
@@ -171,6 +175,7 @@ export const Footer:VFC<Props> = memo(({ userEmail,setUserEmail }) => {
     }
   };
 
+  ///////// JSXエリア /////////
   return (
     <div>
       {/* ////// メールアドレス＆パスワード変更 ////// */}
@@ -198,7 +203,9 @@ export const Footer:VFC<Props> = memo(({ userEmail,setUserEmail }) => {
                       type="email"
                       maxLength={256}
                       value={userEmail}
-                      onChange={( e: React.ChangeEvent<HTMLInputElement>) => setUserEmail(e.target.value)}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                        setUserEmail(e.target.value)
+                      }
                     />
                   </label>
                   <label>
@@ -210,7 +217,9 @@ export const Footer:VFC<Props> = memo(({ userEmail,setUserEmail }) => {
                       type="password"
                       maxLength={20}
                       value={resetEmailPassword}
-                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => setResetEmailPassword(e.target.value)}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                        setResetEmailPassword(e.target.value)
+                      }
                     />
                   </label>
                   <div>
@@ -288,7 +297,9 @@ export const Footer:VFC<Props> = memo(({ userEmail,setUserEmail }) => {
                       type="password"
                       maxLength={20}
                       value={deleteAccountPassword}
-                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => setDeleteAccountPassword(e.target.value)}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                        setDeleteAccountPassword(e.target.value)
+                      }
                     />
                   </label>
                   <div>

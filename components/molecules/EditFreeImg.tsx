@@ -2,6 +2,7 @@ import Image from "next/image";
 import React, { Dispatch, memo, useState, VFC } from "react";
 import Skeleton from "react-loading-skeleton";
 
+///////// 型定義エリア /////////
 type Props = {
   setFreeImage0: Dispatch<React.SetStateAction<File>>;
   setFreeImage1: Dispatch<React.SetStateAction<File>>;
@@ -24,11 +25,14 @@ export const EditFreeImg: VFC<Props> = memo(
     demoImgs,
     loadingProfile,
   }) => {
+    ///////// ステートエリア /////////
     const [fileUrls0, setFileUrls0] = useState<string>("");
     const [fileUrls1, setFileUrls1] = useState<string>("");
     const [fileUrls2, setFileUrls2] = useState<string>("");
 
-    const uploadFreeImage0 = (e: React.ChangeEvent<HTMLInputElement>):void => {
+    ///////// 関数エリア /////////
+    //  フリー画像0アップロード処理
+    const uploadFreeImage0 = (e: React.ChangeEvent<HTMLInputElement>): void => {
       if (e.target.files![0]) {
         const imageFile = e.target.files[0];
         const imageUrl = URL.createObjectURL(imageFile);
@@ -38,7 +42,8 @@ export const EditFreeImg: VFC<Props> = memo(
       }
     };
 
-    const uploadFreeImage1 = (e: React.ChangeEvent<HTMLInputElement>):void => {
+    //  フリー画像1アップロード処理
+    const uploadFreeImage1 = (e: React.ChangeEvent<HTMLInputElement>): void => {
       if (e.target.files![0]) {
         const imageFile = e.target.files[0];
         const imageUrl = URL.createObjectURL(imageFile);
@@ -48,7 +53,8 @@ export const EditFreeImg: VFC<Props> = memo(
       }
     };
 
-    const uploadFreeImage2 = (e: React.ChangeEvent<HTMLInputElement>):void => {
+    //  フリー画像2アップロード処理
+    const uploadFreeImage2 = (e: React.ChangeEvent<HTMLInputElement>): void => {
       if (e.target.files![0]) {
         const imageFile = e.target.files[0];
         const imageUrl = URL.createObjectURL(imageFile);
@@ -58,6 +64,7 @@ export const EditFreeImg: VFC<Props> = memo(
       }
     };
 
+    ///////// JSXエリア /////////
     return (
       <div className="flex lg:flex-col flex-row justify-center md:gap-5">
         {/* /// フリー画像アップロード0 /// */}

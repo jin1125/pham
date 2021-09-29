@@ -3,12 +3,15 @@ import React, { memo, useState, VFC } from "react";
 import { useAlert } from "react-alert";
 import { auth } from "../../firebase";
 
-export const RecruitLoginForm:VFC = memo(() => {
+export const RecruitLoginForm: VFC = memo(() => {
   const alert = useAlert();
+  ///////// ステートエリア /////////
   const [companyEmail, setCompanyEmail] = useState<string>("");
   const [companyPassword, setCompanyPassword] = useState<string>("");
 
-  const signIn = async ():Promise<void> => {
+  ///////// 関数エリア /////////
+  //メールアドレスログイン
+  const signIn = async (): Promise<void> => {
     try {
       await auth.signInWithEmailAndPassword(companyEmail, companyPassword);
       alert.success("ログインしました");
@@ -18,6 +21,7 @@ export const RecruitLoginForm:VFC = memo(() => {
     }
   };
 
+  ///////// JSXエリア /////////
   return (
     <div className="border my-7 shadow-lg">
       <div className="my-7">

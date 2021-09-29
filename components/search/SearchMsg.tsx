@@ -10,6 +10,7 @@ import { SearchMsg_R_Co } from "./SearchMsg_R_Co";
 import { SearchMsg_R_Ph } from "./SearchMsg_R_Ph";
 
 export const SearchMsg: VFC = memo(() => {
+  ///////// ステートエリア /////////
   const [demoImg, setDemoImg] = useState<string>("");
   const [companyDemoImg, setCompanyDemoImg] = useState<string>("");
   const [msgImage, setMsgImage] = useState<File | null>(null);
@@ -36,10 +37,10 @@ export const SearchMsg: VFC = memo(() => {
       text: "",
     },
   ]);
-
   const { selectMsg, userId, setUserId } = useContext(UserContext);
-  
 
+  ///////// 関数エリア /////////
+  //  ストレージからプロフィールデモ画像取得
   useEffect(() => {
     let isMounted = true;
     (async () => {
@@ -55,6 +56,7 @@ export const SearchMsg: VFC = memo(() => {
     };
   }, []);
 
+  //  ストレージから企業デモ画像取得
   useEffect(() => {
     let isMounted = true;
     (async () => {
@@ -73,6 +75,7 @@ export const SearchMsg: VFC = memo(() => {
     };
   }, []);
 
+  //ユーザーID取得＆ログインしてなければログインページへ
   useEffect(() => {
     const unSub = auth.onAuthStateChanged((user) => {
       if (user) {
@@ -85,6 +88,7 @@ export const SearchMsg: VFC = memo(() => {
     return () => unSub();
   }, []);
 
+  // firestoreからユーザーネームとアバタイメージを取得
   useEffect(() => {
     if (userId) {
       const unSub = db
@@ -100,6 +104,7 @@ export const SearchMsg: VFC = memo(() => {
     }
   }, [userId, feeds]);
 
+  // firestoreから企業名と企業アバタイメージを取得
   useEffect(() => {
     if (userId) {
       const unSub = db
@@ -115,6 +120,7 @@ export const SearchMsg: VFC = memo(() => {
     }
   }, [userId, feeds]);
 
+  // 選択したユーザーとのメッセージデータを取得
   useEffect(() => {
     if (userId && selectMsg.objectID) {
       const unSub = db
@@ -143,6 +149,7 @@ export const SearchMsg: VFC = memo(() => {
     }
   }, [userId, selectMsg.objectID]);
 
+  // 画像アップロード処理
   const uploadImage = (e: React.ChangeEvent<HTMLInputElement>): void => {
     if (e.target.files![0]) {
       const imageFile = e.target.files[0];
@@ -153,9 +160,11 @@ export const SearchMsg: VFC = memo(() => {
     }
   };
 
+  // メッセージ送信処理
   const sendMsg = async () => {
     {
       selectMsg.objectID && setLoading(true);
+      // アップロード画像があれば
       if (msgImage) {
         const S =
           "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -206,6 +215,7 @@ export const SearchMsg: VFC = memo(() => {
             setFileUrl("");
             setMsgImage(null);
           });
+        // アップロード画像がなければ
       } else {
         await db
           .collection("msgs")
@@ -244,21 +254,24 @@ export const SearchMsg: VFC = memo(() => {
     }
   };
 
+  // メッセージの数
   const length = feeds.length;
+  // メッセージの最後かを判定
   let isLastItem = false;
 
   return (
     <div>
       <div className="grid grid-cols-12">
-        {/* ////// プロフィール検索(ページ左) ////// */}
+        {/* プロフィール検索(ページ左) */}
         <SearchMsg_L
           changeMsg={changeMsg}
           setChangeMsg={setChangeMsg}
           setFeeds={setFeeds}
         />
 
-        {/* ////// プロフィール描画(ページ右) ////// */}
+        {/* プロフィール描画(ページ右)  */}
         {changeMsg && selectMsg && Object.keys(selectMsg).length ? (
+          // ユーザー同士のメッセージ画面
           <SearchMsg_R_Ph
             feeds={feeds}
             demoImg={demoImg}
@@ -274,6 +287,7 @@ export const SearchMsg: VFC = memo(() => {
             name={name}
           />
         ) : !changeMsg && selectMsg && Object.keys(selectMsg).length ? (
+          // ユーザーと企業のメッセージ画面
           <SearchMsg_R_Co
             feeds={feeds}
             demoImg={demoImg}
@@ -293,6 +307,7 @@ export const SearchMsg: VFC = memo(() => {
           />
         ) : (
           <div className="h-screen md:col-span-9 col-span-12 justify-self-center self-center md:pt-24">
+            {/* 未選択時表示画像 */}
             <Image
               src="/message_img.png"
               alt="login_img"

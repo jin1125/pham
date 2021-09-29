@@ -16,9 +16,8 @@ import { EditStatus } from "./EditStatus";
 import { Footer } from "./Footer";
 
 export const EditPage: VFC = memo(() => {
-  ////////////////// ステートエリア //////////////////
+  ///////// ステートエリア /////////
   const { userId, setUserId } = useContext(UserContext);
-
   const [profile, setProfile] = useState<AllProfile>({
     birthPlace: "",
     certification: "",
@@ -57,10 +56,10 @@ export const EditPage: VFC = memo(() => {
   const [loading, setLoading] = useState<boolean>(false);
   const [loadingProfile, setLoadingProfile] = useState<boolean>(false);
 
-  ////////////////// 関数エリア //////////////////
-
   const alert = useAlert();
 
+  ///////// 関数エリア /////////
+  // ユーザーID＆ユーザーメール＆ユーザーネーム取得
   useEffect(() => {
     const unSub = auth.onAuthStateChanged((user) => {
       if (user) {
@@ -75,6 +74,7 @@ export const EditPage: VFC = memo(() => {
     return () => unSub();
   }, []);
 
+  // firestoreからプロフィールデータ取得
   useEffect(() => {
     if (userId) {
       setLoadingProfile(true);
@@ -96,6 +96,7 @@ export const EditPage: VFC = memo(() => {
     }
   }, [userId, displayName]);
 
+  // ストレージからプロフィール＆フリーデモ画像取得
   useEffect(() => {
     (async () => {
       const url = await storage.ref().child("demo_img.png").getDownloadURL();
@@ -106,6 +107,7 @@ export const EditPage: VFC = memo(() => {
     })();
   }, []);
 
+  // 分割代入
   const {
     birthPlace,
     certification,
@@ -131,7 +133,8 @@ export const EditPage: VFC = memo(() => {
     userName,
   } = profile;
 
-  const uploadImage = (e: React.ChangeEvent<HTMLInputElement>):void => {
+  // 画像アップデート処理
+  const uploadImage = (e: React.ChangeEvent<HTMLInputElement>): void => {
     if (e.target.files![0]) {
       const imageFile = e.target.files[0];
       const imageUrl = URL.createObjectURL(imageFile);
@@ -142,7 +145,7 @@ export const EditPage: VFC = memo(() => {
   };
 
   /// 変更を保存ボタン処理 ///
-  const editHandler = async ():Promise<void> => {
+  const editHandler = async (): Promise<void> => {
     setLoading(true);
     let profileUrl = "";
     let freeUrl0 = "";
@@ -225,9 +228,11 @@ export const EditPage: VFC = memo(() => {
       .finally(() => setLoading(false));
   };
 
+  // プロフィール変更ボタンのdisabled判定
   const check1: boolean =
     !userName || !scout || !homeAddress || !dobYY || !dobMM || !dobDD;
 
+  ///////// JSXエリア /////////
   return (
     <div>
       <div className="grid lg:grid-cols-12 2xl:px-10 md:px-5 my-10">
@@ -271,6 +276,7 @@ export const EditPage: VFC = memo(() => {
             />
           </label>
 
+          {/* スマホ用プロフィール編集1 */}
           <div className="lg:hidden block">
             <EditSP1
               profile={profile}
@@ -281,6 +287,7 @@ export const EditPage: VFC = memo(() => {
             />
           </div>
 
+          {/* プロフィール編集ステータス */}
           <EditStatus
             profile={profile}
             setProfile={setProfile}
@@ -288,6 +295,7 @@ export const EditPage: VFC = memo(() => {
             loadingProfile={loadingProfile}
           />
 
+          {/* スマホ用プロフィール編集2 */}
           <div className="lg:hidden block px-5 md:px-0">
             <EditSP2
               profile={profile}
@@ -305,6 +313,7 @@ export const EditPage: VFC = memo(() => {
             />
           </div>
 
+          {/* フリー画像編集 */}
           <EditFreeImg
             setFreeImage0={setFreeImage0}
             setFreeImage1={setFreeImage1}
@@ -317,6 +326,7 @@ export const EditPage: VFC = memo(() => {
           />
         </div>
 
+        {/* PC用プロフィール編集 */}
         <div className="lg:col-span-9 col-span-12">
           <div className="lg:block hidden">
             <EditPC
@@ -337,6 +347,7 @@ export const EditPage: VFC = memo(() => {
             />
           </div>
 
+          {/* プロフィール詳細編集 */}
           <EditDetails
             profile={profile}
             setProfile={setProfile}
@@ -383,6 +394,7 @@ export const EditPage: VFC = memo(() => {
 
       <hr />
 
+      {/* ログアウトボタン等フッター */}
       <Footer userEmail={userEmail} setUserEmail={setUserEmail} />
     </div>
   );

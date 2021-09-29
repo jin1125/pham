@@ -2,6 +2,7 @@ import { Emoji } from "emoji-mart";
 import React, { memo, VFC } from "react";
 import Skeleton from "react-loading-skeleton";
 
+///////// 型定義エリア /////////
 type Props = {
   hobby: string;
   dream: string;
@@ -32,6 +33,7 @@ export const ProfileDetails: VFC<Props> = memo(
     resumes,
     loading,
   }) => {
+    ///////// JSXエリア /////////
     return (
       <div>
         {loading ? (

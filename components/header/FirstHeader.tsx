@@ -2,6 +2,7 @@ import Link from "next/link";
 import React, { memo, VFC } from "react";
 
 export const FirstHeader:VFC = memo(() => {
+  ///////// JSXエリア /////////
   return (
     <header>
       <div className="flex justify-between">

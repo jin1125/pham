@@ -4,11 +4,13 @@ import { Fragment, useContext, useEffect, useState } from "react";
 import { useAlert } from "react-alert";
 import { auth, db, storage } from "../../../firebase";
 import { Company } from "../../../types/company";
-import { UserContext } from "../../../UserContext";
 import { Profile } from "../../../types/profile";
 import { Receives } from "../../../types/receives";
+import { UserContext } from "../../../UserContext";
 
 export default function ConnectModal({ isOpen, setIsOpen }) {
+  ///////// ステートエリア /////////
+  const alert = useAlert();
   const [phMatchA, setPhMatchA] = useState<string[]>([]);
   const [phMatchB, setPhMatchB] = useState<string[]>([]);
   const [coMatchB, setCoMatchB] = useState<string[]>([]);
@@ -21,11 +23,13 @@ export default function ConnectModal({ isOpen, setIsOpen }) {
   const [request, setRequest] = useState<boolean>(true);
   const { userId, setUserId } = useContext(UserContext);
 
-  const alert = useAlert();
-  function closeModal():void {
+  ///////// 関数エリア /////////
+  // つながりリクエストモーダルを閉じる
+  function closeModal(): void {
     setIsOpen(false);
   }
 
+  // ストレージからプロフィールデモ画像取得
   useEffect(() => {
     let isMounted = true;
     (async () => {
@@ -41,6 +45,7 @@ export default function ConnectModal({ isOpen, setIsOpen }) {
     };
   }, []);
 
+  // ストレージから企業デモ画像取得
   useEffect(() => {
     let isMounted = true;
     (async () => {
@@ -59,6 +64,7 @@ export default function ConnectModal({ isOpen, setIsOpen }) {
     };
   }, []);
 
+  // ユーザーID取得
   useEffect(() => {
     const unSub = auth.onAuthStateChanged((user) => {
       if (user) {
@@ -69,6 +75,7 @@ export default function ConnectModal({ isOpen, setIsOpen }) {
     return () => unSub();
   }, []);
 
+  // 相手から申請されてまだつながっていないユーザー
   useEffect(() => {
     if (userId) {
       let unSub = db
@@ -84,6 +91,7 @@ export default function ConnectModal({ isOpen, setIsOpen }) {
     }
   }, [userId]);
 
+  // 自分から申請してまだつながっていないユーザー
   useEffect(() => {
     if (userId) {
       let unSub = db
@@ -99,6 +107,7 @@ export default function ConnectModal({ isOpen, setIsOpen }) {
     }
   }, [userId]);
 
+  // 自分から申請してまだつながっていない企業
   useEffect(() => {
     if (userId) {
       let unSub = db
@@ -114,6 +123,7 @@ export default function ConnectModal({ isOpen, setIsOpen }) {
     }
   }, [userId]);
 
+  //相手から申請されてまだつながっていないユーザーのデータをfirestoreから取得
   useEffect(() => {
     if (phMatchA) {
       let unSub = db.collection("userProfiles").onSnapshot((snapshot) => {
@@ -130,6 +140,7 @@ export default function ConnectModal({ isOpen, setIsOpen }) {
     }
   }, [phMatchA]);
 
+  //自分から申請してまだつながっていないユーザーのデータをfirestoreから取得
   useEffect(() => {
     if (phMatchB) {
       let unSub = db.collection("userProfiles").onSnapshot((snapshot) => {
@@ -146,6 +157,7 @@ export default function ConnectModal({ isOpen, setIsOpen }) {
     }
   }, [phMatchB]);
 
+  //自分から申請してまだつながっていない企業のデータをfirestoreから取得
   useEffect(() => {
     if (coMatchB) {
       let unSub = db.collection("companies").onSnapshot((snapshot) => {
@@ -162,13 +174,15 @@ export default function ConnectModal({ isOpen, setIsOpen }) {
     }
   }, [coMatchB]);
 
+  // 上記の自分から申請したユーザーと企業のデータを結合
   useEffect(() => {
     if (passesA && passesB) {
       setPasses([...passesA, ...passesB]);
     }
   }, [passesA, passesB]);
 
-  const allow = async (receive:Receives):Promise<void> => {
+  // 相手からのつながりリクエストを許可
+  const allow = async (receive: Receives): Promise<void> => {
     if (receive) {
       await db
         .collection("phMatch")
@@ -193,6 +207,7 @@ export default function ConnectModal({ isOpen, setIsOpen }) {
     }
   };
 
+  ///////// JSXエリア /////////
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>

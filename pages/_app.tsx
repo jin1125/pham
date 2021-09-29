@@ -12,6 +12,7 @@ import { SelectProfile } from "../types/selectProfile";
 import { UserContext } from "../UserContext";
 
 export default function App({ Component, pageProps }: AppProps) {
+   ///////// ステートエリア /////////
   const [userId, setUserId] = useState<string>("");
   const [defaultName, setDefaultName] = useState<string>("");
   const [selectProfile, setSelectProfile] = useState<SelectProfile>({});
@@ -19,13 +20,13 @@ export default function App({ Component, pageProps }: AppProps) {
   const [selectCompany, setSelectCompany] = useState<SelectCompany>({});
   const [selectCompanyAddress, setSelectCompanyAddress] = useState<string>("");
   const [selectPharmacy, setSelectPharmacy] = useState<SelectPharmacy>({});
-  const [selectPharmacyAddress, setSelectPharmacyAddress] = useState<string>("");
+  const [selectPharmacyAddress, setSelectPharmacyAddress] =
+    useState<string>("");
   const [selectJob, setSelectJob] = useState<SelectJob>({});
   const [selectJobAddress, setSelectJobAddress] = useState<string>("");
   const [selectJobEmploymentStatus, setSelectJobEmploymentStatus] =
     useState<string>("");
   const [selectMsg, setSelectMsg] = useState<SelectMsg>({});
-  // const [selectCoMsg, setSelectCoMsg] = useState<string>("");
   const [companyId, setCompanyId] = useState<string>("");
   const [pharmacyId, setPharmacyId] = useState<string>("");
   const [pharmId, setPharmId] = useState<string>("");
@@ -40,7 +41,7 @@ export default function App({ Component, pageProps }: AppProps) {
     position: positions.TOP_CENTER,
   };
 
-  ////////////////////////// JSXエリア //////////////////////////
+   ///////// JSXエリア /////////
   return (
     <UserContext.Provider
       value={{
@@ -66,8 +67,6 @@ export default function App({ Component, pageProps }: AppProps) {
         setSelectJobAddress,
         selectMsg,
         setSelectMsg,
-        // selectCoMsg,
-        // setSelectCoMsg,
         companyId,
         setCompanyId,
         selectJobEmploymentStatus,

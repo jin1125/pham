@@ -5,7 +5,8 @@ type Props = {
   children?: React.ReactNode;
 };
 
-export const Layout:VFC<Props> = memo(({ children }) => {
+export const Layout: VFC<Props> = memo(({ children }) => {
+  ///////// JSXエリア /////////
   return (
     <div>
       <Header />

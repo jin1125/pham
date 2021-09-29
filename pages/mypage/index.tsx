@@ -5,9 +5,10 @@ import { Mypage } from "../../components/organisms/main/mypage/Mypage";
 import ConnectModal from "../../components/organisms/modal/ConnectModal";
 
 export default function mypage() {
+  ///////// 関数エリア /////////
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  ////////////////////////// JSXエリア //////////////////////////
+  ///////// JSXエリア /////////
   return (
     <div className="min-h-screen">
       <Head>
@@ -16,10 +17,12 @@ export default function mypage() {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
 
+      {/* つながりリクエスト確認モーダル */}
       <ConnectModal isOpen={isOpen} setIsOpen={setIsOpen} />
 
       <Layout>
-        <Mypage setIsOpen={setIsOpen}/>
+        {/* メインページ */}
+        <Mypage setIsOpen={setIsOpen} />
       </Layout>
     </div>
   );

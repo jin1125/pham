@@ -1,9 +1,9 @@
 import React, { memo, VFC } from "react";
 
-export const Address:VFC = memo(() => {
+export const Address: VFC = memo(() => {
+  ///////// JSXエリア /////////
   return (
     <>
-      
       <option value="01_北海道">北海道</option>
       <option value="02_青森県">青森県</option>
       <option value="03_岩手県">岩手県</option>

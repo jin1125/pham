@@ -24,6 +24,7 @@ type Props = {
 };
 
 export const Mypage: VFC<Props> = memo(({ setIsOpen }) => {
+  ///////// ステートエリア /////////
   const { userId, setUserId } = useContext(UserContext);
   const [profile, setProfile] = useState<Profile>({});
   const [displayName, setDisplayName] = useState<string>("");
@@ -31,6 +32,8 @@ export const Mypage: VFC<Props> = memo(({ setIsOpen }) => {
   const [demoImgs, setDemoImgs] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
 
+  ///////// 関数エリア /////////
+  // ストレージからプロフィール＆フリーデモ画像取得
   useEffect(() => {
     let isMounted = true;
 
@@ -48,6 +51,7 @@ export const Mypage: VFC<Props> = memo(({ setIsOpen }) => {
     };
   }, []);
 
+  // ユーザーID＆ユーザーネーム取得
   useEffect(() => {
     const unSub = auth.onAuthStateChanged((user) => {
       if (user) {
@@ -61,6 +65,7 @@ export const Mypage: VFC<Props> = memo(({ setIsOpen }) => {
     return () => unSub();
   }, []);
 
+  // firestoreからプロフィールデータ取得
   useEffect(() => {
     if (userId) {
       setLoading(true);
@@ -78,6 +83,7 @@ export const Mypage: VFC<Props> = memo(({ setIsOpen }) => {
     }
   }, [userId]);
 
+  // 分割代入
   const {
     birthPlace,
     certification,
@@ -103,6 +109,7 @@ export const Mypage: VFC<Props> = memo(({ setIsOpen }) => {
     userName,
   } = profile;
 
+  ///////// JSXエリア /////////
   return (
     <main className="grid grid-cols-12 my-10">
       <div className="lg:col-span-3 col-span-12 text-center justify-self-center ">
@@ -128,6 +135,7 @@ export const Mypage: VFC<Props> = memo(({ setIsOpen }) => {
           )
         )}
 
+        {/* スマホ用プロフィール1 */}
         <div className="lg:hidden block">
           <ProfileSP1
             userName={userName}
@@ -137,6 +145,7 @@ export const Mypage: VFC<Props> = memo(({ setIsOpen }) => {
           />
         </div>
 
+        {/* プロフィールステータス */}
         <ProfileStatus
           scout={scout}
           userId={userId}
@@ -144,6 +153,7 @@ export const Mypage: VFC<Props> = memo(({ setIsOpen }) => {
           loading={loading}
         />
 
+        {/* スマホ用プロフィール2 */}
         <div className="lg:hidden block px-5">
           <ProfileSP2
             userId={userId}
@@ -159,6 +169,7 @@ export const Mypage: VFC<Props> = memo(({ setIsOpen }) => {
           />
         </div>
 
+        {/* フリー画像 */}
         <MypageFreeImg
           demoImgs={demoImgs}
           freeImageUrl0={freeImageUrl0}
@@ -168,6 +179,7 @@ export const Mypage: VFC<Props> = memo(({ setIsOpen }) => {
         />
       </div>
 
+      {/* PC用プロフィール */}
       <div className="lg:col-span-9 col-span-12 px-10 md:px-20 lg:px-0">
         <div className="lg:block hidden">
           <ProfilePC
@@ -187,6 +199,7 @@ export const Mypage: VFC<Props> = memo(({ setIsOpen }) => {
           />
         </div>
 
+        {/* プロフィール詳細 */}
         <ProfileDetails
           hobby={hobby}
           dream={dream}

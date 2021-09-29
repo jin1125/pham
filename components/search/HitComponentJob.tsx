@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { UserContext } from "../../UserContext";
-import {HitJob} from "./HitJob";
+import { HitJob } from "./HitJob";
 
 export function hitComponentJob({ hit }) {
   const {
@@ -12,11 +12,13 @@ export function hitComponentJob({ hit }) {
     companyId,
   } = useContext(UserContext);
 
-  const click = ():void => {
+  ///////// 関数エリア /////////
+  // 選んだ検索結果を取得
+  const click = (): void => {
     setSelectJob(hit);
   };
 
-  ////////////////////////// JSXエリア //////////////////////////
+  ///////// JSXエリア /////////
   return (
     <>
       <div

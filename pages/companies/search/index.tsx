@@ -2,10 +2,12 @@ import Head from "next/head";
 import Router from "next/router";
 import React, { useEffect } from "react";
 import { Layout } from "../../../components/layout/Layout";
-import {SearchCo} from "../../../components/search/SearchCo";
+import { SearchCo } from "../../../components/search/SearchCo";
 import { auth } from "../../../firebase";
 
 export default function search() {
+  ///////// 関数エリア /////////
+  //  ログインしてなかったらログインページへ
   useEffect(() => {
     const unSub = auth.onAuthStateChanged((user) => {
       if (!user) {
@@ -15,7 +17,7 @@ export default function search() {
     return () => unSub();
   }, []);
 
-  ////////////////////////// JSXエリア //////////////////////////
+  ///////// JSXエリア /////////
   return (
     <div className="min-h-screen">
       <Head>
@@ -24,6 +26,7 @@ export default function search() {
       </Head>
 
       <Layout>
+        {/* メインページ */}
         <SearchCo />
       </Layout>
     </div>

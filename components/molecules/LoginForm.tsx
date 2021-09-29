@@ -5,6 +5,7 @@ import { auth, db, provider } from "../../firebase";
 
 export const LoginForm: VFC = memo(() => {
   const alert = useAlert();
+  ///////// ステートエリア /////////
   const [name, setName] = useState<string>("");
   const [isLogin, setIsLogin] = useState<boolean>(true);
   const [email, setEmail] = useState<string>("");
@@ -12,8 +13,9 @@ export const LoginForm: VFC = memo(() => {
   const [resetEmail, setResetEmail] = useState<string>("");
   const [openReset, setOpenReset] = useState<boolean>(false);
 
+  ///////// 関数エリア /////////
   //Google新規登録＆ログイン
-  const signInGoogle = async ():Promise<void> => {
+  const signInGoogle = async (): Promise<void> => {
     await auth
       .signInWithPopup(provider)
       .then(() => {
@@ -28,7 +30,7 @@ export const LoginForm: VFC = memo(() => {
   };
 
   //メールアドレスログイン
-  const signIn = async ():Promise<void> => {
+  const signIn = async (): Promise<void> => {
     try {
       await auth.signInWithEmailAndPassword(email, password);
       alert.success("ログインしました");
@@ -39,7 +41,7 @@ export const LoginForm: VFC = memo(() => {
   };
 
   //メールアドレス新規登録
-  const signUp = async ():Promise<void> => {
+  const signUp = async (): Promise<void> => {
     if (name) {
       try {
         await auth.signOut();
@@ -64,7 +66,8 @@ export const LoginForm: VFC = memo(() => {
     }
   };
 
-  const sendResetEmail = async ():Promise<void> => {
+  //アドレスリセットメール送信
+  const sendResetEmail = async (): Promise<void> => {
     await auth
       .sendPasswordResetEmail(resetEmail)
       .then(() => {
@@ -78,8 +81,10 @@ export const LoginForm: VFC = memo(() => {
       });
   };
 
+  ///////// JSXエリア /////////
   return (
     <div className="border my-7 shadow-lg ">
+      {/* ログインと新規登録表示の切り替えボタン */}
       <div className="grid grid-cols-2">
         <div>
           <button
@@ -103,6 +108,7 @@ export const LoginForm: VFC = memo(() => {
         </div>
       </div>
 
+      {/* 新規登録の時だけ表示 */}
       {!isLogin && (
         <>
           <div className="my-5">
@@ -185,6 +191,7 @@ export const LoginForm: VFC = memo(() => {
           </button>
         </div>
 
+        {/* ログインの時だけ表示 */}
         {isLogin && (
           <div className="mt-3">
             <span

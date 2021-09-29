@@ -6,9 +6,10 @@ import { useAlert } from "react-alert";
 import { db, storage } from "../../firebase";
 import { UserContext } from "../../UserContext";
 
+///////// 型定義エリア /////////
 type Props = {
   disabledState: "" | "match" | "passed" | "received";
-  phMatch:any[];
+  phMatch: any[];
   passId: string;
   receiveId: string;
 };
@@ -16,10 +17,13 @@ type Props = {
 export const Search_R: VFC<Props> = memo(
   ({ disabledState, phMatch, passId, receiveId }) => {
     const alert = useAlert();
+    ///////// ステートエリア /////////
     const [demoImg, setDemoImg] = useState("");
     const [demoImgs, setDemoImgs] = useState("");
     const { selectProfile, userId, setSelectMsg } = useContext(UserContext);
 
+    ///////// 関数エリア /////////
+    //  ストレージからプロフィールデモ画像取得
     useEffect(() => {
       let isMounted = true;
       (async () => {
@@ -41,7 +45,9 @@ export const Search_R: VFC<Props> = memo(
       };
     }, []);
 
+    // つながりボタン処理
     const connectBtn = async () => {
+      // receiveIdがあれば
       if (receiveId) {
         await db
           .collection("phMatch")
@@ -53,10 +59,13 @@ export const Search_R: VFC<Props> = memo(
           .catch(() => {
             alert.error("つながれませんでした");
           });
+        // receiveIdがなければ
       } else {
+        // 既に申請済みであればリターン
         if (passId) {
           return;
         }
+        
         await db
           .collection("phMatch")
           .add({
@@ -73,8 +82,8 @@ export const Search_R: VFC<Props> = memo(
           });
       }
     };
-    
 
+    ///////// JSXエリア /////////
     return (
       <div className="md:col-span-9 col-span-12 min-h-screen px-5">
         <div className="grid grid-cols-12 my-10">

@@ -1,7 +1,7 @@
 import { useContext, useEffect } from "react";
 import { auth } from "../../firebase";
 import { UserContext } from "../../UserContext";
-import {Hit} from "./Hit";
+import { Hit } from "./Hit";
 
 export function hitComponent({ hit }) {
   const {
@@ -12,19 +12,23 @@ export function hitComponent({ hit }) {
     setUserId,
   } = useContext(UserContext);
 
+  ///////// 関数エリア /////////
+  // ユーザーID取得
   useEffect(() => {
     const unSub = auth.onAuthStateChanged((user) => {
       if (user) {
         setUserId(user.uid);
-      } 
+      }
     });
     return () => unSub();
   }, []);
 
-  const click = ():void => {
+  // 選んだ検索結果を取得
+  const click = (): void => {
     setSelectProfile(hit);
   };
 
+  ///////// JSXエリア /////////
   return (
     <>
       <div

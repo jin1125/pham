@@ -6,17 +6,14 @@ const gmailPassword = functions.config().gmail.password;
 
 admin.initializeApp();
 
+///////// Functions1 /////////
+// アカウント削除されたら、同ユーザーのuserProfilesからドキュメントデータも消す
+exports.onDelete = functions.auth.user().onDelete((user) => {
+  admin.firestore().collection("userProfiles").doc(user.uid).delete();
+});
 
-
-exports.onDelete = functions.auth
-  .user()
-  .onDelete((user) => {
-    admin.firestore().collection("userProfiles").doc(user.uid).delete()
-  });
-
-
-
-//google account credentials used to send email
+///////// Functions2 /////////
+//メールの送信に使用されるGoogleアカウントのクレデンシャル
 const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
   port: 465,
@@ -27,6 +24,7 @@ const transporter = nodemailer.createTransport({
   },
 });
 
+// メール本文
 exports.sendEmail = functions.firestore
   .document("inquirys/{inquirysId}")
   .onCreate((snap, context) => {
@@ -42,6 +40,7 @@ exports.sendEmail = functions.firestore
             <p><b>Email: </b>${snap.data().email}<br></p>`,
     };
 
+    // メール送信処理
     return transporter.sendMail(mailOptions, (error, data) => {
       if (error) {
         console.log(error);

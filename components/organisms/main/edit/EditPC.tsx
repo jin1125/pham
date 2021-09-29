@@ -6,6 +6,8 @@ import { Address } from "../../../atoms/Address";
 import { Days } from "../../../atoms/Days";
 import { Month } from "../../../atoms/Month";
 import { Years } from "../../../atoms/Years";
+
+///////// 型定義エリア /////////
 type Props = {
   profile: AllProfile;
   setProfile: Dispatch<React.SetStateAction<AllProfile>>;
@@ -40,7 +42,7 @@ export const EditPC: VFC<Props> = memo(
     comments,
     loadingProfile,
   }) => {
-    
+    ///////// JSXエリア /////////
     return (
       <div>
         {loadingProfile ? (

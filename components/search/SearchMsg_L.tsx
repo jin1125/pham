@@ -8,6 +8,7 @@ import { hitComponentCoMsg } from "./hitComponentCoMsg";
 import { hitComponentMsg } from "./HitComponentMsg";
 import { CustomSearchBox } from "./SearchBox";
 
+///////// 型定義エリア /////////
 type Props = {
   changeMsg: boolean;
   setChangeMsg: Dispatch<React.SetStateAction<boolean>>;
@@ -16,6 +17,8 @@ type Props = {
 
 export const SearchMsg_L: VFC<Props> = memo(
   ({ changeMsg, setChangeMsg, setFeeds }) => {
+    ///////// 関数エリア /////////
+    //algolia情報
     const searchClient = algoliasearch(
       "0TMIYQ8E9N",
       "58e6e394abd7a5cfcc6fcae0d7b51ac5"
@@ -26,6 +29,7 @@ export const SearchMsg_L: VFC<Props> = memo(
 
     const { setSelectMsg } = useContext(UserContext);
 
+    ///////// JSXエリア /////////
     return (
       <div className="md:col-span-3 col-span-12 border-r-2 border-blue-400 relative ">
         <div className="md:absolute h-full flex flex-col w-full">
@@ -67,6 +71,7 @@ export const SearchMsg_L: VFC<Props> = memo(
                 <div className="my-5">
                   <p>{changeMsg ? "名前" : "企業名"}</p>
                   <div>
+                    {/* 検索窓 */}
                     <CustomSearchBox />
                   </div>
                 </div>
@@ -74,6 +79,7 @@ export const SearchMsg_L: VFC<Props> = memo(
             </div>
 
             <div className="overflow-y-auto md:max-h-screen max-h-60 lg:pb-20 pb-12">
+              {/* 検索結果 */}
               <Hits
                 hitComponent={changeMsg ? hitComponentMsg : hitComponentCoMsg}
               />

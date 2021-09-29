@@ -7,6 +7,7 @@ import { Search_L } from "./Search_L";
 import { Search_R } from "./Search_R";
 
 export const Search: VFC = memo(() => {
+   ///////// ステートエリア /////////
   const [phMatch, setPhMatch] = useState([]);
   const [phMatchA, setPhMatchA] = useState<string[]>([]);
   const [phMatchB, setPhMatchB] = useState<string[]>([]);
@@ -20,6 +21,8 @@ export const Search: VFC = memo(() => {
 
   const { selectProfile, userId, setUserId } = useContext(UserContext);
 
+   ///////// 関数エリア /////////
+   //ユーザーID取得＆ログインしてなければログインページへ
   useEffect(() => {
     const unSub = auth.onAuthStateChanged((user) => {
       if (user) {
@@ -32,6 +35,7 @@ export const Search: VFC = memo(() => {
     return () => unSub();
   }, []);
 
+  // 相手から申請されたユーザーのIDとデータ取得
   useEffect(() => {
     if (userId && selectProfile.objectID) {
       let unSub = db
@@ -49,6 +53,7 @@ export const Search: VFC = memo(() => {
     }
   }, [userId, selectProfile.objectID]);
 
+  // 自分から申請したユーザーのIDとデータ取得
   useEffect(() => {
     if (userId && selectProfile.objectID) {
       let unSub = db
@@ -66,6 +71,8 @@ export const Search: VFC = memo(() => {
     }
   }, [userId, selectProfile.objectID]);
 
+  // passIdがあればDisabledStateを"passed"にする
+  // passDataのrequestBがtrueであればDisabledStateを"match"にする
   useEffect(() => {
     if (passId) {
       setDisabledState("passed");
@@ -76,6 +83,8 @@ export const Search: VFC = memo(() => {
     }
   }, [passId, passData]);
 
+  // preceiveIdがあればDisabledStateを"received"にする
+  // receiveDataのrequestBがtrueであればDisabledStateを"match"にする
   useEffect(() => {
     if (receiveId) {
       setDisabledState("received");
@@ -86,6 +95,7 @@ export const Search: VFC = memo(() => {
     }
   }, [receiveId, receiveData]);
 
+  //選択したユーザーが他者から申請があって許可済みのユーザーIDを取得
   useEffect(() => {
     if (selectProfile.objectID) {
       let unSub = db
@@ -101,6 +111,7 @@ export const Search: VFC = memo(() => {
     }
   }, [selectProfile.objectID]);
 
+  //選択したユーザーが自分から申請して許可済みのユーザーIDを取得
   useEffect(() => {
     if (selectProfile.objectID) {
       let unSub = db
@@ -116,17 +127,18 @@ export const Search: VFC = memo(() => {
     }
   }, [selectProfile.objectID]);
 
+  // 上記の、申請後許可済みのユーザーIDを結合(選択ユーザーのつながり人数を計算)
   useEffect(() => {
     if (phMatchA && phMatchB) {
       setPhMatch([...phMatchA, ...phMatchB]);
     }
   }, [phMatchA, phMatchB]);
   
-
+   ///////// JSXエリア /////////
   return (
     <div>
       <div className="grid grid-cols-12">
-        {/* ////// プロフィール検索(ページ左) ////// */}
+        {/* プロフィール検索(ページ左) */}
         <Search_L
           setDisabledState={setDisabledState}
           setPassId={setPassId}
@@ -135,11 +147,12 @@ export const Search: VFC = memo(() => {
           setReceiveData={setReceiveData}
         />
 
-        {/* ////// プロフィール描画(ページ右) ////// */}
+        {/* プロフィール描画(ページ右) */}
         {selectProfile && Object.keys(selectProfile).length ? (
           <Search_R disabledState={disabledState} phMatch={phMatch} passId={""} receiveId={""} />
         ) : (
           <div className="h-screen md:col-span-9 col-span-12 justify-self-center self-center md:pt-24">
+             {/* 未選択時表示画像 */}
             <Image
               src="/pharmacists_search_img.png"
               alt="login_img"
