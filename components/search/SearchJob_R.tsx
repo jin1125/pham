@@ -30,7 +30,7 @@ type ApplyData = {
   companyId: string;
   pharmacyId: string;
   pharmacyName: string;
-  datetime: any;
+  datetime: { seconds: number; nanoseconds: number };
 };
 
 export const SearchJob_R: VFC<Props> = memo(
@@ -157,6 +157,8 @@ export const SearchJob_R: VFC<Props> = memo(
         alert.error("応募をキャンセルしました");
       }
     };
+
+    console.log(applyData.datetime);
 
     // 申込時に送る情報を準備
     useEffect(() => {
