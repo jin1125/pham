@@ -34,5 +34,5 @@ yarn-error.log*
 # vercel
 .vercel
 
-/emoji.tsx
-/recruit/edit/
+pages/emoji.tsx
+pages/recruit/edit/
