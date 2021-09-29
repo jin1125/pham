@@ -1,29 +1,50 @@
-# Next.js + Tailwind CSS Example
+[<img width="100%" alt="top" src="https://user-images.githubusercontent.com/60165363/135290995-e1c11b41-3634-4ede-ba1d-2d6f7322718e.png">](https://pham.vercel.app/)
 
-This example shows how to use [Tailwind CSS](https://tailwindcss.com/) [(v2.2)](https://blog.tailwindcss.com/tailwindcss-2-2) with Next.js. It follows the steps outlined in the official [Tailwind docs](https://tailwindcss.com/docs/guides/nextjs).
+# **Pham**
+## **概要**
+---
+### **コンセプト**  
+- 薬局薬剤師向けビジネスSNS
 
-It uses the new [`Just-in-Time Mode`](https://tailwindcss.com/docs/just-in-time-mode) for Tailwind CSS.
+### **ターゲット**  
+- 薬局薬剤師
 
-## Preview
+- 薬局人事
 
-Preview the example live on [StackBlitz](http://stackblitz.com/):
+### **解決課題**
+- 自分のキャリアをあまり意識していない人が多い  
+(今までの転職回数が多すぎて職務経歴を覚えてない方も多い)
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-tailwindcss)
+- 転職候補として上がるのは、知名度のある大手薬局、近所の薬局、昔の実習先、知人紹介、人材紹介会社経由がほとんど
 
-## Deploy your own
+- どの職場でも給与や業務内容的には大きくは異ならないため、なんとなくで就業先を決めてしまっている
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example):
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-tailwindcss&project-name=with-tailwindcss&repository-name=with-tailwindcss)
+### **できること**  
+- プロフィール作成し、自分の経歴やスキルを可視化
 
-## How to use
+- 薬剤師同士でのメッセージ交流  
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
+- 企業ページから企業・薬局の個性を知る
 
-```bash
-npx create-next-app --example with-tailwindcss with-tailwindcss-app
-# or
-yarn create next-app --example with-tailwindcss with-tailwindcss-app
-```
+- 気になった求人には、お手軽応募
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+- 人事担当とはSNS内メッセージで簡単やりとり
+
+## **デモ**
+---
+#### https://pham.vercel.app/
+レスポンシブ対応していますので、PC・SP・TBからご確認頂けます
+
+### **テストアカウント**
+|メールアドレス|パスワード|
+|:---:|:---:|
+|testuser@gmail.com|111111|
+
+### **クローン**
+`$ git clone https://github.com/jin1125/pham.git`
+
+`$ yarn run dev`
+
+## **機能一覧**
+---

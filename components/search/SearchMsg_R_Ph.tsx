@@ -151,7 +151,7 @@ export const SearchMsg_R_Ph: VFC<Props> = memo(
             name="msg"
             maxLength={200}
             className="bg-blue-100 rounded-lg p-2 w-full outline-none col-span-10"
-            onChange={(e) => setMsg(e.target.value.trim())}
+            onChange={(e) => setMsg(e.target.value)}
           />
 
           {loading ? (
@@ -162,7 +162,7 @@ export const SearchMsg_R_Ph: VFC<Props> = memo(
             <button
               className="col-span-1 transform  duration-500 hover:scale-150 hover:-rotate-45 hover:-translate-y-6 disabled:opacity-60 disabled:hover:scale-100 disabled:hover:rotate-0 disabled:hover:-translate-y-0"
               onClick={sendMsg}
-              disabled={!msg && !fileUrl}
+              disabled={!msg.trim() && !fileUrl}
             >
               <Emoji emoji="rocket" size={35} />
             </button>
