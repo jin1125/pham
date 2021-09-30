@@ -1,4 +1,4 @@
-[<img width="100%" alt="top" src="https://user-images.githubusercontent.com/60165363/135290995-e1c11b41-3634-4ede-ba1d-2d6f7322718e.png">](https://pham.vercel.app/)
+[![top](https://user-images.githubusercontent.com/60165363/135390500-710d67ad-216f-4713-a1d4-21403214cc62.png)](https://pham.vercel.app/)
 
 # **Pham**
 ## **概要**
@@ -30,6 +30,14 @@
 - 気になった求人には、お手軽応募
 
 - 人事担当とはSNS内メッセージで簡単やりとり
+
+|ログイン|プロフィール編集|
+|:---:|:---:|
+|![ログイン](https://user-images.githubusercontent.com/60165363/135390494-e7a69a2a-caf0-4961-86ca-39c75a4c9e15.png)|![プロフィール編集](https://user-images.githubusercontent.com/60165363/135390479-937af1a6-2e2d-418e-9d51-6215e0a95215.png)|
+
+|メッセージ|求人検索|
+|:---:|:---:|
+|![メッセージ](https://user-images.githubusercontent.com/60165363/135390496-ee7071bd-18e4-40b1-a9d6-032276129f1a.png)|![求人検索](https://user-images.githubusercontent.com/60165363/135390502-af14c155-6fd9-4312-86e7-c78e780080a9.png)|
 
 ## **デモ**
 ---
