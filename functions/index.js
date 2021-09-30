@@ -27,7 +27,7 @@ const transporter = nodemailer.createTransport({
 // メール本文
 exports.sendEmail = functions.firestore
   .document("inquirys/{inquirysId}")
-  .onCreate((snap, context) => {
+  .onCreate((snap) => {
     const mailOptions = {
       from: `pham <shogo.jinta@gmail.com>`,
       to: snap.data().email,
@@ -41,7 +41,7 @@ exports.sendEmail = functions.firestore
     };
 
     // メール送信処理
-    return transporter.sendMail(mailOptions, (error, data) => {
+    return transporter.sendMail(mailOptions, (error) => {
       if (error) {
         console.log(error);
         return;
