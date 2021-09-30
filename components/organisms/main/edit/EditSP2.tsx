@@ -199,7 +199,7 @@ export const EditSP2: VFC<Props> = memo(
               maxLength={200}
               className="bg-blue-100 rounded-lg p-5 w-full outline-none"
               onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
-                setProfile({ ...profile, comments: e.target.value.trim() })
+                setProfile({ ...profile, comments: e.target.value })
               }
             />
           )}

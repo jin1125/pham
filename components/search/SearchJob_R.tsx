@@ -258,6 +258,7 @@ export const SearchJob_R: VFC<Props> = memo(
               </div>
             )
           )}
+          
           {selectJob.freeImageUrl1 ? (
             <div className="my-5">
               <Image
@@ -281,6 +282,7 @@ export const SearchJob_R: VFC<Props> = memo(
               </div>
             )
           )}
+
           {selectJob.freeImageUrl2 ? (
             <div className="my-5">
               <Image
