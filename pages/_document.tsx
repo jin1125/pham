@@ -20,7 +20,7 @@ class MyDocument extends Document {
           <meta property="og:url" content="https://pham.vercel.app/" />
           <meta property="og:title" content="Pham" />
           <meta property="og:type" content="website" />
-          <meta property="og:description" content="薬局薬剤師さんのお仕事SNSです。" />
+          <meta property="og:description" content="薬局薬剤師さんのお仕事SNS" />
           <meta property="og:image" content="/ogp.png" />
           <meta property="og:site_name" content="Pham" />
           <meta property="og:locale" content="ja_JP" />
