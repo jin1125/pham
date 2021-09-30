@@ -1,7 +1,7 @@
 [![top](https://user-images.githubusercontent.com/60165363/135390500-710d67ad-216f-4713-a1d4-21403214cc62.png)](https://pham.vercel.app/)
 
 # **Pham**
-## **概要**
+## :pill: **概要**
 ---
 ### **コンセプト**  
 - 薬局薬剤師向けビジネスSNS
