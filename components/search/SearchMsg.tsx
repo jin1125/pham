@@ -161,7 +161,7 @@ export const SearchMsg: VFC = memo(() => {
   };
 
   // メッセージ送信処理
-  const sendMsg = async () => {
+  const sendMsg = async (): Promise<void> => {
     {
       selectMsg.objectID && setLoading(true);
       // アップロード画像があれば
@@ -255,9 +255,9 @@ export const SearchMsg: VFC = memo(() => {
   };
 
   // メッセージの数
-  const length = feeds.length;
+  const length: number = feeds.length;
   // メッセージの最後かを判定
-  let isLastItem = false;
+  let isLastItem: boolean = false;
 
   return (
     <div>

@@ -1,6 +1,7 @@
 import algoliasearch from "algoliasearch/lite";
 import React, { Dispatch, memo, useContext, VFC } from "react";
 import { Hits, InstantSearch } from "react-instantsearch-dom";
+import { Data } from "../../types/data";
 import { UserContext } from "../../UserContext";
 import { Address } from "../atoms/Address";
 import { hitComponent } from "./HitComponent";
@@ -12,9 +13,9 @@ type Props = {
     React.SetStateAction<"" | "match" | "passed" | "received">
   >;
   setPassId: Dispatch<React.SetStateAction<string>>;
-  setPassData: Dispatch<any>;
+  setPassData: Dispatch<React.SetStateAction<Data>>;
   setReceiveId: Dispatch<React.SetStateAction<string>>;
-  setReceiveData: Dispatch<any>;
+  setReceiveData: Dispatch<React.SetStateAction<Data>>;
 };
 
 export const Search_L: VFC<Props> = memo(
@@ -78,9 +79,9 @@ export const Search_L: VFC<Props> = memo(
               onClick={() => {
                 setDisabledState("");
                 setPassId("");
-                setPassData("");
+                setPassData({} as Data);
                 setReceiveId("");
-                setReceiveData("");
+                setReceiveData({} as Data);
               }}
             >
               {/* 検索結果 */}

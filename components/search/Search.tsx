@@ -2,27 +2,30 @@ import Image from "next/image";
 import Router from "next/router";
 import { memo, useContext, useEffect, useState, VFC } from "react";
 import { auth, db } from "../../firebase";
+import { Data } from "../../types/data";
 import { UserContext } from "../../UserContext";
 import { Search_L } from "./Search_L";
 import { Search_R } from "./Search_R";
 
+
+
 export const Search: VFC = memo(() => {
-   ///////// ステートエリア /////////
-  const [phMatch, setPhMatch] = useState([]);
+  ///////// ステートエリア /////////
+  const [phMatch, setPhMatch] = useState<typeof phMatchA | typeof phMatchA>([]);
   const [phMatchA, setPhMatchA] = useState<string[]>([]);
   const [phMatchB, setPhMatchB] = useState<string[]>([]);
   const [disabledState, setDisabledState] = useState<
     "passed" | "received" | "match" | ""
   >("");
   const [passId, setPassId] = useState<string>("");
-  const [passData, setPassData] = useState<any>('');
+  const [passData, setPassData] = useState<Data>({} as Data);
   const [receiveId, setReceiveId] = useState<string>("");
-  const [receiveData, setReceiveData] = useState<any>("");
+  const [receiveData, setReceiveData] = useState<Data>({} as Data);
 
   const { selectProfile, userId, setUserId } = useContext(UserContext);
 
-   ///////// 関数エリア /////////
-   //ユーザーID取得＆ログインしてなければログインページへ
+  ///////// 関数エリア /////////
+  //ユーザーID取得＆ログインしてなければログインページへ
   useEffect(() => {
     const unSub = auth.onAuthStateChanged((user) => {
       if (user) {
@@ -45,7 +48,7 @@ export const Search: VFC = memo(() => {
         .onSnapshot((docs) => {
           docs.forEach((doc) => {
             setReceiveId(doc.id);
-            setReceiveData(doc.data());
+            setReceiveData(doc.data() as Data);
           });
         });
 
@@ -62,8 +65,10 @@ export const Search: VFC = memo(() => {
         .where("pharmacistB", "==", selectProfile.objectID)
         .onSnapshot((docs) => {
           docs.forEach((doc) => {
+           
+
             setPassId(doc.id);
-            setPassData(doc.data());
+            setPassData(doc.data() as Data);
           });
         });
 
@@ -133,8 +138,8 @@ export const Search: VFC = memo(() => {
       setPhMatch([...phMatchA, ...phMatchB]);
     }
   }, [phMatchA, phMatchB]);
-  
-   ///////// JSXエリア /////////
+
+  ///////// JSXエリア /////////
   return (
     <div>
       <div className="grid grid-cols-12">
@@ -149,10 +154,15 @@ export const Search: VFC = memo(() => {
 
         {/* プロフィール描画(ページ右) */}
         {selectProfile && Object.keys(selectProfile).length ? (
-          <Search_R disabledState={disabledState} phMatch={phMatch} passId={""} receiveId={""} />
+          <Search_R
+            disabledState={disabledState}
+            phMatch={phMatch}
+            passId={""}
+            receiveId={""}
+          />
         ) : (
           <div className="h-screen md:col-span-9 col-span-12 justify-self-center self-center md:pt-24">
-             {/* 未選択時表示画像 */}
+            {/* 未選択時表示画像 */}
             <Image
               src="/pharmacists_search_img.png"
               alt="login_img"

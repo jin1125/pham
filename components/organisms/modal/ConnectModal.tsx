@@ -15,7 +15,7 @@ export default function ConnectModal({ isOpen, setIsOpen }) {
   const [phMatchB, setPhMatchB] = useState<string[]>([]);
   const [coMatchB, setCoMatchB] = useState<string[]>([]);
   const [receives, setReceives] = useState<Receives[]>([]);
-  const [passes, setPasses] = useState<any[]>([]);
+  const [passes, setPasses] = useState<typeof passesA|typeof passesB[]>([]);
   const [passesA, setPassesA] = useState<Profile[]>([]);
   const [passesB, setPassesB] = useState<Company[]>([]);
   const [demoImg, setDemoImg] = useState<string>("");

@@ -26,7 +26,7 @@ export default function App({ Component, pageProps }: AppProps) {
   const [selectJobAddress, setSelectJobAddress] = useState<string>("");
   const [selectJobEmploymentStatus, setSelectJobEmploymentStatus] =
     useState<string>("");
-  const [selectMsg, setSelectMsg] = useState<SelectMsg>({});
+  const [selectMsg, setSelectMsg] = useState<SelectProfile>({});
   const [companyId, setCompanyId] = useState<string>("");
   const [pharmacyId, setPharmacyId] = useState<string>("");
   const [pharmId, setPharmId] = useState<string>("");

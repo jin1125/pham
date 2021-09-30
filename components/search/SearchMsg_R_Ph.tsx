@@ -20,8 +20,8 @@ type Props = {
   loading: boolean;
   length: number;
   isLastItem: boolean;
-  uploadImage: any;
-  sendMsg: any;
+  uploadImage: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  sendMsg: () => Promise<void>
   msg: string;
   setMsg: Dispatch<React.SetStateAction<string>>;
   avatarImage: string;

@@ -158,8 +158,6 @@ export const SearchJob_R: VFC<Props> = memo(
       }
     };
 
-    console.log(applyData.datetime);
-
     // 申込時に送る情報を準備
     useEffect(() => {
       if (userId && selectJob) {
