@@ -80,7 +80,7 @@ export const RecruitPage: VFC = memo(() => {
             </Link>
           </div>
         ) : (
-          <RecruitForm setIsContactUs={setIsContactUs} />
+          <RecruitForm isContactUs={isContactUs} setIsContactUs={setIsContactUs} />
         )}
       </div>
 
