@@ -18,7 +18,7 @@ export const RecruitForm: VFC<Props> = memo(({ setIsContactUs }) => {
 
   ///////// 関数エリア /////////
   // お問い合わせ処理
-  const contactUs = async (): Promise<void> => {
+  const contactUs = async () => {
     const inquiry = {
       companyName: companyName,
       clientName: clientName,

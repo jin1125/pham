@@ -69,6 +69,7 @@ export const Mypage: VFC<Props> = memo(({ setIsOpen }) => {
   useEffect(() => {
     if (userId) {
       setLoading(true);
+      
       const unSub = db
         .collection("userProfiles")
         .doc(userId)
@@ -76,12 +77,15 @@ export const Mypage: VFC<Props> = memo(({ setIsOpen }) => {
           if (doc.data()) {
             setProfile(doc.data());
             setLoading(false);
+          }else{
+            setLoading(false);
           }
-        });
+        })
 
       return () => unSub();
     }
   }, [userId]);
+  
   
 
   // 分割代入

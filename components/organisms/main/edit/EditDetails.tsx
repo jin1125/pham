@@ -239,6 +239,7 @@ export const EditDetails: VFC<Props> = memo(
             </div>
             <input
               type="text"
+              placeholder='薬剤師免許を除く'
               value={certification}
               name="certification"
               maxLength={30}
@@ -269,7 +270,7 @@ export const EditDetails: VFC<Props> = memo(
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setProfile({ ...profile, strongArea: e.target.value.trim() })
               }
-              className="text-base bg-blue-100 placeholder-blue-300 text-left rounded-full py-1 pl-5 outline-none "
+              className="text-base bg-blue-100 placeholder-blue-300 text-left rounded-full py-1 pl-5 outline-none w-full"
             />
           </div>
         )}
