@@ -81,6 +81,17 @@ export const LoginForm: VFC = memo(() => {
       });
   };
 
+  //テストログイン
+  const testLogin = async () => {
+    try {
+      await auth.signInWithEmailAndPassword("testuser@gmail.com", "123456");
+      alert.success("ログインしました");
+      Router.push("/mypage");
+    } catch (error) {
+      alert.error("ログインできませんでした");
+    }
+  };
+
   ///////// JSXエリア /////////
   return (
     <div className="border my-7 shadow-lg ">
@@ -132,6 +143,15 @@ export const LoginForm: VFC = memo(() => {
       )}
 
       <div className="my-7">
+        {isLogin && (
+          <button
+            className="text-xs text-blue-400 bg-white border-2 border-blue-400 transition duration-300 hover:bg-blue-100 py-1 w-1/3 my-3 rounded-full shadow-lg font-bold"
+            onClick={testLogin}
+          >
+            テストログイン
+          </button>
+        )}
+
         <label>
           <p>メールアドレス</p>
           <input
@@ -146,7 +166,6 @@ export const LoginForm: VFC = memo(() => {
               setEmail(e.target.value)
             }
           />
-           <p className='text-xs text-blue-300'>テストユーザー : testuser@gmail.com</p>
         </label>
       </div>
 
@@ -164,7 +183,6 @@ export const LoginForm: VFC = memo(() => {
               setPassword(e.target.value)
             }
           />
-           <p className='text-xs text-blue-300'>テストユーザー : 123456</p>
         </label>
       </div>
 
