@@ -10,7 +10,7 @@ import { CustomSearchBox } from "./SearchBox";
 ///////// 型定義エリア /////////
 type Props = {
   setDisabledState: Dispatch<
-    React.SetStateAction<"" | "match" | "passed" | "received">
+    React.SetStateAction<"" | "match" | "passed" | "receiveId">
   >;
   setPassId: Dispatch<React.SetStateAction<string>>;
   setPassData: Dispatch<React.SetStateAction<Data>>;

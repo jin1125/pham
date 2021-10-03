@@ -7,15 +7,13 @@ import { UserContext } from "../../UserContext";
 import { Search_L } from "./Search_L";
 import { Search_R } from "./Search_R";
 
-
-
 export const Search: VFC = memo(() => {
   ///////// ステートエリア /////////
   const [phMatch, setPhMatch] = useState<typeof phMatchA | typeof phMatchA>([]);
   const [phMatchA, setPhMatchA] = useState<string[]>([]);
   const [phMatchB, setPhMatchB] = useState<string[]>([]);
   const [disabledState, setDisabledState] = useState<
-    "passed" | "received" | "match" | ""
+    "passed" | "receiveId" | "match" | ""
   >("");
   const [passId, setPassId] = useState<string>("");
   const [passData, setPassData] = useState<Data>({} as Data);
@@ -23,7 +21,7 @@ export const Search: VFC = memo(() => {
   const [receiveData, setReceiveData] = useState<Data>({} as Data);
 
   const { selectProfile, userId, setUserId } = useContext(UserContext);
-
+  
   ///////// 関数エリア /////////
   //ユーザーID取得＆ログインしてなければログインページへ
   useEffect(() => {
@@ -38,7 +36,7 @@ export const Search: VFC = memo(() => {
     return () => unSub();
   }, []);
 
-  // 相手から申請されたユーザーのIDとデータ取得
+  // 相手から申請したユーザーのIDとデータ取得
   useEffect(() => {
     if (userId && selectProfile.objectID) {
       let unSub = db
@@ -65,8 +63,6 @@ export const Search: VFC = memo(() => {
         .where("pharmacistB", "==", selectProfile.objectID)
         .onSnapshot((docs) => {
           docs.forEach((doc) => {
-           
-
             setPassId(doc.id);
             setPassData(doc.data() as Data);
           });
@@ -88,11 +84,11 @@ export const Search: VFC = memo(() => {
     }
   }, [passId, passData]);
 
-  // preceiveIdがあればDisabledStateを"received"にする
+  // receiveIdがあればDisabledStateを"receiveId"にする
   // receiveDataのrequestBがtrueであればDisabledStateを"match"にする
   useEffect(() => {
     if (receiveId) {
-      setDisabledState("received");
+      setDisabledState("receiveId");
     }
 
     if (receiveData.requestB) {
@@ -157,8 +153,8 @@ export const Search: VFC = memo(() => {
           <Search_R
             disabledState={disabledState}
             phMatch={phMatch}
-            passId={""}
-            receiveId={""}
+            passId={passId}
+            receiveId={receiveId}
           />
         ) : (
           <div className="h-screen md:col-span-9 col-span-12 justify-self-center self-center md:pt-24">

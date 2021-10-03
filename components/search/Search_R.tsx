@@ -8,7 +8,7 @@ import { UserContext } from "../../UserContext";
 
 ///////// 型定義エリア /////////
 type Props = {
-  disabledState: "" | "match" | "passed" | "received";
+  disabledState: "" | "match" | "passed" | "receiveId";
   phMatch: any[];
   passId: string;
   receiveId: string;
@@ -45,10 +45,15 @@ export const Search_R: VFC<Props> = memo(
       };
     }, []);
 
+    console.log(receiveId)
+    // console.log(passId)
+
     // つながりボタン処理
     const connectBtn = async () => {
       // receiveIdがあれば
       if (receiveId) {
+        console.log('a');
+        
         await db
           .collection("phMatch")
           .doc(receiveId)
@@ -59,13 +64,13 @@ export const Search_R: VFC<Props> = memo(
           .catch(() => {
             alert.error("つながれませんでした");
           });
+
         // receiveIdがなければ
       } else {
         // 既に申請済みであればリターン
         if (passId) {
           return;
-        }
-        
+        }      
         await db
           .collection("phMatch")
           .add({
@@ -181,7 +186,7 @@ export const Search_R: VFC<Props> = memo(
             </div>
 
             <div className="my-10 text-center">
-              {disabledState !== "received" && disabledState !== "match" && (
+              {disabledState !== "receiveId" && disabledState !== "match" && (
                 <button
                   className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 disabled:bg-blue-200 py-2 w-full rounded-full shadow-lg font-bold"
                   onClick={connectBtn}
@@ -191,7 +196,7 @@ export const Search_R: VFC<Props> = memo(
                 </button>
               )}
 
-              {disabledState === "received" && (
+              {disabledState === "receiveId" && (
                 <button
                   className="text-white bg-blue-500 transition duration-300 hover:bg-blue-400 disabled:bg-blue-200 py-2 w-full rounded-full shadow-lg font-bold"
                   onClick={connectBtn}
