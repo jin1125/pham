@@ -146,6 +146,7 @@ export const LoginForm: VFC = memo(() => {
               setEmail(e.target.value)
             }
           />
+           <p className='text-xs text-blue-300'>テストユーザー : testuser@gmail.com</p>
         </label>
       </div>
 
@@ -163,6 +164,7 @@ export const LoginForm: VFC = memo(() => {
               setPassword(e.target.value)
             }
           />
+           <p className='text-xs text-blue-300'>テストユーザー : 123456</p>
         </label>
       </div>
 
