@@ -168,7 +168,7 @@ export const SearchCo_R: VFC = memo(() => {
                 setCompanyId(selectCompany.objectID);
                 setSelectPharmacy({});
                 setPharmacyId("");
-                setSelectJob("");
+                setSelectJob({});
                 setPharmId("");
               }}
             >
