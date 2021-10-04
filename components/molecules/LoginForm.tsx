@@ -82,7 +82,7 @@ export const LoginForm: VFC = memo(() => {
   };
 
   //テストログイン
-  const testLogin = async () => {
+  const testLogin = async ():Promise<void> => {
     try {
       await auth.signInWithEmailAndPassword("testuser@gmail.com", "123456");
       alert.success("ログインしました");

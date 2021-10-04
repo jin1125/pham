@@ -13,6 +13,7 @@ export const SearchCo_R: VFC = memo(() => {
     setCompanyId,
     setSelectPharmacy,
     setPharmId,
+    setSelectJob,
     setPharmacyId,
   } = useContext(UserContext);
 
@@ -167,6 +168,7 @@ export const SearchCo_R: VFC = memo(() => {
                 setCompanyId(selectCompany.objectID);
                 setSelectPharmacy({});
                 setPharmacyId("");
+                setSelectJob("");
                 setPharmId("");
               }}
             >
