@@ -8,7 +8,7 @@ import { UserContext } from "../../UserContext";
 
 ///////// 型定義エリア /////////
 type Props = {
-  disabledState: "" | "match" | "passed" | "receiveId";
+  disabledState: "initial" | "match" | "passed" | "receiveId";
   phMatch: any[];
   passId: string;
   receiveId: string;
@@ -44,9 +44,6 @@ export const Search_R: VFC<Props> = memo(
         isMounted = false;
       };
     }, []);
-
-    console.log(receiveId)
-    // console.log(passId)
 
     // つながりボタン処理
     const connectBtn = async () => {
@@ -87,6 +84,9 @@ export const Search_R: VFC<Props> = memo(
           });
       }
     };
+
+    // console.log(disabledState);
+    
 
     ///////// JSXエリア /////////
     return (
@@ -192,7 +192,8 @@ export const Search_R: VFC<Props> = memo(
                   onClick={connectBtn}
                   disabled={disabledState === "passed"}
                 >
-                  {disabledState === "passed" ? "申請中" : "つながる"}
+                  {disabledState === "initial" && "つながる"}
+                  {disabledState === "passed" && "申請中"}
                 </button>
               )}
 

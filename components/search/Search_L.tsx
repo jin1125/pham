@@ -10,7 +10,7 @@ import { CustomSearchBox } from "./SearchBox";
 ///////// 型定義エリア /////////
 type Props = {
   setDisabledState: Dispatch<
-    React.SetStateAction<"" | "match" | "passed" | "receiveId">
+    React.SetStateAction<"initial" | "match" | "passed" | "receiveId">
   >;
   setPassId: Dispatch<React.SetStateAction<string>>;
   setPassData: Dispatch<React.SetStateAction<Data>>;
@@ -37,7 +37,7 @@ export const Search_L: VFC<Props> = memo(
 
     const { selectHomeAddress, setSelectHomeAddress } = useContext(UserContext);
 
-     ///////// JSXエリア /////////
+    ///////// JSXエリア /////////
     return (
       <div className="md:col-span-3 col-span-12 border-r-2 border-blue-400 relative">
         <div className="md:absolute h-full flex flex-col w-full">
@@ -52,7 +52,7 @@ export const Search_L: VFC<Props> = memo(
                 <div className="my-5">
                   <p>名前</p>
                   <div>
-                     {/* 検索窓 */}
+                    {/* 検索窓 */}
                     <CustomSearchBox />
                   </div>
                 </div>
@@ -66,7 +66,7 @@ export const Search_L: VFC<Props> = memo(
                       value={selectHomeAddress}
                       onChange={(e) => setSelectHomeAddress(e.target.value)}
                     >
-                       {/* 都道府県 */}
+                      {/* 都道府県 */}
                       <option value="">指定しない</option>
                       <Address />
                     </select>
@@ -77,7 +77,7 @@ export const Search_L: VFC<Props> = memo(
             <div
               className="overflow-y-auto md:max-h-screen  max-h-60"
               onClick={() => {
-                setDisabledState("");
+                setDisabledState("initial");
                 setPassId("");
                 setPassData({} as Data);
                 setReceiveId("");

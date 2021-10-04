@@ -13,8 +13,8 @@ export const Search: VFC = memo(() => {
   const [phMatchA, setPhMatchA] = useState<string[]>([]);
   const [phMatchB, setPhMatchB] = useState<string[]>([]);
   const [disabledState, setDisabledState] = useState<
-    "passed" | "receiveId" | "match" | ""
-  >("");
+    "passed" | "receiveId" | "match" | "initial"
+  >("initial");
   const [passId, setPassId] = useState<string>("");
   const [passData, setPassData] = useState<Data>({} as Data);
   const [receiveId, setReceiveId] = useState<string>("");
