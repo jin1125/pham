@@ -60,15 +60,6 @@ export const ProfilePC: VFC<Props> = memo(
           )}
         </div>
 
-        {loading ? (
-          <Skeleton width={200} />
-        ) : (
-          <div className="flex flex-row flex-wrap items-center my-3 gap-1 leading-none">
-            <Emoji emoji="id" size={20} />
-            <p className="text-base">{userId}</p>
-          </div>
-        )}
-
         <div className="flex flex-row flex-wrap my-5 gap-6 leading-none">
           {loading ? (
             <Skeleton width={200} />

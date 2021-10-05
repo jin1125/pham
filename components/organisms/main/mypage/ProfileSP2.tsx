@@ -32,16 +32,6 @@ export const ProfileSP2: VFC<Props> = memo(
     ///////// JSXエリア /////////
     return (
       <div>
-        <div className="flex flex-row flex-wrap justify-center items-center my-3 gap-1 leading-none">
-          {loading ? (
-            <Skeleton width={150} />
-          ) : (
-            <>
-              <Emoji emoji="id" size={20} />
-              <p className="text-base">{userId}</p>
-            </>
-          )}
-        </div>
 
         <div className="flex flex-row flex-wrap justify-center my-5 gap-6 leading-none">
           {loading ? (

@@ -78,15 +78,6 @@ export const EditPC: VFC<Props> = memo(
           </div>
         )}
 
-        {loadingProfile ? (
-          <Skeleton height={20} width={200} />
-        ) : (
-          <div className="flex flex-row flex-wrap items-center my-3 gap-1 leading-none">
-            <Emoji emoji="id" size={20} />
-            <p className="text-base">{userId}</p>
-          </div>
-        )}
-
         <div className="flex flex-row flex-wrap my-5 gap-6 leading-none">
           {loadingProfile ? (
             <Skeleton width={200} />

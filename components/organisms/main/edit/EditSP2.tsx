@@ -41,15 +41,6 @@ export const EditSP2: VFC<Props> = memo(
     ///////// JSXエリア /////////
     return (
       <div>
-        {loadingProfile ? (
-          <Skeleton width={150} />
-        ) : (
-          <div className="flex flex-row flex-wrap items-center my-3 gap-1 leading-none justify-center">
-            <Emoji emoji="id" size={20} />
-            <p className="text-base">{userId}</p>
-          </div>
-        )}
-
         <div className="flex flex-row flex-wrap my-5 gap-6 leading-none justify-center">
           {loadingProfile ? (
             <Skeleton width={150} />
