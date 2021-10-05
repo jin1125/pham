@@ -43,12 +43,6 @@ export const Search: VFC = memo(() => {
     return () => unSub();
   }, []);
 
-  useEffect(() => {
-    if (!disabledState) {
-      setDisabledState("initial");
-    }
-  }, [selectProfile.objectID]);
-
   // 相手から申請したユーザーのIDとデータ取得
   useEffect(() => {
     if (userId && selectProfile.objectID) {
@@ -145,6 +139,9 @@ export const Search: VFC = memo(() => {
   useEffect(() => {
     if (phMatchA && phMatchB) {
       setPhMatch([...phMatchA, ...phMatchB]);
+      if (!disabledState) {
+        setDisabledState("initial");
+      }
     }
   }, [phMatchA, phMatchB]);
 
