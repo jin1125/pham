@@ -1,5 +1,6 @@
 import { useContext, useEffect } from "react";
 import { auth } from "../../firebase";
+import { Data } from "../../types/data";
 import { UserContext } from "../../UserContext";
 import { Hit } from "./Hit";
 
@@ -10,6 +11,11 @@ export function hitComponent({ hit }) {
     selectProfile,
     userId,
     setUserId,
+    setPassId,
+    setPassData,
+    setReceiveId,
+    setReceiveData,
+    setDisabledState,
   } = useContext(UserContext);
 
   ///////// 関数エリア /////////
@@ -25,7 +31,15 @@ export function hitComponent({ hit }) {
 
   // 選んだ検索結果を取得
   const click = (): void => {
+    if (selectProfile.objectID === hit.objectID) {
+      return;
+    }
     setSelectProfile(hit);
+    setPassId("");
+    setPassData({} as Data);
+    setReceiveId("");
+    setReceiveData({} as Data);
+    setDisabledState('')
   };
 
   ///////// JSXエリア /////////

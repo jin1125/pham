@@ -8,19 +8,18 @@ import { UserContext } from "../../UserContext";
 
 ///////// 型定義エリア /////////
 type Props = {
-  disabledState: "initial" | "match" | "passed" | "receiveId";
   phMatch: any[];
   passId: string;
   receiveId: string;
 };
 
 export const Search_R: VFC<Props> = memo(
-  ({ disabledState, phMatch, passId, receiveId }) => {
+  ({ phMatch, passId, receiveId }) => {
     const alert = useAlert();
     ///////// ステートエリア /////////
     const [demoImg, setDemoImg] = useState("");
     const [demoImgs, setDemoImgs] = useState("");
-    const { selectProfile, userId, setSelectMsg } = useContext(UserContext);
+    const { selectProfile, userId, setSelectMsg,disabledState } = useContext(UserContext);
 
     ///////// 関数エリア /////////
     //  ストレージからプロフィールデモ画像取得
@@ -84,8 +83,6 @@ export const Search_R: VFC<Props> = memo(
           });
       }
     };
-
-    // console.log(disabledState);
     
 
     ///////// JSXエリア /////////
