@@ -4,6 +4,7 @@ import { positions, Provider as AlertProvider } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
 import "tailwindcss/tailwind.css";
 import "../styles/global.css";
+import { Data } from "../types/data";
 import { SelectCompany } from "../types/selectCompany";
 import { SelectJob } from "../types/selectJob";
 import { SelectMsg } from "../types/selectMsg";
@@ -31,6 +32,13 @@ export default function App({ Component, pageProps }: AppProps) {
   const [pharmacyId, setPharmacyId] = useState<string>("");
   const [pharmId, setPharmId] = useState<string>("");
   const [comId, setComId] = useState<string>("");
+  const [passId, setPassId] = useState<string>("");
+  const [passData, setPassData] = useState<Data>({} as Data);
+  const [receiveId, setReceiveId] = useState<string>("");
+  const [receiveData, setReceiveData] = useState<Data>({} as Data);
+  const [disabledState, setDisabledState] = useState<
+    "passed" | "receiveId" | "match" | "initial" | ""
+  >("");
 
   /// アラート設定 ///
   const options: {
@@ -77,6 +85,16 @@ export default function App({ Component, pageProps }: AppProps) {
         setPharmId,
         comId,
         setComId,
+        passId, 
+        setPassId,
+        passData, 
+        setPassData,
+        receiveId, 
+        setReceiveId,
+        receiveData,
+        setReceiveData,
+        disabledState, 
+        setDisabledState
       }}
     >
       <AlertProvider template={AlertTemplate} {...options}>

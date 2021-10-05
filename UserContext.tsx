@@ -1,4 +1,5 @@
 import { createContext, Dispatch } from "react";
+import { Data } from "./types/data";
 import { SelectCompany } from "./types/selectCompany";
 import { SelectJob } from "./types/selectJob";
 import { SelectMsg } from "./types/selectMsg";
@@ -39,5 +40,17 @@ export const UserContext = createContext(
     setPharmId: Dispatch<React.SetStateAction<string>>;
     comId: string;
     setComId: Dispatch<React.SetStateAction<string>>;
+    passId: string;
+    setPassId: Dispatch<React.SetStateAction<string>>;
+    passData: Data;
+    setPassData: Dispatch<React.SetStateAction<Data>>;
+    receiveId: string;
+    setReceiveId: Dispatch<React.SetStateAction<string>>;
+    receiveData: Data;
+    setReceiveData: Dispatch<React.SetStateAction<Data>>;
+    disabledState: "" | "passed" | "receiveId" | "match" | "initial";
+    setDisabledState: Dispatch<
+      React.SetStateAction<"" | "passed" | "receiveId" | "match" | "initial">
+    >;
   }
 );

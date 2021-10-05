@@ -12,16 +12,23 @@ export const Search: VFC = memo(() => {
   const [phMatch, setPhMatch] = useState<typeof phMatchA | typeof phMatchA>([]);
   const [phMatchA, setPhMatchA] = useState<string[]>([]);
   const [phMatchB, setPhMatchB] = useState<string[]>([]);
-  const [disabledState, setDisabledState] = useState<
-    "passed" | "receiveId" | "match" | "initial"
-  >("initial");
-  const [passId, setPassId] = useState<string>("");
-  const [passData, setPassData] = useState<Data>({} as Data);
-  const [receiveId, setReceiveId] = useState<string>("");
-  const [receiveData, setReceiveData] = useState<Data>({} as Data);
 
-  const { selectProfile, userId, setUserId } = useContext(UserContext);
-  
+  const {
+    selectProfile,
+    userId,
+    setUserId,
+    passId,
+    setPassId,
+    passData,
+    setPassData,
+    receiveId,
+    setReceiveId,
+    receiveData,
+    setReceiveData,
+    disabledState,
+    setDisabledState,
+  } = useContext(UserContext);
+
   ///////// 関数エリア /////////
   //ユーザーID取得＆ログインしてなければログインページへ
   useEffect(() => {
@@ -35,6 +42,12 @@ export const Search: VFC = memo(() => {
 
     return () => unSub();
   }, []);
+
+  useEffect(() => {
+    if (!disabledState) {
+      setDisabledState("initial");
+    }
+  }, [selectProfile.objectID]);
 
   // 相手から申請したユーザーのIDとデータ取得
   useEffect(() => {
@@ -140,22 +153,11 @@ export const Search: VFC = memo(() => {
     <div>
       <div className="grid grid-cols-12">
         {/* プロフィール検索(ページ左) */}
-        <Search_L
-          setDisabledState={setDisabledState}
-          setPassId={setPassId}
-          setPassData={setPassData}
-          setReceiveId={setReceiveId}
-          setReceiveData={setReceiveData}
-        />
+        <Search_L />
 
         {/* プロフィール描画(ページ右) */}
         {selectProfile && Object.keys(selectProfile).length ? (
-          <Search_R
-            disabledState={disabledState}
-            phMatch={phMatch}
-            passId={passId}
-            receiveId={receiveId}
-          />
+          <Search_R phMatch={phMatch} passId={passId} receiveId={receiveId} />
         ) : (
           <div className="h-screen md:col-span-9 col-span-12 justify-self-center self-center md:pt-24">
             {/* 未選択時表示画像 */}
