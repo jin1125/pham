@@ -212,11 +212,6 @@ export const SearchJob_R: VFC<Props> = memo(
         </div>
 
         <div className="flex flex-row flex-wrap my-5 gap-6 leading-none">
-          <div className="flex flex-row flex-wrap items-center my-3 gap-1 leading-none">
-            <Emoji emoji="id" size={20} />
-            <p className="text-base">{selectJob.objectID}</p>
-          </div>
-
           {selectJob.jobPrefecture && (
             <div className="flex flex-row flex-wrap gap-1 items-center">
               <Emoji emoji="round_pushpin" size={20} />
