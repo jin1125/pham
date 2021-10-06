@@ -16,6 +16,7 @@ export function hitComponent({ hit }) {
     setReceiveId,
     setReceiveData,
     setDisabledState,
+    setLinking,
   } = useContext(UserContext);
 
   ///////// 関数エリア /////////
@@ -39,7 +40,8 @@ export function hitComponent({ hit }) {
     setPassData({} as Data);
     setReceiveId("");
     setReceiveData({} as Data);
-    setDisabledState('')
+    setDisabledState("");
+    setLinking(false)
   };
 
   ///////// JSXエリア /////////
