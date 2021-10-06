@@ -39,6 +39,7 @@ export default function App({ Component, pageProps }: AppProps) {
   const [disabledState, setDisabledState] = useState<
     "passed" | "receiveId" | "match" | "initial" | ""
   >("");
+  const [linking, setLinking] = useState<boolean>(false);
 
   /// アラート設定 ///
   const options: {
@@ -94,7 +95,9 @@ export default function App({ Component, pageProps }: AppProps) {
         receiveData,
         setReceiveData,
         disabledState, 
-        setDisabledState
+        setDisabledState,
+        linking, 
+        setLinking
       }}
     >
       <AlertProvider template={AlertTemplate} {...options}>

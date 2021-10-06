@@ -52,5 +52,7 @@ export const UserContext = createContext(
     setDisabledState: Dispatch<
       React.SetStateAction<"" | "passed" | "receiveId" | "match" | "initial">
     >;
+    linking:boolean;
+    setLinking: Dispatch<React.SetStateAction<boolean>>;
   }
 );

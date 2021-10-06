@@ -27,6 +27,7 @@ export const Search: VFC = memo(() => {
     setReceiveData,
     disabledState,
     setDisabledState,
+    setLinking,
   } = useContext(UserContext);
 
   ///////// 関数エリア /////////
@@ -42,6 +43,13 @@ export const Search: VFC = memo(() => {
 
     return () => unSub();
   }, []);
+
+  // disabledStateがなければ"initial"に
+  useEffect(() => {
+    if (!disabledState) {
+      setDisabledState("initial");
+    }
+  }, [selectProfile]);
 
   // 相手から申請したユーザーのIDとデータ取得
   useEffect(() => {
@@ -139,9 +147,7 @@ export const Search: VFC = memo(() => {
   useEffect(() => {
     if (phMatchA && phMatchB) {
       setPhMatch([...phMatchA, ...phMatchB]);
-      if (!disabledState) {
-        setDisabledState("initial");
-      }
+      setLinking(true);
     }
   }, [phMatchA, phMatchB]);
 

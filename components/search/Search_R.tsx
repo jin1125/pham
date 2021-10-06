@@ -18,7 +18,7 @@ export const Search_R: VFC<Props> = memo(({ phMatch, passId, receiveId }) => {
   ///////// ステートエリア /////////
   const [demoImg, setDemoImg] = useState<string>("");
   const [demoImgs, setDemoImgs] = useState<string>("");
-  const { selectProfile, userId, setSelectMsg, disabledState } =
+  const { selectProfile, userId, setSelectMsg, disabledState,linking } =
     useContext(UserContext);
 
   ///////// 関数エリア /////////
@@ -175,7 +175,7 @@ export const Search_R: VFC<Props> = memo(({ phMatch, passId, receiveId }) => {
           </div>
 
           <div className="my-10 text-center">
-            {disabledState === "initial" && (
+            {linking && disabledState === "initial" && (
               <button
                 className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 disabled:bg-blue-200 py-2 w-full rounded-full shadow-lg font-bold"
                 onClick={connectBtn}
@@ -184,7 +184,7 @@ export const Search_R: VFC<Props> = memo(({ phMatch, passId, receiveId }) => {
               </button>
             )}
 
-            {disabledState === "passed" && (
+            {linking && disabledState === "passed" && (
               <button
                 className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 disabled:bg-blue-200 py-2 w-full rounded-full shadow-lg font-bold"
                 disabled={true}
@@ -193,7 +193,7 @@ export const Search_R: VFC<Props> = memo(({ phMatch, passId, receiveId }) => {
               </button>
             )}
 
-            {disabledState === "receiveId" && (
+            {linking && disabledState === "receiveId" && (
               <button
                 className="text-white bg-blue-500 transition duration-300 hover:bg-blue-400 disabled:bg-blue-200 py-2 w-full rounded-full shadow-lg font-bold"
                 onClick={connectBtn}
@@ -202,7 +202,7 @@ export const Search_R: VFC<Props> = memo(({ phMatch, passId, receiveId }) => {
               </button>
             )}
 
-            {disabledState === "match" && (
+            {linking && disabledState === "match" && (
               <Link href="/message">
                 <button
                   className="text-blue-400 bg-white border-2 border-blue-400 transition duration-300 hover:bg-blue-100 disabled:bg-blue-200 py-2 w-full rounded-full shadow-lg font-bold"
