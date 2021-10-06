@@ -7,13 +7,12 @@ import "../styles/global.css";
 import { Data } from "../types/data";
 import { SelectCompany } from "../types/selectCompany";
 import { SelectJob } from "../types/selectJob";
-import { SelectMsg } from "../types/selectMsg";
 import { SelectPharmacy } from "../types/selectPharmacy";
 import { SelectProfile } from "../types/selectProfile";
 import { UserContext } from "../UserContext";
 
 export default function App({ Component, pageProps }: AppProps) {
-   ///////// ステートエリア /////////
+  ///////// ステートエリア /////////
   const [userId, setUserId] = useState<string>("");
   const [defaultName, setDefaultName] = useState<string>("");
   const [selectProfile, setSelectProfile] = useState<SelectProfile>({});
@@ -50,7 +49,7 @@ export default function App({ Component, pageProps }: AppProps) {
     position: positions.TOP_CENTER,
   };
 
-   ///////// JSXエリア /////////
+  ///////// JSXエリア /////////
   return (
     <UserContext.Provider
       value={{
@@ -86,18 +85,18 @@ export default function App({ Component, pageProps }: AppProps) {
         setPharmId,
         comId,
         setComId,
-        passId, 
+        passId,
         setPassId,
-        passData, 
+        passData,
         setPassData,
-        receiveId, 
+        receiveId,
         setReceiveId,
         receiveData,
         setReceiveData,
-        disabledState, 
+        disabledState,
         setDisabledState,
-        linking, 
-        setLinking
+        linking,
+        setLinking,
       }}
     >
       <AlertProvider template={AlertTemplate} {...options}>
