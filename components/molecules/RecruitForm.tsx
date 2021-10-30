@@ -21,7 +21,13 @@ export const RecruitForm: VFC<Props> = memo(
     ///////// 関数エリア /////////
     // お問い合わせ処理
     const contactUs = async () => {
-      const inquiry = {
+      const inquiry: {
+        companyName: string;
+        clientName: string;
+        email: string;
+        tel: string;
+        datetime: firebase.firestore.Timestamp;
+      } = {
         companyName: companyName,
         clientName: clientName,
         email: email,
