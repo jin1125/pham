@@ -1,7 +1,8 @@
 import { AppProps } from "next/app";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { positions, Provider as AlertProvider } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
+import TagManager from "react-gtm-module";
 import "tailwindcss/tailwind.css";
 import "../styles/global.css";
 import { Data } from "../types/data";
@@ -48,6 +49,11 @@ export default function App({ Component, pageProps }: AppProps) {
     timeout: 2000,
     position: positions.TOP_CENTER,
   };
+
+  /// Google Tag Manager ///
+  useEffect(() => {
+    TagManager.initialize({ gtmId: "GTM-XXXXXX" });
+  }, []);
 
   ///////// JSXエリア /////////
   return (
