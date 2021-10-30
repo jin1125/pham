@@ -52,7 +52,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
   /// Google Tag Manager ///
   useEffect(() => {
-    TagManager.initialize({ gtmId: "GTM-XXXXXX" });
+    TagManager.initialize({ gtmId: "GTM-NDCX63G" });
   }, []);
 
   ///////// JSXエリア /////////
