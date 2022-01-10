@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { FirstHeader } from "../components/header/FirstHeader";
+import { TopHeader } from "../components/header/TopHeader";
 import { FirstPage } from "../components/organisms/main/FirstPage";
 
 export default function Lp() {
@@ -12,7 +12,7 @@ export default function Lp() {
       </Head>
 
       {/* ヘッダー */}
-      <FirstHeader />
+      <TopHeader />
 
       {/* メインページ */}
       <FirstPage />

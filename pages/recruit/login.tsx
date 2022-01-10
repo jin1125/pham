@@ -1,6 +1,6 @@
 import Head from "next/head";
 import React from "react";
-import { SecondHeader } from "../../components/header/SecondHeader";
+import { SecondHeader } from "../../components/header/LoginHeader";
 import { RecruitLoginPage } from "../../components/organisms/main/RecruitLoginPage";
 
 export default function login() {
