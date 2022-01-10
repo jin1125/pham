@@ -1,7 +1,7 @@
 import React, { memo, VFC } from 'react'
 import Link from "next/link";
 
-export const SecondHeader:VFC = memo(() => {
+export const FormHeader:VFC = memo(() => {
   ///////// JSXエリア /////////
   return (
     <header>

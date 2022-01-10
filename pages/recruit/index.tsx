@@ -1,6 +1,6 @@
 import Head from "next/head";
 import React from "react";
-import { SecondHeader } from "../../components/header/SecondHeader";
+import { FormHeader } from "../../components/header/FormHeader";
 import { RecruitPage } from "../../components/organisms/main/RecruitPage";
 
 export default function recruit() {
@@ -13,7 +13,7 @@ export default function recruit() {
       </Head>
 
       {/* ヘッダー */}
-      <SecondHeader />
+      <FormHeader />
 
       {/* メインページ */}
       <RecruitPage />

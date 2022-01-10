@@ -1,6 +1,6 @@
 import Head from "next/head";
 import React from "react";
-import { SecondHeader } from "../../components/header/SecondHeader";
+import { FormHeader } from "../../components/header/FormHeader";
 import { RecruitLoginPage } from "../../components/organisms/main/RecruitLoginPage";
 
 export default function login() {
@@ -13,7 +13,7 @@ export default function login() {
       </Head>
 
       {/* ヘッダー */}
-      <SecondHeader />
+      <FormHeader />
 
       {/* メインページ */}
       <RecruitLoginPage />

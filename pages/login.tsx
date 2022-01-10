@@ -1,6 +1,6 @@
 import Head from "next/head";
 import React from "react";
-import { SecondHeader } from "../components/header/SecondHeader";
+import { FormHeader } from "../components/header/FormHeader";
 import { LoginPage } from "../components/organisms/main/LoginPage";
 
 export default function login() {
@@ -13,7 +13,7 @@ export default function login() {
       </Head>
 
       {/* ヘッダー */}
-      <SecondHeader />
+      <FormHeader />
 
       {/* メインページ */}
       <LoginPage />

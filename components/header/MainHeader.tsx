@@ -4,7 +4,7 @@ import React, { memo, useContext, useEffect, useState, VFC } from "react";
 import { auth, db } from "../../firebase";
 import { UserContext } from "../../UserContext";
 
-export const Header: VFC = memo(() => {
+export const MainHeader: VFC = memo(() => {
   ///////// ステートエリア /////////
   const [check, setCheck] = useState<boolean>(false);
   const {
