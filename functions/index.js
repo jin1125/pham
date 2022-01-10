@@ -13,6 +13,8 @@ exports.onDelete = functions.auth.user().onDelete((user) => {
 });
 
 ///////// Functions2 /////////
+//採用担当者からのお問い合わせへの自動返信メール設定
+
 //メールの送信に使用されるGoogleアカウントのクレデンシャル
 const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
