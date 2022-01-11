@@ -10,7 +10,7 @@ type Props = {
   setUserEmail: Dispatch<React.SetStateAction<string>>;
 };
 
-export const Footer: VFC<Props> = memo(({ userEmail, setUserEmail }) => {
+export const FooterEdit: VFC<Props> = memo(({ userEmail, setUserEmail }) => {
   const alert = useAlert();
   ///////// ステートエリア /////////
   const [openEditEmail, setOpenEditEmail] = useState<boolean>(false);
