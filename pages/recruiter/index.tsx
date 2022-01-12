@@ -1,14 +1,14 @@
 import Head from "next/head";
 import React from "react";
 import { FormHeader } from "../../components/header/FormHeader";
-import { RecruitLoginPage } from "../../components/organisms/main/RecruitLoginPage";
+import { RecruiterPage } from "../../components/organisms/main/RecruiterPage";
 
-export default function login() {
+export default function recruiter() {
   ///////// JSXエリア /////////
   return (
     <div className="min-h-screen">
       <Head>
-        <title>Pham 企業ログイン</title>
+        <title>Pham 採用担当者様お問い合わせ</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -16,7 +16,7 @@ export default function login() {
       <FormHeader />
 
       {/* メインページ */}
-      <RecruitLoginPage />
+      <RecruiterPage />
     </div>
   );
 }

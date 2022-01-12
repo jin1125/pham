@@ -3,7 +3,7 @@ import React, { memo, useState, VFC } from "react";
 import { useAlert } from "react-alert";
 import { auth } from "../../firebase";
 
-export const RecruitLoginForm: VFC = memo(() => {
+export const RecruiterLoginForm: VFC = memo(() => {
   const alert = useAlert();
   ///////// ステートエリア /////////
   const [companyEmail, setCompanyEmail] = useState<string>("");
@@ -15,7 +15,7 @@ export const RecruitLoginForm: VFC = memo(() => {
     try {
       await auth.signInWithEmailAndPassword(companyEmail, companyPassword);
       alert.success("ログインしました");
-      Router.push("/recruit/edit");
+      Router.push("/recruiter/edit");
     } catch (error) {
       alert.error("ログインできませんでした");
     }

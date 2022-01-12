@@ -9,7 +9,7 @@ type Props = {
   setIsContactUs: Dispatch<React.SetStateAction<boolean>>;
 };
 
-export const RecruitForm: VFC<Props> = memo(
+export const RecruiterForm: VFC<Props> = memo(
   ({ isContactUs, setIsContactUs }) => {
     const alert = useAlert();
     ///////// ステートエリア /////////

@@ -1,9 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
-import React, { memo, useEffect, useState, VFC } from "react";
-import { RecruitForm } from "../../molecules/RecruitForm";
+import React, { memo, useState, VFC } from "react";
+import { RecruiterForm } from "../../molecules/RecruiterForm";
 
-export const RecruitPage: VFC = memo(() => {
+export const RecruiterPage: VFC = memo(() => {
   ///////// ステートエリア /////////
   const [isContactUs, setIsContactUs] = useState<boolean>(false);
 
@@ -33,8 +33,8 @@ export const RecruitPage: VFC = memo(() => {
             />
           ) : (
             <Image
-              src="/recruit_img.png"
-              alt="recruit_img"
+              src="/recruiter_img.png"
+              alt="recruiter_img"
               width={420}
               height={280}
             />
@@ -67,7 +67,7 @@ export const RecruitPage: VFC = memo(() => {
             </Link>
           </div>
         ) : (
-          <RecruitForm isContactUs={isContactUs} setIsContactUs={setIsContactUs} />
+          <RecruiterForm isContactUs={isContactUs} setIsContactUs={setIsContactUs} />
         )}
       </div>
 
@@ -81,8 +81,8 @@ export const RecruitPage: VFC = memo(() => {
           />
         ) : (
           <Image
-            src="/recruit_img.png"
-            alt="recruit_img"
+            src="/recruiter_img.png"
+            alt="recruiter_img"
             width={420}
             height={280}
           />

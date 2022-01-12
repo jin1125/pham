@@ -13,7 +13,7 @@ import { EditPC } from "./EditPC";
 import { EditSP1 } from "./EditSP1";
 import { EditSP2 } from "./EditSP2";
 import { EditStatus } from "./EditStatus";
-import { Footer } from "./Footer";
+import { FooterEdit } from "./FooterEdit";
 
 export const EditPage: VFC = memo(() => {
   ///////// ステートエリア /////////
@@ -395,7 +395,7 @@ export const EditPage: VFC = memo(() => {
       <hr />
 
       {/* ログアウトボタン等フッター */}
-      <Footer userEmail={userEmail} setUserEmail={setUserEmail} />
+      <FooterEdit userEmail={userEmail} setUserEmail={setUserEmail} />
     </div>
   );
 });
