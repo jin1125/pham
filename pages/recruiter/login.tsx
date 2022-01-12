@@ -1,7 +1,7 @@
 import Head from "next/head";
 import React from "react";
 import { FormHeader } from "../../components/header/FormHeader";
-import { RecruitLoginPage } from "../../components/organisms/main/RecruitLoginPage";
+import { RecruiterLoginPage } from "../../components/organisms/main/RecruiterLoginPage";
 
 export default function login() {
   ///////// JSXエリア /////////
@@ -16,7 +16,7 @@ export default function login() {
       <FormHeader />
 
       {/* メインページ */}
-      <RecruitLoginPage />
+      <RecruiterLoginPage />
     </div>
   );
 }

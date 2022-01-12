@@ -1,8 +1,8 @@
 import Image from "next/image";
 import React, { memo, VFC } from "react";
-import { RecruitLoginForm } from "../../molecules/RecruitLoginForm";
+import { RecruiterLoginForm } from "../../molecules/RecruiterLoginForm";
 
-export const RecruitLoginPage:VFC = memo(() => {
+export const RecruiterLoginPage:VFC = memo(() => {
    ///////// JSXエリア /////////
   return (
     <main className="grid lg:grid-cols-2 min-h-screen md:-mt-20 justify-items-center items-center">
@@ -13,19 +13,19 @@ export const RecruitLoginPage:VFC = memo(() => {
 
         <div className="text-center block lg:hidden my-5">
           <Image
-            src="/recruit_login_img.png"
+            src="/recruiter_login_img.png"
             alt="login_img"
             width={200}
             height={200}
           />
         </div>
         {/* リクルートログインフォーム */}
-        <RecruitLoginForm />
+        <RecruiterLoginForm />
       </div>
 
       <div className="text-center hidden lg:block">
         <Image
-          src="/recruit_login_img.png"
+          src="/recruiter_login_img.png"
           alt="login_img"
           width={350}
           height={350}
