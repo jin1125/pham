@@ -8,7 +8,7 @@ export default function recruit() {
   return (
     <div className="min-h-screen">
       <Head>
-        <title>Pham 採用担当様お問い合わせ</title>
+        <title>Pham 採用担当者様お問い合わせ</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
