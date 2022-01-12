@@ -2,7 +2,7 @@ import Head from "next/head";
 import Router from "next/router";
 import React, { useEffect } from "react";
 import { Layout } from "../../../components/layout/Layout";
-import { SearchPh } from "../../../components/search/SearchPh";
+import { SearchPharm } from "../../../components/search/SearchPharm";
 import { auth } from "../../../firebase";
 
 export default function search() {
@@ -27,7 +27,7 @@ export default function search() {
 
       <Layout>
         {/* メインページ */}
-        <SearchPh />
+        <SearchPharm />
       </Layout>
     </div>
   );

@@ -2,7 +2,7 @@ import Head from "next/head";
 import Router from "next/router";
 import React, { useEffect } from "react";
 import { Layout } from "../../../components/layout/Layout";
-import { Search } from "../../../components/search/Search";
+import { SearchPh } from "../../../components/search/SearchPh";
 import { auth } from "../../../firebase";
 
 export default function profiles() {
@@ -27,7 +27,7 @@ export default function profiles() {
 
       <Layout>
         {/* メインページ */}
-        <Search />
+        <SearchPh />
       </Layout>
     </div>
   );

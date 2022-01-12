@@ -1,54 +1,65 @@
 import { useContext, useEffect } from "react";
+import { auth } from "../../firebase";
+import { Data } from "../../types/data";
 import { UserContext } from "../../UserContext";
-import {HitPh} from "./HitPh";
+import { HitPh } from "./HitPh";
 
 export function hitComponentPh({ hit }) {
   const {
-    selectPharmacy,
-    setSelectPharmacy,
-    selectPharmacyAddress,
-    companyId,
-    pharmId,
+    selectHomeAddress,
+    setSelectProfile,
+    selectProfile,
+    userId,
+    setUserId,
+    setPassId,
+    setPassData,
+    setReceiveId,
+    setReceiveData,
+    setDisabledState,
+    setLinking,
   } = useContext(UserContext);
 
-   ///////// 関数エリア /////////
-   // 選んだ検索結果を取得
-  const click = ():void => {
-    setSelectPharmacy(hit);
+  ///////// 関数エリア /////////
+  // ユーザーID取得
+  useEffect(() => {
+    const unSub = auth.onAuthStateChanged((user) => {
+      if (user) {
+        setUserId(user.uid);
+      }
+    });
+    return () => unSub();
+  }, []);
+
+  // 選んだ検索結果を取得
+  const click = (): void => {
+    if (selectProfile.objectID === hit.objectID) {
+      return;
+    }
+    setSelectProfile(hit);
+    setPassId("");
+    setPassData({} as Data);
+    setReceiveId("");
+    setReceiveData({} as Data);
+    setDisabledState("");
+    setLinking(false)
   };
 
-  // 薬局詳細ボタンからの遷移時は該当薬局を選択済みにする
- useEffect(()=>{
-  if(pharmId && pharmId === hit.objectID){
-    setSelectPharmacy(hit);
-    
-  }
- },[pharmId])
-
-   ///////// JSXエリア /////////
+  ///////// JSXエリア /////////
   return (
     <>
       <div
         onClick={click}
         className={
-          selectPharmacy.objectID === hit.objectID
+          selectProfile.objectID === hit.objectID
             ? "bg-blue-100 cursor-pointer"
             : "cursor-pointer hover:bg-blue-100"
         }
       >
-        {selectPharmacyAddress === "" && companyId === hit.coId ? (
+        {selectHomeAddress === "" && hit.objectID !== userId ? (
           <HitPh hit={hit} />
         ) : (
-          selectPharmacyAddress === hit.pharmacyPrefecture &&
-          companyId === hit.coId && <HitPh hit={hit} />
-        )}
-
-
-        {selectPharmacyAddress === "" && pharmId ===  hit.objectID ? (
-          <HitPh hit={hit} />
-        ) : (
-          selectPharmacyAddress === hit.pharmacyPrefecture &&
-          pharmId ===  hit.objectID && <HitPh hit={hit} />
+          hit.homeAddress === selectHomeAddress &&
+          hit.objectID !== userId && <HitPh hit={hit} />
         )}
       </div>
     </>

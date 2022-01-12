@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { auth, db } from "../../firebase";
 import { UserContext } from "../../UserContext";
-import { Hit } from "./Hit";
+import { HitPh } from "./HitPh";
 
 export function hitComponentMsg({ hit }) {
   ///////// ステートエリア /////////
@@ -81,7 +81,7 @@ export function hitComponentMsg({ hit }) {
           (ph, index) =>
             ph === hit.objectID && (
               <div key={index}>
-                <Hit hit={hit} />
+                <HitPh hit={hit} />
               </div>
             )
         )}
