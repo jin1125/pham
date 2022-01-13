@@ -4,8 +4,8 @@ import React, { Dispatch, memo, useContext, VFC } from "react";
 import { Hits, InstantSearch } from "react-instantsearch-dom";
 import { Feeds } from "../../types/feeds";
 import { UserContext } from "../../UserContext";
-import { hitComponentCoMsg } from "./hitComponentCoMsg";
-import { hitComponentMsg } from "./HitComponentMsg";
+import { hitComponentCoMsg } from "./HitComponentCoMsg";
+import { hitComponentPhMsg } from "./HitComponentPhMsg";
 import { CustomSearchBox } from "./SearchBox";
 
 ///////// 型定義エリア /////////
@@ -81,7 +81,7 @@ export const SearchMsg_L: VFC<Props> = memo(
             <div className="overflow-y-auto md:max-h-screen max-h-60 lg:pb-20 pb-12">
               {/* 検索結果 */}
               <Hits
-                hitComponent={changeMsg ? hitComponentMsg : hitComponentCoMsg}
+                hitComponent={changeMsg ? hitComponentPhMsg : hitComponentCoMsg}
               />
             </div>
           </InstantSearch>

@@ -3,7 +3,7 @@ import { auth, db } from "../../firebase";
 import { UserContext } from "../../UserContext";
 import { HitPh } from "./HitPh";
 
-export function hitComponentMsg({ hit }) {
+export function hitComponentPhMsg({ hit }) {
   ///////// ステートエリア /////////
   const [phMatch, setPhMatch] = useState([]);
   const [phMatchA, setPhMatchA] = useState([]);
