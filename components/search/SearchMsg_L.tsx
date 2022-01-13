@@ -5,7 +5,7 @@ import { Hits, InstantSearch } from "react-instantsearch-dom";
 import { Feeds } from "../../types/feeds";
 import { UserContext } from "../../UserContext";
 import { CustomSearchBox } from "./SearchBox";
-import { hitComponentCoMsg } from "./HitComponentCoMsg";
+import { hitComponentCoMsg } from "./HitComponentCoMs";
 import { hitComponentPhMsg } from "./HitComponentPhMsg";
 
 ///////// 型定義エリア /////////

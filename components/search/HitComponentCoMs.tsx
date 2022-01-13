@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { auth, db } from "../../firebase";
-import { UserContext } from "../../UserContext";
 import { HitCo } from "./HitCo";
+import { UserContext } from "../../UserContext";
 
 export function hitComponentCoMsg({ hit }) {
   ///////// ステートエリア /////////
