@@ -4,7 +4,7 @@ import React, { Dispatch, memo, useContext, VFC } from "react";
 import { Hits, InstantSearch } from "react-instantsearch-dom";
 import { Feeds } from "../../types/feeds";
 import { UserContext } from "../../UserContext";
-import { hitComponentCoMsg } from "./hitComponentCoMsg";
+import { hitComponentCoMsg } from "./HitComponentCoMsg";
 import { hitComponentMsg } from "./HitComponentMsg";
 import { CustomSearchBox } from "./SearchBox";
 
