@@ -4,9 +4,9 @@ import React, { Dispatch, memo, useContext, VFC } from "react";
 import { Hits, InstantSearch } from "react-instantsearch-dom";
 import { Feeds } from "../../types/feeds";
 import { UserContext } from "../../UserContext";
+import { CustomSearchBox } from "./SearchBox";
 import { hitComponentCoMsg } from "./HitComponentCoMsg";
 import { hitComponentPhMsg } from "./HitComponentPhMsg";
-import { CustomSearchBox } from "./SearchBox";
 
 ///////// 型定義エリア /////////
 type Props = {
