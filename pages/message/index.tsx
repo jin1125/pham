@@ -1,8 +1,8 @@
 import Head from "next/head";
 import Router from "next/router";
 import React, { useEffect } from "react";
-import { Layout } from "../../components/layout/Layout";
-import { SearchMsg } from "../../components/search/SearchMsg";
+import { SearchMsg } from "../../components/organisms/main/search/SearchMsg";
+import { Layout } from "../../components/templates/HeaderLayout";
 import { auth } from "../../firebase";
 
 export default function message() {

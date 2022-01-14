@@ -1,6 +1,6 @@
 import Head from "next/head";
-import { TopHeader } from "../components/header/TopHeader";
-import { FirstPage } from "../components/organisms/main/FirstPage";
+import { TopHeader } from "../components/organisms/header/TopHeader";
+import { FirstPage } from "../components/organisms/main/first/FirstPage";
 
 export default function Lp() {
   ///////// JSXエリア /////////

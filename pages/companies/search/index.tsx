@@ -1,8 +1,8 @@
 import Head from "next/head";
 import Router from "next/router";
 import React, { useEffect } from "react";
-import { Layout } from "../../../components/layout/Layout";
-import { SearchCo } from "../../../components/search/SearchCo";
+import { SearchCo } from "../../../components/organisms/main/search/SearchCo";
+import { Layout } from "../../../components/templates/HeaderLayout";
 import { auth } from "../../../firebase";
 
 export default function search() {

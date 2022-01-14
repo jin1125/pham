@@ -1,7 +1,7 @@
 import Head from "next/head";
 import React from "react";
-import { Layout } from "../../components/layout/Layout";
 import { EditPage } from "../../components/organisms/main/edit/EditPage";
+import { Layout } from "../../components/templates/HeaderLayout";
 
 export default function edit() {
   ///////// JSXエリア /////////

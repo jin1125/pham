@@ -12,7 +12,7 @@ import Skeleton from "react-loading-skeleton";
 import { auth, db, storage } from "../../../../firebase";
 import { Profile } from "../../../../types/profile";
 import { UserContext } from "../../../../UserContext";
-import { MypageFreeImg } from "../../../molecules/MypageFreeImg";
+import { MypageFreeImg } from "../../../molecules/free_img/MypageFreeImg";
 import { ProfileDetails } from "./ProfileDetails";
 import { ProfilePC } from "./ProfilePC";
 import { ProfileSP1 } from "./ProfileSP1";

@@ -1,7 +1,7 @@
 import Head from "next/head";
 import React from "react";
-import { FormHeader } from "../../components/header/FormHeader";
-import { RecruiterPage } from "../../components/organisms/main/RecruiterPage";
+import { FormHeader } from "../../components/organisms/header/FormHeader";
+import { RecruiterPage } from "../../components/organisms/main/recruiter/RecruiterPage";
 
 export default function recruiter() {
   ///////// JSXエリア /////////

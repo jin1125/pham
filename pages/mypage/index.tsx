@@ -1,8 +1,8 @@
 import Head from "next/head";
 import React, { useState } from "react";
-import { Layout } from "../../components/layout/Layout";
 import { Mypage } from "../../components/organisms/main/mypage/Mypage";
 import ConnectModal from "../../components/organisms/modal/ConnectModal";
+import { Layout } from "../../components/templates/HeaderLayout";
 
 export default function mypage() {
   ///////// 関数エリア /////////
