@@ -7,7 +7,7 @@ import Skeleton from "react-loading-skeleton";
 import { auth, db, storage } from "../../../../firebase";
 import { AllProfile } from "../../../../types/allProfile";
 import { UserContext } from "../../../../UserContext";
-import { EditFreeImg } from "../../../molecules/EditFreeImg";
+import { EditFreeImg } from "../../../molecules/free_img/EditFreeImg";
 import { EditDetails } from "./EditDetails";
 import { EditPC } from "./EditPC";
 import { EditSP1 } from "./EditSP1";

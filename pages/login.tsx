@@ -1,7 +1,7 @@
 import Head from "next/head";
 import React from "react";
-import { FormHeader } from "../components/header/FormHeader";
-import { LoginPage } from "../components/organisms/main/LoginPage";
+import { FormHeader } from "../components/organisms/header/FormHeader";
+import { LoginPage } from "../components/organisms/main/first/LoginPage";
 
 export default function login() {
   ///////// JSXエリア /////////
