@@ -1,8 +1,7 @@
 import { useContext, useEffect, useState } from "react";
+import { HitCo } from "../../../components/atoms/search/HitCo";
 import { auth, db } from "../../../firebase";
 import { UserContext } from "../../../UserContext";
-import { HitCo } from "../../atoms/search/HitCo";
-
 
 export function hitComponentCoMsg({ hit }) {
   ///////// ステートエリア /////////
