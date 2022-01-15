@@ -4,7 +4,7 @@ import Router from "next/router";
 import { memo, useContext, useEffect, useState, VFC } from "react";
 import { auth, db, storage } from "../../../../firebase";
 import { Feeds } from "../../../../types/feeds";
-import { UserContext } from "../../../../UserContext";
+import { UserContext } from "../../../../context/UserContext";
 import { SearchMsg_L } from "./SearchMsg_L";
 import { SearchMsg_R_Co } from "./SearchMsg_R_Co";
 import { SearchMsg_R_Ph } from "./SearchMsg_R_Ph";

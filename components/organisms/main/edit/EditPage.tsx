@@ -6,7 +6,7 @@ import Loader from "react-loader-spinner";
 import Skeleton from "react-loading-skeleton";
 import { auth, db, storage } from "../../../../firebase";
 import { AllProfile } from "../../../../types/allProfile";
-import { UserContext } from "../../../../UserContext";
+import { UserContext } from "../../../../context/UserContext";
 import { EditFreeImg } from "../../../molecules/free_img/EditFreeImg";
 import { EditDetails } from "./EditDetails";
 import { EditPC } from "./EditPC";

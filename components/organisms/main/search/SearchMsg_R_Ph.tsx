@@ -10,7 +10,7 @@ import React, {
 } from "react";
 import Loader from "react-loader-spinner";
 import { Feeds } from "../../../../types/feeds";
-import { UserContext } from "../../../../UserContext";
+import { UserContext } from "../../../../context/UserContext";
 
 ///////// 型定義エリア /////////
 type Props = {

@@ -1,10 +1,10 @@
 import { createContext, Dispatch } from "react";
-import { Data } from "./types/data";
-import { SelectCompany } from "./types/selectCompany";
-import { SelectJob } from "./types/selectJob";
-import { SelectMsg } from "./types/selectMsg";
-import { SelectPharmacy } from "./types/selectPharmacy";
-import { SelectProfile } from "./types/selectProfile";
+import { Data } from "../types/data";
+import { SelectCompany } from "../types/selectCompany";
+import { SelectJob } from "../types/selectJob";
+import { SelectMsg } from "../types/selectMsg";
+import { SelectPharmacy } from "../types/selectPharmacy";
+import { SelectProfile } from "../types/selectProfile";
 
 export const UserContext = createContext(
   {} as {

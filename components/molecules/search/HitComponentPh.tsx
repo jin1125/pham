@@ -1,7 +1,7 @@
 import { useContext, useEffect } from "react";
 import { auth } from "../../../firebase";
 import { Data } from "../../../types/data";
-import { UserContext } from "../../../UserContext";
+import { UserContext } from "../../../context/UserContext";
 import { HitPh } from "../../atoms/search/HitPh";
 
 export function hitComponentPh({ hit }) {

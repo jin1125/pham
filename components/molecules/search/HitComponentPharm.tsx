@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react";
-import { UserContext } from "../../../UserContext";
+import { UserContext } from "../../../context/UserContext";
 import { HitPharm } from "../../atoms/search/HitPharm";
 
 export function hitComponentPharm({ hit }) {

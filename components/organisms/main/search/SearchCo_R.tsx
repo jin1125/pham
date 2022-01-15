@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { memo, useContext, useEffect, useState, VFC } from "react";
 import { storage } from "../../../../firebase";
-import { UserContext } from "../../../../UserContext";
+import { UserContext } from "../../../../context/UserContext";
 
 export const SearchCo_R: VFC = memo(() => {
   ///////// ステートエリア /////////

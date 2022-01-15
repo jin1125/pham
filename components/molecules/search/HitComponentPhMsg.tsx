@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { auth, db } from "../../../firebase";
-import { UserContext } from "../../../UserContext";
+import { UserContext } from "../../../context/UserContext";
 import { HitPh } from "../../atoms/search/HitPh";
 
 export function hitComponentPhMsg({ hit }) {
