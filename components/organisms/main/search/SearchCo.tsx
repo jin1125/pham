@@ -7,6 +7,8 @@ import { SearchCo_L } from "./SearchCo_L";
 import { SearchCo_R } from "./SearchCo_R";
 
 export const SearchCo: VFC = memo(() => {
+  ///////// ステートエリア /////////
+  // グローバルなステート
   const { selectCompany } = useContext(UserContext);
 
   ///////// 関数エリア /////////

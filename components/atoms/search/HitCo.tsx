@@ -9,10 +9,10 @@ type Props = {
 };
 
 export const HitCo: VFC<Props> = memo(({ hit }) => {
-   ///////// ステートエリア /////////
+  ///////// ステートエリア /////////
   const [companyDemoImg, setCompanyDemoImg] = useState<string>("");
 
-   ///////// 関数エリア /////////
+  ///////// 関数エリア /////////
   //  ストレージから企業デモ画像取得
   useEffect(() => {
     let isMounted = true;
@@ -32,7 +32,7 @@ export const HitCo: VFC<Props> = memo(({ hit }) => {
     };
   }, []);
 
-   ///////// JSXエリア /////////
+  ///////// JSXエリア /////////
   return (
     // 検索結果
     <div className="grid grid-cols-12 gap-3 px-3 py-2 border-b items-center">
@@ -62,6 +62,7 @@ export const HitCo: VFC<Props> = memo(({ hit }) => {
         <div>
           <Highlight attribute="companyName" tagName="mark" hit={hit} />
         </div>
+
         <div className="text-xs text-blue-300 ">
           <Highlight attribute="companyPrefecture" tagName="mark" hit={hit} />
         </div>

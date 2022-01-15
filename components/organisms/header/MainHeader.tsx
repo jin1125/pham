@@ -7,6 +7,8 @@ import { UserContext } from "../../../UserContext";
 export const MainHeader: VFC = memo(() => {
   ///////// ステートエリア /////////
   const [check, setCheck] = useState<boolean>(false);
+
+  // グローバルなステート
   const {
     setSelectJob,
     setCompanyId,

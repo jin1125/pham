@@ -8,6 +8,8 @@ import { UserContext } from "../../../../UserContext";
 export const SearchCo_R: VFC = memo(() => {
   ///////// ステートエリア /////////
   const [companyDemoImg, setCompanyDemoImg] = useState<string>("");
+  
+  ///////// ステートエリア /////////
   const {
     selectCompany,
     setCompanyId,

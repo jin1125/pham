@@ -6,14 +6,15 @@ import { Layout } from "../../../components/templates/HeaderLayout";
 import { auth } from "../../../firebase";
 
 export default function search() {
-   ///////// 関数エリア /////////
-  //  ログインしてなかったらログインページへ
+  ///////// 関数エリア /////////
+  // ログインしてなかったらログインページへ
   useEffect(() => {
     const unSub = auth.onAuthStateChanged((user) => {
       if (!user) {
         Router.push("/login");
       }
     });
+    
     return () => unSub();
   }, []);
 

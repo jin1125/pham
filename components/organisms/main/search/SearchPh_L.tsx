@@ -6,19 +6,20 @@ import { Address } from "../../../atoms/Address";
 import { hitComponentPh } from "../../../molecules/search/HitComponentPh";
 import { CustomSearchBox } from "../../../molecules/search/SearchBox";
 
-///////// 型定義エリア /////////
-
 export const SearchPh_L: VFC = memo(() => {
+  ///////// ステートエリア /////////
+  // グローバルなステート
+  const { selectHomeAddress, setSelectHomeAddress } = useContext(UserContext);
+
+  // 定数定義
+  const indexName = "pham";
+
   ///////// 関数エリア /////////
   //algolia情報
   const searchClient = algoliasearch(
     "0TMIYQ8E9N",
     "58e6e394abd7a5cfcc6fcae0d7b51ac5"
   );
-
-  const indexName = "pham";
-
-  const { selectHomeAddress, setSelectHomeAddress } = useContext(UserContext);
 
   ///////// JSXエリア /////////
   return (
@@ -31,6 +32,7 @@ export const SearchPh_L: VFC = memo(() => {
             薬剤師検索
           </h4>
         </div>
+
         <InstantSearch indexName={indexName} searchClient={searchClient}>
           <div className="border-b">
             <div className="mx-5 my-7">
@@ -60,6 +62,7 @@ export const SearchPh_L: VFC = memo(() => {
               </div>
             </div>
           </div>
+          
           <div className="overflow-y-auto md:max-h-screen  max-h-60">
             {/* 検索結果 */}
             <Hits hitComponent={hitComponentPh} />

@@ -14,20 +14,23 @@ type Props = {
 };
 
 export const SearchPh_R: VFC<Props> = memo(({ phMatch, passId, receiveId }) => {
-  const alert = useAlert();
   ///////// ステートエリア /////////
   const [demoImg, setDemoImg] = useState<string>("");
   const [demoImgs, setDemoImgs] = useState<string>("");
+  
+  // グローバルなステート
   const { selectProfile, userId, setSelectMsg, disabledState,linking } =
-    useContext(UserContext);
+  useContext(UserContext);
+  
+  // 定数定義
+  const alert = useAlert();
 
   ///////// 関数エリア /////////
-  //  ストレージからプロフィールデモ画像取得
+  // ストレージからプロフィールデモ画像取得
   useEffect(() => {
     let isMounted = true;
     (async () => {
       const url = await storage.ref().child("demo_img.png").getDownloadURL();
-
       const Url = await storage.ref().child("demo_imgs.jpeg").getDownloadURL();
 
       if (isMounted) {
@@ -438,6 +441,7 @@ export const SearchPh_R: VFC<Props> = memo(({ phMatch, passId, receiveId }) => {
                   <Emoji emoji="hourglass_flowing_sand" size={20} />
                   <p className="text-base font-bold">経験年数</p>
                 </div>
+
                 {selectProfile.experiences.map((ex, index) => (
                   <div key={index} className="grid grid-cols-2">
                     {ex.experience && (
@@ -445,6 +449,7 @@ export const SearchPh_R: VFC<Props> = memo(({ phMatch, passId, receiveId }) => {
                         <p className="text-base">{`${ex.experience}経験`}</p>
                       </div>
                     )}
+
                     {ex.years && (
                       <div>
                         <p className="text-base">{`${ex.years}年程度`}</p>
@@ -461,14 +466,17 @@ export const SearchPh_R: VFC<Props> = memo(({ phMatch, passId, receiveId }) => {
                 <Emoji emoji="page_facing_up" size={20} />
                 <p className="text-base font-bold">経歴詳細</p>
               </div>
+
               {selectProfile.resumes.map((re, index) => (
                 <div key={index} className="grid grid-cols-3">
                   <div>
                     <p className="text-base">{re.companyName}</p>
                   </div>
+
                   <div>
                     <p className="text-base">{re.employmentStatus}</p>
                   </div>
+                  
                   {re.workStart && re.workEnd && (
                     <div>
                       <p className="text-base">

@@ -37,10 +37,18 @@ export const SearchMsg: VFC = memo(() => {
       text: "",
     },
   ]);
+  
+  // グローバルなステート
   const { selectMsg, userId, setUserId } = useContext(UserContext);
 
+  // 定数定義
+  // メッセージの数
+  const length: number = feeds.length;
+  // メッセージの最後かを判定
+  let isLastItem: boolean = false;
+
   ///////// 関数エリア /////////
-  //  ストレージからプロフィールデモ画像取得
+  // ストレージからプロフィールデモ画像取得
   useEffect(() => {
     let isMounted = true;
     (async () => {
@@ -56,7 +64,7 @@ export const SearchMsg: VFC = memo(() => {
     };
   }, []);
 
-  //  ストレージから企業デモ画像取得
+  // ストレージから企業デモ画像取得
   useEffect(() => {
     let isMounted = true;
     (async () => {
@@ -215,7 +223,7 @@ export const SearchMsg: VFC = memo(() => {
             setFileUrl("");
             setMsgImage(null);
           });
-        // アップロード画像がなければ
+      // アップロード画像がなければ
       } else {
         await db
           .collection("msgs")
@@ -253,11 +261,6 @@ export const SearchMsg: VFC = memo(() => {
       }
     }
   };
-
-  // メッセージの数
-  const length: number = feeds.length;
-  // メッセージの最後かを判定
-  let isLastItem: boolean = false;
 
   return (
     <div>

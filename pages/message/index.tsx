@@ -7,13 +7,14 @@ import { auth } from "../../firebase";
 
 export default function message() {
   ///////// 関数エリア /////////
-  //  ログインしてなかったらログインページへ
+  // ログインしてなかったらログインページへ
   useEffect(() => {
     const unSub = auth.onAuthStateChanged((user) => {
       if (!user) {
         Router.push("/login");
       }
     });
+
     return () => unSub();
   }, []);
 

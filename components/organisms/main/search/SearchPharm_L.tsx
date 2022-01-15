@@ -7,6 +7,8 @@ import { hitComponentPharm } from "../../../molecules/search/HitComponentPharm";
 import { CustomSearchBox } from "../../../molecules/search/SearchBox";
 
 export const SearchPharm_L: VFC = memo(() => {
+  ///////// ステートエリア /////////
+  // グローバルなステート
   const { selectPharmacyAddress, setSelectPharmacyAddress } =
     useContext(UserContext);
 
@@ -31,6 +33,7 @@ export const SearchPharm_L: VFC = memo(() => {
             薬局検索
           </h4>
         </div>
+
         <InstantSearch indexName={indexName} searchClient={searchClient}>
           <div className="border-b">
             <div className="mx-5 my-7">
@@ -60,6 +63,7 @@ export const SearchPharm_L: VFC = memo(() => {
               </div>
             </div>
           </div>
+          
           <div className="overflow-y-auto md:max-h-screen max-h-60">
              {/* 検索結果 */}
             <Hits hitComponent={hitComponentPharm} />

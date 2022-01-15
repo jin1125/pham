@@ -36,7 +36,7 @@ exports.sendEmail = functions.firestore
       subject: "【pham】お問い合わせ完了!",
       html: `<h1>お問い合わせ頂き、ありがとうございます！</h1>
             <p>お問い合わせ頂き、誠にありがとうございます。</p>
-            <p>弊社スタッフより3営業日以内に、折返しヒアリングのご連絡をさせて頂きます。</p>
+            <p>弊社スタッフより3営業日以内に、折返しヒアkリングのご連絡をさせて頂きます。</p>
             <p>今しばらくお待ち下さいませ。</p>
             <p><b>pham</b></p>
             <p><b>Email: </b>${snap.data().email}<br></p>`,
@@ -45,9 +45,7 @@ exports.sendEmail = functions.firestore
     // メール送信処理
     return transporter.sendMail(mailOptions, (error) => {
       if (error) {
-        console.log(error);
         return;
       }
-      console.log("Sent!");
     });
   });

@@ -11,13 +11,15 @@ type Props = {
 
 export const RecruiterForm: VFC<Props> = memo(
   ({ isContactUs, setIsContactUs }) => {
-    const alert = useAlert();
     ///////// ステートエリア /////////
     const [companyName, setCompanyName] = useState<string>("");
     const [clientName, setClientName] = useState<string>("");
     const [email, setEmail] = useState<string>("");
     const [tel, setTel] = useState<string>("");
 
+    // 定数定義
+    const alert = useAlert();
+    
     ///////// 関数エリア /////////
     // お問い合わせ処理
     const contactUs = async () => {
@@ -153,24 +155,22 @@ export const RecruiterForm: VFC<Props> = memo(
           </label>
         </div>
 
-        <div>
-          <div className="my-7">
-            <button
-              type="submit"
-              className="text-white bg-blue-400 transition 
-              duration-300 hover:bg-blue-300 disabled:bg-blue-200 
-              py-2 w-1/2 rounded-full shadow-lg font-bold"
-              onClick={contactUs}
-              disabled={
-                companyName.trim() === "" ||
-                clientName.trim() === "" ||
-                email.trim() === "" ||
-                tel.trim() === ""
-              }
-            >
-              お問い合わせ
-            </button>
-          </div>
+        <div className="my-7">
+          <button
+            type="submit"
+            className="text-white bg-blue-400 transition 
+            duration-300 hover:bg-blue-300 disabled:bg-blue-200 
+            py-2 w-1/2 rounded-full shadow-lg font-bold"
+            onClick={contactUs}
+            disabled={
+              companyName.trim() === "" ||
+              clientName.trim() === "" ||
+              email.trim() === "" ||
+              tel.trim() === ""
+            }
+          >
+            お問い合わせ
+          </button>
         </div>
       </div>
     );

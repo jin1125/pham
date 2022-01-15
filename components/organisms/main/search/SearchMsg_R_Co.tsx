@@ -49,11 +49,15 @@ export const SearchMsg_R_Co: VFC<Props> = memo(
     avatarImage,
     name,
   }) => {
+    ///////// ステートエリア /////////
+    // グローバルなステート
     const { selectMsg, userId } = useContext(UserContext);
+
+    // 定数定義
+    const ref = useRef(null);
 
     ///////// 関数エリア /////////
     // メッセージの最後にスクロール設定
-    const ref = useRef(null);
     useEffect(() => {
       if (isLastItem && ref.current) {
         ref.current.scrollIntoView({ behavior: "smooth" });

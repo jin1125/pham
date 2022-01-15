@@ -14,6 +14,8 @@ type Props = {
 
 export const SearchJob_L: VFC<Props> = memo(
   ({ setCoPassId, setCoReceiveId }) => {
+    ///////// ステートエリア /////////
+    // グローバルなステート
     const {
       selectJobAddress,
       setSelectJobAddress,
@@ -21,14 +23,15 @@ export const SearchJob_L: VFC<Props> = memo(
       setSelectJobEmploymentStatus,
     } = useContext(UserContext);
 
+    // 定数定義
+    const indexName = "pham_jobs";
+
     ///////// 関数エリア /////////
     //algolia情報
     const searchClient = algoliasearch(
       "0TMIYQ8E9N",
       "58e6e394abd7a5cfcc6fcae0d7b51ac5"
     );
-
-    const indexName = "pham_jobs";
 
     ///////// JSXエリア /////////
     return (
@@ -42,6 +45,7 @@ export const SearchJob_L: VFC<Props> = memo(
               求人検索
             </h4>
           </div>
+
           <InstantSearch indexName={indexName} searchClient={searchClient}>
             <div className="border-b">
               <div className="mx-5">
@@ -93,6 +97,7 @@ export const SearchJob_L: VFC<Props> = memo(
                 </div>
               </div>
             </div>
+            
             <div
               className="overflow-y-auto md:max-h-screen max-h-60"
               onClick={() => {

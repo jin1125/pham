@@ -25,13 +25,15 @@ type Props = {
 
 export const Mypage: VFC<Props> = memo(({ setIsOpen }) => {
   ///////// ステートエリア /////////
-  const { userId, setUserId } = useContext(UserContext);
   const [profile, setProfile] = useState<Profile>({});
   const [displayName, setDisplayName] = useState<string>("");
   const [demoImg, setDemoImg] = useState<string>("");
   const [demoImgs, setDemoImgs] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-
+  
+  // グローバルなステート
+  const { userId, setUserId } = useContext(UserContext);
+  
   ///////// 関数エリア /////////
   // ストレージからプロフィール＆フリーデモ画像取得
   useEffect(() => {

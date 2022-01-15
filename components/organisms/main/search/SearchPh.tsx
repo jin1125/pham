@@ -13,6 +13,7 @@ export const SearchPh: VFC = memo(() => {
   const [phMatchA, setPhMatchA] = useState<string[]>([]);
   const [phMatchB, setPhMatchB] = useState<string[]>([]);
 
+  // グローバルなステート
   const {
     selectProfile,
     userId,
@@ -111,7 +112,7 @@ export const SearchPh: VFC = memo(() => {
     }
   }, [receiveId, receiveData]);
 
-  //選択したユーザーが他者から申請があって許可済みのユーザーIDを取得
+  // 選択したユーザーが他者から申請があって許可済みのユーザーIDを取得
   useEffect(() => {
     if (selectProfile.objectID) {
       let unSub = db
@@ -127,7 +128,7 @@ export const SearchPh: VFC = memo(() => {
     }
   }, [selectProfile.objectID]);
 
-  //選択したユーザーが自分から申請して許可済みのユーザーIDを取得
+  // 選択したユーザーが自分から申請して許可済みのユーザーIDを取得
   useEffect(() => {
     if (selectProfile.objectID) {
       let unSub = db

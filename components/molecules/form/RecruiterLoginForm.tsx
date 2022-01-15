@@ -4,10 +4,12 @@ import { useAlert } from "react-alert";
 import { auth } from "../../../firebase";
 
 export const RecruiterLoginForm: VFC = memo(() => {
-  const alert = useAlert();
   ///////// ステートエリア /////////
   const [companyEmail, setCompanyEmail] = useState<string>("");
   const [companyPassword, setCompanyPassword] = useState<string>("");
+
+  // 定数定義
+  const alert = useAlert();
 
   ///////// 関数エリア /////////
   //メールアドレスログイン

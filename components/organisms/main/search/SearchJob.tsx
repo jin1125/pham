@@ -12,6 +12,8 @@ export const SearchJob: VFC = memo(() => {
   const [coPassId, setCoPassId] = useState<string>("");
   const [coReceiveId, setCoReceiveId] = useState<string>("");
   const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  // グローバルなステート
   const { selectJob, setUserId } = useContext(UserContext);
 
   ///////// 関数エリア /////////

@@ -62,6 +62,7 @@ export const HitPh: VFC<Props> = memo(({ hit }) => {
         <div>
           <Highlight attribute="userName" tagName="mark" hit={hit} />
         </div>
+        
         <div className="text-xs text-blue-300 ">
           <Highlight attribute="homeAddress" tagName="mark" hit={hit} />
         </div>

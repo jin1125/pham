@@ -7,6 +7,8 @@ import { SearchPharm_L } from "./SearchPharm_L";
 import { SearchPharm_R } from "./SearchPharm_R";
 
 export const SearchPharm: VFC = memo(() => {
+  ///////// ステートエリア /////////
+  // グローバルなステート
   const { selectPharmacy } = useContext(UserContext);
 
   ///////// 関数エリア /////////

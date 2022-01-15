@@ -35,7 +35,6 @@ type ApplyData = {
 
 export const SearchJob_R: VFC<Props> = memo(
   ({ coPassId, setCoPassId, coReceiveId, setCoReceiveId, setIsOpen }) => {
-    const alert = useAlert();
     ///////// ステートエリア /////////
     const [demoImgs, setDemoImgs] = useState<string>("");
     const [applyData, setApplyData] = useState<ApplyData>({
@@ -47,11 +46,16 @@ export const SearchJob_R: VFC<Props> = memo(
       pharmacyName: "",
       datetime: null,
     });
+    
+    // グローバルなステート
     const { selectJob, setPharmId, setCompanyId, userId } =
-      useContext(UserContext);
+    useContext(UserContext);
+
+    // 定数定義
+    const alert = useAlert();
 
     ///////// 関数エリア /////////
-    //  ストレージからフリーデモ画像取得
+    // ストレージからフリーデモ画像取得
     useEffect(() => {
       let isMounted = true;
 
@@ -139,8 +143,8 @@ export const SearchJob_R: VFC<Props> = memo(
             .then(() => {
               console.log("add");
             })
-            .catch((error) => {
-              console.log(error);
+            .catch((err) => {
+              console.log(err);
             });
         }
 

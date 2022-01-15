@@ -5,7 +5,7 @@ import ConnectModal from "../../components/organisms/modal/ConnectModal";
 import { Layout } from "../../components/templates/HeaderLayout";
 
 export default function mypage() {
-  ///////// 関数エリア /////////
+  ///////// ステートエリア /////////
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   ///////// JSXエリア /////////

@@ -11,7 +11,6 @@ type Props = {
 };
 
 export const FooterEdit: VFC<Props> = memo(({ userEmail, setUserEmail }) => {
-  const alert = useAlert();
   ///////// ステートエリア /////////
   const [openEditEmail, setOpenEditEmail] = useState<boolean>(false);
   const [openEditPassword, setOpenEditPassword] = useState<boolean>(false);
@@ -19,7 +18,10 @@ export const FooterEdit: VFC<Props> = memo(({ userEmail, setUserEmail }) => {
   const [isGoogleLogin, setIsGoogleLogin] = useState<boolean>(false);
   const [resetEmailPassword, setResetEmailPassword] = useState<string>("");
   const [deleteAccountPassword, setDeleteAccountPassword] =
-    useState<string>("");
+  useState<string>("");
+
+  // 定数定義
+  const alert = useAlert();
 
   ///////// 関数エリア /////////
   // google認識でログインか判別処理
@@ -100,9 +102,8 @@ export const FooterEdit: VFC<Props> = memo(({ userEmail, setUserEmail }) => {
               alert.error("アカウント削除をキャンセルしました");
             }
           })
-          .catch((err) => {
+          .catch(() => {
             alert.error("アカウントを削除できませんでした");
-            console.log(err);
           });
       }
       // 登録解除
@@ -123,7 +124,7 @@ export const FooterEdit: VFC<Props> = memo(({ userEmail, setUserEmail }) => {
       });
   };
 
-  //アカウント(google)削除
+  // アカウント(google)削除
   const deleteGoogleAccount = (): void => {
     const unSub = auth.onAuthStateChanged((user) => {
       if (user) {
@@ -169,7 +170,6 @@ export const FooterEdit: VFC<Props> = memo(({ userEmail, setUserEmail }) => {
         alert.success("ログアウトしました");
         Router.push("/login");
       } catch (error) {
-        console.log(error);
         alert.error("ログアウトできませんでした");
       }
     }
@@ -188,6 +188,7 @@ export const FooterEdit: VFC<Props> = memo(({ userEmail, setUserEmail }) => {
           >
             メールアドレス変更
           </button>
+
           {openEditEmail && (
             <>
               {isGoogleLogin || (
@@ -210,6 +211,7 @@ export const FooterEdit: VFC<Props> = memo(({ userEmail, setUserEmail }) => {
                       }
                     />
                   </label>
+
                   <label>
                     <p className="mt-3 text-sm text-blue-300">パスワード</p>
                     <input
@@ -225,6 +227,7 @@ export const FooterEdit: VFC<Props> = memo(({ userEmail, setUserEmail }) => {
                       }
                     />
                   </label>
+
                   <div>
                     <button
                       className="text-white bg-blue-400 transition 
@@ -240,6 +243,7 @@ export const FooterEdit: VFC<Props> = memo(({ userEmail, setUserEmail }) => {
                   </div>
                 </>
               )}
+
               {isGoogleLogin && (
                 <p 
                   className="w-11/12 my-3 text-center mx-auto 
@@ -262,6 +266,7 @@ export const FooterEdit: VFC<Props> = memo(({ userEmail, setUserEmail }) => {
           >
             パスワード変更
           </button>
+
           {openEditPassword && (
             <>
               <p 
@@ -270,6 +275,7 @@ export const FooterEdit: VFC<Props> = memo(({ userEmail, setUserEmail }) => {
               >
                 現在登録されているメールアドレスにパスワード変更メールが送信されます
               </p>
+
               <div>
                 <button
                   className="text-white bg-blue-400 transition duration-300 
@@ -303,6 +309,7 @@ export const FooterEdit: VFC<Props> = memo(({ userEmail, setUserEmail }) => {
           >
             アカウント削除
           </button>
+
           {openDeleteAccount && (
             <>
               {isGoogleLogin || (
@@ -322,6 +329,7 @@ export const FooterEdit: VFC<Props> = memo(({ userEmail, setUserEmail }) => {
                       }
                     />
                   </label>
+
                   <div>
                     <button
                       className="text-white bg-blue-400 transition 
@@ -344,6 +352,7 @@ export const FooterEdit: VFC<Props> = memo(({ userEmail, setUserEmail }) => {
                   >
                     「google認証」した後に「削除」をクリックしてください
                   </p>
+
                   <div>
                     <button
                       className="text-white bg-blue-400 transition 
@@ -354,6 +363,7 @@ export const FooterEdit: VFC<Props> = memo(({ userEmail, setUserEmail }) => {
                       google認証
                     </button>
                   </div>
+                  
                   <div>
                     <button
                       className="text-white bg-red-400 transition 

@@ -70,12 +70,14 @@ export default function ApplyModal({
                   <p className="text-sm text-gray-500">
                     求人への応募が完了しました。
                   </p>
+
                   <Image
                     src="/apply_img.png"
                     alt="apply_img"
                     width={250}
                     height={250}
                   />
+                  
                   <p className="text-sm text-gray-500">
                     採用担当者より今後の流れについてメッセージが届きますので、
                     今しばらくお待ち下さいませ。

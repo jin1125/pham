@@ -7,6 +7,8 @@ import { hitComponentCo } from "../../../molecules/search/HitComponentCo";
 import { CustomSearchBox } from "../../../molecules/search/SearchBox";
 
 export const SearchCo_L: VFC = memo(() => {
+  ///////// ステートエリア /////////
+  // グローバルなステート
   const { selectCompanyAddress, setSelectCompanyAddress } =
     useContext(UserContext);
 
@@ -30,6 +32,7 @@ export const SearchCo_L: VFC = memo(() => {
             企業検索
           </h4>
         </div>
+        
         <InstantSearch indexName={indexName} searchClient={searchClient}>
           <div className="border-b">
             <div className="mx-5 my-7">

@@ -4,7 +4,6 @@ import { useAlert } from "react-alert";
 import { auth, db, provider } from "../../../firebase";
 
 export const LoginForm: VFC = memo(() => {
-  const alert = useAlert();
   ///////// ステートエリア /////////
   const [name, setName] = useState<string>("");
   const [isLogin, setIsLogin] = useState<boolean>(true);
@@ -12,19 +11,20 @@ export const LoginForm: VFC = memo(() => {
   const [password, setPassword] = useState<string>("");
   const [resetEmail, setResetEmail] = useState<string>("");
   const [openReset, setOpenReset] = useState<boolean>(false);
-
+  
+  // 定数定義
+  const alert = useAlert();
+  
   ///////// 関数エリア /////////
   //Google新規登録＆ログイン
   const signInGoogle = async (): Promise<void> => {
     await auth
       .signInWithPopup(provider)
       .then(() => {
-        console.log("google");
         alert.success("Googleで続行しました");
         Router.push("/mypage");
       })
       .catch((error) => {
-        console.log(error);
         alert.error("Googleで続行できませんでした");
       });
   };
@@ -52,7 +52,6 @@ export const LoginForm: VFC = memo(() => {
           .doc(user.user.uid)
           .set({ userName: name })
           .then(() => {
-            console.log("OK");
             Router.push("/mypage");
           })
           .catch(() => {
@@ -108,6 +107,7 @@ export const LoginForm: VFC = memo(() => {
             </p>
           </button>
         </div>
+        
         <div>
           <button
             onClick={() => setIsLogin(false)}

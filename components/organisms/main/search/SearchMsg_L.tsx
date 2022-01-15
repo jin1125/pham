@@ -26,7 +26,8 @@ export const SearchMsg_L: VFC<Props> = memo(
 
     const indexName = "pham";
     const indexCoName = "pham_companies";
-
+    
+    // グローバルなステート
     const { setSelectMsg } = useContext(UserContext);
 
     ///////// JSXエリア /////////
