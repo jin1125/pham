@@ -31,9 +31,15 @@ export const SearchMsg_L: VFC<Props> = memo(
 
     ///////// JSXエリア /////////
     return (
-      <div className="md:col-span-3 col-span-12 border-r-2 border-blue-400 relative ">
+      <div 
+        className="md:col-span-3 col-span-12 
+        border-r-2 border-blue-400 relative"
+      >
         <div className="md:absolute h-full flex flex-col w-full">
-          <div className="flex flex-row  flex-wrap bg-blue-400 text-lg py-3 leading-none justify-center items-center gap-3">
+          <div 
+            className="flex flex-row  flex-wrap bg-blue-400 text-lg py-3 
+            leading-none justify-center items-center gap-3"
+          >
             <button
               onClick={() => {
                 setChangeMsg(!changeMsg);
@@ -78,7 +84,9 @@ export const SearchMsg_L: VFC<Props> = memo(
               </div>
             </div>
 
-            <div className="overflow-y-auto md:max-h-screen max-h-60 lg:pb-20 pb-12">
+            <div 
+              className="overflow-y-auto md:max-h-screen max-h-60 lg:pb-20 pb-12"
+            >
               {/* 検索結果 */}
               <Hits
                 hitComponent={changeMsg ? hitComponentPhMsg : hitComponentCoMsg}

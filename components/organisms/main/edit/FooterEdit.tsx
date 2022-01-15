@@ -182,7 +182,8 @@ export const FooterEdit: VFC<Props> = memo(({ userEmail, setUserEmail }) => {
       <div className="grid grid-cols-12 justify-items-center">
         <div className="w-full text-center md:col-span-3 col-span-6 md:my-10 my-5">
           <button
-            className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 py-1 px-5 rounded-full shadow-lg text-sm"
+            className="text-white bg-blue-400 transition duration-300 
+            hover:bg-blue-300 py-1 px-5 rounded-full shadow-lg text-sm"
             onClick={() => setOpenEditEmail(!openEditEmail)}
           >
             メールアドレス変更
@@ -196,7 +197,8 @@ export const FooterEdit: VFC<Props> = memo(({ userEmail, setUserEmail }) => {
                       新しいメールアドレス
                     </p>
                     <input
-                      className="text-base bg-blue-100 placeholder-blue-300 rounded-full py-1 outline-none text-center w-11/12"
+                      className="text-base bg-blue-100 placeholder-blue-300 
+                      rounded-full py-1 outline-none text-center w-11/12"
                       placeholder="email@example.com"
                       name="email"
                       autoComplete="email"
@@ -211,7 +213,8 @@ export const FooterEdit: VFC<Props> = memo(({ userEmail, setUserEmail }) => {
                   <label>
                     <p className="mt-3 text-sm text-blue-300">パスワード</p>
                     <input
-                      className="text-base bg-blue-100 placeholder-blue-300 rounded-full py-1 outline-none text-center w-11/12"
+                      className="text-base bg-blue-100 placeholder-blue-300 
+                      rounded-full py-1 outline-none text-center w-11/12"
                       name="password"
                       autoComplete="password"
                       type="password"
@@ -224,7 +227,9 @@ export const FooterEdit: VFC<Props> = memo(({ userEmail, setUserEmail }) => {
                   </label>
                   <div>
                     <button
-                      className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 disabled:bg-blue-200 py-1 px-5 rounded-full shadow-lg text-sm my-3"
+                      className="text-white bg-blue-400 transition 
+                      duration-300 hover:bg-blue-300 disabled:bg-blue-200 
+                      py-1 px-5 rounded-full shadow-lg text-sm my-3"
                       onClick={changeEmail}
                       disabled={
                         userEmail.trim() === "" || resetEmailPassword.length < 6
@@ -236,7 +241,10 @@ export const FooterEdit: VFC<Props> = memo(({ userEmail, setUserEmail }) => {
                 </>
               )}
               {isGoogleLogin && (
-                <p className="w-11/12 my-3 text-center mx-auto text-blue-300 text-sm">
+                <p 
+                  className="w-11/12 my-3 text-center mx-auto 
+                  text-blue-300 text-sm"
+                >
                   google認識でログインしたアカウントはメールアドレスの変更ができません
                 </p>
               )}
@@ -244,21 +252,28 @@ export const FooterEdit: VFC<Props> = memo(({ userEmail, setUserEmail }) => {
           )}
         </div>
 
-        <div className="w-full text-center md:col-span-3 col-span-6 md:my-10 my-5">
+        <div 
+          className="w-full text-center md:col-span-3 col-span-6 md:my-10 my-5"
+        >
           <button
-            className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 py-1 px-5 rounded-full shadow-lg text-sm"
+            className="text-white bg-blue-400 transition duration-300 
+            hover:bg-blue-300 py-1 px-5 rounded-full shadow-lg text-sm"
             onClick={() => setOpenEditPassword(!openEditPassword)}
           >
             パスワード変更
           </button>
           {openEditPassword && (
             <>
-              <p className="w-11/12 my-3 text-center mx-auto text-blue-300 text-sm">
+              <p 
+                className="w-11/12 my-3 text-center mx-auto 
+                text-blue-300 text-sm"
+              >
                 現在登録されているメールアドレスにパスワード変更メールが送信されます
               </p>
               <div>
                 <button
-                  className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 py-1 px-5 rounded-full shadow-lg text-sm"
+                  className="text-white bg-blue-400 transition duration-300 
+                  hover:bg-blue-300 py-1 px-5 rounded-full shadow-lg text-sm"
                   onClick={sendResetEmail}
                 >
                   変更
@@ -270,16 +285,20 @@ export const FooterEdit: VFC<Props> = memo(({ userEmail, setUserEmail }) => {
 
         <div className="w-full text-center md:col-span-3 col-span-6 md:my-10 my-5">
           <button
-            className="text-white bg-gray-400 transition duration-300 hover:bg-gray-300 py-1 px-5 rounded-full shadow-lg text-sm"
+            className="text-white bg-gray-400 transition duration-300 
+            hover:bg-gray-300 py-1 px-5 rounded-full shadow-lg text-sm"
             onClick={signOutUser}
           >
             ログアウト
           </button>
         </div>
 
-        <div className="w-full text-center md:col-span-3 col-span-6 md:my-10 my-5">
+        <div 
+          className="w-full text-center md:col-span-3 col-span-6 md:my-10 my-5"
+        >
           <button
-            className="text-white bg-gray-400 transition duration-300 hover:bg-gray-300 py-1 px-5 rounded-full shadow-lg text-sm"
+            className="text-white bg-gray-400 transition duration-300 
+            hover:bg-gray-300 py-1 px-5 rounded-full shadow-lg text-sm"
             onClick={() => setOpenDeleteAccount(!openDeleteAccount)}
           >
             アカウント削除
@@ -291,7 +310,8 @@ export const FooterEdit: VFC<Props> = memo(({ userEmail, setUserEmail }) => {
                   <label>
                     <p className="mt-3 text-sm text-blue-300">パスワード</p>
                     <input
-                      className="text-base bg-blue-100 placeholder-blue-300 rounded-full py-1 outline-none text-center w-11/12"
+                      className="text-base bg-blue-100 placeholder-blue-300 
+                      rounded-full py-1 outline-none text-center w-11/12"
                       name="password"
                       autoComplete="password"
                       type="password"
@@ -304,7 +324,9 @@ export const FooterEdit: VFC<Props> = memo(({ userEmail, setUserEmail }) => {
                   </label>
                   <div>
                     <button
-                      className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 disabled:bg-blue-200 py-1 px-5 rounded-full shadow-lg text-sm my-3"
+                      className="text-white bg-blue-400 transition 
+                      duration-300 hover:bg-blue-300 disabled:bg-blue-200 
+                      py-1 px-5 rounded-full shadow-lg text-sm my-3"
                       onClick={deleteAccount}
                       disabled={deleteAccountPassword.length < 6}
                     >
@@ -316,12 +338,17 @@ export const FooterEdit: VFC<Props> = memo(({ userEmail, setUserEmail }) => {
 
               {isGoogleLogin && (
                 <>
-                  <p className="w-11/12 my-3 text-center mx-auto text-blue-300 text-sm">
+                  <p 
+                    className="w-11/12 my-3 text-center 
+                    mx-auto text-blue-300 text-sm"
+                  >
                     「google認証」した後に「削除」をクリックしてください
                   </p>
                   <div>
                     <button
-                      className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 disabled:bg-blue-200 py-1 px-5 rounded-full shadow-lg text-sm my-3"
+                      className="text-white bg-blue-400 transition 
+                      duration-300 hover:bg-blue-300 disabled:bg-blue-200 
+                      py-1 px-5 rounded-full shadow-lg text-sm my-3"
                       onClick={signInGoogle}
                     >
                       google認証
@@ -329,7 +356,9 @@ export const FooterEdit: VFC<Props> = memo(({ userEmail, setUserEmail }) => {
                   </div>
                   <div>
                     <button
-                      className="text-white bg-red-400 transition duration-300 hover:bg-red-300 disabled:bg-blue-200 py-1 px-5 rounded-full shadow-lg text-sm my-3"
+                      className="text-white bg-red-400 transition 
+                      duration-300 hover:bg-red-300 disabled:bg-blue-200 
+                      py-1 px-5 rounded-full shadow-lg text-sm my-3"
                       onClick={deleteGoogleAccount}
                     >
                       削除

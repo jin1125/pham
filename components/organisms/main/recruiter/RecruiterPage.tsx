@@ -9,7 +9,10 @@ export const RecruiterPage: VFC = memo(() => {
 
   ///////// JSXエリア /////////
   return (
-    <main className="grid lg:grid-cols-2 min-h-screen xl:-mt-20 justify-items-center items-center">
+    <main 
+      className="grid lg:grid-cols-2 min-h-screen xl:-mt-20 
+      justify-items-center items-center"
+    >
       <div className="text-center md:w-3/4 w-11/12">
         <div>
           {isContactUs ? (
@@ -45,15 +48,19 @@ export const RecruiterPage: VFC = memo(() => {
           {isContactUs ? (
             <>
               <p className="text-sm  my-3">
-                お問い合わせ頂き、誠にありがとうございます。弊社スタッフより3営業日以内に、折返しヒアリングのご連絡をさせて頂きますので、今しばらくお待ち下さいませ。
+                お問い合わせ頂き、誠にありがとうございます。弊社スタッフより3営業日以内に、
+                折返しヒアリングのご連絡をさせて頂きますので、今しばらくお待ち下さいませ。
               </p>
               <p className="text-sm my-3">
-                また、記載頂きましたメールアドレス宛に到着確認のメールを送付させて頂きました。無事メールが届いておりますかご確認くださいませ。
+                また、記載頂きましたメールアドレス宛に到着確認のメールを送付させて頂きました。
+                無事メールが届いておりますかご確認くださいませ。
               </p>
             </>
           ) : (
             <p className="text-sm">
-              この度は、Phamにご興味をお持ち頂き、誠にありがとうございます。求人掲載をご検討の採用担当様は、下記フォームよりお問い合わせくださいませ。弊社スタッフより、折返しヒアリングのご連絡をさせて頂きます。
+              この度は、Phamにご興味をお持ち頂き、誠にありがとうございます。
+              求人掲載をご検討の採用担当様は、下記フォームよりお問い合わせくださいませ。
+              弊社スタッフより、折返しヒアリングのご連絡をさせて頂きます。
             </p>
           )}
         </div>
@@ -61,13 +68,19 @@ export const RecruiterPage: VFC = memo(() => {
         {isContactUs ? (
           <div className="my-10">
             <Link href="/">
-              <button className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 py-3 px-14 rounded-full shadow-lg font-bold">
+              <button 
+                className="text-white bg-blue-400 transition duration-300 
+                hover:bg-blue-300 py-3 px-14 rounded-full shadow-lg font-bold"
+              >
                 トップページへ
               </button>
             </Link>
           </div>
         ) : (
-          <RecruiterForm isContactUs={isContactUs} setIsContactUs={setIsContactUs} />
+          <RecruiterForm 
+            isContactUs={isContactUs} 
+            setIsContactUs={setIsContactUs} 
+          />
         )}
       </div>
 

@@ -50,7 +50,10 @@ export const MainHeader: VFC = memo(() => {
   ///////// JSXエリア /////////
   return (
     <header>
-      <div className="grid grid-cols-6 gap-3 bg-blue-300 py-4 justify-items-center items-center leading-none px-1">
+      <div 
+        className="grid grid-cols-6 gap-3 bg-blue-300 py-4 
+        justify-items-center items-center leading-none px-1"
+      >
         <Link href="/mypage">
           <button>
             <h2 className="md:text-2xl text-lg text-white font-bold">Pham</h2>
@@ -59,7 +62,10 @@ export const MainHeader: VFC = memo(() => {
 
         <Link href="/message">
           <button
-            className="font-bold text-center text-blue-400 transition duration-300 hover:text-white bg-white hover:bg-blue-300 disabled:bg-blue-300 disabled:hover:text-blue-400 py-2 rounded-full w-full"
+            className="font-bold text-center text-blue-400 transition 
+            duration-300 hover:text-white bg-white hover:bg-blue-300 
+            disabled:bg-blue-300 disabled:hover:text-blue-400 py-2 
+            rounded-full w-full"
             disabled={check}
           >
             <div className="hidden md:block">メッセージ</div>
@@ -71,7 +77,10 @@ export const MainHeader: VFC = memo(() => {
 
         <Link href="/pharmacists/search">
           <button
-            className="font-bold text-center text-blue-400 transition duration-300 hover:text-white disabled:bg-blue-300 bg-white hover:bg-blue-300 disabled:hover:text-blue-400 py-2 rounded-full w-full"
+            className="font-bold text-center text-blue-400 transition 
+            duration-300 hover:text-white disabled:bg-blue-300 
+            bg-white hover:bg-blue-300 disabled:hover:text-blue-400 
+            py-2 rounded-full w-full"
             disabled={check}
             onClick={() => setSelectProfile({})}
           >
@@ -84,7 +93,10 @@ export const MainHeader: VFC = memo(() => {
 
         <Link href="/companies/search">
           <button
-            className="font-bold text-center text-blue-400 transition duration-300 hover:text-white disabled:bg-blue-300 bg-white hover:bg-blue-300 disabled:hover:text-blue-400 py-2 rounded-full w-full"
+            className="font-bold text-center text-blue-400 transition 
+            duration-300 hover:text-white disabled:bg-blue-300 bg-white
+            hover:bg-blue-300 disabled:hover:text-blue-400 py-2 
+            rounded-full w-full"
             disabled={check}
             onClick={() => {
               setSelectJob({});
@@ -102,7 +114,10 @@ export const MainHeader: VFC = memo(() => {
 
         <Link href="/jobs/search">
           <button
-            className="font-bold text-center text-blue-400 transition duration-300 hover:text-white disabled:bg-blue-300 bg-white hover:bg-blue-300 disabled:hover:text-blue-400 py-2 rounded-full w-full"
+            className="font-bold text-center text-blue-400 transition 
+            duration-300 hover:text-white disabled:bg-blue-300 
+            bg-white hover:bg-blue-300 disabled:hover:text-blue-400 
+            py-2 rounded-full w-full"
             disabled={check}
             onClick={() => {
               setSelectJob({});

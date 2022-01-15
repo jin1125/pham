@@ -73,7 +73,8 @@ export const RecruiterForm: VFC<Props> = memo(
           <label>
             <p>会社名</p>
             <input
-              className="bg-blue-100 placeholder-blue-300 text-center rounded-full w-3/4 py-1 outline-none"
+              className="bg-blue-100 placeholder-blue-300 
+              text-center rounded-full w-3/4 py-1 outline-none"
               type="text"
               name="organization"
               autoComplete="organization"
@@ -93,7 +94,8 @@ export const RecruiterForm: VFC<Props> = memo(
           <label>
             <p>名前</p>
             <input
-              className="bg-blue-100 placeholder-blue-300 text-center rounded-full w-3/4 py-1 outline-none"
+              className="bg-blue-100 placeholder-blue-300 
+              text-center rounded-full w-3/4 py-1 outline-none"
               type="text"
               name="name"
               autoComplete="name"
@@ -113,7 +115,8 @@ export const RecruiterForm: VFC<Props> = memo(
           <label>
             <p>メールアドレス</p>
             <input
-              className="bg-blue-100 placeholder-blue-300 text-center rounded-full w-3/4 py-1 outline-none"
+              className="bg-blue-100 placeholder-blue-300 
+              text-center rounded-full w-3/4 py-1 outline-none"
               placeholder="email@example.com"
               name="email"
               type="email"
@@ -133,7 +136,8 @@ export const RecruiterForm: VFC<Props> = memo(
           <label>
             <p>電話番号</p>
             <input
-              className="bg-blue-100 placeholder-blue-300 text-center rounded-full w-3/4 py-1 outline-none"
+              className="bg-blue-100 placeholder-blue-300 
+              text-center rounded-full w-3/4 py-1 outline-none"
               placeholder="xxx-xxxx-xxxx"
               name="tel"
               type="tel"
@@ -153,7 +157,9 @@ export const RecruiterForm: VFC<Props> = memo(
           <div className="my-7">
             <button
               type="submit"
-              className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 disabled:bg-blue-200 py-2 w-1/2 rounded-full shadow-lg font-bold"
+              className="text-white bg-blue-400 transition 
+              duration-300 hover:bg-blue-300 disabled:bg-blue-200 
+              py-2 w-1/2 rounded-full shadow-lg font-bold"
               onClick={contactUs}
               disabled={
                 companyName.trim() === "" ||

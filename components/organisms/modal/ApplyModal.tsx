@@ -43,6 +43,7 @@ export default function ApplyModal({
             >
               &#8203;
             </span>
+            
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
@@ -52,13 +53,19 @@ export default function ApplyModal({
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-center align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+              <div 
+                className="inline-block w-full max-w-md p-6 my-8 
+                overflow-hidden text-center align-middle transition-all 
+                transform bg-white shadow-xl rounded-2xl"
+              >
+
                 <Dialog.Title
                   as="h3"
                   className="text-2xl font-bold leading-6 text-blue-400 my-5"
                 >
                   応募完了
                 </Dialog.Title>
+
                 <div className="mt-2">
                   <p className="text-sm text-gray-500">
                     求人への応募が完了しました。
@@ -70,14 +77,18 @@ export default function ApplyModal({
                     height={250}
                   />
                   <p className="text-sm text-gray-500">
-                    採用担当者より今後の流れについてメッセージが届きますので、今しばらくお待ち下さいませ。
+                    採用担当者より今後の流れについてメッセージが届きますので、
+                    今しばらくお待ち下さいませ。
                   </p>
                 </div>
 
                 <div className="mt-4">
                   <button
                     type="button"
-                    className="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-blue-400 border border-transparent rounded-md hover:bg-blue-300 focus:outline-none"
+                    className="inline-flex justify-center px-4 py-2 
+                    text-sm font-medium text-white bg-blue-400 
+                    border border-transparent rounded-md 
+                    hover:bg-blue-300 focus:outline-none"
                     onClick={closeModal}
                   >
                     戻る

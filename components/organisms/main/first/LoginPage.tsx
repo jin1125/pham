@@ -6,7 +6,10 @@ import { LoginForm } from "../../../molecules/form/LoginForm";
 export const LoginPage: VFC = memo(() => {
   ///////// JSXエリア /////////
   return (
-    <main className="grid lg:grid-cols-2 min-h-screen md:-mt-20 justify-items-center items-center">
+    <main 
+      className="grid lg:grid-cols-2 min-h-screen md:-mt-20 
+      justify-items-center items-center"
+    >
       <div className="text-center md:w-3/4 w-11/12 mb-5">
         <div>
           <h1 className="text-2xl text-blue-400 font-bold">Phamへようこそ！</h1>

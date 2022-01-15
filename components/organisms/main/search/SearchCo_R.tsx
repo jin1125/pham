@@ -41,7 +41,9 @@ export const SearchCo_R: VFC = memo(() => {
   return (
     <div className="md:col-span-9 col-span-12 min-h-screen md:px-10 px-5">
       <div className="grid grid-cols-12 my-10 mr-10">
-        <div className="lg:col-span-3 col-span-12 justify-self-center text-center">
+        <div 
+          className="lg:col-span-3 col-span-12 justify-self-center text-center"
+        >
           {selectCompany.companyImageUrl ? (
             <Image
               className="inline object-cover mr-2 rounded-full"
@@ -76,9 +78,9 @@ export const SearchCo_R: VFC = memo(() => {
             {selectCompany.companyPrefecture && (
               <div className="flex flex-row flex-wrap gap-1 items-center">
                 <Emoji emoji="round_pushpin" size={20} />
-                <p className="text-base">{`${selectCompany.companyPrefecture.slice(
-                  3
-                )}${selectCompany.companyAddress}`}</p>
+                <p className="text-base">
+                  {`${selectCompany.companyPrefecture.slice(3)}${selectCompany.companyAddress}`}
+                </p>
               </div>
             )}
 
@@ -148,7 +150,9 @@ export const SearchCo_R: VFC = memo(() => {
         <div className="text-center">
           <Link href="/pharmacies/search">
             <button
-              className="text-blue-400 border-2 border-blue-400 bg-white transition duration-300 hover:bg-blue-100 py-2 lg:w-3/5 w-4/5 rounded-full shadow-lg font-bold"
+              className="text-blue-400 border-2 border-blue-400 
+              bg-white transition duration-300 hover:bg-blue-100 py-2 
+              lg:w-3/5 w-4/5 rounded-full shadow-lg font-bold"
               onClick={() => {
                 setCompanyId(selectCompany.objectID);
                 setSelectPharmacy({});
@@ -163,7 +167,9 @@ export const SearchCo_R: VFC = memo(() => {
         <div className="text-center">
           <Link href="/jobs/search">
             <button
-              className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 py-2 lg:w-3/5 w-4/5 rounded-full shadow-lg font-bold"
+              className="text-white bg-blue-400 transition 
+              duration-300 hover:bg-blue-300 py-2 lg:w-3/5 
+              w-4/5 rounded-full shadow-lg font-bold"
               onClick={() => {
                 setCompanyId(selectCompany.objectID);
                 setSelectPharmacy({});

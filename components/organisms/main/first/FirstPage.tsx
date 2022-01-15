@@ -6,7 +6,10 @@ export const FirstPage: VFC = memo(() => {
   ///////// JSXエリア /////////
   return (
     <main>
-      <div className="min-h-screen grid justify-items-center items-center content-center md:-mt-20 -mt-10">
+      <div 
+        className="min-h-screen grid justify-items-center items-center 
+        content-center md:-mt-20 -mt-10"
+      >
         <div>
           <h1 className="text-2xl text-blue-400 font-bold">
             自分の中身を見つめ直す。
@@ -23,7 +26,11 @@ export const FirstPage: VFC = memo(() => {
 
         <div className="mt-10">
           <Link href="/login">
-            <button className="text-white bg-blue-400 hover:bg-blue-300  transition duration-300 py-3 px-14 rounded-full shadow-lg font-bold">
+            <button 
+              className="text-white bg-blue-400 
+              hover:bg-blue-300  transition duration-300 
+              py-3 px-14 rounded-full shadow-lg font-bold"
+            >
               ログイン / 新規登録
             </button>
           </Link>

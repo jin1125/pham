@@ -31,7 +31,10 @@ export const SearchCo: VFC = memo(() => {
         {selectCompany && Object.keys(selectCompany).length ? (
           <SearchCo_R />
         ) : (
-          <div className="h-screen md:col-span-9 col-span-12 justify-self-center self-center md:pt-24">
+          <div 
+            className="h-screen md:col-span-9 col-span-12 
+            justify-self-center self-center md:pt-24"
+          >
             {/* 未選択時表示画像 */}
             <Image
               src="/companies_search_img.png"

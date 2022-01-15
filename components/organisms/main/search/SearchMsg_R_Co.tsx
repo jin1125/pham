@@ -169,7 +169,9 @@ export const SearchMsg_R_Co: VFC<Props> = memo(
                       )}
 
                     {feed.yyyy && (
-                      <p className="text-xs text-blue-300">{`${feed.yyyy}/${feed.MM}/${feed.dd} ${feed.HH}:${feed.mm}`}</p>
+                      <p className="text-xs text-blue-300">
+                        {`${feed.yyyy}/${feed.MM}/${feed.dd} ${feed.HH}:${feed.mm}`}
+                      </p>
                     )}
                   </div>
                   <p>{feed.text}</p>
@@ -188,7 +190,10 @@ export const SearchMsg_R_Co: VFC<Props> = memo(
           })}
         </div>
 
-        <div className="grid grid-cols-12 gap-2 justify-items-center items-center leading-none fixed right-0 bottom-0 w-full p-4 bg-white border-t-2">
+        <div 
+          className="grid grid-cols-12 gap-2 justify-items-center items-center 
+          leading-none fixed right-0 bottom-0 w-full p-4 bg-white border-t-2"
+        >
           <label className="col-span-1 cursor-pointer hover:opacity-60">
             {fileUrl ? (
               <Image
@@ -215,7 +220,8 @@ export const SearchMsg_R_Co: VFC<Props> = memo(
             value={msg}
             name="msg"
             maxLength={200}
-            className="bg-blue-100 rounded-lg p-2 w-full outline-none col-span-10"
+            className="bg-blue-100 rounded-lg p-2 w-full 
+            outline-none col-span-10"
             onChange={(e) => setMsg(e.target.value)}
           />
 
@@ -225,7 +231,10 @@ export const SearchMsg_R_Co: VFC<Props> = memo(
             </div>
           ) : (
             <button
-              className="col-span-1 transform  duration-500 hover:scale-150 hover:-rotate-45 hover:-translate-y-6 disabled:opacity-60 disabled:hover:scale-100 disabled:hover:rotate-0 disabled:hover:-translate-y-0"
+              className="col-span-1 transform  duration-500 
+              hover:scale-150 hover:-rotate-45 hover:-translate-y-6 
+              disabled:opacity-60 disabled:hover:scale-100 
+              disabled:hover:rotate-0 disabled:hover:-translate-y-0"
               onClick={sendMsg}
               disabled={!msg.trim() && !fileUrl}
             >

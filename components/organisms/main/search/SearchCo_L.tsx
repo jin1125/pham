@@ -21,7 +21,9 @@ export const SearchCo_L: VFC = memo(() => {
 
    ///////// JSXエリア /////////
   return (
-    <div className="md:col-span-3 col-span-12 border-r-2 border-blue-400 relative">
+    <div 
+     className="md:col-span-3 col-span-12 border-r-2 border-blue-400 relative"
+    >
       <div className="md:absolute h-full flex flex-col w-full">
         <div className="text-center">
           <h4 className="text-white bg-blue-400 font-bold text-lg py-3">
@@ -43,7 +45,8 @@ export const SearchCo_L: VFC = memo(() => {
                 <label>
                   <p>所在地</p>
                   <select
-                    className="bg-blue-100 rounded-full outline-none pl-3 w-full py-1"
+                    className="bg-blue-100 rounded-full 
+                    outline-none pl-3 w-full py-1"
                     name="selectCompanyAddress"
                     value={selectCompanyAddress}
                     onChange={(e) => setSelectCompanyAddress(e.target.value)}

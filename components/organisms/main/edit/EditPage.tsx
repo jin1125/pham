@@ -236,7 +236,9 @@ export const EditPage: VFC = memo(() => {
   return (
     <div>
       <div className="grid lg:grid-cols-12 2xl:px-10 md:px-5 my-10">
-        <div className="lg:col-span-3 col-span-12 text-center justify-self-center">
+        <div 
+          className="lg:col-span-3 col-span-12 text-center justify-self-center"
+        >
           <label>
             {loadingProfile ? (
               <Skeleton circle={true} height={200} width={200} />
@@ -259,7 +261,8 @@ export const EditPage: VFC = memo(() => {
             ) : (
               demoImg && (
                 <Image
-                  className="inline object-cover mr-2 rounded-full cursor-pointer"
+                  className="inline object-cover mr-2 
+                  rounded-full cursor-pointer"
                   width={200}
                   height={200}
                   src={demoImg}
@@ -365,7 +368,9 @@ export const EditPage: VFC = memo(() => {
           <div>
             <div className="mt-5 mb-10 text-center">
               <button
-                className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 disabled:bg-blue-200 py-2 w-1/2 rounded-full shadow-lg font-bold"
+                className="text-white bg-blue-400 transition 
+                duration-300 hover:bg-blue-300 disabled:bg-blue-200 
+                py-2 w-1/2 rounded-full shadow-lg font-bold"
                 onClick={editHandler}
                 disabled={check1}
               >

@@ -146,10 +146,16 @@ export const ProfileDetails: VFC<Props> = memo(
               </div>
               {resumes.map((re, index) => (
                 <div key={index} className="grid grid-cols-12 my-3">
-                  <div className="col-span-8 md:col-span-6 lg:col-span-5 2xl:col-span-4">
+                  <div 
+                    className="col-span-8 md:col-span-6 
+                    lg:col-span-5 2xl:col-span-4"
+                  >
                     <p className="text-base">{re.companyName}</p>
                   </div>
-                  <div className="col-span-4 md:col-span-6 lg:col-span-2 2xl:col-span-1">
+                  <div 
+                    className="col-span-4 md:col-span-6 
+                    lg:col-span-2 2xl:col-span-1"
+                  >
                     <p className="text-base">{re.employmentStatus}</p>
                   </div>
                   {re.workStart && re.workEnd && (

@@ -33,7 +33,10 @@ export const ProfileSP2: VFC<Props> = memo(
     return (
       <div>
 
-        <div className="flex flex-row flex-wrap justify-center my-5 gap-6 leading-none">
+        <div 
+          className="flex flex-row flex-wrap justify-center 
+          my-5 gap-6 leading-none"
+        >
           {loading ? (
             <Skeleton width={150} />
           ) : homeAddress ? (

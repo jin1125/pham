@@ -202,7 +202,8 @@ export const EditDetails: VFC<Props> = memo(
                 setProfile({ ...profile, hobby: e.target.value.trim() })
               }
               maxLength={30}
-              className="text-base bg-blue-100 placeholder-blue-300 text-left rounded-full py-1 pl-5 outline-none w-full"
+              className="text-base bg-blue-100 placeholder-blue-300 
+              text-left rounded-full py-1 pl-5 outline-none w-full"
             />
           </div>
         )}
@@ -224,7 +225,8 @@ export const EditDetails: VFC<Props> = memo(
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setProfile({ ...profile, dream: e.target.value.trim() })
               }
-              className="text-base bg-blue-100 placeholder-blue-300 text-left rounded-full py-1 pl-5 outline-none w-full"
+              className="text-base bg-blue-100 placeholder-blue-300 
+              text-left rounded-full py-1 pl-5 outline-none w-full"
             />
           </div>
         )}
@@ -249,7 +251,8 @@ export const EditDetails: VFC<Props> = memo(
                   certification: e.target.value.trim(),
                 })
               }
-              className="text-base bg-blue-100 placeholder-blue-300 text-left rounded-full py-1 pl-5 outline-none w-full"
+              className="text-base bg-blue-100 placeholder-blue-300 
+              text-left rounded-full py-1 pl-5 outline-none w-full"
             />
           </div>
         )}
@@ -270,7 +273,8 @@ export const EditDetails: VFC<Props> = memo(
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setProfile({ ...profile, strongArea: e.target.value.trim() })
               }
-              className="text-base bg-blue-100 placeholder-blue-300 text-left rounded-full py-1 pl-5 outline-none w-full"
+              className="text-base bg-blue-100 placeholder-blue-300 
+              text-left rounded-full py-1 pl-5 outline-none w-full"
             />
           </div>
         )}
@@ -291,7 +295,8 @@ export const EditDetails: VFC<Props> = memo(
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setProfile({ ...profile, subjectArea: e.target.value.trim() })
               }
-              className="text-base bg-blue-100 placeholder-blue-300 text-left rounded-full py-1 pl-5 outline-none w-full"
+              className="text-base bg-blue-100 placeholder-blue-300 
+              text-left rounded-full py-1 pl-5 outline-none w-full"
             />
           </div>
         )}
@@ -304,7 +309,8 @@ export const EditDetails: VFC<Props> = memo(
               <Emoji emoji="hourglass_flowing_sand" size={20} />
               <p className="text-base font-bold">経験年数</p>
               <button
-                className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 py-1 px-2 ml-1 rounded-full shadow-lg text-xs"
+                className="text-white bg-blue-400 transition duration-300 
+                hover:bg-blue-300 py-1 px-2 ml-1 rounded-full shadow-lg text-xs"
                 onClick={addExperience}
               >
                 欄を追加
@@ -316,7 +322,10 @@ export const EditDetails: VFC<Props> = memo(
                   key={index}
                   className="grid grid-cols-12 gap-2 items-center my-5"
                 >
-                  <div className="grid grid-cols-12 my-1 md:col-span-8 col-span-12 gap-1 items-center">
+                  <div 
+                    className="grid grid-cols-12 my-1 md:col-span-8 col-span-12 
+                    gap-1 items-center"
+                  >
                     <input
                       type="text"
                       value={ex.experience}
@@ -324,24 +333,32 @@ export const EditDetails: VFC<Props> = memo(
                       maxLength={15}
                       placeholder="一般薬剤師/管理薬剤師など"
                       onChange={(e) => changeExperience(e, index)}
-                      className="text-base bg-blue-100 placeholder-blue-300 text-left rounded-full py-1 pl-5 outline-none w-full col-span-10"
+                      className="text-base bg-blue-100 
+                      placeholder-blue-300 text-left rounded-full py-1 pl-5 
+                      outline-none w-full col-span-10"
                     />
                     <p className="text-base col-span-2">経験</p>
                   </div>
-                  <div className="grid grid-cols-2 my-1 md:col-span-3 col-span-8 gap-1 items-center">
+                  <div 
+                    className="grid grid-cols-2 my-1 md:col-span-3 
+                    col-span-8 gap-1 items-center"
+                  >
                     <input
                       type="text"
                       value={ex.years}
                       name="years"
                       maxLength={15}
                       onChange={(e) => changeYears(e, index)}
-                      className="text-base bg-blue-100 placeholder-blue-300 text-left rounded-full py-1 pl-5 outline-none"
+                      className="text-base bg-blue-100 placeholder-blue-300 
+                      text-left rounded-full py-1 pl-5 outline-none"
                     />
                     <p className="text-base">年程度</p>
                   </div>
                   <div className="md:col-span-1 col-span-4">
                     <button
-                      className="text-white bg-gray-400 transition duration-300 hover:bg-gray-300 py-1 px-2 rounded-full shadow-lg text-xs"
+                      className="text-white bg-gray-400 transition 
+                      duration-300 hover:bg-gray-300 py-1 px-2 
+                      rounded-full shadow-lg text-xs"
                       onClick={() => deleteExperience(index)}
                     >
                       削除
@@ -360,7 +377,8 @@ export const EditDetails: VFC<Props> = memo(
               <Emoji emoji="page_facing_up" size={20} />
               <p className="text-base font-bold">経歴詳細</p>
               <button
-                className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 py-1 px-2 ml-1 rounded-full shadow-lg text-xs"
+                className="text-white bg-blue-400 transition duration-300
+                hover:bg-blue-300 py-1 px-2 ml-1 rounded-full shadow-lg text-xs"
                 onClick={addResume}
               >
                 欄を追加
@@ -379,7 +397,9 @@ export const EditDetails: VFC<Props> = memo(
                     maxLength={15}
                     placeholder="企業名"
                     onChange={(e) => changeCompanyName(e, index)}
-                    className="text-base bg-blue-100 placeholder-blue-300 text-left rounded-full py-1 pl-5 outline-none w-full md:col-span-4 col-span-8 my-1"
+                    className="text-base bg-blue-100 placeholder-blue-300 
+                    text-left rounded-full py-1 pl-5 outline-none w-full 
+                    md:col-span-4 col-span-8 my-1"
                   />
 
                   <input
@@ -389,7 +409,9 @@ export const EditDetails: VFC<Props> = memo(
                     maxLength={10}
                     placeholder="雇用形態"
                     onChange={(e) => changeEmploymentStatus(e, index)}
-                    className="text-base bg-blue-100 placeholder-blue-300 text-left rounded-full py-1 pl-5 outline-none w-full md:col-span-2 col-span-4 my-1"
+                    className="text-base bg-blue-100 placeholder-blue-300 
+                    text-left rounded-full py-1 pl-5 outline-none w-full 
+                    md:col-span-2 col-span-4 my-1"
                   />
 
                   <input
@@ -399,7 +421,9 @@ export const EditDetails: VFC<Props> = memo(
                     maxLength={10}
                     placeholder="いつから"
                     onChange={(e) => changeWorkStart(e, index)}
-                    className="text-base bg-blue-100 placeholder-blue-300 text-left rounded-full py-1 pl-5 outline-none w-full md:col-span-2 col-span-4 my-1"
+                    className="text-base bg-blue-100 placeholder-blue-300 
+                    text-left rounded-full py-1 pl-5 outline-none w-full 
+                    md:col-span-2 col-span-4 my-1"
                   />
 
                   <p className="md:col-span-1 col-span-2 justify-self-center">
@@ -413,12 +437,16 @@ export const EditDetails: VFC<Props> = memo(
                     maxLength={10}
                     placeholder="いつまで"
                     onChange={(e) => changeWorkEnd(e, index)}
-                    className="text-base bg-blue-100 placeholder-blue-300 text-left rounded-full py-1 pl-5 outline-none w-full md:col-span-2 col-span-4 my-1"
+                    className="text-base bg-blue-100 placeholder-blue-300 
+                    text-left rounded-full py-1 pl-5 outline-none w-full 
+                    md:col-span-2 col-span-4 my-1"
                   />
 
                   <div className="md:col-span-1 col-span-2">
                     <button
-                      className="text-white bg-gray-400 transition duration-300 hover:bg-gray-300 py-1 px-2 rounded-full shadow-lg text-xs"
+                      className="text-white bg-gray-400 transition 
+                      duration-300 hover:bg-gray-300 py-1 px-2 
+                      rounded-full shadow-lg text-xs"
                       onClick={() => deleteResume(index)}
                     >
                       削除

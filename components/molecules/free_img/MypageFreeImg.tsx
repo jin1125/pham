@@ -23,7 +23,8 @@ export const MypageFreeImg: VFC<Props> = memo(
         ) : freeImageUrl0 ? (
           <div>
             <Image
-              className="inline object-cover transform hover:scale-150 transition duration-300"
+              className="inline object-cover transform 
+              hover:scale-150 transition duration-300"
               width={200}
               height={200}
               src={freeImageUrl0}
@@ -51,7 +52,8 @@ export const MypageFreeImg: VFC<Props> = memo(
         ) : freeImageUrl1 ? (
           <div>
             <Image
-              className="inline object-cover transform hover:scale-150 transition duration-300"
+              className="inline object-cover transform 
+              hover:scale-150 transition duration-300"
               width={200}
               height={200}
               src={freeImageUrl1}
@@ -79,7 +81,8 @@ export const MypageFreeImg: VFC<Props> = memo(
         ) : freeImageUrl2 ? (
           <div>
             <Image
-              className="inline object-cover transform hover:scale-150 transition duration-300"
+              className="inline object-cover transform 
+              hover:scale-150 transition duration-300"
               width={200}
               height={200}
               src={freeImageUrl2}

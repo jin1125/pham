@@ -100,7 +100,8 @@ export const LoginForm: VFC = memo(() => {
         <div>
           <button
             onClick={() => setIsLogin(true)}
-            className="font-bold my-5 hover:text-gray-500 transition duration-300"
+            className="font-bold my-5 hover:text-gray-500 
+            transition duration-300"
           >
             <p className={isLogin ? "border-b-4 border-blue-400" : ""}>
               ログイン
@@ -110,7 +111,8 @@ export const LoginForm: VFC = memo(() => {
         <div>
           <button
             onClick={() => setIsLogin(false)}
-            className="font-bold my-5 hover:text-gray-500 transition duration-300"
+            className="font-bold my-5 hover:text-gray-500 
+            transition duration-300"
           >
             <p className={isLogin ? "" : "border-b-4 border-blue-400"}>
               新規登録
@@ -126,7 +128,8 @@ export const LoginForm: VFC = memo(() => {
             <label>
               <p>お名前</p>
               <input
-                className="bg-blue-100 placeholder-blue-300 text-center rounded-full w-3/4 py-1 outline-none"
+                className="bg-blue-100 placeholder-blue-300 
+                text-center rounded-full w-3/4 py-1 outline-none"
                 placeholder="姓 名"
                 name="name"
                 autoComplete="name"
@@ -145,7 +148,9 @@ export const LoginForm: VFC = memo(() => {
       <div className="my-7">
         {isLogin && (
           <button
-            className="text-xs text-blue-400 bg-white border-2 border-blue-400 transition duration-300 hover:bg-blue-100 py-1 w-1/3 my-3 rounded-full shadow-lg font-bold"
+            className="text-xs text-blue-400 bg-white border-2 
+            border-blue-400 transition duration-300 hover:bg-blue-100 
+            py-1 w-1/3 my-3 rounded-full shadow-lg font-bold"
             onClick={testLogin}
           >
             テストログイン
@@ -155,7 +160,8 @@ export const LoginForm: VFC = memo(() => {
         <label>
           <p>メールアドレス</p>
           <input
-            className="bg-blue-100 placeholder-blue-300 text-center rounded-full w-3/4 py-1 outline-none"
+            className="bg-blue-100 placeholder-blue-300 text-center 
+            rounded-full w-3/4 py-1 outline-none"
             placeholder="email@example.com"
             name="email"
             autoComplete="email"
@@ -173,7 +179,8 @@ export const LoginForm: VFC = memo(() => {
         <label>
           <p>パスワード</p>
           <input
-            className="bg-blue-100 placeholder-blue-300 text-center rounded-full w-3/4 py-1 outline-none"
+            className="bg-blue-100 placeholder-blue-300 text-center 
+            rounded-full w-3/4 py-1 outline-none"
             name="password"
             type="password"
             maxLength={20}
@@ -189,7 +196,9 @@ export const LoginForm: VFC = memo(() => {
       <div className="mt-10 mb-7">
         <div>
           <button
-            className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 disabled:bg-blue-200 py-2 w-1/2 rounded-full shadow-lg font-bold"
+            className="text-white bg-blue-400 transition 
+            duration-300 hover:bg-blue-300 disabled:bg-blue-200 
+            py-2 w-1/2 rounded-full shadow-lg font-bold"
             disabled={
               isLogin
                 ? email.trim() === "" || password.trim().length + 1 <= 6
@@ -215,7 +224,8 @@ export const LoginForm: VFC = memo(() => {
         {isLogin && (
           <div className="mt-3">
             <span
-              className="cursor-pointer text-sm text-blue-400 transition duration-300 hover:text-blue-300"
+              className="cursor-pointer text-sm text-blue-400 transition 
+              duration-300 hover:text-blue-300"
               onClick={() => setOpenReset(!openReset)}
             >
               パスワードをお忘れの方
@@ -223,7 +233,8 @@ export const LoginForm: VFC = memo(() => {
             {openReset && (
               <div className="mt-2">
                 <input
-                  className="bg-blue-100 placeholder-blue-300 text-center rounded-l w-3/5 py-1 outline-none"
+                  className="bg-blue-100 placeholder-blue-300 
+                  text-center rounded-l w-3/5 py-1 outline-none"
                   name="email"
                   type="email"
                   placeholder="email@example.com"
@@ -234,7 +245,9 @@ export const LoginForm: VFC = memo(() => {
                 />
                 <button
                   onClick={sendResetEmail}
-                  className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 py-1 px-2  rounded-r font-bold"
+                  className="text-white bg-blue-400 
+                  transition duration-300 hover:bg-blue-300 
+                  py-1 px-2  rounded-r font-bold"
                 >
                   送信
                 </button>
@@ -254,7 +267,8 @@ export const LoginForm: VFC = memo(() => {
       <div>
         <div className="my-7">
           <button
-            className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 py-2 w-1/2 rounded-full shadow-lg font-bold"
+            className="text-white bg-blue-400 transition duration-300 
+            hover:bg-blue-300 py-2 w-1/2 rounded-full shadow-lg font-bold"
             onClick={signInGoogle}
           >
             Googleで続行

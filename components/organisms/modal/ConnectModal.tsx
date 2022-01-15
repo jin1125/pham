@@ -244,7 +244,11 @@ export default function ConnectModal({ isOpen, setIsOpen }) {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-center align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+              <div 
+                className="inline-block w-full max-w-md p-6 my-8 
+                overflow-hidden text-center align-middle transition-all 
+                transform bg-white shadow-xl rounded-2xl"
+              >
                 <Dialog.Title
                   as="h3"
                   className="text-2xl font-bold leading-6 text-blue-400 my-5"
@@ -256,7 +260,8 @@ export default function ConnectModal({ isOpen, setIsOpen }) {
                   <div>
                     <button
                       onClick={() => setRequest(true)}
-                      className="font-bold my-5 hover:text-gray-500 transition duration-300"
+                      className="font-bold my-5 hover:text-gray-500 
+                      transition duration-300"
                     >
                       <p
                         className={request ? "border-b-4 border-blue-400" : ""}
@@ -265,10 +270,12 @@ export default function ConnectModal({ isOpen, setIsOpen }) {
                       </p>
                     </button>
                   </div>
+                  
                   <div>
                     <button
                       onClick={() => setRequest(false)}
-                      className="font-bold my-5 hover:text-gray-500 transition duration-300"
+                      className="font-bold my-5 hover:text-gray-500 
+                      transition duration-300"
                     >
                       <p
                         className={request ? "" : "border-b-4 border-blue-400"}
@@ -283,7 +290,10 @@ export default function ConnectModal({ isOpen, setIsOpen }) {
                   <div className="mb-10">
                     {receives.map((receive, index) => (
                       <div key={index}>
-                        <div className="grid grid-cols-12 gap-3 px-3 py-2 border-b items-center">
+                        <div 
+                          className="grid grid-cols-12 gap-3 px-3 
+                          py-2 border-b items-center"
+                        >
                           <div className="col-span-3 flex items-center">
                             {receive.profileImageUrl ? (
                               <Image
@@ -306,7 +316,10 @@ export default function ConnectModal({ isOpen, setIsOpen }) {
                             )}
                           </div>
 
-                          <div className="col-span-5 break-words justify-self-start text-left">
+                          <div 
+                            className="col-span-5 break-words 
+                            justify-self-start text-left"
+                          >
                             <p>{receive.userName}</p>
 
                             <p className="text-xs text-blue-300">
@@ -316,7 +329,9 @@ export default function ConnectModal({ isOpen, setIsOpen }) {
 
                           <div className="col-span-4">
                             <button
-                              className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 py-1 px-2 mx-2 rounded-full shadow-lg text-xs"
+                              className="text-white bg-blue-400 transition 
+                              duration-300 hover:bg-blue-300 py-1 px-2 mx-2 
+                              rounded-full shadow-lg text-xs"
                               onClick={() => allow(receive)}
                             >
                               つながる
@@ -331,7 +346,10 @@ export default function ConnectModal({ isOpen, setIsOpen }) {
                     {passes.map((pass, index) => (
                       <div key={index}>
                         {pass.userName && (
-                          <div className="grid grid-cols-12 gap-3 px-3 py-2 border-b items-center">
+                          <div 
+                            className="grid grid-cols-12 gap-3 
+                            px-3 py-2 border-b items-center"
+                          >
                             <div className="col-span-3 flex items-center">
                               {pass.profileImageUrl ? (
                                 <Image
@@ -354,7 +372,10 @@ export default function ConnectModal({ isOpen, setIsOpen }) {
                               )}
                             </div>
 
-                            <div className="col-span-5 break-words justify-self-start text-left">
+                            <div 
+                              className="col-span-5 break-words 
+                              justify-self-start text-left"
+                            >
                               <p>{pass.userName}</p>
 
                               <p className="text-xs text-blue-300">
@@ -364,7 +385,10 @@ export default function ConnectModal({ isOpen, setIsOpen }) {
                           </div>
                         )}
                         {pass.companyName && (
-                          <div className="grid grid-cols-12 gap-3 px-3 py-2 border-b items-center">
+                          <div 
+                            className="grid grid-cols-12 gap-3 
+                            px-3 py-2 border-b items-center"
+                          >
                             <div className="col-span-3 flex items-center">
                               {pass.companyImageUrl ? (
                                 <Image
@@ -387,7 +411,10 @@ export default function ConnectModal({ isOpen, setIsOpen }) {
                               )}
                             </div>
 
-                            <div className="col-span-5 break-words justify-self-start text-left">
+                            <div 
+                              className="col-span-5 break-words 
+                              justify-self-start text-left"
+                            >
                               <p>{pass.companyName}</p>
 
                               <p className="text-xs text-blue-300">
@@ -404,7 +431,10 @@ export default function ConnectModal({ isOpen, setIsOpen }) {
                 <div className="mt-4">
                   <button
                     type="button"
-                    className="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-blue-400 border border-transparent rounded-md hover:bg-blue-300 focus:outline-none"
+                    className="inline-flex justify-center px-4 py-2 
+                    text-sm font-medium text-white bg-blue-400 
+                    border border-transparent rounded-md 
+                    hover:bg-blue-300 focus:outline-none"
                     onClick={closeModal}
                   >
                     戻る
