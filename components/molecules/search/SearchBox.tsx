@@ -4,7 +4,7 @@ import Loader from "react-loader-spinner";
 // 検索窓
 const SearchBox = ({ currentRefinement, isSearchStalled, refine }) => (
   <form onSubmit={(e) => e.preventDefault()} noValidate role="search">
-    <inputk
+    <input
       className="bg-blue-100 rounded-full pl-3 py-1 w-full outline-none"
       type="search"
       value={currentRefinement}
