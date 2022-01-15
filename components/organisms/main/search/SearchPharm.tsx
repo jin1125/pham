@@ -31,8 +31,11 @@ export const SearchPharm: VFC = memo(() => {
         {selectPharmacy && Object.keys(selectPharmacy).length ? (
           <SearchPharm_R />
         ) : (
-          <div className="h-screen md:col-span-9 col-span-12 justify-self-center self-center md:pt-24">
-            {/* 未選択時表示画像 */}
+          <div 
+            className="h-screen md:col-span-9 col-span-12 
+            justify-self-center self-center md:pt-24"
+          >
+            {/* 未選択時の表示画像 */}
             <Image
               src="/pharmacy_search_img.png"
               alt="login_img"

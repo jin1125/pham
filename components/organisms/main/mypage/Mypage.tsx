@@ -117,7 +117,9 @@ export const Mypage: VFC<Props> = memo(({ setIsOpen }) => {
   ///////// JSXエリア /////////
   return (
     <main className="grid grid-cols-12 my-10">
-      <div className="lg:col-span-3 col-span-12 text-center justify-self-center ">
+      <div 
+        className="lg:col-span-3 col-span-12 text-center justify-self-center "
+      >
         {loading ? (
           <Skeleton circle={true} height={200} width={200} />
         ) : profileImageUrl ? (

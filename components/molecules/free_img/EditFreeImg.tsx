@@ -77,7 +77,8 @@ export const EditFreeImg: VFC<Props> = memo(
             <label>
               {fileUrls0 ? (
                 <Image
-                  className="inline object-cover cursor-pointer transform hover:scale-150 transition duration-300"
+                  className="inline object-cover cursor-pointer 
+                  transform hover:scale-150 transition duration-300"
                   width={200}
                   height={200}
                   src={fileUrls0}
@@ -85,7 +86,8 @@ export const EditFreeImg: VFC<Props> = memo(
                 />
               ) : freeImageUrl0 ? (
                 <Image
-                  className="inline object-cover cursor-pointer transform hover:scale-150 transition duration-300"
+                  className="inline object-cover cursor-pointer 
+                  transform hover:scale-150 transition duration-300"
                   width={200}
                   height={200}
                   src={freeImageUrl0}
@@ -124,7 +126,8 @@ export const EditFreeImg: VFC<Props> = memo(
                 <Skeleton height={200} width={200} />
               ) : fileUrls1 ? (
                 <Image
-                  className="inline object-cover cursor-pointer transform hover:scale-150 transition duration-300"
+                  className="inline object-cover cursor-pointer 
+                  transform hover:scale-150 transition duration-300"
                   width={200}
                   height={200}
                   src={fileUrls1}
@@ -132,7 +135,8 @@ export const EditFreeImg: VFC<Props> = memo(
                 />
               ) : freeImageUrl1 ? (
                 <Image
-                  className="inline object-cover cursor-pointer transform hover:scale-150 transition duration-300"
+                  className="inline object-cover cursor-pointer 
+                  transform hover:scale-150 transition duration-300"
                   width={200}
                   height={200}
                   src={freeImageUrl1}
@@ -169,7 +173,8 @@ export const EditFreeImg: VFC<Props> = memo(
             <label>
               {fileUrls2 ? (
                 <Image
-                  className="inline object-cover cursor-pointer transform hover:scale-150 transition duration-300"
+                  className="inline object-cover cursor-pointer 
+                  transform hover:scale-150 transition duration-300"
                   width={200}
                   height={200}
                   src={fileUrls2}
@@ -177,7 +182,8 @@ export const EditFreeImg: VFC<Props> = memo(
                 />
               ) : freeImageUrl2 ? (
                 <Image
-                  className="inline object-cover cursor-pointer transform hover:scale-150 transition duration-300"
+                  className="inline object-cover cursor-pointer 
+                  transform hover:scale-150 transition duration-300"
                   width={200}
                   height={200}
                   src={freeImageUrl2}

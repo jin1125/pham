@@ -28,7 +28,8 @@ export const RecruiterLoginForm: VFC = memo(() => {
         <label>
           <p>メールアドレス</p>
           <input
-            className="bg-blue-100 placeholder-blue-300 text-center rounded-full w-3/4 py-1 outline-none"
+            className="bg-blue-100 placeholder-blue-300 
+            text-center rounded-full w-3/4 py-1 outline-none"
             placeholder="email@example.com"
             name="email"
             autoComplete="email"
@@ -44,7 +45,8 @@ export const RecruiterLoginForm: VFC = memo(() => {
         <label>
           <p>パスワード</p>
           <input
-            className="bg-blue-100 placeholder-blue-300 text-center rounded-full w-3/4 py-1 outline-none"
+            className="bg-blue-100 placeholder-blue-300 
+            text-center rounded-full w-3/4 py-1 outline-none"
             name="password"
             type="password"
             maxLength={20}
@@ -58,7 +60,9 @@ export const RecruiterLoginForm: VFC = memo(() => {
       <div className="mt-10 mb-7">
         <div>
           <button
-            className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 disabled:bg-blue-200 py-2 w-1/2 rounded-full shadow-lg font-bold"
+            className="text-white bg-blue-400 transition 
+            duration-300 hover:bg-blue-300 disabled:bg-blue-200 
+            py-2 w-1/2 rounded-full shadow-lg font-bold"
             disabled={
               companyEmail.trim() === "" ||
               companyPassword.trim().length + 1 <= 6

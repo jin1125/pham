@@ -53,7 +53,10 @@ export const SearchJob: VFC = memo(() => {
             <ApplyModal isOpen={isOpen} setIsOpen={setIsOpen} />
           </>
         ) : (
-          <div className="h-screen md:col-span-9 col-span-12 justify-self-center self-center md:pt-24">
+          <div 
+            className="h-screen md:col-span-9 col-span-12 
+            justify-self-center self-center md:pt-24"
+          >
             {/* 未選択時表示画像 */}
             <Image
               src="/job_search_img.png"

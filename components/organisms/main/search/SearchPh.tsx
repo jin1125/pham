@@ -162,7 +162,8 @@ export const SearchPh: VFC = memo(() => {
         {selectProfile && Object.keys(selectProfile).length ? (
           <SearchPh_R phMatch={phMatch} passId={passId} receiveId={receiveId} />
         ) : (
-          <div className="h-screen md:col-span-9 col-span-12 justify-self-center self-center md:pt-24">
+          <div className="h-screen md:col-span-9 col-span-12 
+          justify-self-center self-center md:pt-24">
             {/* 未選択時表示画像 */}
             <Image
               src="/pharmacists_search_img.png"

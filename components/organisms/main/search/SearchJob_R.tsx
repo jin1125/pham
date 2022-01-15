@@ -188,7 +188,8 @@ export const SearchJob_R: VFC<Props> = memo(
         <div className="text-right my-5">
           <Link href="/pharmacies/search">
             <button
-              className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 py-2 px-5 rounded-full shadow-lg font-bold"
+              className="text-white bg-blue-400 transition duration-300 
+              hover:bg-blue-300 py-2 px-5 rounded-full shadow-lg font-bold"
               onClick={() => {
                 setPharmId(selectJob.phId);
                 setCompanyId("");
@@ -233,7 +234,8 @@ export const SearchJob_R: VFC<Props> = memo(
           {selectJob.freeImageUrl0 ? (
             <div className="my-5">
               <Image
-                className="inline object-cover transform  hover:scale-150 transition duration-300"
+                className="inline object-cover transform 
+                hover:scale-150 transition duration-300"
                 width={200}
                 height={200}
                 src={selectJob.freeImageUrl0}
@@ -257,7 +259,8 @@ export const SearchJob_R: VFC<Props> = memo(
           {selectJob.freeImageUrl1 ? (
             <div className="my-5">
               <Image
-                className="inline object-cover transform hover:scale-150 transition duration-300"
+                className="inline object-cover transform 
+                hover:scale-150 transition duration-300"
                 width={200}
                 height={200}
                 src={selectJob.freeImageUrl1}
@@ -281,7 +284,8 @@ export const SearchJob_R: VFC<Props> = memo(
           {selectJob.freeImageUrl2 ? (
             <div className="my-5">
               <Image
-                className="inline object-cover transform hover:scale-150 transition duration-300"
+                className="inline object-cover transform 
+                hover:scale-150 transition duration-300"
                 width={200}
                 height={200}
                 src={selectJob.freeImageUrl2}
@@ -457,7 +461,9 @@ export const SearchJob_R: VFC<Props> = memo(
 
         <div className="text-center my-20">
           <button
-            className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 disabled:bg-blue-200 py-2 w-3/5 rounded-full shadow-lg font-bold"
+            className="text-white bg-blue-400 transition 
+            duration-300 hover:bg-blue-300 disabled:bg-blue-200 
+            py-2 w-3/5 rounded-full shadow-lg font-bold"
             onClick={apply}
             disabled={coPassId && true}
           >

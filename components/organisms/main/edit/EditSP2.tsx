@@ -41,7 +41,9 @@ export const EditSP2: VFC<Props> = memo(
     ///////// JSXエリア /////////
     return (
       <div>
-        <div className="flex flex-row flex-wrap my-5 gap-6 leading-none justify-center">
+        <div 
+          className="flex flex-row flex-wrap my-5 gap-6 leading-none justify-center"
+        >
           {loadingProfile ? (
             <Skeleton width={150} />
           ) : (
@@ -49,7 +51,8 @@ export const EditSP2: VFC<Props> = memo(
               <Emoji emoji="round_pushpin" size={20} />
               <label>
                 <select
-                  className="bg-blue-100 rounded-full outline-none pl-3 pr-2 py-1"
+                  className="bg-blue-100 rounded-full 
+                  outline-none pl-3 pr-2 py-1"
                   name="homeAddress"
                   value={homeAddress}
                   onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
@@ -71,7 +74,8 @@ export const EditSP2: VFC<Props> = memo(
               <Emoji emoji="birthday" size={20} />
               <label>
                 <select
-                  className="bg-blue-100 rounded-full outline-none pl-3 pr-2 py-1"
+                  className="bg-blue-100 rounded-full 
+                  outline-none pl-3 pr-2 py-1"
                   name="dobYY"
                   value={dobYY}
                   onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
@@ -86,7 +90,8 @@ export const EditSP2: VFC<Props> = memo(
               <p>/</p>
               <label>
                 <select
-                  className="bg-blue-100 rounded-full outline-none pl-3 pr-2 py-1"
+                  className="bg-blue-100 rounded-full 
+                  outline-none pl-3 pr-2 py-1"
                   name="dobMM"
                   value={dobMM}
                   onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
@@ -101,7 +106,8 @@ export const EditSP2: VFC<Props> = memo(
               <p>/</p>
               <label>
                 <select
-                  className="bg-blue-100 rounded-full outline-none pl-3 pr-2 py-1"
+                  className="bg-blue-100 rounded-full 
+                  outline-none pl-3 pr-2 py-1"
                   name="dobDD"
                   value={dobDD}
                   onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
@@ -130,7 +136,8 @@ export const EditSP2: VFC<Props> = memo(
                 placeholder="出身校"
                 name="school"
                 maxLength={10}
-                className="text-base bg-blue-100 placeholder-blue-300 text-center rounded-full py-1 outline-none"
+                className="text-base bg-blue-100 placeholder-blue-300 
+                text-center rounded-full py-1 outline-none"
               />
               <p className="text-base">卒業</p>
             </div>
@@ -153,7 +160,8 @@ export const EditSP2: VFC<Props> = memo(
                 placeholder="出身地"
                 name="birthPlace"
                 maxLength={10}
-                className="text-base bg-blue-100 placeholder-blue-300 text-center rounded-full py-1 outline-none"
+                className="text-base bg-blue-100 placeholder-blue-300 
+                text-center rounded-full py-1 outline-none"
               />
               <p className="text-base">出身</p>
             </div>
@@ -173,7 +181,8 @@ export const EditSP2: VFC<Props> = memo(
                 placeholder="話せる言語"
                 name="language"
                 maxLength={15}
-                className="text-base bg-blue-100 placeholder-blue-300 text-center rounded-full py-1 outline-none"
+                className="text-base bg-blue-100 placeholder-blue-300 
+                text-center rounded-full py-1 outline-none"
               />
             </div>
           )}

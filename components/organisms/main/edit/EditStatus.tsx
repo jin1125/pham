@@ -15,7 +15,10 @@ type Props = {
 export const EditStatus: VFC<Props> = memo(
   ({ profile, setProfile, scout, loadingProfile }) => {
     return (
-      <div className="flex flex-row flex-wrap my-10 justify-center gap-1 items-center">
+      <div 
+        className="flex flex-row flex-wrap my-10 
+        justify-center gap-1 items-center"
+      >
         {loadingProfile ? (
           <Skeleton width={200} />
         ) : (
@@ -23,7 +26,8 @@ export const EditStatus: VFC<Props> = memo(
             <Emoji emoji="female-detective" size={20} />
             <label>
               <select
-                className="bg-blue-100 rounded-full outline-none pl-3 py-1 w-11/12"
+                className="bg-blue-100 rounded-full 
+                outline-none pl-3 py-1 w-11/12"
                 name="scout"
                 value={scout}
                 onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>

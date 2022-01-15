@@ -83,7 +83,9 @@ export const SearchPh_R: VFC<Props> = memo(({ phMatch, passId, receiveId }) => {
   return (
     <div className="md:col-span-9 col-span-12 min-h-screen px-5">
       <div className="grid grid-cols-12 my-10">
-        <div className="lg:col-span-3 col-span-12 justify-self-center text-center">
+        <div 
+          className="lg:col-span-3 col-span-12 justify-self-center text-center"
+        >
           {selectProfile.profileImageUrl ? (
             <Image
               className="inline object-cover rounded-full"
@@ -105,7 +107,10 @@ export const SearchPh_R: VFC<Props> = memo(({ phMatch, passId, receiveId }) => {
           )}
 
           <div className="lg:hidden block">
-            <div className="flex flex-row flex-wrap items-end my-5 gap-8 justify-center">
+            <div 
+              className="flex flex-row flex-wrap items-end 
+              my-5 gap-8 justify-center"
+            >
               <div>
                 <h2 className="text-4xl font-bold">{selectProfile.userName}</h2>
               </div>
@@ -120,7 +125,10 @@ export const SearchPh_R: VFC<Props> = memo(({ phMatch, passId, receiveId }) => {
             </div>
           </div>
 
-          <div className="flex flex-row flex-wrap my-5 justify-center gap-1 items-center">
+          <div 
+            className="flex flex-row flex-wrap my-5 
+            justify-center gap-1 items-center"
+          >
             <Emoji emoji="handshake" size={20} />
             <p className="text-base">{`${phMatch.length}人`}</p>
           </div>
@@ -141,7 +149,9 @@ export const SearchPh_R: VFC<Props> = memo(({ phMatch, passId, receiveId }) => {
                 selectProfile.dobDD && (
                   <div className="flex flex-row flex-wrap gap-1 items-center">
                     <Emoji emoji="birthday" size={20} />
-                    <p className="text-base">{`${selectProfile.dobYY}/${selectProfile.dobMM}/${selectProfile.dobDD}`}</p>
+                    <p className="text-base">
+                      {`${selectProfile.dobYY}/${selectProfile.dobMM}/${selectProfile.dobDD}`}
+                    </p>
                   </div>
                 )}
 
@@ -155,7 +165,9 @@ export const SearchPh_R: VFC<Props> = memo(({ phMatch, passId, receiveId }) => {
               {selectProfile.birthPlace && (
                 <div className="flex flex-row flex-wrap gap-1 items-center">
                   <Emoji emoji="baby" size={20} />
-                  <p className="text-base">{`${selectProfile.birthPlace} 出身`}</p>
+                  <p className="text-base">
+                    {`${selectProfile.birthPlace} 出身`}
+                  </p>
                 </div>
               )}
 
@@ -177,7 +189,9 @@ export const SearchPh_R: VFC<Props> = memo(({ phMatch, passId, receiveId }) => {
           <div className="my-10 text-center">
             {linking && disabledState === "initial" && (
               <button
-                className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 disabled:bg-blue-200 py-2 w-full rounded-full shadow-lg font-bold"
+                className="text-white bg-blue-400 transition duration-300 
+                hover:bg-blue-300 disabled:bg-blue-200 py-2 w-full 
+                rounded-full shadow-lg font-bold"
                 onClick={connectBtn}
               >
                 つながる
@@ -186,7 +200,9 @@ export const SearchPh_R: VFC<Props> = memo(({ phMatch, passId, receiveId }) => {
 
             {linking && disabledState === "passed" && (
               <button
-                className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 disabled:bg-blue-200 py-2 w-full rounded-full shadow-lg font-bold"
+                className="text-white bg-blue-400 transition 
+                duration-300 hover:bg-blue-300 disabled:bg-blue-200 
+                py-2 w-full rounded-full shadow-lg font-bold"
                 disabled={true}
               >
                 申請中
@@ -195,7 +211,9 @@ export const SearchPh_R: VFC<Props> = memo(({ phMatch, passId, receiveId }) => {
 
             {linking && disabledState === "receiveId" && (
               <button
-                className="text-white bg-blue-500 transition duration-300 hover:bg-blue-400 disabled:bg-blue-200 py-2 w-full rounded-full shadow-lg font-bold"
+                className="text-white bg-blue-500 transition 
+                duration-300 hover:bg-blue-400 disabled:bg-blue-200 
+                py-2 w-full rounded-full shadow-lg font-bold"
                 onClick={connectBtn}
               >
                 申請あり
@@ -205,7 +223,10 @@ export const SearchPh_R: VFC<Props> = memo(({ phMatch, passId, receiveId }) => {
             {linking && disabledState === "match" && (
               <Link href="/message">
                 <button
-                  className="text-blue-400 bg-white border-2 border-blue-400 transition duration-300 hover:bg-blue-100 disabled:bg-blue-200 py-2 w-full rounded-full shadow-lg font-bold"
+                  className="text-blue-400 bg-white border-2 
+                  border-blue-400 transition duration-300 
+                  hover:bg-blue-100 disabled:bg-blue-200 
+                  py-2 w-full rounded-full shadow-lg font-bold"
                   onClick={() => {
                     setSelectMsg(selectProfile);
                   }}
@@ -220,7 +241,8 @@ export const SearchPh_R: VFC<Props> = memo(({ phMatch, passId, receiveId }) => {
             {selectProfile.freeImageUrl0 ? (
               <div>
                 <Image
-                  className="inline object-cover transform  hover:scale-150 transition duration-300"
+                  className="inline object-cover transform  
+                  hover:scale-150 transition duration-300"
                   width={200}
                   height={200}
                   src={selectProfile.freeImageUrl0}
@@ -243,7 +265,8 @@ export const SearchPh_R: VFC<Props> = memo(({ phMatch, passId, receiveId }) => {
             {selectProfile.freeImageUrl1 ? (
               <div>
                 <Image
-                  className="inline object-cover transform hover:scale-150 transition duration-300"
+                  className="inline object-cover transform 
+                  hover:scale-150 transition duration-300"
                   width={200}
                   height={200}
                   src={selectProfile.freeImageUrl1}
@@ -266,7 +289,8 @@ export const SearchPh_R: VFC<Props> = memo(({ phMatch, passId, receiveId }) => {
             {selectProfile.freeImageUrl2 ? (
               <div>
                 <Image
-                  className="inline object-cover transform hover:scale-150 transition duration-300"
+                  className="inline object-cover transform 
+                  hover:scale-150 transition duration-300"
                   width={200}
                   height={200}
                   src={selectProfile.freeImageUrl2}
@@ -320,7 +344,9 @@ export const SearchPh_R: VFC<Props> = memo(({ phMatch, passId, receiveId }) => {
                 selectProfile.dobDD && (
                   <div className="flex flex-row flex-wrap gap-1 items-center">
                     <Emoji emoji="birthday" size={20} />
-                    <p className="text-base">{`${selectProfile.dobYY}/${selectProfile.dobMM}/${selectProfile.dobDD}`}</p>
+                    <p className="text-base">
+                      {`${selectProfile.dobYY}/${selectProfile.dobMM}/${selectProfile.dobDD}`}
+                    </p>
                   </div>
                 )}
 
@@ -334,7 +360,9 @@ export const SearchPh_R: VFC<Props> = memo(({ phMatch, passId, receiveId }) => {
               {selectProfile.birthPlace && (
                 <div className="flex flex-row flex-wrap gap-1 items-center">
                   <Emoji emoji="baby" size={20} />
-                  <p className="text-base">{`${selectProfile.birthPlace} 出身`}</p>
+                  <p className="text-base">
+                    {`${selectProfile.birthPlace} 出身`}
+                  </p>
                 </div>
               )}
 

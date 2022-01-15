@@ -34,7 +34,10 @@ export const SearchPharm_R: VFC = memo(() => {
         <div>
           {isApply && (
             <AnchorLink href="#btn">
-              <button className="text-white bg-blue-500 transition duration-300 hover:bg-blue-400 py-2 px-5 rounded-full shadow-lg font-bold">
+              <button 
+                className="text-white bg-blue-500 transition duration-300　
+                hover:bg-blue-400 py-2 px-5 rounded-full shadow-lg font-bold"
+              >
                  募集中
               </button>
             </AnchorLink>
@@ -43,7 +46,8 @@ export const SearchPharm_R: VFC = memo(() => {
         <div>
           <Link href="/companies/search">
             <button
-              className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 py-2 px-5 rounded-full shadow-lg font-bold"
+              className="text-white bg-blue-400 transition duration-300 
+              hover:bg-blue-300 py-2 px-5 rounded-full shadow-lg font-bold"
               onClick={() => {
                 setComId(selectPharmacy.coId);
               }}
@@ -64,9 +68,9 @@ export const SearchPharm_R: VFC = memo(() => {
         {selectPharmacy.pharmacyPrefecture && (
           <div className="flex flex-row flex-wrap gap-1 items-center">
             <Emoji emoji="round_pushpin" size={20} />
-            <p className="text-base">{`${selectPharmacy.pharmacyPrefecture.slice(
-              3
-            )}${selectPharmacy.pharmacyAddress}`}</p>
+            <p className="text-base">
+              {`${selectPharmacy.pharmacyPrefecture.slice(3)}${selectPharmacy.pharmacyAddress}`}
+            </p>
           </div>
         )}
 
@@ -132,7 +136,9 @@ export const SearchPharm_R: VFC = memo(() => {
               <Emoji emoji="page_with_curl" size={20} />
               <p className="text-base font-bold">平均処方箋枚数</p>
             </div>
-            <p className="text-base">{`${selectPharmacy.numberOfPrescription}枚/日`}</p>
+            <p className="text-base">
+              {`${selectPharmacy.numberOfPrescription}枚/日`}
+            </p>
           </div>
         )}
 
@@ -231,7 +237,8 @@ export const SearchPharm_R: VFC = memo(() => {
         <div className="text-center my-20" id="btn">
           <Link href="/jobs/search">
             <button
-              className="text-white bg-blue-400 transition duration-300 hover:bg-blue-300 py-2 w-3/5 rounded-full shadow-lg font-bold"
+              className="text-white bg-blue-400 transition duration-300 
+              hover:bg-blue-300 py-2 w-3/5 rounded-full shadow-lg font-bold"
               onClick={() => {
                 setPharmacyId(selectPharmacy.objectID);
                 setSelectJob({});

@@ -11,7 +11,10 @@ export const TopHeader:VFC = memo(() => {
         </div>
         <div className="m-7">
           <Link href="/recruiter">
-            <button className="text-blue-400 hover:text-blue-300 transition duration-300">
+            <button 
+              className="text-blue-400 hover:text-blue-300 
+              transition duration-300"
+            >
               採用担当者様はこちら
             </button>
           </Link>

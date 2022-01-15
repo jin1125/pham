@@ -13,7 +13,10 @@ export const ProfileSP1: VFC<Props> = memo(
   ({ userName, displayName, jobTitle, loading }) => {
     ///////// JSXエリア /////////
     return (
-      <div className="flex flex-row flex-wrap justify-center items-end my-5 gap-8 text-center">
+      <div 
+        className="flex flex-row flex-wrap justify-center 
+        items-end my-5 gap-8 text-center"
+      >
         <div>
           {loading ? (
             <Skeleton width={150} height={30} />
