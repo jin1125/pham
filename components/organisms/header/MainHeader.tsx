@@ -2,7 +2,7 @@ import { Emoji } from "emoji-mart";
 import Link from "next/link";
 import React, { memo, useContext, useEffect, useState, VFC } from "react";
 import { auth, db } from "../../../firebase";
-import { UserContext } from "../../../UserContext";
+import { UserContext } from "../../../context/UserContext";
 
 export const MainHeader: VFC = memo(() => {
   ///////// ステートエリア /////////

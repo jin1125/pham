@@ -12,7 +12,7 @@ import React, {
 } from "react";
 import { useAlert } from "react-alert";
 import { db, storage } from "../../../../firebase";
-import { UserContext } from "../../../../UserContext";
+import { UserContext } from "../../../../context/UserContext";
 
 ///////// 型定義エリア /////////
 type Props = {

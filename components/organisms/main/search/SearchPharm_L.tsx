@@ -1,7 +1,7 @@
 import algoliasearch from "algoliasearch/lite";
 import React, { memo, useContext, VFC } from "react";
 import { Hits, InstantSearch } from "react-instantsearch-dom";
-import { UserContext } from "../../../../UserContext";
+import { UserContext } from "../../../../context/UserContext";
 import { Address } from "../../../atoms/Address";
 import { hitComponentPharm } from "../../../molecules/search/HitComponentPharm";
 import { CustomSearchBox } from "../../../molecules/search/SearchBox";

@@ -3,7 +3,7 @@ import Link from "next/link";
 import React, { memo, useContext, useEffect, useState, VFC } from "react";
 import AnchorLink from "react-anchor-link-smooth-scroll";
 import { db } from "../../../../firebase";
-import { UserContext } from "../../../../UserContext";
+import { UserContext } from "../../../../context/UserContext";
 
 export const SearchPharm_R: VFC = memo(() => {
   ///////// ステートエリア /////////

@@ -3,7 +3,7 @@ import Router from "next/router";
 import { memo, useContext, useEffect, useState, VFC } from "react";
 import { auth, db } from "../../../../firebase";
 import { Data } from "../../../../types/data";
-import { UserContext } from "../../../../UserContext";
+import { UserContext } from "../../../../context/UserContext";
 import { SearchPh_L } from "./SearchPh_L";
 import { SearchPh_R } from "./SearchPh_R";
 

@@ -2,7 +2,7 @@ import Image from "next/image";
 import Router from "next/router";
 import { memo, useContext, useEffect, useState, VFC } from "react";
 import { auth } from "../../../../firebase";
-import { UserContext } from "../../../../UserContext";
+import { UserContext } from "../../../../context/UserContext";
 import ApplyModal from "../../modal/ApplyModal";
 import { SearchJob_L } from "./SearchJob_L";
 import { SearchJob_R } from "./SearchJob_R";

@@ -2,7 +2,7 @@ import Image from "next/image";
 import Router from "next/router";
 import { memo, useContext, useEffect, VFC } from "react";
 import { auth } from "../../../../firebase";
-import { UserContext } from "../../../../UserContext";
+import { UserContext } from "../../../../context/UserContext";
 import { SearchPharm_L } from "./SearchPharm_L";
 import { SearchPharm_R } from "./SearchPharm_R";
 

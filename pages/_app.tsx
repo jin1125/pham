@@ -10,7 +10,7 @@ import { SelectCompany } from "../types/selectCompany";
 import { SelectJob } from "../types/selectJob";
 import { SelectPharmacy } from "../types/selectPharmacy";
 import { SelectProfile } from "../types/selectProfile";
-import { UserContext } from "../UserContext";
+import { UserContext } from "../context/UserContext";
 
 export default function App({ Component, pageProps }: AppProps) {
   ///////// ステートエリア /////////

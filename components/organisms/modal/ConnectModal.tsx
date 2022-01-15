@@ -6,7 +6,7 @@ import { auth, db, storage } from "../../../firebase";
 import { Company } from "../../../types/company";
 import { Profile } from "../../../types/profile";
 import { Receives } from "../../../types/receives";
-import { UserContext } from "../../../UserContext";
+import { UserContext } from "../../../context/UserContext";
 
 export default function ConnectModal({ isOpen, setIsOpen }) {
   ///////// ステートエリア /////////
