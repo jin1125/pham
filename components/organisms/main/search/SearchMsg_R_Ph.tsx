@@ -43,6 +43,8 @@ export const SearchMsg_R_Ph: VFC<Props> = memo(
     avatarImage,
     name,
   }) => {
+    ///////// ステートエリア /////////
+    // グローバルなステート
     const { selectMsg, userId } = useContext(UserContext);
 
     ///////// 関数エリア /////////
@@ -109,7 +111,9 @@ export const SearchMsg_R_Ph: VFC<Props> = memo(
                       </p>
                     )}
                   </div>
+
                   <p>{feed.text}</p>
+                  
                   {feed.image && (
                     <Image
                       className="inline object-cover  rounded-lg"

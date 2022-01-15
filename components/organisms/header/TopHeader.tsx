@@ -9,6 +9,7 @@ export const TopHeader:VFC = memo(() => {
         <div className="m-5">
           <h2 className="text-2xl text-blue-400 font-bold">Pham</h2>
         </div>
+        
         <div className="m-7">
           <Link href="/recruiter">
             <button 

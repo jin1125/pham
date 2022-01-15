@@ -8,6 +8,8 @@ import { UserContext } from "../../../../UserContext";
 export const SearchPharm_R: VFC = memo(() => {
   ///////// ステートエリア /////////
   const [isApply, setIsApply] = useState<boolean>(false);
+  
+  // グローバルなステート
   const { selectPharmacy, setPharmacyId, setSelectJob, setComId } =
     useContext(UserContext);
 
@@ -43,6 +45,7 @@ export const SearchPharm_R: VFC = memo(() => {
             </AnchorLink>
           )}
         </div>
+
         <div>
           <Link href="/companies/search">
             <button
@@ -208,6 +211,7 @@ export const SearchPharm_R: VFC = memo(() => {
               <Emoji emoji="woman-raising-hand" size={20} />
               <p className="text-base font-bold">スタッフ紹介</p>
             </div>
+
             {selectPharmacy.staff.map((st, index) => (
               <div key={index} className="my-5">
                 <div className="flex flex-row flex-wrap gap-5 items-center">
@@ -222,6 +226,7 @@ export const SearchPharm_R: VFC = memo(() => {
                     </div>
                   )}
                 </div>
+                
                 {st.comment && (
                   <div className="col-span-8">
                     <p className="text-base">{st.comment}</p>

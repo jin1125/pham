@@ -8,6 +8,8 @@ export function hitComponentPhMsg({ hit }) {
   const [phMatch, setPhMatch] = useState([]);
   const [phMatchA, setPhMatchA] = useState([]);
   const [phMatchB, setPhMatchB] = useState([]);
+  
+  // グローバルなステート
   const { selectMsg, setSelectMsg, userId, setUserId } =
     useContext(UserContext);
 

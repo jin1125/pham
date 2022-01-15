@@ -5,6 +5,8 @@ import { UserContext } from "../../../UserContext";
 import { HitPh } from "../../atoms/search/HitPh";
 
 export function hitComponentPh({ hit }) {
+  ///////// ステートエリア /////////
+  // グローバルなステート
   const {
     selectHomeAddress,
     setSelectProfile,

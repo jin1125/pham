@@ -3,6 +3,8 @@ import { UserContext } from "../../../UserContext";
 import { HitJob } from "../../atoms/search/HitJob";
 
 export function hitComponentJob({ hit }) {
+  ///////// ステートエリア /////////
+  // グローバルなステート
   const {
     selectJob,
     setSelectJob,

@@ -31,7 +31,7 @@ export const EditFreeImg: VFC<Props> = memo(
     const [fileUrls2, setFileUrls2] = useState<string>("");
 
     ///////// 関数エリア /////////
-    //  フリー画像0アップロード処理
+    // フリー画像0アップロード処理
     const uploadFreeImage0 = (e: React.ChangeEvent<HTMLInputElement>): void => {
       if (e.target.files![0]) {
         const imageFile = e.target.files[0];
@@ -42,7 +42,7 @@ export const EditFreeImg: VFC<Props> = memo(
       }
     };
 
-    //  フリー画像1アップロード処理
+    // フリー画像1アップロード処理
     const uploadFreeImage1 = (e: React.ChangeEvent<HTMLInputElement>): void => {
       if (e.target.files![0]) {
         const imageFile = e.target.files[0];
@@ -53,7 +53,7 @@ export const EditFreeImg: VFC<Props> = memo(
       }
     };
 
-    //  フリー画像2アップロード処理
+    // フリー画像2アップロード処理
     const uploadFreeImage2 = (e: React.ChangeEvent<HTMLInputElement>): void => {
       if (e.target.files![0]) {
         const imageFile = e.target.files[0];

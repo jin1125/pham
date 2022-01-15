@@ -12,5 +12,5 @@ export type SelectCompany = {
   presidentHobby?: string;
   unique?: string;
   websiteUrl?: string;
-__position?: number;
+  __position?: number;
 }

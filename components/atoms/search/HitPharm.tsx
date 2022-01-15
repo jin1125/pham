@@ -52,6 +52,7 @@ export const HitPharm: VFC<Props> = memo(({ hit }) => {
         <div>
           <Highlight attribute="pharmacyName" tagName="mark" hit={hit} />
         </div>
+        
         <div className="text-xs text-blue-300 ">
           <Highlight attribute="pharmacyPrefecture" tagName="mark" hit={hit} />
         </div>

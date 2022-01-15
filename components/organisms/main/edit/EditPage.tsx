@@ -17,7 +17,6 @@ import { FooterEdit } from "./FooterEdit";
 
 export const EditPage: VFC = memo(() => {
   ///////// ステートエリア /////////
-  const { userId, setUserId } = useContext(UserContext);
   const [profile, setProfile] = useState<AllProfile>({
     birthPlace: "",
     certification: "",
@@ -56,7 +55,14 @@ export const EditPage: VFC = memo(() => {
   const [loading, setLoading] = useState<boolean>(false);
   const [loadingProfile, setLoadingProfile] = useState<boolean>(false);
 
+  // グローバルなステート
+  const { userId, setUserId } = useContext(UserContext);
+
+  // 定数定義
   const alert = useAlert();
+  const loginPath = "/login";
+  const changeProfileSuccessMsg = "プロフィールを変更しました";
+  const changeProfileErrorMsg = "プロフィールを変更できませんでした";
 
   ///////// 関数エリア /////////
   // ユーザーID＆ユーザーメール＆ユーザーネーム取得
@@ -67,7 +73,7 @@ export const EditPage: VFC = memo(() => {
         setUserEmail(user.email);
         setDisplayName(user.displayName);
       } else {
-        Router.push("/login");
+        Router.push(loginPath);
       }
     });
 
@@ -144,7 +150,7 @@ export const EditPage: VFC = memo(() => {
     }
   };
 
-  /// 変更を保存ボタン処理 ///
+  // 変更を保存ボタン処理
   const editHandler = async (): Promise<void> => {
     setLoading(true);
     let profileUrl = "";
@@ -152,16 +158,16 @@ export const EditPage: VFC = memo(() => {
     let freeUrl1 = "";
     let freeUrl2 = "";
 
-    //アップロード画像があれば
+    // アップロード画像があれば
     if (profileImage) {
-      //画像をストレージにアップロード
+      // 画像をストレージにアップロード
       await storage.ref(`profileImages/${userId}`).put(profileImage);
-      //画像がクラウド上のどこにあるかURLで取得
+      // 画像がクラウド上のどこにあるかURLで取得
       profileUrl = await storage
         .ref("profileImages")
         .child(userId)
         .getDownloadURL();
-      //アップロード画像がない && firestoreにデータがある
+      // アップロード画像がない && firestoreにデータがある
     } else if (!profileImage && profileImageUrl) {
       profileUrl = profileImageUrl;
     } else {
@@ -175,7 +181,7 @@ export const EditPage: VFC = memo(() => {
         .child(`${userId}0`)
         .getDownloadURL();
     } else if (!freeImage0 && freeImageUrl0) {
-      //アップロード画像がない&&firestoreにデータがある
+      // アップロード画像がない&&firestoreにデータがある
       freeUrl0 = freeImageUrl0;
     } else {
       freeUrl0 = "";
@@ -188,7 +194,7 @@ export const EditPage: VFC = memo(() => {
         .child(`${userId}1`)
         .getDownloadURL();
     } else if (!freeImage1 && freeImageUrl1) {
-      //アップロード画像がない&&firestoreにデータがある
+      // アップロード画像がない&&firestoreにデータがある
       freeUrl1 = freeImageUrl1;
     } else {
       freeUrl1 = "";
@@ -201,7 +207,7 @@ export const EditPage: VFC = memo(() => {
         .child(`${userId}2`)
         .getDownloadURL();
     } else if (!freeImage2 && freeImageUrl2) {
-      //アップロード画像がない&&firestoreにデータがある
+      // アップロード画像がない&&firestoreにデータがある
       freeUrl2 = freeImageUrl2;
     } else {
       freeUrl2 = "";
@@ -220,10 +226,10 @@ export const EditPage: VFC = memo(() => {
       .doc(userId)
       .set(profileInfo)
       .then(() => {
-        alert.success("プロフィールを変更しました");
+        alert.success(changeProfileSuccessMsg);
       })
       .catch(() => {
-        alert.error("プロフィールを変更できませんでした");
+        alert.error(changeProfileErrorMsg);
       })
       .finally(() => setLoading(false));
   };

@@ -239,6 +239,7 @@ export const EditDetails: VFC<Props> = memo(
               <Emoji emoji="pencil2" size={20} />
               <p className="text-base font-bold">資格</p>
             </div>
+
             <input
               type="text"
               placeholder='薬剤師免許を除く'
@@ -265,6 +266,7 @@ export const EditDetails: VFC<Props> = memo(
               <Emoji emoji="muscle" size={20} />
               <p className="text-base font-bold">得意な業務</p>
             </div>
+
             <input
               type="text"
               value={strongArea}
@@ -287,6 +289,7 @@ export const EditDetails: VFC<Props> = memo(
               <Emoji emoji="pill" size={20} />
               <p className="text-base font-bold">経験科目</p>
             </div>
+
             <input
               type="text"
               value={subjectArea}
@@ -316,6 +319,7 @@ export const EditDetails: VFC<Props> = memo(
                 欄を追加
               </button>
             </div>
+
             {experiences &&
               experiences.map((ex, index) => (
                 <div
@@ -323,8 +327,8 @@ export const EditDetails: VFC<Props> = memo(
                   className="grid grid-cols-12 gap-2 items-center my-5"
                 >
                   <div 
-                    className="grid grid-cols-12 my-1 md:col-span-8 col-span-12 
-                    gap-1 items-center"
+                    className="grid grid-cols-12 my-1 md:col-span-8 
+                    col-span-12 gap-1 items-center"
                   >
                     <input
                       type="text"
@@ -339,6 +343,7 @@ export const EditDetails: VFC<Props> = memo(
                     />
                     <p className="text-base col-span-2">経験</p>
                   </div>
+
                   <div 
                     className="grid grid-cols-2 my-1 md:col-span-3 
                     col-span-8 gap-1 items-center"
@@ -354,6 +359,7 @@ export const EditDetails: VFC<Props> = memo(
                     />
                     <p className="text-base">年程度</p>
                   </div>
+
                   <div className="md:col-span-1 col-span-4">
                     <button
                       className="text-white bg-gray-400 transition 
@@ -384,6 +390,7 @@ export const EditDetails: VFC<Props> = memo(
                 欄を追加
               </button>
             </div>
+            
             {resumes &&
               resumes.map((re, index) => (
                 <div

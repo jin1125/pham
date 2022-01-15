@@ -3,21 +3,23 @@ import { auth, db } from "../../../firebase";
 import { UserContext } from "../../../UserContext";
 import { HitCo } from "../../atoms/search/HitCo";
 
-
 export function hitComponentCoMsg({ hit }) {
   ///////// ステートエリア /////////
   const [coMatch, setCoMatch] = useState([]);
+
+  // グローバルなステート
   const { selectMsg, setSelectMsg, userId, setUserId } =
     useContext(UserContext);
 
   ///////// 関数エリア /////////
-  //ユーザーID取得
+  // ユーザーID取得
   useEffect(() => {
     const unSub = auth.onAuthStateChanged((user) => {
       if (user) {
         setUserId(user.uid);
       }
     });
+    
     return () => unSub();
   }, []);
 

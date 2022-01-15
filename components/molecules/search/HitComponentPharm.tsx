@@ -3,6 +3,8 @@ import { UserContext } from "../../../UserContext";
 import { HitPharm } from "../../atoms/search/HitPharm";
 
 export function hitComponentPharm({ hit }) {
+  ///////// ステートエリア /////////
+  // グローバルなステート
   const {
     selectPharmacy,
     setSelectPharmacy,
@@ -21,7 +23,6 @@ export function hitComponentPharm({ hit }) {
  useEffect(()=>{
   if(pharmId && pharmId === hit.objectID){
     setSelectPharmacy(hit);
-    
   }
  },[pharmId])
 
@@ -42,7 +43,6 @@ export function hitComponentPharm({ hit }) {
           selectPharmacyAddress === hit.pharmacyPrefecture &&
           companyId === hit.coId && <HitPharm hit={hit} />
         )}
-
 
         {selectPharmacyAddress === "" && pharmId ===  hit.objectID ? (
           <HitPharm hit={hit} />

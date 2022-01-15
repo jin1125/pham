@@ -12,7 +12,7 @@ export const HitJob: VFC<Props> = memo(({ hit }) => {
   ///////// ステートエリア /////////
   const [jobDemoImg, setJobDemoImg] = useState<string>("");
 
-   ///////// 関数エリア /////////
+  ///////// 関数エリア /////////
   //  ストレージから求人デモ画像取得
   useEffect(() => {
     let isMounted = true;
@@ -33,7 +33,7 @@ export const HitJob: VFC<Props> = memo(({ hit }) => {
     };
   }, []);
 
-   ///////// JSXエリア /////////
+  ///////// JSXエリア /////////
   return (
     // 検索結果
     <div className="grid grid-cols-12 gap-3 px-3 py-2 border-b items-center">
@@ -53,9 +53,11 @@ export const HitJob: VFC<Props> = memo(({ hit }) => {
         <div>
           <Highlight attribute="pharmacyName" tagName="mark" hit={hit} />
         </div>
+
         <div className="text-xs text-blue-300 ">
           <Highlight attribute="employmentStatus" tagName="mark" hit={hit} />
         </div>
+        
         <div className="text-xs text-blue-300 ">
           <Highlight attribute="jobPrefecture" tagName="mark" hit={hit} />
         </div>

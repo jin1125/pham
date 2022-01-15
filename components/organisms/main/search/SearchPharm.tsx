@@ -7,13 +7,18 @@ import { SearchPharm_L } from "./SearchPharm_L";
 import { SearchPharm_R } from "./SearchPharm_R";
 
 export const SearchPharm: VFC = memo(() => {
+  ///////// ステートエリア /////////
+  // グローバルなステート
   const { selectPharmacy } = useContext(UserContext);
+
+  // 定数定義
+  const loginPath = "/login";
 
   ///////// 関数エリア /////////
   useEffect(() => {
     const unSub = auth.onAuthStateChanged((user) => {
       if (!user) {
-        Router.push("/login");
+        Router.push(loginPath);
       }
     });
 

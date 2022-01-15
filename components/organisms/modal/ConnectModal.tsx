@@ -10,7 +10,6 @@ import { UserContext } from "../../../UserContext";
 
 export default function ConnectModal({ isOpen, setIsOpen }) {
   ///////// ステートエリア /////////
-  const alert = useAlert();
   const [phMatchA, setPhMatchA] = useState<string[]>([]);
   const [phMatchB, setPhMatchB] = useState<string[]>([]);
   const [coMatchB, setCoMatchB] = useState<string[]>([]);
@@ -21,7 +20,14 @@ export default function ConnectModal({ isOpen, setIsOpen }) {
   const [demoImg, setDemoImg] = useState<string>("");
   const [companyDemoImg, setCompanyDemoImg] = useState<string>("");
   const [request, setRequest] = useState<boolean>(true);
+  
+  // グローバルなステート
   const { userId, setUserId } = useContext(UserContext);
+  
+  // 定数定義
+  const alert = useAlert();
+  const matchSuccessMsg = "つながりました";
+  const matchErrorMsg = "つながれませんでした";
 
   ///////// 関数エリア /////////
   // つながりリクエストモーダルを閉じる
@@ -197,10 +203,10 @@ export default function ConnectModal({ isOpen, setIsOpen }) {
                 .doc(doc.id)
                 .update({ requestB: true })
                 .then(() => {
-                  alert.success("つながりました");
+                  alert.success(matchSuccessMsg);
                 })
                 .catch(() => {
-                  alert.error("つながれませんでした");
+                  alert.error(matchErrorMsg);
                 })
           )
         );
@@ -235,6 +241,7 @@ export default function ConnectModal({ isOpen, setIsOpen }) {
             >
               &#8203;
             </span>
+            
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"

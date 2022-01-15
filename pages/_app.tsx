@@ -40,6 +40,7 @@ export default function App({ Component, pageProps }: AppProps) {
     "passed" | "receiveId" | "match" | "initial" | ""
   >("");
   const [linking, setLinking] = useState<boolean>(false);
+  const gtmId = "GTM-NDCX63G";
 
   /// アラート設定 ///
   const options: {
@@ -52,7 +53,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
   /// Google Tag Manager ///
   useEffect(() => {
-    TagManager.initialize({ gtmId: "GTM-NDCX63G" });
+    TagManager.initialize({ gtmId: gtmId });
   }, []);
 
   ///////// JSXエリア /////////

@@ -11,7 +11,6 @@ type Props = {
 };
 
 export const FooterEdit: VFC<Props> = memo(({ userEmail, setUserEmail }) => {
-  const alert = useAlert();
   ///////// ステートエリア /////////
   const [openEditEmail, setOpenEditEmail] = useState<boolean>(false);
   const [openEditPassword, setOpenEditPassword] = useState<boolean>(false);
@@ -19,14 +18,35 @@ export const FooterEdit: VFC<Props> = memo(({ userEmail, setUserEmail }) => {
   const [isGoogleLogin, setIsGoogleLogin] = useState<boolean>(false);
   const [resetEmailPassword, setResetEmailPassword] = useState<string>("");
   const [deleteAccountPassword, setDeleteAccountPassword] =
-    useState<string>("");
+  useState<string>("");
+
+  // 定数定義
+  const alert = useAlert();
+  const googleUrl = "google.com";
+  const loginPath = "/login";
+  const changeMailConfirmMsg = "メールアドレスを変更してもよろしいですか?";
+  const changeMailSuccessMsg = "メールアドレスを変更しました";
+  const changeMailErrorMsg = "メールアドレスを変更できませんでした";
+  const changeMailCancelMsg = "変更をキャンセルしました";
+  const changeMailDifferentMsg = "パスワードが異なっています";
+  const accountDeletionConfirmMsg = "本当にアカウントを削除しますか?";
+  const accountDeletionSuccessMsg = "アカウントを削除しました";
+  const accountDeletionErrorMsg = "アカウントを削除できませんでした";
+  const accountDeletionCancelMsg = "アカウント削除をキャンセルしました";
+  const accountDeletionPreparingSuccessMsg = "アカウント削除の準備ができました";
+  const accountDeletionPreparingErrorMsg = "googleログイン情報を取得できませんでした";
+  const sendMailSuccessMsg = "メールを送信しました";
+  const sendMailErrorMsg = "正しい内容を入力してください";
+  const logoutConfirmMsg = "ログアウトしますか？";
+  const logoutSuccessMsg = "ログアウトしました";
+  const logoutErrorMsg = "ログアウトできませんでした";
 
   ///////// 関数エリア /////////
   // google認識でログインか判別処理
   useEffect(() => {
     const unSub = auth.onAuthStateChanged((user) => {
       if (user) {
-        if (user.providerData[0].providerId === "google.com") {
+        if (user.providerData[0].providerId === googleUrl) {
           setIsGoogleLogin(true);
         }
       }
@@ -47,23 +67,23 @@ export const FooterEdit: VFC<Props> = memo(({ userEmail, setUserEmail }) => {
         user
           .reauthenticateWithCredential(credential)
           .then(() => {
-            const result = confirm("メールアドレスを変更してもよろしいですか?");
+            const result = confirm(changeMailConfirmMsg);
 
             if (result) {
               user
                 .updateEmail(userEmail)
                 .then(() => {
-                  alert.success("メールアドレスを変更しました");
+                  alert.success(changeMailSuccessMsg);
                 })
                 .catch((error) => {
-                  alert.error("メールアドレスを変更できませんでした");
+                  alert.error(changeMailErrorMsg);
                 });
             } else {
-              alert.error("変更をキャンセルしました");
+              alert.error(changeMailCancelMsg);
             }
           })
           .catch(() => {
-            alert.error("パスワードが異なっています");
+            alert.error(changeMailDifferentMsg);
           });
       }
       // 登録解除
@@ -84,25 +104,24 @@ export const FooterEdit: VFC<Props> = memo(({ userEmail, setUserEmail }) => {
         user
           .reauthenticateWithCredential(credential)
           .then(async () => {
-            const result = confirm("本当にアカウントを削除しますか?");
+            const result = confirm(accountDeletionConfirmMsg);
 
             if (result) {
               await user
                 .delete()
                 .then(() => {
-                  alert.success("アカウントを削除しました");
-                  Router.push("/login");
+                  alert.success(accountDeletionSuccessMsg);
+                  Router.push(loginPath);
                 })
                 .catch(() => {
-                  alert.error("アカウントを削除できませんでした");
+                  alert.error(accountDeletionErrorMsg);
                 });
             } else {
-              alert.error("アカウント削除をキャンセルしました");
+              alert.error(accountDeletionCancelMsg);
             }
           })
-          .catch((err) => {
-            alert.error("アカウントを削除できませんでした");
-            console.log(err);
+          .catch(() => {
+            alert.error(accountDeletionErrorMsg);
           });
       }
       // 登録解除
@@ -116,31 +135,31 @@ export const FooterEdit: VFC<Props> = memo(({ userEmail, setUserEmail }) => {
     auth
       .signInWithPopup(provider)
       .then(() => {
-        alert.success("アカウント削除の準備ができました");
+        alert.success(accountDeletionPreparingSuccessMsg);
       })
       .catch(() => {
-        alert.error("googleログイン情報を取得できませんでした");
+        alert.error(accountDeletionPreparingErrorMsg);
       });
   };
 
-  //アカウント(google)削除
+  // アカウント(google)削除
   const deleteGoogleAccount = (): void => {
     const unSub = auth.onAuthStateChanged((user) => {
       if (user) {
-        const result = confirm("本当にアカウントを削除しますか?");
+        const result = confirm(accountDeletionConfirmMsg);
 
         if (result) {
           user
             .delete()
             .then(() => {
-              alert.success("アカウントを削除しました");
-              Router.push("/login");
+              alert.success(accountDeletionSuccessMsg);
+              Router.push(loginPath);
             })
             .catch(() => {
-              alert.error("アカウントを削除できませんでした");
+              alert.error(accountDeletionErrorMsg);
             });
         } else {
-          alert.error("アカウント削除をキャンセルしました");
+          alert.error(accountDeletionCancelMsg);
         }
       }
       // 登録解除
@@ -153,24 +172,23 @@ export const FooterEdit: VFC<Props> = memo(({ userEmail, setUserEmail }) => {
     await auth
       .sendPasswordResetEmail(userEmail)
       .then(() => {
-        alert.success("メールを送信しました");
+        alert.success(sendMailSuccessMsg);
       })
       .catch(() => {
-        alert.error("正しい内容を入力してください");
+        alert.error(sendMailErrorMsg);
       });
   };
 
   // ログアウト処理
   const signOutUser = async (): Promise<void> => {
-    const result = confirm("ログアウトしますか？");
+    const result = confirm(logoutConfirmMsg);
     if (result) {
       try {
         await auth.signOut();
-        alert.success("ログアウトしました");
-        Router.push("/login");
+        alert.success(logoutSuccessMsg);
+        Router.push(loginPath);
       } catch (error) {
-        console.log(error);
-        alert.error("ログアウトできませんでした");
+        alert.error(logoutErrorMsg);
       }
     }
   };
@@ -188,6 +206,7 @@ export const FooterEdit: VFC<Props> = memo(({ userEmail, setUserEmail }) => {
           >
             メールアドレス変更
           </button>
+
           {openEditEmail && (
             <>
               {isGoogleLogin || (
@@ -210,6 +229,7 @@ export const FooterEdit: VFC<Props> = memo(({ userEmail, setUserEmail }) => {
                       }
                     />
                   </label>
+
                   <label>
                     <p className="mt-3 text-sm text-blue-300">パスワード</p>
                     <input
@@ -225,6 +245,7 @@ export const FooterEdit: VFC<Props> = memo(({ userEmail, setUserEmail }) => {
                       }
                     />
                   </label>
+
                   <div>
                     <button
                       className="text-white bg-blue-400 transition 
@@ -240,6 +261,7 @@ export const FooterEdit: VFC<Props> = memo(({ userEmail, setUserEmail }) => {
                   </div>
                 </>
               )}
+
               {isGoogleLogin && (
                 <p 
                   className="w-11/12 my-3 text-center mx-auto 
@@ -262,6 +284,7 @@ export const FooterEdit: VFC<Props> = memo(({ userEmail, setUserEmail }) => {
           >
             パスワード変更
           </button>
+
           {openEditPassword && (
             <>
               <p 
@@ -270,6 +293,7 @@ export const FooterEdit: VFC<Props> = memo(({ userEmail, setUserEmail }) => {
               >
                 現在登録されているメールアドレスにパスワード変更メールが送信されます
               </p>
+
               <div>
                 <button
                   className="text-white bg-blue-400 transition duration-300 
@@ -303,6 +327,7 @@ export const FooterEdit: VFC<Props> = memo(({ userEmail, setUserEmail }) => {
           >
             アカウント削除
           </button>
+
           {openDeleteAccount && (
             <>
               {isGoogleLogin || (
@@ -322,6 +347,7 @@ export const FooterEdit: VFC<Props> = memo(({ userEmail, setUserEmail }) => {
                       }
                     />
                   </label>
+
                   <div>
                     <button
                       className="text-white bg-blue-400 transition 
@@ -344,6 +370,7 @@ export const FooterEdit: VFC<Props> = memo(({ userEmail, setUserEmail }) => {
                   >
                     「google認証」した後に「削除」をクリックしてください
                   </p>
+
                   <div>
                     <button
                       className="text-white bg-blue-400 transition 
@@ -354,6 +381,7 @@ export const FooterEdit: VFC<Props> = memo(({ userEmail, setUserEmail }) => {
                       google認証
                     </button>
                   </div>
+                  
                   <div>
                     <button
                       className="text-white bg-red-400 transition 

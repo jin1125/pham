@@ -6,14 +6,18 @@ import { Layout } from "../../../components/templates/HeaderLayout";
 import { auth } from "../../../firebase";
 
 export default function profiles() {
+  // 定数定義
+  const loginPath = "/login";
+  
   ///////// 関数エリア /////////
-  //  ログインしてなかったらログインページへ
+  // ログインしてなかったらログインページへ
   useEffect(() => {
     const unSub = auth.onAuthStateChanged((user) => {
       if (!user) {
-        Router.push("/login");
+        Router.push(loginPath);
       }
     });
+
     return () => unSub();
   }, []);
 

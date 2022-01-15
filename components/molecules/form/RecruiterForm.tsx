@@ -11,13 +11,17 @@ type Props = {
 
 export const RecruiterForm: VFC<Props> = memo(
   ({ isContactUs, setIsContactUs }) => {
-    const alert = useAlert();
     ///////// ステートエリア /////////
     const [companyName, setCompanyName] = useState<string>("");
     const [clientName, setClientName] = useState<string>("");
     const [email, setEmail] = useState<string>("");
     const [tel, setTel] = useState<string>("");
 
+    // 定数定義
+    const alert = useAlert();
+    const inquirysSuccessMsg = "お問い合わせしました";
+    const inquirysErrorMsg = "お問い合わせに失敗しました";
+    
     ///////// 関数エリア /////////
     // お問い合わせ処理
     const contactUs = async () => {
@@ -39,11 +43,11 @@ export const RecruiterForm: VFC<Props> = memo(
         .collection("inquirys")
         .add(inquiry)
         .then(() => {
-          alert.success("お問い合わせしました");
+          alert.success(inquirysSuccessMsg);
           setIsContactUs(true);
         })
         .catch(() => {
-          alert.error("お問い合わせに失敗しました");
+          alert.error(inquirysErrorMsg);
           setCompanyName("");
           setClientName("");
           setEmail("");
@@ -61,6 +65,7 @@ export const RecruiterForm: VFC<Props> = memo(
           setTel("");
         }
       }
+      
       return () => {
         isMounted = false;
       };
@@ -153,24 +158,22 @@ export const RecruiterForm: VFC<Props> = memo(
           </label>
         </div>
 
-        <div>
-          <div className="my-7">
-            <button
-              type="submit"
-              className="text-white bg-blue-400 transition 
-              duration-300 hover:bg-blue-300 disabled:bg-blue-200 
-              py-2 w-1/2 rounded-full shadow-lg font-bold"
-              onClick={contactUs}
-              disabled={
-                companyName.trim() === "" ||
-                clientName.trim() === "" ||
-                email.trim() === "" ||
-                tel.trim() === ""
-              }
-            >
-              お問い合わせ
-            </button>
-          </div>
+        <div className="my-7">
+          <button
+            type="submit"
+            className="text-white bg-blue-400 transition 
+            duration-300 hover:bg-blue-300 disabled:bg-blue-200 
+            py-2 w-1/2 rounded-full shadow-lg font-bold"
+            onClick={contactUs}
+            disabled={
+              companyName.trim() === "" ||
+              clientName.trim() === "" ||
+              email.trim() === "" ||
+              tel.trim() === ""
+            }
+          >
+            お問い合わせ
+          </button>
         </div>
       </div>
     );

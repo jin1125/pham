@@ -4,7 +4,6 @@ import { useAlert } from "react-alert";
 import { auth, db, provider } from "../../../firebase";
 
 export const LoginForm: VFC = memo(() => {
-  const alert = useAlert();
   ///////// ステートエリア /////////
   const [name, setName] = useState<string>("");
   const [isLogin, setIsLogin] = useState<boolean>(true);
@@ -12,20 +11,30 @@ export const LoginForm: VFC = memo(() => {
   const [password, setPassword] = useState<string>("");
   const [resetEmail, setResetEmail] = useState<string>("");
   const [openReset, setOpenReset] = useState<boolean>(false);
-
+  
+  // 定数定義
+  const alert = useAlert();
+  const mypagePath = "/mypage";
+  const signInGoogleSuccessMsg = "Googleで続行しました";
+  const signInGoogleErrorMsg = "Googleで続行できませんでした";
+  const signInMailSuccessMsg = "ログインしました";
+  const signInMailErrorMsg = "ログインできませんでした";
+  const signUpMailSuccessMsg = "アカウントを作成できました";
+  const signUpMailErrorMsg = "アカウントを作成できませんでした";
+  const sendMailSuccessMsg = "メールを送信しました";
+  const sendMailErrorMsg = "正しい内容を入力してください";
+  
   ///////// 関数エリア /////////
   //Google新規登録＆ログイン
   const signInGoogle = async (): Promise<void> => {
     await auth
       .signInWithPopup(provider)
       .then(() => {
-        console.log("google");
-        alert.success("Googleで続行しました");
-        Router.push("/mypage");
+        alert.success(signInGoogleSuccessMsg);
+        Router.push(mypagePath);
       })
       .catch((error) => {
-        console.log(error);
-        alert.error("Googleで続行できませんでした");
+        alert.error(signInGoogleErrorMsg);
       });
   };
 
@@ -33,10 +42,10 @@ export const LoginForm: VFC = memo(() => {
   const signIn = async (): Promise<void> => {
     try {
       await auth.signInWithEmailAndPassword(email, password);
-      alert.success("ログインしました");
-      Router.push("/mypage");
+      alert.success(signInMailSuccessMsg);
+      Router.push(mypagePath);
     } catch (error) {
-      alert.error("ログインできませんでした");
+      alert.error(signInMailErrorMsg);
     }
   };
 
@@ -52,16 +61,15 @@ export const LoginForm: VFC = memo(() => {
           .doc(user.user.uid)
           .set({ userName: name })
           .then(() => {
-            console.log("OK");
-            Router.push("/mypage");
+            Router.push(mypagePath);
           })
           .catch(() => {
             console.log("NG");
           });
 
-        alert.success("アカウントを作成できました");
+        alert.success(signUpMailSuccessMsg);
       } catch (error) {
-        alert.error("アカウントを作成できませんでした");
+        alert.error(signUpMailErrorMsg);
       }
     }
   };
@@ -72,11 +80,11 @@ export const LoginForm: VFC = memo(() => {
       .sendPasswordResetEmail(resetEmail)
       .then(() => {
         setOpenReset(false);
-        alert.success("メールを送信しました");
+        alert.success(sendMailSuccessMsg);
         setResetEmail("");
       })
       .catch(() => {
-        alert.error("正しい内容を入力してください");
+        alert.error(sendMailErrorMsg);
         setResetEmail("");
       });
   };
@@ -85,10 +93,10 @@ export const LoginForm: VFC = memo(() => {
   const testLogin = async ():Promise<void> => {
     try {
       await auth.signInWithEmailAndPassword("testuser@gmail.com", "123456");
-      alert.success("ログインしました");
-      Router.push("/mypage");
+      alert.success(signInMailSuccessMsg);
+      Router.push(mypagePath);
     } catch (error) {
-      alert.error("ログインできませんでした");
+      alert.error(signInMailErrorMsg);
     }
   };
 
@@ -108,6 +116,7 @@ export const LoginForm: VFC = memo(() => {
             </p>
           </button>
         </div>
+        
         <div>
           <button
             onClick={() => setIsLogin(false)}

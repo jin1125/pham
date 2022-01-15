@@ -7,19 +7,23 @@ import { hitComponentPharm } from "../../../molecules/search/HitComponentPharm";
 import { CustomSearchBox } from "../../../molecules/search/SearchBox";
 
 export const SearchPharm_L: VFC = memo(() => {
+  ///////// ステートエリア /////////
+  // グローバルなステート
   const { selectPharmacyAddress, setSelectPharmacyAddress } =
     useContext(UserContext);
 
-  ///////// 関数エリア /////////
-  //algolia情報
-  const searchClient = algoliasearch(
-    "0TMIYQ8E9N",
-    "58e6e394abd7a5cfcc6fcae0d7b51ac5"
-  );
-
+  // 定数定義
   const indexName = "pham_pharmacies";
 
-   ///////// JSXエリア /////////
+  // algolia情報
+  const algoliaApplicationId = "0TMIYQ8E9N";
+  const algoliaSearchApiKey = "58e6e394abd7a5cfcc6fcae0d7b51ac5";
+  const searchClient = algoliasearch(
+    algoliaApplicationId,
+    algoliaSearchApiKey
+  );
+
+  ///////// JSXエリア /////////
   return (
     <div 
       className="md:col-span-3 col-span-12 border-r-2 
@@ -31,6 +35,7 @@ export const SearchPharm_L: VFC = memo(() => {
             薬局検索
           </h4>
         </div>
+
         <InstantSearch indexName={indexName} searchClient={searchClient}>
           <div className="border-b">
             <div className="mx-5 my-7">
@@ -60,6 +65,7 @@ export const SearchPharm_L: VFC = memo(() => {
               </div>
             </div>
           </div>
+          
           <div className="overflow-y-auto md:max-h-screen max-h-60">
              {/* 検索結果 */}
             <Hits hitComponent={hitComponentPharm} />

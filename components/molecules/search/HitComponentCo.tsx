@@ -3,6 +3,8 @@ import { UserContext } from "../../../UserContext";
 import { HitCo } from "../../atoms/search/HitCo";
 
 export function hitComponentCo({ hit }) {
+  ///////// ステートエリア /////////
+  // グローバルなステート
   const { selectCompanyAddress, selectCompany, setSelectCompany, comId } =
     useContext(UserContext);
 

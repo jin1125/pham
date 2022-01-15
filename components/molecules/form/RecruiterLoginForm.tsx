@@ -4,20 +4,25 @@ import { useAlert } from "react-alert";
 import { auth } from "../../../firebase";
 
 export const RecruiterLoginForm: VFC = memo(() => {
-  const alert = useAlert();
   ///////// ステートエリア /////////
   const [companyEmail, setCompanyEmail] = useState<string>("");
   const [companyPassword, setCompanyPassword] = useState<string>("");
+
+  // 定数定義
+  const alert = useAlert();
+  const recruiterEditPath = "/recruiter/edit";
+  const loginSuccessMsg = "ログインしました";
+  const loginErrorMsg = "ログインできませんでした";
 
   ///////// 関数エリア /////////
   //メールアドレスログイン
   const signIn = async (): Promise<void> => {
     try {
       await auth.signInWithEmailAndPassword(companyEmail, companyPassword);
-      alert.success("ログインしました");
-      Router.push("/recruiter/edit");
+      alert.success(loginSuccessMsg);
+      Router.push(recruiterEditPath);
     } catch (error) {
-      alert.error("ログインできませんでした");
+      alert.error(loginErrorMsg);
     }
   };
 
