@@ -26,6 +26,8 @@ export default function ConnectModal({ isOpen, setIsOpen }) {
   
   // 定数定義
   const alert = useAlert();
+  const matchSuccessMsg = "つながりました";
+  const matchErrorMsg = "つながれませんでした";
 
   ///////// 関数エリア /////////
   // つながりリクエストモーダルを閉じる
@@ -201,10 +203,10 @@ export default function ConnectModal({ isOpen, setIsOpen }) {
                 .doc(doc.id)
                 .update({ requestB: true })
                 .then(() => {
-                  alert.success("つながりました");
+                  alert.success(matchSuccessMsg);
                 })
                 .catch(() => {
-                  alert.error("つながれませんでした");
+                  alert.error(matchErrorMsg);
                 })
           )
         );

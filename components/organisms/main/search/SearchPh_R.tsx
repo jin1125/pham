@@ -24,6 +24,10 @@ export const SearchPh_R: VFC<Props> = memo(({ phMatch, passId, receiveId }) => {
   
   // 定数定義
   const alert = useAlert();
+  const connectSuccessMsg = "つながりました";
+  const connectErrorMsg = "つながれませんでした";
+  const applySuccessMsg = "つながり申請しました";
+  const applyErrorMsg = "つながり申請できませんでした";
 
   ///////// 関数エリア /////////
   // ストレージからプロフィールデモ画像取得
@@ -53,10 +57,10 @@ export const SearchPh_R: VFC<Props> = memo(({ phMatch, passId, receiveId }) => {
         .doc(receiveId)
         .update({ requestB: true })
         .then(() => {
-          alert.success("つながりました");
+          alert.success(connectSuccessMsg);
         })
         .catch(() => {
-          alert.error("つながれませんでした");
+          alert.error(connectErrorMsg);
         });
 
       // receiveIdがなければ
@@ -74,10 +78,10 @@ export const SearchPh_R: VFC<Props> = memo(({ phMatch, passId, receiveId }) => {
           requestB: false,
         })
         .then(() => {
-          alert.success("つながり申請しました");
+          alert.success(applySuccessMsg);
         })
         .catch(() => {
-          alert.error("つながり申請できませんでした");
+          alert.error(applyErrorMsg);
         });
     }
   };

@@ -31,6 +31,9 @@ export const SearchPh: VFC = memo(() => {
     setLinking,
   } = useContext(UserContext);
 
+  // 定数定義
+  const loginPath = "/login";
+
   ///////// 関数エリア /////////
   //ユーザーID取得＆ログインしてなければログインページへ
   useEffect(() => {
@@ -38,7 +41,7 @@ export const SearchPh: VFC = memo(() => {
       if (user) {
         setUserId(user.uid);
       } else {
-        Router.push("/login");
+        Router.push(loginPath);
       }
     });
 

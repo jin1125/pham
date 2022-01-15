@@ -12,16 +12,18 @@ export const SearchPharm_L: VFC = memo(() => {
   const { selectPharmacyAddress, setSelectPharmacyAddress } =
     useContext(UserContext);
 
-  ///////// 関数エリア /////////
-  //algolia情報
-  const searchClient = algoliasearch(
-    "0TMIYQ8E9N",
-    "58e6e394abd7a5cfcc6fcae0d7b51ac5"
-  );
-
+  // 定数定義
   const indexName = "pham_pharmacies";
 
-   ///////// JSXエリア /////////
+  // algolia情報
+  const algoliaApplicationId = "0TMIYQ8E9N";
+  const algoliaSearchApiKey = "58e6e394abd7a5cfcc6fcae0d7b51ac5";
+  const searchClient = algoliasearch(
+    algoliaApplicationId,
+    algoliaSearchApiKey
+  );
+
+  ///////// JSXエリア /////////
   return (
     <div 
       className="md:col-span-3 col-span-12 border-r-2 

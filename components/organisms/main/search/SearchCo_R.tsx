@@ -20,7 +20,7 @@ export const SearchCo_R: VFC = memo(() => {
   } = useContext(UserContext);
 
   ///////// 関数エリア /////////
-  //  ストレージから企業デモ画像取得
+  // ストレージから企業デモ画像取得
   useEffect(() => {
     let isMounted = true;
     (async () => {

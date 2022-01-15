@@ -8,7 +8,7 @@ import React, {
   useContext,
   useEffect,
   useState,
-  VFC,
+  VFC
 } from "react";
 import { useAlert } from "react-alert";
 import { db, storage } from "../../../../firebase";
@@ -53,6 +53,11 @@ export const SearchJob_R: VFC<Props> = memo(
 
     // 定数定義
     const alert = useAlert();
+    const applyConfirmMsg = "応募しますか?";
+    const applyResultSuccessMsg = "つながりました";
+    const applyResultErrorMsg = "つながれませんでした";
+    const applyErrorMsg = "応募ができませんでした";
+    const applyCancelMsg = "応募をキャンセルしました";
 
     ///////// 関数エリア /////////
     // ストレージからフリーデモ画像取得
@@ -111,7 +116,7 @@ export const SearchJob_R: VFC<Props> = memo(
 
     // 求人応募
     const apply = async (): Promise<void> => {
-      const result = confirm("応募しますか?");
+      const result = confirm(applyConfirmMsg);
       if (result) {
         // 企業から申請が来ていたら
         if (coReceiveId) {
@@ -120,10 +125,10 @@ export const SearchJob_R: VFC<Props> = memo(
             .doc(coReceiveId)
             .update({ requestCo: true })
             .then(() => {
-              alert.success("つながりました");
+              alert.success(applyResultSuccessMsg);
             })
             .catch((error) => {
-              alert.error("つながれませんでした");
+              alert.error(applyResultErrorMsg);
             });
           // 企業から申請が来ていなければ
         } else {
@@ -155,10 +160,10 @@ export const SearchJob_R: VFC<Props> = memo(
             setIsOpen(true);
           })
           .catch(() => {
-            alert.error("応募ができませんでした");
+            alert.error(applyErrorMsg);
           });
       } else {
-        alert.error("応募をキャンセルしました");
+        alert.error(applyCancelMsg);
       }
     };
 

@@ -19,6 +19,8 @@ export const RecruiterForm: VFC<Props> = memo(
 
     // 定数定義
     const alert = useAlert();
+    const inquirysSuccessMsg = "お問い合わせしました";
+    const inquirysErrorMsg = "お問い合わせに失敗しました";
     
     ///////// 関数エリア /////////
     // お問い合わせ処理
@@ -41,11 +43,11 @@ export const RecruiterForm: VFC<Props> = memo(
         .collection("inquirys")
         .add(inquiry)
         .then(() => {
-          alert.success("お問い合わせしました");
+          alert.success(inquirysSuccessMsg);
           setIsContactUs(true);
         })
         .catch(() => {
-          alert.error("お問い合わせに失敗しました");
+          alert.error(inquirysErrorMsg);
           setCompanyName("");
           setClientName("");
           setEmail("");
@@ -63,6 +65,7 @@ export const RecruiterForm: VFC<Props> = memo(
           setTel("");
         }
       }
+      
       return () => {
         isMounted = false;
       };

@@ -60,6 +60,9 @@ export const EditPage: VFC = memo(() => {
 
   // 定数定義
   const alert = useAlert();
+  const loginPath = "/login";
+  const changeProfileSuccessMsg = "プロフィールを変更しました";
+  const changeProfileErrorMsg = "プロフィールを変更できませんでした";
 
   ///////// 関数エリア /////////
   // ユーザーID＆ユーザーメール＆ユーザーネーム取得
@@ -70,7 +73,7 @@ export const EditPage: VFC = memo(() => {
         setUserEmail(user.email);
         setDisplayName(user.displayName);
       } else {
-        Router.push("/login");
+        Router.push(loginPath);
       }
     });
 
@@ -223,10 +226,10 @@ export const EditPage: VFC = memo(() => {
       .doc(userId)
       .set(profileInfo)
       .then(() => {
-        alert.success("プロフィールを変更しました");
+        alert.success(changeProfileSuccessMsg);
       })
       .catch(() => {
-        alert.error("プロフィールを変更できませんでした");
+        alert.error(changeProfileErrorMsg);
       })
       .finally(() => setLoading(false));
   };

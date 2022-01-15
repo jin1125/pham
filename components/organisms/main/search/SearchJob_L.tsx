@@ -25,12 +25,12 @@ export const SearchJob_L: VFC<Props> = memo(
 
     // 定数定義
     const indexName = "pham_jobs";
-
-    ///////// 関数エリア /////////
-    //algolia情報
+    // algolia情報
+    const algoliaApplicationId = "0TMIYQ8E9N";
+    const algoliaSearchApiKey = "58e6e394abd7a5cfcc6fcae0d7b51ac5";
     const searchClient = algoliasearch(
-      "0TMIYQ8E9N",
-      "58e6e394abd7a5cfcc6fcae0d7b51ac5"
+      algoliaApplicationId,
+      algoliaSearchApiKey
     );
 
     ///////// JSXエリア /////////

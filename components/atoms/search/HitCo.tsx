@@ -13,7 +13,7 @@ export const HitCo: VFC<Props> = memo(({ hit }) => {
   const [companyDemoImg, setCompanyDemoImg] = useState<string>("");
 
   ///////// 関数エリア /////////
-  //  ストレージから企業デモ画像取得
+  // ストレージから企業デモ画像取得
   useEffect(() => {
     let isMounted = true;
     (async () => {

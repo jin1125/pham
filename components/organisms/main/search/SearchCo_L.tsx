@@ -12,16 +12,17 @@ export const SearchCo_L: VFC = memo(() => {
   const { selectCompanyAddress, setSelectCompanyAddress } =
     useContext(UserContext);
 
-  ///////// 関数エリア /////////
-  //algolia情報
+  // 定数定義
+  const indexName = "pham_companies";
+  // algolia情報
+  const algoliaApplicationId = "0TMIYQ8E9N";
+  const algoliaSearchApiKey = "58e6e394abd7a5cfcc6fcae0d7b51ac5";
   const searchClient = algoliasearch(
-    "0TMIYQ8E9N",
-    "58e6e394abd7a5cfcc6fcae0d7b51ac5"
+    algoliaApplicationId,
+    algoliaSearchApiKey
   );
 
-  const indexName = "pham_companies";
-
-   ///////// JSXエリア /////////
+  ///////// JSXエリア /////////
   return (
     <div 
      className="md:col-span-3 col-span-12 border-r-2 border-blue-400 relative"

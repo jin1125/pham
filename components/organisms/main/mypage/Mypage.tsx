@@ -33,6 +33,9 @@ export const Mypage: VFC<Props> = memo(({ setIsOpen }) => {
   
   // グローバルなステート
   const { userId, setUserId } = useContext(UserContext);
+
+  // 定数定義
+  const loginPath = "/login";
   
   ///////// 関数エリア /////////
   // ストレージからプロフィール＆フリーデモ画像取得
@@ -60,7 +63,7 @@ export const Mypage: VFC<Props> = memo(({ setIsOpen }) => {
         setUserId(user.uid);
         setDisplayName(user.displayName);
       } else {
-        Router.push("/login");
+        Router.push(loginPath);
       }
     });
 
@@ -88,8 +91,6 @@ export const Mypage: VFC<Props> = memo(({ setIsOpen }) => {
     }
   }, [userId]);
   
-  
-
   // 分割代入
   const {
     birthPlace,

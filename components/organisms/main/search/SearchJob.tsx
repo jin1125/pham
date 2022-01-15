@@ -15,6 +15,9 @@ export const SearchJob: VFC = memo(() => {
 
   // グローバルなステート
   const { selectJob, setUserId } = useContext(UserContext);
+  
+  // 定数定義
+  const loginPath = "/login";
 
   ///////// 関数エリア /////////
   //ユーザーID取得＆ログインしてなければログインページへ
@@ -23,7 +26,7 @@ export const SearchJob: VFC = memo(() => {
       if (user) {
         setUserId(user.uid);
       } else {
-        Router.push("/login");
+        Router.push(loginPath);
       }
     });
 

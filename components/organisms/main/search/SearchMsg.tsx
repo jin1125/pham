@@ -42,6 +42,7 @@ export const SearchMsg: VFC = memo(() => {
   const { selectMsg, userId, setUserId } = useContext(UserContext);
 
   // 定数定義
+  const loginPath = "/login";
   // メッセージの数
   const length: number = feeds.length;
   // メッセージの最後かを判定
@@ -89,7 +90,7 @@ export const SearchMsg: VFC = memo(() => {
       if (user) {
         setUserId(user.uid);
       } else {
-        Router.push("/login");
+        Router.push(loginPath);
       }
     });
 
@@ -262,6 +263,7 @@ export const SearchMsg: VFC = memo(() => {
     }
   };
 
+  ///////// JSXエリア /////////
   return (
     <div>
       <div className="grid grid-cols-12">

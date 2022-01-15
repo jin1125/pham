@@ -10,16 +10,19 @@ export const RecruiterLoginForm: VFC = memo(() => {
 
   // 定数定義
   const alert = useAlert();
+  const recruiterEditPath = "/recruiter/edit";
+  const loginSuccessMsg = "ログインしました";
+  const loginErrorMsg = "ログインできませんでした";
 
   ///////// 関数エリア /////////
   //メールアドレスログイン
   const signIn = async (): Promise<void> => {
     try {
       await auth.signInWithEmailAndPassword(companyEmail, companyPassword);
-      alert.success("ログインしました");
-      Router.push("/recruiter/edit");
+      alert.success(loginSuccessMsg);
+      Router.push(recruiterEditPath);
     } catch (error) {
-      alert.error("ログインできませんでした");
+      alert.error(loginErrorMsg);
     }
   };
 

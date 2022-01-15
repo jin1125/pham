@@ -19,6 +19,7 @@ export function hitComponentCoMsg({ hit }) {
         setUserId(user.uid);
       }
     });
+    
     return () => unSub();
   }, []);
 
