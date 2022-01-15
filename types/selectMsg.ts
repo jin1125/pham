@@ -41,5 +41,5 @@ export type SelectMsg = {
   presidentHobby?: string;
   unique?: string;
   websiteUrl?: string;
-__position?: number;
+  __position?: number;
   };
